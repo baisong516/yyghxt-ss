@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
+    use LaratrustUserTrait;
     use Notifiable;
 
     /**
@@ -15,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','is_online','real_name','password','is_active','qq','phone','wechat','department_id'
     ];
 
     /**
@@ -26,4 +28,29 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function department(){
+        return $this->belongsTo('App\Department');
+    }
+
+    public function hospitals()
+    {
+        return $this->belongsToMany('App\Hospital','user_hospital');
+    }
+
+    public function hasHospital($hospital_id)
+    {
+        $hospitals=$this->hospitals();
+        foreach ($hospitals as $hospital){
+            if ($hospital_id==$hospital->id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function offices()
+    {
+        return $this->belongsToMany('App\Office','user_office');
+    }
 }
