@@ -39,9 +39,7 @@ trait AuthenticatesUsers
             return $this->sendLockoutResponse($request);
         }
 
-        if ($this->attemptLogin($request)) {//登录成功
-            //在这里修改在线状态
-            Auth::user()->update(['is_online' => 1]);
+        if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
 
@@ -152,9 +150,6 @@ trait AuthenticatesUsers
      */
     public function logout(Request $request)
     {
-        //修改在线状态
-        Auth::user()->update(['is_online'=>0]);
-
         $this->guard()->logout();
 
         $request->session()->invalidate();
