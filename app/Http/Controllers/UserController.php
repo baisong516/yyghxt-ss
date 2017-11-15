@@ -46,7 +46,7 @@ class UserController extends Controller
                 'departments'=>Department::select('id','display_name')->get(),
                 'offices'=>Office::select('id','display_name')->get(),
                 'hospitals'=>Hospital::select('id','display_name')->get(),
-                'roles'=>Role::select('id','display_name')->where('id','>','1')->get(),
+                'roles'=>Role::select('id','display_name')->get(),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -113,7 +113,7 @@ class UserController extends Controller
                 'departments'=>Department::select('id','display_name')->get(),
                 'offices'=>Office::select('id','display_name')->get(),
                 'hospitals'=>Hospital::select('id','display_name')->get(),
-                'roles'=>Role::select('id','name','display_name')->where('id','>','1')->get(),
+                'roles'=>Role::select('id','name','display_name')->get(),
                 'user'=>User::findOrFail($id),
             ]);
         }

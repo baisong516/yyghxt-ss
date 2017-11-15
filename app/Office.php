@@ -23,4 +23,8 @@ class Office extends Model
     {
         return $this->hasMany('App\Doctor');
     }
+    //患者
+    public function zxcustomers(){
+        return $this->hasMany('App\ZxCustomer');
+    }
 }

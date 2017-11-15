@@ -19,4 +19,7 @@ class Disease extends Model
     {
         return $this->belongsToMany('App\User','user_disease');
     }
+    public function zxcustomers(){
+        return $this->hasMany('App\ZxCustomer');
+    }
 }

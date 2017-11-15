@@ -63,4 +63,8 @@ class User extends Authenticatable
         }
         return false;
     }
+    //患者
+    public function zxcustomer(){
+        return $this->hasMany('App\ZxCustomer');
+    }
 }

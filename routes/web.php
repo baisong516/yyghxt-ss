@@ -46,8 +46,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('customerconditions','CustomerConditionController');
     });
     //咨询
-//    Route::group(['prefix' => 'zx'],function(){
-//        Route::resource('zxcustomers','ZxCustomerController');
+    Route::group(['prefix' => 'zx'],function(){
+        Route::resource('zxcustomers','ZxCustomerController');
 //        Route::post('customersearch','ZxCustomerController@customerSearch')->name('customers.search');
 //        Route::resource('huifangs','HuifangController');
 //        Route::get('huifangs/{customer_id}/add','HuifangController@add')->name('huifangs.add');
@@ -56,6 +56,6 @@ Route::group(['middleware' => ['auth']], function() {
 //        Route::get('menzhen','ZxCustomerController@menzhenIndex')->name('menzhen.index');
 //        Route::get('menzhen/{customer_id}','ZxCustomerController@menzhenEdit')->name('menzhen.edit');
 //        Route::put('menzhen/{customer_id}','ZxCustomerController@menzhenUpdate')->name('menzhen.update');
-//    });
+    });
     //上传
 });

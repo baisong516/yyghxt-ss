@@ -29,18 +29,18 @@ class StoreUserRequest extends FormRequest
                 'name' => 'required|unique:users,name|max:191',
                 'realname' => 'required|max:191',
                 'password' => 'required|max:191',
-                'department_id' => 'required',
-                'hospitals' => 'required',
-                'offices' => 'required',
-                'roles' => 'required',
+//                'department_id' => 'required',
+//                'hospitals' => 'required',
+//                'offices' => 'required',
+//                'roles' => 'required',
             ];
         }else{//update
             return [
                 'realname' => 'required|max:191',
-                'department_id' => 'required',
-                'hospitals' => 'required',
-                'offices' => 'required',
-                'roles' => 'required',
+//                'department_id' => 'required',
+//                'hospitals' => 'required',
+//                'offices' => 'required',
+//                'roles' => 'required',
             ];
         }
     }

@@ -82,9 +82,9 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            {{--@role('superadministrator|administrator|zixun|jingjia')--}}
-            {{--<li class="{{Request::is('zx/zxcustomers*')?'active':''}}"><a href="{{route('zxcustomers.index')}}"><i class="fa fa-plus-square"></i><span>预约信息</span></a></li>--}}
-            {{--@endrole--}}
+            @ability('superadministrator', 'read-zx_customers')
+            <li class="{{Request::is('zx/zxcustomers*')?'active':''}}"><a href="{{route('zxcustomers.index')}}"><i class="fa fa-plus-square"></i><span>预约信息</span></a></li>
+            @endability
             {{--@role('superadministrator|administrator|jskmenzhen|hzjmenzhen')--}}
             {{--<li class="{{Request::is('zx/menzhen*')?'active':''}}"><a href="{{route('menzhen.index')}}"><i class="fa fa-plus-square"></i><span>门诊</span></a></li>--}}
             {{--@endrole--}}
