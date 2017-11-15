@@ -48,10 +48,18 @@
             @ability('superadministrator', 'read-doctors')
             <li class="{{Request::is('sysconf/doctors*')?'active':''}}"><a href="{{route('doctors.index')}}"><i class="fa fa-user-md"></i><span>医生设置</span></a></li>
             @endability
-            {{--<li class="{{Request::is('sysconf/medias*')?'active':''}}"><a href="{{route('medias.index')}}"><i class="fa fa-medium"></i><span>媒体来源设置</span></a></li>--}}
-            {{--<li class="{{Request::is('sysconf/webtypes*')?'active':''}}"><a href="{{route('webtypes.index')}}"><i class="fa fa-internet-explorer"></i><span>网站类型设置</span></a></li>--}}
-            {{--<li class="{{Request::is('sysconf/customertypes*')?'active':''}}"><a href="{{route('customertypes.index')}}"><i class="fa fa-user-plus"></i><span>客户类型设置</span></a></li>--}}
-            {{--<li class="{{Request::is('sysconf/customerconditions*')?'active':''}}"><a href="{{route('customerconditions.index')}}"><i class="fa fa-spinner"></i><span>客户状态设置</span></a></li>--}}
+            @ability('superadministrator', 'read-medias')
+            <li class="{{Request::is('sysconf/medias*')?'active':''}}"><a href="{{route('medias.index')}}"><i class="fa fa-medium"></i><span>媒体来源设置</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-web_types')
+            <li class="{{Request::is('sysconf/webtypes*')?'active':''}}"><a href="{{route('webtypes.index')}}"><i class="fa fa-internet-explorer"></i><span>网站类型设置</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-customer_types')
+            <li class="{{Request::is('sysconf/customertypes*')?'active':''}}"><a href="{{route('customertypes.index')}}"><i class="fa fa-user-plus"></i><span>客户类型设置</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-customer_conditions')
+            <li class="{{Request::is('sysconf/customerconditions*')?'active':''}}"><a href="{{route('customerconditions.index')}}"><i class="fa fa-spinner"></i><span>客户状态设置</span></a></li>
+            @endability
             {{--<li><a href="#"><i class="fa fa-internet-explorer"></i><span>搜索引擎设置</span></a></li>--}}
         </ul>
     </li>

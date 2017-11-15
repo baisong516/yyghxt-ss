@@ -128,10 +128,10 @@
     <footer class="main-footer">
         {{--To the right--}}
         <div class="pull-right hidden-xs">
-            Bata 1.0
+            Bata 1.1
         </div>
         {{--Default to the left--}}
-        <strong>Copyright &copy; 2017 <a href="#">SSYL</a>.</strong> All rights reserved. <span>使用中有任何bug或觉得不方便合理的地方，请Q我：<a href="tencent://message/?uin=1098003693&Site=qq&Menu=yes">1098003693</a>。Thanks!</span>
+        <strong>Copyright &copy; 2017 <a href="#">SSYL</a>.</strong> All rights reserved. <a href="tencent://message/?uin=1098003693&Site=qq&Menu=yes">1098003693</a>
     </footer>
 
 

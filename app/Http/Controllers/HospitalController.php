@@ -7,6 +7,7 @@ use App\Http\Requests\StoreHospitalRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HospitalController extends Controller
 {
@@ -137,7 +138,24 @@ class HospitalController extends Controller
         if (Auth::user()->ability('superadministrator', 'delete-hospitals')){
             $hospital=Hospital::findOrFail($id);
             //todo : before delete hospital you should detach the relations between hospital-user-office-disease
-            dd('todos');
+            //删除用户与医院关联
+            DB::table('user_hospital')->where('hospital_id',$hospital->id)->delete();
+            //删除医院下的科室
+            foreach ($hospital->offices as $office){
+                //清空用户与科室关联
+                DB::table('user_office')->where('office_id',$office->id)->delete();
+                foreach ($office->diseases as $disease){
+                    //删除科室下的病种
+                    $disease->delete();
+                }
+                $office->delete();
+            }
+            $bool=$hospital->delete();
+            if ($bool){
+                return redirect()->route('hospitals.index')->with('success','well done!');
+            }else{
+                return redirect()->back()->with('error','Something wrong!!!');
+            }
         }
         return abort(403,config('yyxt.permission_deny'));
     }

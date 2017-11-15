@@ -8,6 +8,7 @@ use App\Office;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OfficeController extends Controller
 {
@@ -134,6 +135,8 @@ class OfficeController extends Controller
         if (Auth::user()->ability('superadministrator', 'delete-offices')){
             $office=Office::findOrFail($id);
             //before you delete office  you should delete all diseases under the office
+            // 清空关联user-office
+            DB::table('user_office')->where('office_id',$office->id)->delete();
             foreach ($office->diseases as $disease){
                 $disease->delete();
             }

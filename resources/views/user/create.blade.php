@@ -27,7 +27,36 @@
     <script src="https://cdn.bootcss.com/select2/4.0.4/js/select2.full.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#hospitals').select2();
+            $('#hospital').select2();
+            $('#office').select2();
+            $('#role').select2();
+            //change offices on hospital change
+            $("#hospital").on('change',function(){
+                var selectedHospitals=$("#hospital").select2('data');
+                var hospitals=new Array();
+                for (var i=0;i<selectedHospitals.length;i++){
+                    hospitals[i]=selectedHospitals[i].id;
+                }
+                $.ajax({
+                    url: '/api/get-offices-from-hospitals',
+                    type: "post",
+                    data: {'hospitals':hospitals,'_token': $('input[name=_token]').val()},
+                    success: function(data){
+                        $("#office").empty();
+                        if(data.status){
+                            var html='';
+                            for (var json2 in data.data){
+                                html += "<optgroup label=\""+data.data[json2]['hospital']+"\">";
+                                for (var j=0;j<data.data[json2]['offices'].length;j++){
+                                    html += "<option value=\""+data.data[json2]['offices'][j].id+"\">"+data.data[json2]['offices'][j].display_name+"</option>";
+                                }
+                                html += "</optgroup>";
+                            }
+                            $("#office").append(html);
+                        }
+                    }
+                });
+            });
         });
     </script>
 @endsection

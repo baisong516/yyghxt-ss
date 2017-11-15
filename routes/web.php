@@ -40,13 +40,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('offices','OfficeController');
         Route::resource('diseases','DiseaseController');
         Route::resource('doctors','DoctorController');
-//        Route::resource('medias','MediaController');
-//        Route::resource('webtypes','WebtypeController');
-//        Route::resource('customertypes','CustomerTypeController');
-//        Route::resource('customerconditions','CustomerConditionController');
-//        Route::post('getofficefromhospital','DiseaseController@getOfficesFromHospital');
-//        Route::post('getdiseasefromoffice','DiseaseController@getDiseasesFromOffice');
-//        Route::post('getdoctorsfromdisease','DiseaseController@getDoctorsFromDisease');
+        Route::resource('medias','MediaController');
+        Route::resource('webtypes','WebTypeController');
+        Route::resource('customertypes','CustomerTypeController');
+        Route::resource('customerconditions','CustomerConditionController');
     });
     //咨询
 //    Route::group(['prefix' => 'zx'],function(){

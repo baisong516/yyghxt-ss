@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,9 +37,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
+    //登录字段
     public function username()
     {
         return 'name';
+    }
+    //登录判断
+    protected function credentials(Request $request)
+    {
+        $credentials = $request->only($this->username(), 'password');
+        $credentials['is_active']=1;//附加账号状态 禁止冻结用户登录
+        return $credentials;
     }
 }

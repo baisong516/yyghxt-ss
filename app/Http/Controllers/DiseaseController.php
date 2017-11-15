@@ -19,11 +19,12 @@ class DiseaseController extends Controller
      */
     public function index()
     {
+        //dd(Disease::with('hospital','office')->get()->first()->hospital);
         if (Auth::user()->ability('superadministrator', 'read-diseases')){
             return view('disease.read',[
                 'pageheader'=>'病种',
                 'pagedescription'=>'列表',
-                'diseases'=>Disease::all(),
+                'diseases'=>Disease::with('hospital','office')->get(),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -136,6 +137,15 @@ class DiseaseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'delete-diseases')){
+           $disease=Disease::findOrFail($id);
+           $bool=$disease->delete();
+            if ($bool){
+                return redirect()->route('diseases.index')->with('success','well done!');
+            }else{
+                return redirect()->back()->with('error','Something wrong!!!');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 }

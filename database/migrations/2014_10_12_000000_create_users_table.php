@@ -66,6 +66,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('display_name');
             $table->text('description')->nullable();
+            $table->index('hospital_id');
             $table->timestamps();
         });
         //项目（科室）与用户多对多
@@ -73,6 +74,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('office_id');
+            $table->index(['user_id','office_id']);
             $table->timestamps();
         });
         //病种
@@ -83,6 +85,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('display_name');
             $table->text('description')->nullable();
+            $table->index(['hospital_id','office_id']);
             $table->timestamps();
         });
         //医生
@@ -94,6 +97,7 @@ class CreateUsersTable extends Migration
             $table->string('display_name');
             $table->string('doctor_number')->nullable()->comment('专家号');
             $table->text('description')->nullable();
+            $table->index(['hospital_id','office_id']);
             $table->timestamps();
         });
         //部门表

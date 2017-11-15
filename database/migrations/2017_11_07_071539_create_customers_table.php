@@ -39,6 +39,7 @@ class CreateCustomersTable extends Migration
             $table->unsignedInteger('doctor_id')->nullable();
             $table->unsignedInteger('customer_type_id')->nullable()->comment('客户类型');//
             $table->text('addons')->nullable()->comment('备注');
+            $table->index(['user_id','office_id']);
             $table->timestamps();
         });
         //患者回访表
@@ -50,6 +51,7 @@ class CreateCustomersTable extends Migration
             $table->timestamp('next_at')->nullable()->comment('下次回访日期');
             $table->unsignedInteger('next_user_id')->nullable()->comment('下次回访人');
             $table->text('description')->nullable()->comment('本次回访记录');
+            $table->index(['zx_customer_id']);
             $table->timestamps();
         });
     }

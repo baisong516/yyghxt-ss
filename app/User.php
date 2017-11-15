@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function hasHospital($hospital_id)
     {
-        $hospitals=$this->hospitals();
+        $hospitals=$this->hospitals()->get();
         foreach ($hospitals as $hospital){
             if ($hospital_id==$hospital->id){
                 return true;
@@ -52,5 +52,15 @@ class User extends Authenticatable
     public function offices()
     {
         return $this->belongsToMany('App\Office','user_office');
+    }
+    public function hasOffice($office_id)
+    {
+        $offices=$this->offices;
+        foreach ($offices as $office){
+            if ($office_id==$office->id){
+                return true;
+            }
+        }
+        return false;
     }
 }
