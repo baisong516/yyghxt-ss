@@ -53,6 +53,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Office','user_office');
     }
+    public function huifang(){
+        return $this->hasOne('App\Huifang');
+    }
     public function hasOffice($office_id)
     {
         $offices=$this->offices;

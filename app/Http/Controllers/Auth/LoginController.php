@@ -46,7 +46,7 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         $credentials = $request->only($this->username(), 'password');
-        $credentials['is_active']=1;//附加账号状态 禁止冻结用户登录
+        $credentials['is_active']=1;//附加账号状态 禁止失效用户登录
         return $credentials;
     }
 }

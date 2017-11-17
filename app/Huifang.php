@@ -10,7 +10,7 @@ class Huifang extends Model
     public function zxcustomer(){
         return $this->belongsTo('App\ZxCustomer','zx_customer_id','id');
     }
-    public function lastusername(){
-        return User::findOrFail($this->next_user_id)->realname;
+    public function nowusername(){
+        return User::findOrFail($this->now_user_id)->realname;
     }
 }

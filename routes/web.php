@@ -48,8 +48,8 @@ Route::group(['middleware' => ['auth']], function() {
     //咨询
     Route::group(['prefix' => 'zx'],function(){
         Route::resource('zxcustomers','ZxCustomerController');
-//        Route::post('customersearch','ZxCustomerController@customerSearch')->name('customers.search');
-//        Route::resource('huifangs','HuifangController');
+        Route::post('zxcustomersearch','ZxCustomerController@customerSearch')->name('zxcustomers.search');
+        Route::resource('huifangs','HuifangController');
 //        Route::get('huifangs/{customer_id}/add','HuifangController@add')->name('huifangs.add');
 //        Route::get('huifangs/{customer_id}/records','HuifangController@huifangRecords')->name('huifangs.records');
 //        Route::post('gethuifangfromcustomer','HuifangController@getHuifangFromCustomer');

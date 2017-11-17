@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Hospital;
+use App\Huifang;
 use App\Office;
+use App\User;
+use App\ZxCustomer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -43,6 +46,29 @@ class ApiController extends Controller
         if (!empty($data)){$status=1;}
         return response()->json([
             'status'=>$status,
+            'data'=>$data,
+        ]);
+    }
+
+    public function getHuifangsFromCustomer(Request $request)
+    {
+        $customerId=$request->input('zx_customer_id');
+        $huifangs = Huifang::where('zx_customer_id',$customerId)->get();
+        $data=[];
+        $status=0;
+        foreach ($huifangs as $huifang){
+            $data[]=[
+                'user_id'=>$huifang->now_user_id,
+                'user'=>User::findOrFail($huifang->now_user_id)->realname,
+                'now_at'=>$huifang->now_at,
+                'content'=>$huifang->description,
+            ];
+        }
+        if (!empty($data)){$status=1;}
+        return response()->json([
+            'status'=>$status,
+            'customer'=>ZxCustomer::findOrFail($customerId)->name,
+            'customer_id'=>$customerId,
             'data'=>$data,
         ]);
     }

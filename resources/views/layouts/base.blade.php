@@ -40,7 +40,7 @@
 {{--|               | sidebar-mini                            |--}}
 {{--|---------------------------------------------------------|--}}
 {{---->--}}
-<body class="hold-transition {{config('yyxt.res.app_skin')}} sidebar-mini">
+<body class="hold-transition {{config('yyxt.res.app_skin')}} sidebar-mini sidebar-collapse">
 <div class="wrapper">
     {{--Main Header--}}
     <header class="main-header">

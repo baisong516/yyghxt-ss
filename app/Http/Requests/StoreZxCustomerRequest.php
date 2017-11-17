@@ -13,7 +13,7 @@ class StoreZxCustomerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class StoreZxCustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required',
+            'office_id'=>'required',
+            'zixun_at'=>'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required' => '标识必填',
+            'office_id.required'  => '科室必填',
+            'zixun_at.required'  => '咨询时间必填',
         ];
     }
 }

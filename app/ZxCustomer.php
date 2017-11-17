@@ -8,6 +8,63 @@ use Illuminate\Support\Facades\Auth;
 class ZxCustomer extends Model
 {
     protected $table = 'zx_customers';
+
+    public static function createCustomer($request)
+    {
+        $customer=new ZxCustomer();
+        $customer->name=$request->input('name');
+        $customer->age=$request->input('age');
+        $customer->sex=$request->input('sex');
+        $customer->tel=$request->input('tel');
+        $customer->qq=$request->input('qq');
+        $customer->wechat=$request->input('wechat');
+        $customer->idcard=$request->input('idcard');
+        $customer->keywords=$request->input('keywords');
+        $customer->description=$request->input('description');
+        $customer->office_id=$request->input('office_id');
+        $customer->disease_id=$request->input('disease_id');
+        $customer->doctor_id=$request->input('doctor_id');
+        $customer->city=$request->input('city');
+        $customer->media_id=$request->input('media_id');
+        $customer->webtype_id=$request->input('webtype_id');
+        $customer->trans_user_id=$request->input('trans_user_id');
+        $customer->zixun_at=$request->input('zixun_at');
+        $customer->yuyue_at=$request->input('yuyue_at');
+        $customer->arrive_at=$request->input('arrive_at');
+        $customer->customer_type_id=$request->input('customer_type_id');
+        $customer->customer_condition_id=$request->input('customer_condition_id');
+        $customer->addons=$request->input('addons');
+        return $customer->save();
+    }
+
+    public static function updateCustomer($request, $id)
+    {
+        $customer=ZxCustomer::findOrFail($id);
+        $customer->name=$request->input('name');
+        $customer->age=$request->input('age');
+        $customer->sex=$request->input('sex');
+        $customer->tel=$request->input('tel');
+        $customer->qq=$request->input('qq');
+        $customer->wechat=$request->input('wechat');
+        $customer->idcard=$request->input('idcard');
+        $customer->keywords=$request->input('keywords');
+        $customer->description=$request->input('description');
+        $customer->office_id=$request->input('office_id');
+        $customer->disease_id=$request->input('disease_id');
+        $customer->doctor_id=$request->input('doctor_id');
+        $customer->city=$request->input('city');
+        $customer->media_id=$request->input('media_id');
+        $customer->webtype_id=$request->input('webtype_id');
+        $customer->trans_user_id=$request->input('trans_user_id');
+        $customer->zixun_at=$request->input('zixun_at');
+        $customer->yuyue_at=$request->input('yuyue_at');
+        $customer->arrive_at=$request->input('arrive_at');
+        $customer->customer_type_id=$request->input('customer_type_id');
+        $customer->customer_condition_id=$request->input('customer_condition_id');
+        $customer->addons=$request->input('addons');
+        return $customer->save();
+    }
+
     //科室
     public function office(){
         return $this->belongsTo('App\Office');
@@ -18,7 +75,7 @@ class ZxCustomer extends Model
     }
     //回访
     public function huifangs(){
-        return $this->hasMany('App\Huifang','zx_customer_id','id');
+        return $this->hasMany('App\Huifang');
     }
     //媒体
     public function media(){
@@ -50,7 +107,8 @@ class ZxCustomer extends Model
         if (empty($offices)){
             return null;
         }
-        return static::whereIn('office_id',$offices)->with('office','disease','media','user','huifangs','customertype','customercondition','webtype','transuser')->get();
+//        return static::whereIn('office_id',$offices)->with('office','disease','media','user','huifangs','customertype','customercondition','webtype','transuser')->get();
+        return static::whereIn('office_id',$offices)->with('huifangs')->get();
     }
     //获取科室项目id
     public static function offices(){
