@@ -21,9 +21,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     //排班
-//    Route::group(['middleware'=>['role:administrator|superadministrator']],function(){
-//        Route::resource('arrangements', 'ArrangementController');
-//    });
+    Route::resource('arrangements', 'ArrangementController');
     //用户菜单
     Route::group(['prefix' => 'sys','middleware'=>['role:administrator|superadministrator']],function(){
         Route::resource('users','UserController');
@@ -50,6 +48,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('zxcustomers','ZxCustomerController');
         Route::post('zxcustomersearch','ZxCustomerController@customerSearch')->name('zxcustomers.search');
         Route::resource('huifangs','HuifangController');
+	    Route::get('summaries','ZxCustomerController@summary')->name('summaries.index');
+	    Route::post('summaries','ZxCustomerController@summarySearch')->name('summaries.search');
 //        Route::get('huifangs/{customer_id}/add','HuifangController@add')->name('huifangs.add');
 //        Route::get('huifangs/{customer_id}/records','HuifangController@huifangRecords')->name('huifangs.records');
 //        Route::post('gethuifangfromcustomer','HuifangController@getHuifangFromCustomer');

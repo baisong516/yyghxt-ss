@@ -85,7 +85,7 @@
             @ability('superadministrator', 'read-zx_customers')
             <li class="{{Request::is('zx/zxcustomers*')?'active':''}}"><a href="{{route('zxcustomers.index')}}"><i class="fa fa-plus-square"></i><span>咨询详情</span></a></li>
             @endability
-            <li><a href="#"><i class="fa fa-list"></i><span>咨询员预约明细</span></a></li>
+            <li class="{{Request::is('zx/summaries*')?'active':''}}"><a href="{{route('summaries.index')}}"><i class="fa fa-list"></i><span>咨询员预约明细</span></a></li>
             {{--@role('superadministrator|administrator|jskmenzhen|hzjmenzhen')--}}
             {{--<li class="{{Request::is('zx/menzhen*')?'active':''}}"><a href="{{route('menzhen.index')}}"><i class="fa fa-plus-square"></i><span>门诊</span></a></li>--}}
             {{--@endrole--}}
@@ -97,7 +97,7 @@
             {{--<li><a href="#"><i class="fa fa-save"></i><span>病人数据导出</span></a></li>--}}
         </ul>
     </li>
-    {{--@role('superadministrator|administrator')--}}
-    {{--<li class="{{Request::is('arrangements*')?'active':''}}"><a href="{{route('arrangements.index')}}"><i class="fa fa-link"></i> <span>排班</span></a></li>--}}
-    {{--@endrole--}}
+    @ability('superadministrator', 'read-arrangements')
+    <li class="{{Request::is('arrangements*')?'active':''}}"><a href="{{route('arrangements.index')}}"><i class="fa fa-link"></i> <span>排班</span></a></li>
+    @endability
 </ul>

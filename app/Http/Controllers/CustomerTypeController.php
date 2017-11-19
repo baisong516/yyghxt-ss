@@ -22,6 +22,8 @@ class CustomerTypeController extends Controller
                 'pageheader'=>'患者类型',
                 'pagedescription'=>'列表',
                 'customertypes'=>CustomerType::select('id','name','display_name')->get(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-customer_types'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-customer_types'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

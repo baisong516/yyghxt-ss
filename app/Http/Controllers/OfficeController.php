@@ -24,6 +24,8 @@ class OfficeController extends Controller
                 'pageheader'=>'科室',
                 'pagedescription'=>'列表',
                 'offices'=>Office::all(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-offices'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-offices'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

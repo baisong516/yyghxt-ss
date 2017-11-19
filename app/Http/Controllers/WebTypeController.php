@@ -22,6 +22,8 @@ class WebTypeController extends Controller
                 'pageheader'=>'网站类型',
                 'pagedescription'=>'列表',
                 'webtypes'=>WebType::select('id','name','display_name')->get(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-web_types'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-web_types'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

@@ -22,6 +22,8 @@ class MediaController extends Controller
                 'pageheader'=>'媒体',
                 'pagedescription'=>'列表',
                 'medias'=>Media::all(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-medias'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-medias'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

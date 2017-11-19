@@ -22,6 +22,9 @@ class CustomerConditionController extends Controller
                 'pageheader'=>'患者状态',
                 'pagedescription'=>'列表',
                 'customerconditions'=>CustomerCondition::select('id','name','display_name')->get(),
+
+                'enableUpdate'=>Auth::user()->hasPermission('update-customer_conditions'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-customer_conditions'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

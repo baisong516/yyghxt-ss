@@ -22,6 +22,8 @@ class DepartmentController extends Controller
                 'pageheader'=>'部门',
                 'pagedescription'=>'列表',
                 'departments'=>Department::all(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-departments'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-departments'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

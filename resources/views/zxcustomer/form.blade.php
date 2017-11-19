@@ -139,10 +139,10 @@
     </div>
 
     <div class="form-group {{empty($errors->first('media'))?'':'has-error'}}">
-        <label for="trans-user" class="col-sm-2 control-label">商务通转电话人员</label>
+        <label for="trans-user" class="col-sm-2 control-label">商务通转电话</label>
         <div class="col-sm-10">
             <select name="trans_user_id" id="trans-user" class="form-control">
-                <option value="" selected>--选择人员--</option>
+                <option value="" selected>--选择--</option>
                 @foreach($users as $k=>$v)
                     <option value="{{$k}}" {{old('trans_user_id')==$k?'selected':''}} {{isset($customer)&&$customer->trans_user_id==$k?'selected':''}}>{{$v}}</option>
                 @endforeach
@@ -171,23 +171,23 @@
         </div>
     </div>
 
-    <div class="form-group {{empty($errors->first('media'))?'':'has-error'}}">
-        <label for="customertype" class="col-sm-2 control-label">客户类型</label>
+    <div class="form-group {{empty($errors->first('customer_type_id'))?'':'has-error'}}">
+        <label for="customertype" class="col-sm-2 control-label">患者类型</label>
         <div class="col-sm-10">
             <select name="customer_type_id" id="customertype" class="form-control">
-                <option value="" selected>--选择客户类型--</option>
-                @foreach($customertypes as $customertype)
+                <option value="" selected>--选择患者类型--</option>
+                @foreach($customertypes as $k=>$v)
                     <option value="{{$k}}" {{old('customer_type_id')==$k?'selected':''}} {{isset($customer)&&$customer->customer_type_id==$k?'selected':''}}>{{$v}}</option>
                 @endforeach
             </select>
         </div>
     </div>
 
-    <div class="form-group {{empty($errors->first('media'))?'':'has-error'}}">
+    <div class="form-group {{empty($errors->first('customer_condition_id'))?'':'has-error'}}">
         <label for="customercondition" class="col-sm-2 control-label">状态</label>
         <div class="col-sm-10">
             <select name="customer_condition_id" id="customercondition" class="form-control">
-                <option value="" selected>--选择客户状态--</option>
+                <option value="" selected>--选择患者状态--</option>
                 @foreach($customerconditions as $k=>$v)
                     <option value="{{$k}}" {{old('customer_condition_id')==$k?'selected':''}} {{isset($customer)&&$customer->customer_condition_id==$k?'selected':''}}>{{$v}}</option>
                 @endforeach

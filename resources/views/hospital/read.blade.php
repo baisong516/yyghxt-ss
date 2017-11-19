@@ -34,12 +34,12 @@
                         <td>{{$hospital->name}}</td>
                         <td>{{$hospital->display_name}}</td>
                         <td>
-                            @ability('superadministrator', 'upade-hospitals')
+                            @if($enableUpdate)
                                 <a href="{{route('hospitals.edit',$hospital->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
-                            @endability
-                            @ability('superadministrator', 'delete-hospitals')
+                            @endif
+                            @if($enableDelete)
                                 <a href="javascript:void(0);" data-id="{{$hospital->id}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
-                            @endability
+                            @endif
                         </td>
                     </tr>
                 @endforeach

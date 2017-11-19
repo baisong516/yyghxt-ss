@@ -16,6 +16,7 @@
         <div class="box-body">
             <form class="form-inline" action="{{route('zxcustomers.search')}}"  id="search-form" name="search-form" method="POST">
                 {{csrf_field()}}
+                <input type="hidden" name="quickSearch" value="">
                 <div class="form-group">
                     <label for="searchCustomerName">姓名：</label>
                     <input type="text" class="form-control" name="searchCustomerName" id="searchCustomerName" placeholder="姓名">
@@ -41,7 +42,7 @@
                     <label for="searchZx">咨询时间：</label>
                     <input type="text" class="form-control date-item" name="searchZxStart" id="searchZxStart">
                     到
-                    <input type="text" class="form-control date-item" name="searchZxEdn" id="searchZxEnd">
+                    <input type="text" class="form-control date-item" name="searchZxEnd" id="searchZxEnd">
                 </div>
                 <div class="form-group">
                     <label for="searchYuyue">预约时间：</label>
@@ -67,7 +68,7 @@
                     <label for="searchNextHuifang">下次回访时间：</label>
                     <input type="text" class="form-control date-item" name="searchNextHuifangStart" id="searchNextHuifangStart">
                     到
-                    <input type="text" class="form-control date-item" name="searchNextHuifangEnd" id="ssearchNextHuifangEnd">
+                    <input type="text" class="form-control date-item" name="searchNextHuifangEnd" id="searchNextHuifangEnd">
                 </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <div class="form-group">
@@ -102,10 +103,13 @@
         <div class="box-header">
             <h3 class="box-title">列表</h3>
             <div class="box-tools">
-                <div class="input-group input-group-sm pull-right" style="width: 80px;">
+                <div class="input-group input-group-sm pull-right" style="">
                     @ability('superadministrator', 'create-zx_customers')
                     <a href="{{route('zxcustomers.create')}}" class="btn-sm btn-info">新增</a>
                     @endability
+                </div>
+                <div class="input-group input-group-sm pull-right" style="margin-right: 1rem;">
+                    <a href="javascript:;" class="btn-sm btn-info" id="todayhuifang">今日应回访</a>
                 </div>
             </div>
         </div>
@@ -117,7 +121,7 @@
                     <thead>
                     <tr>
                         <th><i class="fa fa-level-down" aria-hidden="true"></i></th>
-                        <th>姓名</th>
+                        <th>患者</th>
                         <th>年龄</th>
                         <th>性别</th>
                         <th>联系</th>
@@ -140,8 +144,8 @@
                         <th>最近回访人</th>
                         <th>下次回访</th>
                         <th>下次回访人</th>
-                        <th>客户类型</th>
-                        {{--<th>备注</th>--}}
+                        <th>类型</th>
+                        <th style="display: none;">备注</th>
                         <th>回访</th>
                         <th>操作</th>
                     </tr>
@@ -192,24 +196,26 @@
                             {{--<客户类型--}}
                             <td>{{$customer->customer_type_id?$customertypes[$customer->customer_type_id]:''}}</td>
                             {{--备注--}}
-                            {{--<td>{{ str_limit($customer->addons,20,'...')}}</td>--}}
+                            <td style="display: none;">{{$customer->addons?$customer->addons:''}}</td>
                             <td class="huifang-cloumn">
-                                @ability('superadministrator', 'read-huifangs')
+                                @if($enableHuifang)
                                     @if($customer->huifangs->count()<1)
                                         <a href="javascript:void(0);" data-id="{{$customer->id}}" data-toggle="modal" data-target="#huifangModal"  class="hf-btn text-red" >未回访</a>
                                     @else
                                         <a href="javascript:void(0);" data-id="{{$customer->id}}" data-toggle="modal" data-target="#huifangModal" class="hf-btn text-blue">已回访</a>
                                     @endif
-                                @endability
+                                @endif
                             </td>
                             <td>
+                                @if($enableRead)
                                 <a href="{{route('zxcustomers.show',$customer->id)}}"  alt="查看" title="查看"><i class="fa fa-eye"></i></a>
-                                @ability('superadministrator', 'update-zx_customers')
+                                @endif
+                                @if($enableUpdate)
                                     <a href="{{route('zxcustomers.edit',$customer->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
-                                @endability
-                                @ability('superadministrator', 'delete-zx_customers')
+                                @endif
+                                @if($enableDelete)
                                     <a href="javascript:void(0);"  alt="编辑" data-id="{{$customer->id}}" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
-                                @endability
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -253,6 +259,11 @@
                         //return false; 开启该代码可禁止点击该按钮关闭
                     }
                 });
+            });
+            //快捷查询今日应回访
+            $("#todayhuifang").click(function () {
+                $("#search-form :hidden[name=quickSearch]").val('todayhuifang');
+                $("#search-form").submit();
             });
         } );
     </script>

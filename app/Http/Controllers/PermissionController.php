@@ -22,6 +22,8 @@ class PermissionController extends Controller
                 'pageheader'=>'权限',
                 'pagedescription'=>'列表',
                 'permissions'=>Permission::all(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-permissions'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-permissions'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

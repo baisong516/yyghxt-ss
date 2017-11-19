@@ -16,10 +16,9 @@ class CreateArrangementsTable extends Migration
         Schema::create('arrangements', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('office_id')->comment('项目id');//
             $table->unsignedInteger('rank')->default(0)->comment('班次');//班次 0:早班 1:晚班
             $table->timestamp('rank_date')->comment('日期');
-            $table->index(['user_id','office_id']);
+            $table->index(['user_id']);
             $table->timestamps();
         });
     }

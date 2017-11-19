@@ -27,6 +27,8 @@ class UserController extends Controller
                 'pageheader'=>'用户',
                 'pagedescription'=>'列表',
                 'users'=>User::with('department')->get(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-users'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-users'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -69,15 +71,23 @@ class UserController extends Controller
             $user->department_id=$request->input('department_id');
             $bool=$user->save();
             //添加负责医院
-            foreach ($request->input('hospitals') as $hospital_id){
-                $user->hospitals()->save(Hospital::findOrFail($hospital_id));
+	        if ($request->input('hospitals')){
+		        foreach ($request->input('hospitals') as $hospital_id){
+			        $user->hospitals()->save(Hospital::findOrFail($hospital_id));
+		        }
+	        }
+	        //添加负责项目
+            if ($request->input('offices')){
+	            foreach ($request->input('offices') as $office_id){
+		            $user->offices()->save(Office::findOrFail($office_id));
+	            }
             }
-            //添加负责项目
-            foreach ($request->input('offices') as $office_id){
-                $user->offices()->save(Office::findOrFail($office_id));
-            }
+
             //绑定角色
-            $user->attachRoles($request->input('roles'));
+	        if ($request->input('roles')){
+		        $user->attachRoles($request->input('roles'));
+	        }
+
             if ($bool){
                 return redirect()->route('users.index')->with('success','Well Done!');
             }else{
@@ -140,11 +150,18 @@ class UserController extends Controller
             $user->is_active=$request->input('is_active');
             $bool=$user->save();
             //同步负责医院
-            $user->hospitals()->sync($request->input('hospitals'));
+	        if (!empty($request->input('hospitals'))){
+		        $user->hospitals()->sync($request->input('hospitals'));
+	        }
+
             //同步负责项目
-            $user->offices()->sync($request->input('offices'));
+	        if (!empty($request->input('offices'))){
+		        $user->offices()->sync($request->input('offices'));
+	        }
             //同步绑定角色
-            $user->syncRoles($request->input('roles'));
+	        if (!empty($request->input('roles'))){
+		        $user->syncRoles($request->input('roles'));
+	        }
             if ($bool){
                 return redirect()->route('users.index')->with('success','Well Done!');
             }else{

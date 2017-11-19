@@ -23,6 +23,8 @@ class HospitalController extends Controller
                 'pageheader'=>'医院',
                 'pagedescription'=>'列表',
                 'hospitals'=>Hospital::all(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-hospitals'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-hospitals'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

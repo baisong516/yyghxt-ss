@@ -23,6 +23,8 @@ class RoleController extends Controller
                 'pageheader'=>'角色',
                 'pagedescription'=>'列表',
                 'roles'=>Role::all(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-roles'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-roles'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

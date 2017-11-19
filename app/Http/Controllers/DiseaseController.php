@@ -25,6 +25,8 @@ class DiseaseController extends Controller
                 'pageheader'=>'病种',
                 'pagedescription'=>'列表',
                 'diseases'=>Disease::with('hospital','office')->get(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-diseases'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-diseases'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

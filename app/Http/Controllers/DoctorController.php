@@ -24,6 +24,8 @@ class DoctorController extends Controller
                 'pageheader'=>'医生',
                 'pagedescription'=>'列表',
                 'doctors'=>Doctor::all(),
+                'enableUpdate'=>Auth::user()->hasPermission('update-doctors'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-doctors'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
