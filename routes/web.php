@@ -20,6 +20,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::post('/home', 'HomeController@index')->name('home.search');
     //排班
     Route::resource('arrangements', 'ArrangementController');
     //用户菜单
@@ -50,12 +51,14 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('huifangs','HuifangController');
 	    Route::get('summaries','ZxCustomerController@summary')->name('summaries.index');
 	    Route::post('summaries','ZxCustomerController@summarySearch')->name('summaries.search');
-//        Route::get('huifangs/{customer_id}/add','HuifangController@add')->name('huifangs.add');
-//        Route::get('huifangs/{customer_id}/records','HuifangController@huifangRecords')->name('huifangs.records');
-//        Route::post('gethuifangfromcustomer','HuifangController@getHuifangFromCustomer');
-//        Route::get('menzhen','ZxCustomerController@menzhenIndex')->name('menzhen.index');
-//        Route::get('menzhen/{customer_id}','ZxCustomerController@menzhenEdit')->name('menzhen.edit');
-//        Route::put('menzhen/{customer_id}','ZxCustomerController@menzhenUpdate')->name('menzhen.update');
     });
-    //上传
+    //门诊
+    Route::group(['prefix' => 'mz'],function(){
+        Route::resource('menzhens','MzCustomerController');
+        Route::post('mzcustomersearch','MzCustomerController@customerSearch')->name('mzcustomers.search');
+    });
+    //挂号
+    Route::group(['prefix' => 'gh'],function(){
+        Route::resource('ghcustomers','GhCustomerController');
+    });
 });

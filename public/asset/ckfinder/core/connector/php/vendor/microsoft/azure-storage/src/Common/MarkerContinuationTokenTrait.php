@@ -16,7 +16,7 @@
  *
  * @ignore
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common
+ * @package   MicrosoftAzure\Storage\Aiden
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -31,7 +31,7 @@ use MicrosoftAzure\Storage\Common\Models\ContinuationToken;
  * Trait implementing logic for continuation tokens that has nextMarker.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common
+ * @package   MicrosoftAzure\Storage\Aiden
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE

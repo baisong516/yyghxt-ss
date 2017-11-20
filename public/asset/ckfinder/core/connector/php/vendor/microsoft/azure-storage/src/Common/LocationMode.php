@@ -15,7 +15,7 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common
+ * @package   MicrosoftAzure\Storage\Aiden
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -28,7 +28,7 @@ namespace MicrosoftAzure\Storage\Common;
  * Location mode for the service.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common
+ * @package   MicrosoftAzure\Storage\Aiden
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE

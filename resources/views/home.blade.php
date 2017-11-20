@@ -3,9 +3,21 @@
 @section('content')
     <div class="col-sm-12">
         <div class="box box-solid">
+            <div class="box-header">
+                <form class="form-inline" action="{{route('home.search')}}"  id="search-form" name="search-form" method="POST">
+                    {{csrf_field()}}
+                    <div class="form-group">
+                        <label for="searchDate">日期：</label>
+                        <input type="text" class="form-control date-item" name="searchDateStart" id="searchDateStart" required value="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()}}">
+                        到
+                        <input type="text" class="form-control date-item" name="searchDateEnd" id="searchDateEnd" required value="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString()}}">
+                    </div>
+                    <button type="submit" class="btn btn-success">搜索</button>
+                </form>
+            </div>
             <div class="box-body">
                 <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" data-toggle="modal" data-target="#proModal">
-                    今日项目情况表
+                    项目情况表
                 </h4>
                 <div class="box">
                     <div class="box-body table-responsive table-bordered">
@@ -58,7 +70,7 @@
         <div class="box box-solid">
             <div class="box-body">
                 <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
-                    今日排班
+                    当日排班
                 </h4>
                 <div class="box">
                     <div class="box-body table-responsive table-bordered">
@@ -76,8 +88,6 @@
                             </tr>
                             </thead>
                             <tbody>
-
-
                             @if(!empty($arrangements))
                                 @foreach($arrangements as $officesort)
                                     @foreach($officesort['ranks'] as $ranksort)
@@ -199,5 +209,13 @@
 @endsection
 
 @section('javascript')
-
+    <script type="text/javascript" src="http://yygh.oss-cn-shenzhen.aliyuncs.com/laydate/laydate.js"></script>
+    <script type="text/javascript">
+        lay('.date-item').each(function(){
+            laydate.render({
+                elem: this
+                ,trigger: 'click'
+            });
+        });
+    </script>
 @endsection

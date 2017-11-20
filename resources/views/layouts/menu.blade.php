@@ -83,18 +83,39 @@
         </a>
         <ul class="treeview-menu">
             @ability('superadministrator', 'read-zx_customers')
-            <li class="{{Request::is('zx/zxcustomers*')?'active':''}}"><a href="{{route('zxcustomers.index')}}"><i class="fa fa-plus-square"></i><span>咨询详情</span></a></li>
+            <li class="{{Request::is('zx/zxcustomers*')?'active':''}}"><a href="{{route('zxcustomers.index')}}"><i class="fa fa-user-md"></i><span>咨询详情</span></a></li>
             @endability
             <li class="{{Request::is('zx/summaries*')?'active':''}}"><a href="{{route('summaries.index')}}"><i class="fa fa-list"></i><span>咨询员预约明细</span></a></li>
-            {{--@role('superadministrator|administrator|jskmenzhen|hzjmenzhen')--}}
-            {{--<li class="{{Request::is('zx/menzhen*')?'active':''}}"><a href="{{route('menzhen.index')}}"><i class="fa fa-plus-square"></i><span>门诊</span></a></li>--}}
-            {{--@endrole--}}
             {{--<li><a href="#"><i class="fa fa-search"></i><span>病人预约搜索</span></a></li>--}}
             {{--<li><a href="#"><i class="fa fa-search"></i><span>重复病人查询</span></a></li>--}}
             {{--<li><a href="#"><i class="fa fa-list"></i><span>客服明细</span></a></li>--}}
             {{--<li><a href="#"><i class="fa fa-list"></i><span>月趋势报表</span></a></li>--}}
             {{--<li><a href="#"><i class="fa fa-list"></i><span>自定义趋势报表</span></a></li>--}}
             {{--<li><a href="#"><i class="fa fa-save"></i><span>病人数据导出</span></a></li>--}}
+        </ul>
+    </li>
+    <li class="treeview {{Request::is('mz/*')?'active':''}}">
+        <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i> <span>门诊</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            @ability('superadministrator', 'read-mz_customers')
+            <li class="{{Request::is('mz/mzcustomers*')?'active':''}}"><a href="{{route('menzhens.index')}}"><i class="fa fa-plus-square"></i><span>患者详情</span></a></li>
+            @endability
+        </ul>
+    </li>
+    <li class="treeview {{Request::is('gh/*')?'active':''}}">
+        <a href="#"><i class="fa fa-gg"></i> <span>网上挂号</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            @ability('superadministrator', 'read-gh_customers')
+            <li class="{{Request::is('gh/ghcustomers*')?'active':''}}"><a href="{{route('ghcustomers.index')}}"><i class="fa fa-plus-square"></i><span>挂号详情</span></a></li>
+            @endability
         </ul>
     </li>
     @ability('superadministrator', 'read-arrangements')

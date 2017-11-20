@@ -296,10 +296,10 @@ class Inflector
      * <code>
      * <?php
      * $string = 'top-o-the-morning to all_of_you!';
-     * echo \Doctrine\Common\Inflector\Inflector::ucwords($string);
+     * echo \Doctrine\Aiden\Inflector\Inflector::ucwords($string);
      * // Top-O-The-Morning To All_of_you!
      *
-     * echo \Doctrine\Common\Inflector\Inflector::ucwords($string, '-_ ');
+     * echo \Doctrine\Aiden\Inflector\Inflector::ucwords($string, '-_ ');
      * // Top-O-The-Morning To All_Of_You!
      * ?>
      * </code>

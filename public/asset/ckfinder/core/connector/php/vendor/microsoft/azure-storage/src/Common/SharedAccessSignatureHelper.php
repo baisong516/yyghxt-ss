@@ -15,7 +15,7 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal\Authentication
+ * @package   MicrosoftAzure\Storage\Aiden\Internal\Authentication
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -33,7 +33,7 @@ use MicrosoftAzure\Storage\Common\Models\AccessPolicy;
  * Provides methods to generate Azure Storage Shared Access Signature
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal\Authentication
+ * @package   MicrosoftAzure\Storage\Aiden\Internal\Authentication
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -51,7 +51,7 @@ class SharedAccessSignatureHelper
      * @param string $accountKey the shared key of the storage account
      *
      * @return
-     * MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper
+     * MicrosoftAzure\Storage\Aiden\SharedAccessSignatureHelper
      */
     public function __construct($accountName, $accountKey)
     {

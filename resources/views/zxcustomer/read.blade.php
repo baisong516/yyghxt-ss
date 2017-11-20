@@ -105,8 +105,11 @@
             <div class="box-tools">
                 <div class="input-group input-group-sm pull-right" style="">
                     @ability('superadministrator', 'create-zx_customers')
-                    <a href="{{route('zxcustomers.create')}}" class="btn-sm btn-info">新增</a>
+                    <a href="{{route('zxcustomers.create')}}" class="btn-sm btn-success">新增</a>
                     @endability
+                </div>
+                <div class="input-group input-group-sm pull-right" style="margin-right: 1rem;">
+                    <a href="javascript:;" class="btn-sm btn-info" id="todayarrive">今日应到院</a>
                 </div>
                 <div class="input-group input-group-sm pull-right" style="margin-right: 1rem;">
                     <a href="javascript:;" class="btn-sm btn-info" id="todayhuifang">今日应回访</a>
@@ -176,7 +179,7 @@
                             {{--病种--}}
                             <td>{{$customer->disease_id?$diseases[$customer->disease_id]:''}}</td>
                             {{--状态--}}
-                            <td>{{$customer->customer_conditon_id?$customerconditons[$customer->customer_conditon_id]:''}}</td>
+                            <td>{{$customer->customer_condition_id?$customerconditions[$customer->customer_condition_id]:''}}</td>
                             {{--商务通转电话--}}
                             <td>{{$customer->trans_user_id?$users[$customer->trans_user_id]:''}}</td>
                             {{--咨询员--}}
@@ -214,7 +217,7 @@
                                     <a href="{{route('zxcustomers.edit',$customer->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
                                 @endif
                                 @if($enableDelete)
-                                    <a href="javascript:void(0);"  alt="编辑" data-id="{{$customer->id}}" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
+                                    <a href="javascript:void(0);"  alt="删除" data-id="{{$customer->id}}" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
                                 @endif
                             </td>
                         </tr>
@@ -263,6 +266,10 @@
             //快捷查询今日应回访
             $("#todayhuifang").click(function () {
                 $("#search-form :hidden[name=quickSearch]").val('todayhuifang');
+                $("#search-form").submit();
+            });
+            $("#todayarrive").click(function () {
+                $("#search-form :hidden[name=quickSearch]").val('todayarrive');
                 $("#search-form").submit();
             });
         } );

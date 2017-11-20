@@ -15,7 +15,7 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal
+ * @package   MicrosoftAzure\Storage\Aiden\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -29,7 +29,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
  *
  * @ignore
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal
+ * @package   MicrosoftAzure\Storage\Aiden\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -368,7 +368,7 @@ class Resources
     const HTTP_TYPE                = 'application/http';
     const MULTIPART_MIXED_TYPE     = 'multipart/mixed';
 
-    // Common used XML tags
+    // Aiden used XML tags
     const XTAG_ATTRIBUTES                   = '@attributes';
     const XTAG_NAMESPACE                    = '@namespace';
     const XTAG_LABEL                        = 'Label';

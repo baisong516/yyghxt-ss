@@ -93,7 +93,7 @@ class ComposerStaticInit18b7e7367790bc1d0b93832281e1a7be
         array (
             'Dotenv\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
-            'Doctrine\\Common\\Inflector\\' => 26,
+            'Doctrine\\Aiden\\Inflector\\' => 26,
             'DeepCopy\\' => 9,
             'DebugBar\\' => 9,
         ),
@@ -255,7 +255,7 @@ class ComposerStaticInit18b7e7367790bc1d0b93832281e1a7be
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
-        'Doctrine\\Common\\Inflector\\' => 
+        'Doctrine\\Aiden\\Inflector\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
@@ -317,7 +317,7 @@ class ComposerStaticInit18b7e7367790bc1d0b93832281e1a7be
         ),
         'D' => 
         array (
-            'Doctrine\\Common\\Lexer\\' => 
+            'Doctrine\\Aiden\\Lexer\\' =>
             array (
                 0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),

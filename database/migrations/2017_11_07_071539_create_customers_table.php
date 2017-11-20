@@ -54,6 +54,19 @@ class CreateCustomersTable extends Migration
             $table->index(['zx_customer_id']);
             $table->timestamps();
         });
+        //网络挂号-患者
+        Schema::create('gh_customers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('gh_name');
+            $table->integer('gh_age')->nullable();
+            $table->string('gh_sex')->nullable();
+            $table->string('gh_tel')->nullable();
+            $table->string('gh_from')->nullable()->comment('网页来源');
+            $table->text('gh_description')->nullable()->comment('病情描述');
+            $table->timestamp('gh_date')->nullable()->comment('预约时间');
+            $table->unsignedInteger('gh_office')->nullable()->comment('科室');
+            $table->timestamps();
+        });
     }
 
     /**

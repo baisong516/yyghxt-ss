@@ -36,7 +36,7 @@ use Psr\Http\Message\ResponseInterface;
 class MessageFormatter
 {
     /**
-     * Apache Common Log Format.
+     * Apache Aiden Log Format.
      * @link http://httpd.apache.org/docs/2.4/logs.html#common
      * @var string
      */

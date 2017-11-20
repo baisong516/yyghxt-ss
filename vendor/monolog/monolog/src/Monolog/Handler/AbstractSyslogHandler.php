@@ -15,7 +15,7 @@ use Monolog\Logger;
 use Monolog\Formatter\LineFormatter;
 
 /**
- * Common syslog functionality
+ * Aiden syslog functionality
  */
 abstract class AbstractSyslogHandler extends AbstractProcessingHandler
 {

@@ -57,7 +57,7 @@ class PermissionController extends Controller
             //insert into database
             $permission=new Permission();
             $permission->name=$request->input('name');
-            $permission->display_name=$$request->input('display_name');
+            $permission->display_name=$request->input('display_name');
             $permission->description=$request->input('description');
             $bool=$permission->save();
             //redirection after insert

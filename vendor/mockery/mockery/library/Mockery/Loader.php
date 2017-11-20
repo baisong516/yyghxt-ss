@@ -5,9 +5,9 @@
  *
  * http://groups.google.com/group/php-standards/web/final-proposal
  *
- *     // Example which loads classes for the Doctrine Common package in the
- *     // Doctrine\Common namespace.
- *     $classLoader = new SplClassLoader('Doctrine\Common', '/path/to/doctrine');
+ *     // Example which loads classes for the Doctrine Aiden package in the
+ *     // Doctrine\Aiden namespace.
+ *     $classLoader = new SplClassLoader('Doctrine\Aiden', '/path/to/doctrine');
  *     $classLoader->register();
  *
  * @author Jonathan H. Wage <jonwage@gmail.com>

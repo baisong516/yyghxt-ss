@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aiden;
 use App\Disease;
 use App\Doctor;
 use App\Http\Requests\StoreZxCustomerRequest;
@@ -32,13 +33,13 @@ class ZxCustomerController extends Controller
                 'pageheader'=>'患者',
                 'pagedescription'=>'列表',
                 'customers'=>ZxCustomer::getCustomers(),
-                'users'=>$this->getAllUserArray(),
-                'offices'=>$this->getAllModelArray('offices'),
-                'diseases'=>$this->getAllModelArray('diseases'),
-                'webtypes'=>$this->getAllModelArray('web_types'),
-                'medias'=>$this->getAllModelArray('medias'),
-                'customertypes'=>$this->getAllModelArray('customer_types'),
-                'customerconditions'=>$this->getAllModelArray('customer_conditions'),
+                'users'=>Aiden::getAllUserArray(),
+                'offices'=>Aiden::getAllModelArray('offices'),
+                'diseases'=>Aiden::getAllModelArray('diseases'),
+                'webtypes'=>Aiden::getAllModelArray('web_types'),
+                'medias'=>Aiden::getAllModelArray('medias'),
+                'customertypes'=>Aiden::getAllModelArray('customer_types'),
+                'customerconditions'=>Aiden::getAllModelArray('customer_conditions'),
 
                 'enableRead'=>Auth::user()->hasPermission('read-zx_customers'),
                 'enableUpdate'=>Auth::user()->hasPermission('update-zx_customers'),
@@ -60,14 +61,14 @@ class ZxCustomerController extends Controller
             return view('zxcustomer.create', array(
                 'pageheader'=>'患者',
                 'pagedescription'=>'添加',
-                'users'=>$this->getAllUserArray(),
-                'offices'=>$this->getAuthdOffices(),
-                'diseases'=>$this->getAuthdDiseases(),
-                'doctors'=>$this->getAuthdDoctors(),
-                'webtypes'=>$this->getAllModelArray('web_types'),
-                'medias'=>$this->getAllModelArray('medias'),
-                'customertypes'=>$this->getAllModelArray('customer_types'),
-                'customerconditions'=>$this->getAllModelArray('customer_conditions'),
+                'users'=>Aiden::getAllUserArray(),
+                'offices'=>Aiden::getAuthdOffices(),
+                'diseases'=>Aiden::getAuthdDiseases(),
+                'doctors'=>Aiden::getAuthdDoctors(),
+                'webtypes'=>Aiden::getAllModelArray('web_types'),
+                'medias'=>Aiden::getAllModelArray('medias'),
+                'customertypes'=>Aiden::getAllModelArray('customer_types'),
+                'customerconditions'=>Aiden::getAllModelArray('customer_conditions'),
             ));
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -121,14 +122,14 @@ class ZxCustomerController extends Controller
             return view('zxcustomer.update', array(
                 'pageheader'=>'患者',
                 'pagedescription'=>'更新',
-                'users'=>$this->getAllUserArray(),
-                'offices'=>$this->getAuthdOffices(),
-                'diseases'=>$this->getAuthdDiseases(),
-                'doctors'=>$this->getAuthdDoctors(),
-                'webtypes'=>$this->getAllModelArray('web_types'),
-                'medias'=>$this->getAllModelArray('medias'),
-                'customertypes'=>$this->getAllModelArray('customer_types'),
-                'customerconditions'=>$this->getAllModelArray('customer_conditions'),
+                'users'=>Aiden::getAllUserArray(),
+                'offices'=>Aiden::getAuthdOffices(),
+                'diseases'=>Aiden::getAuthdDiseases(),
+                'doctors'=>Aiden::getAuthdDoctors(),
+                'webtypes'=>Aiden::getAllModelArray('web_types'),
+                'medias'=>Aiden::getAllModelArray('medias'),
+                'customertypes'=>Aiden::getAllModelArray('customer_types'),
+                'customerconditions'=>Aiden::getAllModelArray('customer_conditions'),
                 'customer'=>ZxCustomer::findOrFail($id),
             ));
         }
@@ -178,50 +179,6 @@ class ZxCustomerController extends Controller
         return abort(403,config('yyxt.permission_deny'));
     }
 
-    private function getAllUserArray()
-    {
-        $obj=User::select('id','realname')->get();
-        $users=[];
-        foreach ($obj as $user){
-            $users[$user->id]=$user->realname;
-        }
-        return $users;
-    }
-
-    private function getAllModelArray($table)
-    {
-        $obj=DB::table($table)->select('id','display_name')->get();
-        $data=[];
-        foreach ($obj as $v){
-            $data[$v->id]=$v->display_name;
-        }
-        return $data;
-    }
-    private function getAuthdOffices()
-    {
-        $offices=[];
-        foreach (Auth::user()->offices as $office){
-            $offices[$office->id]=$office->display_name;
-        }
-        return $offices;
-    }
-    private function getAuthdDiseases()
-    {
-        $diseases=[];
-        foreach (Auth::user()->offices as $office){
-            $diseases[$office->id]['name']=$office->display_name;
-            foreach ($office->diseases as $disease){
-                $diseases[$office->id]['diseases'][$disease->id]=$disease->display_name;
-            }
-        }
-        return $diseases;
-    }
-
-    public function getAuthdDoctors()
-    {;
-        return Doctor::whereIn('office_id',array_keys($this->getAuthdOffices()));
-
-    }
     //咨询患者搜索
     public function customerSearch(Request $request)
     {
@@ -268,6 +225,13 @@ class ZxCustomerController extends Controller
 			    }
 			    $customers =ZxCustomer::whereIn('id',$CustomerIds)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->get();
 			}
+			if ($quickSearch=='todayarrive'){
+	    	    //今日应到院
+                $customers =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+                    ['yuyue_at','>=',Carbon::now()->startOfDay()],
+                    ['yuyue_at','<=',Carbon::now()->endOfDay()],
+                ])->with('huifangs')->get();
+            }
 	    }else{
 		    //条件为空
 		    if (empty($customerName)&&empty($customerTel)&&empty($customerQQ)&&empty($customerWechat)&&empty($customerIdCard)&&empty($zxUser)&&empty($officeId)&&empty($zx_start)&&empty($yy_start)&&empty($arrive_start)&&empty($last_huifang_start)&&empty($next_huifang_start)){
@@ -311,23 +275,21 @@ class ZxCustomerController extends Controller
             'pageheader'=>'患者',
             'pagedescription'=>'列表',
             'customers'=>$customers,
-            'users'=>$this->getAllUserArray(),
-            'offices'=>$this->getAllModelArray('offices'),
-            'diseases'=>$this->getAllModelArray('diseases'),
-            'webtypes'=>$this->getAllModelArray('web_types'),
-            'medias'=>$this->getAllModelArray('medias'),
-            'customertypes'=>$this->getAllModelArray('customer_types'),
-            'customerconditions'=>$this->getAllModelArray('customer_conditions'),
-
+            'users'=>Aiden::getAllUserArray(),
+            'offices'=>Aiden::getAllModelArray('offices'),
+            'diseases'=>Aiden::getAllModelArray('diseases'),
+            'webtypes'=>Aiden::getAllModelArray('web_types'),
+            'medias'=>Aiden::getAllModelArray('medias'),
+            'customertypes'=>Aiden::getAllModelArray('customer_types'),
+            'customerconditions'=>Aiden::getAllModelArray('customer_conditions'),
             'enableRead'=>Auth::user()->hasPermission('read-zx_customers'),
             'enableUpdate'=>Auth::user()->hasPermission('update-zx_customers'),
             'enableDelete'=>Auth::user()->hasPermission('delete-zx_customers'),
             'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
         ]);
     }
-
+    //咨询明细
 	public function summary() {
-		//咨询明细
 		$user=Auth::user();
 		$data=[];
 		if (!empty($user->offices)){
@@ -413,9 +375,6 @@ class ZxCustomerController extends Controller
 		]);
     }
 
-	public function summarySearch(Request $request) {
-		dd($request->all());
-    }
     //所有咨询员
 	private function getAllZxUser(){
     	return User::where('department_id',2)->get();
