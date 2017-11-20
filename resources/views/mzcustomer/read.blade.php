@@ -102,6 +102,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @if(!empty($customers))
                     @foreach($customers as $customer)
                         <tr id="customer-{{$customer->id}}">
                             <td>{{$customer->id}}</td>
@@ -134,6 +135,7 @@
                             </td>
                         </tr>
                     @endforeach
+                    @endif
                     </tbody>
                 </table>
             </form>
