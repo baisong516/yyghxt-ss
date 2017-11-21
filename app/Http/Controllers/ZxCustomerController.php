@@ -294,6 +294,7 @@ class ZxCustomerController extends Controller
 		$data=[];
 		$start=Carbon::now()->startOfDay();
 		$end=Carbon::now()->endOfDay();
+		$cuser=$request->input('searchUserId');
 		if (!empty($request->input('summaryDateStart'))&&!empty($request->input('summaryDateEnd'))){
 		    $start=Carbon::createFromFormat('Y-m-d',$request->input('summaryDateStart'))->startOfDay();
 		    $end=Carbon::createFromFormat('Y-m-d',$request->input('summaryDateEnd'))->endOfDay();
@@ -301,7 +302,13 @@ class ZxCustomerController extends Controller
 		if (!empty($user->offices)){
 			foreach ($user->offices as $office){
 				//当前项目的咨询员
-				$zxUsers=$office->users()->where('department_id',2)->get();
+                $zxUsers=null;
+                if (empty($request->input('searchUserId'))){
+                    $zxUsers=$office->users()->where('department_id',2)->get();
+                }else{
+                    $zxUsers=$office->users()->where('department_id',2)->where('users.id',$request->input('searchUserId'))->get();
+                }
+
 				foreach ($zxUsers as $user){
 					$data[$user->id]['username']=$user->realname;
 					$data[$user->id]['data'][$office->id]['office']=$office->display_name;
@@ -380,6 +387,7 @@ class ZxCustomerController extends Controller
 			'data'=>$data,
             'start'=>$start,
             'end'=>$end,
+            'cuser'=>$cuser,
 		]);
     }
 
