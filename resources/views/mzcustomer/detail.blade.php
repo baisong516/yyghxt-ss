@@ -60,8 +60,8 @@
                 <tr>
                     <td style="width: 20%"><b>网站类型</b></td>
                     <td style="width: 80%">
-                        @if(!empty($customer->webtype_id)&&\App\Webtype::find($customer->webtype_id))
-                            {{\App\Webtype::find($customer->webtype_id)->display_name}}
+                        @if(!empty($customer->webtype_id)&&\App\WebType::find($customer->webtype_id))
+                            {{\App\WebType::find($customer->webtype_id)->display_name}}
                         @endif
                     </td>
                 </tr>
