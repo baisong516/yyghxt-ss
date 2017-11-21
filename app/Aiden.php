@@ -67,4 +67,15 @@ class Aiden extends Model
         return Doctor::whereIn('office_id',array_keys(static::getAuthdOffices()));
 
     }
+
+    public static function getAllZxUserArray()
+    {
+        $users=[];
+        foreach (Auth::user()->offices as $office){
+            foreach ($office->users()->where('users.department_id',2)->get() as $user){
+                $users[$user->id]=$user->realname;
+            }
+        }
+        return $users;
+    }
 }

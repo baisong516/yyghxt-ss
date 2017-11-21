@@ -84,7 +84,7 @@
                     <label for="searchUserId">咨询员：</label>
                     <select name="searchUserId" id="searchUserId" class="form-control">
                         <option value="">--咨询员--</option>
-                        @foreach($users as $k=>$user)
+                        @foreach($zxusers as $k=>$user)
                             <option value="{{$k}}">{{$user}}</option>
                         @endforeach
                     </select>
