@@ -22,7 +22,7 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="http://yygh.oss-cn-shenzhen.aliyuncs.com/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         //data item
         lay('.item-date').each(function(){

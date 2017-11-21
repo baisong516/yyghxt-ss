@@ -209,7 +209,7 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="http://yygh.oss-cn-shenzhen.aliyuncs.com/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         lay('.date-item').each(function(){
             laydate.render({
