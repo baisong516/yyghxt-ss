@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('zxcustomersearch','ZxCustomerController@customerSearch')->name('zxcustomers.search');
         Route::resource('huifangs','HuifangController');
 	    Route::get('summaries','ZxCustomerController@summary')->name('summaries.index');
-	    Route::post('summaries','ZxCustomerController@summarySearch')->name('summaries.search');
+	    Route::post('summaries','ZxCustomerController@summary')->name('summaries.search');
     });
     //门诊
     Route::group(['prefix' => 'mz'],function(){

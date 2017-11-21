@@ -289,9 +289,15 @@ class ZxCustomerController extends Controller
         ]);
     }
     //咨询明细
-	public function summary() {
+	public function summary(Request $request) {
 		$user=Auth::user();
 		$data=[];
+		$start=Carbon::now()->startOfDay();
+		$end=Carbon::now()->endOfDay();
+		if (!empty($request->input('summaryDateStart'))&&!empty($request->input('summaryDateEnd'))){
+		    $start=Carbon::createFromFormat('Y-m-d',$request->input('summaryDateStart'))->startOfDay();
+		    $end=Carbon::createFromFormat('Y-m-d',$request->input('summaryDateEnd'))->endOfDay();
+        }
 		if (!empty($user->offices)){
 			foreach ($user->offices as $office){
 				//当前项目的咨询员
@@ -299,41 +305,41 @@ class ZxCustomerController extends Controller
 				foreach ($zxUsers as $user){
 					$data[$user->id]['username']=$user->realname;
 					$data[$user->id]['data'][$office->id]['office']=$office->display_name;
-					//今日咨询量
+					//咨询量
 					$data[$user->id]['data'][$office->id]['zixun_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
-						['zixun_at','>=',Carbon::now()->startOfDay()],
-						['zixun_at','<=',Carbon::now()->endOfDay()],
+						['zixun_at','>=',$start],
+						['zixun_at','<=',$end],
 					])->count();
-					//今日预约量
+					//预约量
 					$data[$user->id]['data'][$office->id]['yuyue_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
-						['created_at','>=',Carbon::now()->startOfDay()],
-						['created_at','<=',Carbon::now()->endOfDay()],
+						['created_at','>=',$start],
+						['created_at','<=',$end],
 					])->whereNotNull('yuyue_at')->count();
-					//今日留联系量
+					//留联系量
 					$data[$user->id]['data'][$office->id]['contact_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
-						['zixun_at','>=',Carbon::now()->startOfDay()],
-						['zixun_at','<=',Carbon::now()->endOfDay()],
+						['zixun_at','>=',$start],
+						['zixun_at','<=',$end],
 					])->Where(function ($query){
 						$query->where('tel', '<>', '')
 						      ->orWhere('qq', '<>', '')
 						      ->orWhere('wechat','<>','');
 					})->count();
-					//今日到院量
+					//到院量
 					$data[$user->id]['data'][$office->id]['arrive_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
-						['arrive_at','>=',Carbon::now()->startOfDay()],
-						['arrive_at','<=',Carbon::now()->endOfDay()],
+						['arrive_at','>=',$start],
+						['arrive_at','<=',$end],
 					])->count();
-					//今日应到院量
+					//应到院量
 					$data[$user->id]['data'][$office->id]['should_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
-						['yuyue_at','>=',Carbon::now()->startOfDay()],
-						['yuyue_at','<=',Carbon::now()->endOfDay()],
+						['yuyue_at','>=',$start],
+						['yuyue_at','<=',$end],
 					])->count();
-					//今日就诊量
+					//就诊量
 					// customer_condition_id
 					//1 就诊 2，预约 3，到院 4，
 					$data[$user->id]['data'][$office->id]['jiuzhen_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
-						['arrive_at','>=',Carbon::now()->startOfDay()],
-						['arrive_at','<=',Carbon::now()->endOfDay()],
+						['arrive_at','>=',$start],
+						['arrive_at','<=',$end],
 					])->where('customer_condition_id',1)->count();
 					//预约率
 					$data[$user->id]['data'][$office->id]['yuyue_rate']=$data[$user->id]['data'][$office->id]['zixun_count']>0?sprintf("%.2f",$data[$user->id]['data'][$office->id]['yuyue_count']*100.00/$data[$user->id]['data'][$office->id]['zixun_count'])."%":'0.00%';
@@ -372,6 +378,8 @@ class ZxCustomerController extends Controller
 			'pagedescription'=>'列表',
 			'zxUsers'=>$this->getAllZxUser(),
 			'data'=>$data,
+            'start'=>$start,
+            'end'=>$end,
 		]);
     }
 

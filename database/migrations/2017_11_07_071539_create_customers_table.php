@@ -22,7 +22,7 @@ class CreateCustomersTable extends Migration
             $table->string('tel')->nullable();
             $table->string('qq')->nullable();
             $table->string('wechat')->nullable();
-            $table->unsignedInteger('idcard')->nullable()->comment('商务通身份id');
+            $table->string('idcard')->nullable()->comment('商务通身份id');
             $table->string('keywords')->nullable()->comment('搜索关键词');
             $table->string('city')->nullable()->comment('地区');
             $table->unsignedInteger('media_id')->nullable()->comment('媒体来源');

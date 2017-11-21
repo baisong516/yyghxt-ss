@@ -14,9 +14,9 @@
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="summaryDate">日期：</label>
-                    <input type="text" class="form-control date-item" name="summaryDateStart" id="summaryDateStart" value="{{\Carbon\Carbon::now()->toDateString()}}">
+                    <input type="text" class="form-control date-item" name="summaryDateStart" id="summaryDateStart" value="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()}}">
                     到
-                    <input type="text" class="form-control date-item" name="summaryDateEnd" id="summaryDateEnd" value="{{\Carbon\Carbon::now()->toDateString()}}">
+                    <input type="text" class="form-control date-item" name="summaryDateEnd" id="summaryDateEnd" value="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString()}}">
                 </div>
                 <div class="form-group">
                     <label for="searchUserId">咨询员：</label>
