@@ -128,7 +128,7 @@
     <footer class="main-footer">
         {{--To the right--}}
         <div class="pull-right hidden-xs">
-            Bata 1.1
+            {{config('yyxt.version')}}
         </div>
         {{--Default to the left--}}
         <strong>Copyright &copy; 2017 <a href="#">SSYL</a>.</strong> All rights reserved. <a href="tencent://message/?uin=1098003693&Site=qq&Menu=yes">1098003693</a>

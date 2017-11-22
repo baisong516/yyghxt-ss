@@ -2,7 +2,7 @@
 return [
     'web_name'=>'预约管理系统',
     'short_name'=>'SSYL',
-    'version'=>'v1',
+    'version'=>'V1.0',
     'res'=>[
         //cdn资源
         'font_awesome'=>'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css',
