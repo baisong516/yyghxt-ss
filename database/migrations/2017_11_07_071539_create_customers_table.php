@@ -61,8 +61,9 @@ class CreateCustomersTable extends Migration
             $table->integer('gh_age')->nullable();
             $table->string('gh_sex')->nullable();
             $table->string('gh_tel')->nullable();
-            $table->string('gh_from')->nullable()->comment('网页来源');
+            $table->string('gh_ref')->nullable()->comment('网页来源');
             $table->text('gh_description')->nullable()->comment('病情描述');
+            $table->text('addons')->nullable()->comment('备注');
             $table->timestamp('gh_date')->nullable()->comment('预约时间');
             $table->unsignedInteger('gh_office')->nullable()->comment('科室');
             $table->timestamps();

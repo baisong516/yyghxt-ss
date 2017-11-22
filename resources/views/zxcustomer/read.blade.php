@@ -315,7 +315,7 @@
                                 <div class="col-sm-10">
                                     <select name="next_user_id" id="next_user_id" class="form-control">
                                         <option value="" selected="selected">--选择--</option>
-                                        @foreach($users as $k=>$user)
+                                        @foreach($zxusers as $k=>$user)
                                             <option value="{{$k}}">{{$user}}</option>
                                         @endforeach
                                     </select>

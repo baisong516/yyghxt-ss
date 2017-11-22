@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\GhCustomer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class GhCustomerController extends Controller
 {
@@ -14,7 +16,15 @@ class GhCustomerController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'read-zx_customers')){
+            return view('zxcustomer.read',[
+                'pageheader'=>'挂号',
+                'pagedescription'=>'列表',
+                'customers'=>GhCustomer::getCustomers(),
+                'enableDelete'=>Auth::user()->hasPermission('delete-gh_customers'),
+            ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**

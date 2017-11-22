@@ -25,6 +25,7 @@
                     <th>登录id</th>
                     <th>姓名</th>
                     <th>部门</th>
+                    <th>账户状态</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -35,6 +36,13 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->realname}}</td>
                         <td>{{$user->department_id?$user->department->display_name:''}}</td>
+                        <td>
+                            @if($user->is_active==1)
+                                <span class="label label-success">正常</span>
+                            @else
+                                <span class="label label-danger">失效</span>
+                            @endif
+                        </td>
                         <td>
                             @if($enableUpdate)
                                 <a href="{{route('users.edit',$user->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
