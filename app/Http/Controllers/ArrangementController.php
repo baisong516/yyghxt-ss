@@ -167,9 +167,9 @@ class ArrangementController extends Controller
     //获取用于排班的人
 	private function getArrangeUsers() {
 		$users=null;
-		foreach (Department::all() as $department){
+		foreach (Department::whereIn('id',[1,2])->get() as $department){
 			$users[$department->id]['department']=$department->display_name;
-			foreach (User::select('id','realname','department_id')->with('offices')->get() as $user){
+			foreach (User::select('id','realname','department_id')->where('is_active',1)->with('offices')->get() as $user){
 				if ($user->department_id&&$user->department_id==$department->id){
 					$users[$department->id]['users'][]=$user;
 				}

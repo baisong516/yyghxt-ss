@@ -143,7 +143,7 @@
         <div class="col-sm-10">
             <select name="trans_user_id" id="trans-user" class="form-control">
                 <option value="" selected>--选择--</option>
-                @foreach($users as $k=>$v)
+                @foreach($activeUsers as $k=>$v)
                     <option value="{{$k}}" {{old('trans_user_id')==$k?'selected':''}} {{isset($customer)&&$customer->trans_user_id==$k?'selected':''}}>{{$v}}</option>
                 @endforeach
             </select>

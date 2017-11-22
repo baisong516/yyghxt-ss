@@ -23,7 +23,7 @@
             @endability
 
             {{--个人资料--}}
-            {{--<li class="{{Request::is('sys/profiles*')?'active':''}}"><a href="{{route('profiles.edit',Auth::user()->id)}}"><i class="fa fa-user"></i><span>个人资料</span></a></li>--}}
+            <li class="{{Request::is('sys/profiles*')?'active':''}}"><a href="{{route('profiles.edit',Auth::user()->id)}}"><i class="fa fa-user"></i><span>个人资料</span></a></li>
         </ul>
     </li>
     {{-- 系统配置 仅限系统管理员和超级管理员--}}

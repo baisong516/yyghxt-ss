@@ -20,6 +20,15 @@ class Aiden extends Model
         }
         return $users;
     }
+    public static function getAllActiveUserArray()
+    {
+        $obj=User::select('id','realname')->whereIn('department_id',[1,2])->where('is_active',1)->get();
+        $users=[];
+        foreach ($obj as $user){
+            $users[$user->id]=$user->realname;
+        }
+        return $users;
+    }
 
     /*
      * return 对应表的id和名称组成的一维数组
@@ -72,7 +81,7 @@ class Aiden extends Model
     {
         $users=[];
         foreach (Auth::user()->offices as $office){
-            foreach ($office->users()->where('users.department_id',2)->get() as $user){
+            foreach ($office->users()->where('users.department_id',2)->where('users.is_active',1)->get() as $user){
                 $users[$user->id]=$user->realname;
             }
         }

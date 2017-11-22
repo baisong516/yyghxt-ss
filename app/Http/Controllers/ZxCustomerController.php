@@ -63,6 +63,7 @@ class ZxCustomerController extends Controller
                 'pageheader'=>'患者',
                 'pagedescription'=>'添加',
                 'users'=>Aiden::getAllUserArray(),
+                'activeUsers'=>Aiden::getAllActiveUserArray(),
                 'offices'=>Aiden::getAuthdOffices(),
                 'diseases'=>Aiden::getAuthdDiseases(),
                 'doctors'=>Aiden::getAuthdDoctors(),
@@ -124,6 +125,7 @@ class ZxCustomerController extends Controller
                 'pageheader'=>'患者',
                 'pagedescription'=>'更新',
                 'users'=>Aiden::getAllUserArray(),
+                'activeUsers'=>Aiden::getAllActiveUserArray(),
                 'offices'=>Aiden::getAuthdOffices(),
                 'diseases'=>Aiden::getAuthdDiseases(),
                 'doctors'=>Aiden::getAuthdDoctors(),
@@ -306,7 +308,7 @@ class ZxCustomerController extends Controller
 				//当前项目的咨询员
                 $zxUsers=null;
                 if (empty($request->input('searchUserId'))){
-                    $zxUsers=$office->users()->where('department_id',2)->get();
+                    $zxUsers=$office->users()->where('department_id',2)->where('is_active',1)->get();
                 }else{
                     $zxUsers=$office->users()->where('department_id',2)->where('users.id',$request->input('searchUserId'))->get();
                 }
@@ -395,6 +397,6 @@ class ZxCustomerController extends Controller
 
     //所有咨询员
 	private function getAllZxUser(){
-    	return User::where('department_id',2)->get();
+    	return User::where('department_id',2)->where('is_active',1)->get();
 	}
 }

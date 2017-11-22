@@ -31,8 +31,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('departments','DepartmentController');
     });
     //个人资料
-//    Route::get('/sys/profiles/{user}','ProfileController@edit')->name('profiles.edit');
-//    Route::put('/sys/profiles/{user}','ProfileController@update')->name('profiles.update');
+    Route::get('/sys/profiles/{user}','ProfileController@edit')->name('profiles.edit');
+    Route::put('/sys/profiles/{user}','ProfileController@update')->name('profiles.update');
     //系统设置（医院 科室 医生 媒体设置）
     Route::group(['prefix' => 'sysconf'],function(){
         Route::resource('hospitals','HospitalController');

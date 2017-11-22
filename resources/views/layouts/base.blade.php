@@ -76,7 +76,7 @@
                             {{--Menu Footer--}}
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">个人设置</a>
+                                    <a href="{{route('profiles.edit',Auth::user()->id)}}" class="btn btn-default btn-flat">个人设置</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="javascript:;" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">退出</a>
