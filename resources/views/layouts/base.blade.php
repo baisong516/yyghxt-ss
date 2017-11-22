@@ -131,7 +131,7 @@
             {{config('yyxt.version')}}
         </div>
         {{--Default to the left--}}
-        <strong>Copyright &copy; 2017 <a href="#">SSYL</a>.</strong> All rights reserved. <a href="tencent://message/?uin=1098003693&Site=qq&Menu=yes">1098003693</a>
+        <strong>Copyright &copy; 2017 <a href="#">{{config('yyxt.short_name')}}</a>.</strong> All rights reserved. <a href="tencent://message/?uin=1098003693&Site=qq&Menu=yes">1098003693</a>
     </footer>
 
 
