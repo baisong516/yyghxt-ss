@@ -1,7 +1,7 @@
 <?php
 return [
-    'web_name'=>'预约管理系统',
-    'short_name'=>'SSYL',
+    'web_name'=>'预约管理',
+    'short_name'=>'SASU',
     'version'=>'V1.0',
     'res'=>[
         //cdn资源
@@ -11,7 +11,7 @@ return [
         'jquery'=>'https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js',
         'admin_css'=>'https://cdn.bootcss.com/admin-lte/2.4.2/css/AdminLTE.min.css',
         'admin_js'=>'https://cdn.bootcss.com/admin-lte/2.4.2/js/adminlte.min.js',
-        //皮肤
+        //主题皮肤
         'admin_skin'=>'https://cdn.bootcss.com/admin-lte/2.4.2/css/skins/skin-green.min.css',
         'app_skin'=>'skin-green',
         //兼容
