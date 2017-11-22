@@ -19,7 +19,7 @@ return [
             'medias' => 'c,r,u,d',
             'huifangs' => 'c,r,u,d',
             'arrangements' => 'c,r,u,d',
-            'profile' => 'r,u'
+            'profiles' => 'r,u'
         ],
         'administrator' => [
             'users' => 'c,r,u,d',

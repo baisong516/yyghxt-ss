@@ -36,6 +36,27 @@
         });
         //咨询内容编辑器
         CKEDITOR.replace( 'description' );
+        //change offices on hospital change
+        $("#office").on('change',function(){
+            var officeId=$(this).val();
+            $.ajax({
+                url: '/api/get-diseases-from-office',
+                type: "post",
+                data: {'office_id':officeId,'_token': $('input[name=_token]').val()},
+                success: function(data){
+                    $("#disease").empty();
+                    if(data.status){
+                        var html='';
+                        html += "<optgroup label=\""+data.data['name']+"\">";
+                        for (var i=0;i<data.data['diseases'].length;i++){
+                            html += "<option value=\""+data.data['diseases'][i].id+"\">"+data.data['diseases'][i].display_name+"</option>";
+                        }
+                        html += "</optgroup>";
+                        $("#disease").append(html);
+                    }
+                }
+            });
+        });
     </script>
 @endsection
 

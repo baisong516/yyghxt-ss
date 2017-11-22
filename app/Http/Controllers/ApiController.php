@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Disease;
 use App\Hospital;
 use App\Huifang;
 use App\Office;
@@ -69,6 +70,26 @@ class ApiController extends Controller
             'status'=>$status,
             'customer'=>ZxCustomer::findOrFail($customerId)->name,
             'customer_id'=>$customerId,
+            'data'=>$data,
+        ]);
+    }
+
+    public function getDiseasesFromOffice(Request $request)
+    {
+        $officeId=$request->input('office_id');
+        $diseases = Disease::where('office_id',$officeId)->get();
+        $data=[];
+        $status=0;
+        foreach ($diseases as $disease){
+            $data['name']=Office::findOrFail($officeId)->display_name;
+            $data['diseases'][]=[
+                'id'=>$disease->id,
+                'display_name'=>$disease->display_name,
+            ];
+        }
+        if (!empty($data)){$status=1;}
+        return response()->json([
+            'status'=>$status,
             'data'=>$data,
         ]);
     }
