@@ -21,6 +21,7 @@ class ZxCustomer extends Model
         $customer->idcard=$request->input('idcard');
         $customer->keywords=$request->input('keywords');
         $customer->description=$request->input('description');
+        $customer->user_id=Auth::user()->id;
         $customer->office_id=$request->input('office_id');
         $customer->disease_id=$request->input('disease_id');
         $customer->doctor_id=$request->input('doctor_id');
