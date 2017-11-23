@@ -33,7 +33,7 @@
         <div class="box-body table-responsive no-padding">
             <table class="table table-hover">
                 <tbody>
-                    <tr>
+                    <tr class="bg-info">
                         <th>咨询员</th>
                         <th>咨询量</th>
                         <th>预约量</th>
@@ -105,6 +105,63 @@
                         </td>
                     </tr>
                     @endforeach
+                    <tr class="bg-info">
+                        <td>
+                            <a class="btn btn-xs btn-default collapsed" data-toggle="collapse" data-target="#grid-collapse-total" aria-expanded="false">
+                                <i class="fa fa-caret-right"></i> 合计
+                            </a>
+                        </td>
+                        <td>{{$datatotal['zixun_count']}}</td>
+                        <td>{{$datatotal['yuyue_count']}}</td>
+                        <td>{{$datatotal['contact_count']}}</td>
+                        <td>{{$datatotal['should_count']}}</td>
+                        <td>{{$datatotal['arrive_count']}}</td>
+                        <td>{{$datatotal['jiuzhen_count']}}</td>
+                        <td>{{$datatotal['yuyue_rate']}}</td>
+                        <td>{{$datatotal['contact_rate']}}</td>
+                        <td>{{$datatotal['arrive_rate']}}</td>
+                        <td>{{$datatotal['jiuzhen_rate']}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="11" style="padding:0 !important; border:0px;">
+                            <div id="grid-collapse-total" class="collapse" aria-expanded="false" style="height: 0px;">
+                                <table class="table">
+                                    <tr>
+                                        <th></th>
+                                        <th>项目</th>
+                                        <th>咨询量</th>
+                                        <th>预约量</th>
+                                        <th>留联系</th>
+                                        <th>应到院</th>
+                                        <th>到院量</th>
+                                        <th>就诊量</th>
+                                        <th>预约率</th>
+                                        <th>留联率</th>
+                                        <th>到院率</th>
+                                        <th>就诊率</th>
+                                    </tr>
+                                    <tbody>
+                                    @foreach($datatotal['items'] as $d)
+                                        <tr>
+                                            <td></td>
+                                            <td>{{$d['office']}}</td>
+                                            <td>{{$d['data']['zixun_count']}}</td>
+                                            <td>{{$d['data']['yuyue_count']}}</td>
+                                            <td>{{$d['data']['contact_count']}}</td>
+                                            <td>{{$d['data']['should_count']}}</td>
+                                            <td>{{$d['data']['arrive_count']}}</td>
+                                            <td>{{$d['data']['jiuzhen_count']}}</td>
+                                            <td>{{$d['data']['yuyue_rate']}}</td>
+                                            <td>{{$d['data']['contact_rate']}}</td>
+                                            <td>{{$d['data']['arrive_rate']}}</td>
+                                            <td>{{$d['data']['jiuzhen_rate']}}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

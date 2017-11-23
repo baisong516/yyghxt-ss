@@ -296,6 +296,7 @@ class ZxCustomerController extends Controller
 	public function summary(Request $request) {
 		$user=Auth::user();
 		$data=[];
+		$total=[];
 		$start=Carbon::now()->startOfDay();
 		$end=Carbon::now()->endOfDay();
 		$cuser=$request->input('searchUserId');
@@ -305,6 +306,16 @@ class ZxCustomerController extends Controller
         }
 		if (!empty($user->offices)){
 			foreach ($user->offices as $office){
+			    //项目统计
+			    $total[$office->id]['office']=$office->display_name;
+                $total[$office->id]['data']=[
+                    'zixun_count'=>0,
+                    'contact_count'=>0,
+                    'yuyue_count'=>0,
+                    'arrive_count'=>0,
+                    'should_count'=>0,
+                    'jiuzhen_count'=>0,
+                ];
 				//当前项目的咨询员
                 $zxUsers=null;
                 if (empty($request->input('searchUserId'))){
@@ -314,6 +325,7 @@ class ZxCustomerController extends Controller
                 }
 
 				foreach ($zxUsers as $user){
+                    //咨询员咨询统计
 					$data[$user->id]['username']=$user->realname;
 					$data[$user->id]['data'][$office->id]['office']=$office->display_name;
 					//咨询量
@@ -321,11 +333,13 @@ class ZxCustomerController extends Controller
 						['zixun_at','>=',$start],
 						['zixun_at','<=',$end],
 					])->count();
+                    $total[$office->id]['data']['zixun_count']+=$data[$user->id]['data'][$office->id]['zixun_count'];
 					//预约量
 					$data[$user->id]['data'][$office->id]['yuyue_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
 						['created_at','>=',$start],
 						['created_at','<=',$end],
 					])->whereNotNull('yuyue_at')->count();
+                    $total[$office->id]['data']['yuyue_count']+=$data[$user->id]['data'][$office->id]['yuyue_count'];
 					//留联系量
 					$data[$user->id]['data'][$office->id]['contact_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
 						['zixun_at','>=',$start],
@@ -335,16 +349,19 @@ class ZxCustomerController extends Controller
 						      ->orWhere('qq', '<>', '')
 						      ->orWhere('wechat','<>','');
 					})->count();
+                    $total[$office->id]['data']['contact_count']+=$data[$user->id]['data'][$office->id]['contact_count'];
 					//到院量
 					$data[$user->id]['data'][$office->id]['arrive_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
 						['arrive_at','>=',$start],
 						['arrive_at','<=',$end],
 					])->count();
+                    $total[$office->id]['data']['arrive_count']+=$data[$user->id]['data'][$office->id]['arrive_count'];
 					//应到院量
 					$data[$user->id]['data'][$office->id]['should_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
 						['yuyue_at','>=',$start],
 						['yuyue_at','<=',$end],
 					])->count();
+                    $total[$office->id]['data']['should_count']+=$data[$user->id]['data'][$office->id]['should_count'];
 					//就诊量
 					// customer_condition_id
 					//1 就诊 2，预约 3，到院 4，
@@ -352,6 +369,7 @@ class ZxCustomerController extends Controller
 						['arrive_at','>=',$start],
 						['arrive_at','<=',$end],
 					])->where('customer_condition_id',1)->count();
+                    $total[$office->id]['data']['jiuzhen_count']+=$data[$user->id]['data'][$office->id]['jiuzhen_count'];
 					//预约率
 					$data[$user->id]['data'][$office->id]['yuyue_rate']=$data[$user->id]['data'][$office->id]['zixun_count']>0?sprintf("%.2f",$data[$user->id]['data'][$office->id]['yuyue_count']*100.00/$data[$user->id]['data'][$office->id]['zixun_count'])."%":'0.00%';
 					//留联率
@@ -361,8 +379,34 @@ class ZxCustomerController extends Controller
 					//就诊率
 					$data[$user->id]['data'][$office->id]['jiuzhen_rate']=$data[$user->id]['data'][$office->id]['arrive_count']>0?sprintf("%.2f",$data[$user->id]['data'][$office->id]['jiuzhen_count']*100.00/$data[$user->id]['data'][$office->id]['arrive_count'])."%":'0.00%';
 				}
+                $total[$office->id]['data']['yuyue_rate']=$total[$office->id]['data']['zixun_count']>0?sprintf('%.2f',$total[$office->id]['data']['yuyue_count']*100.00/$total[$office->id]['data']['zixun_count']).'%':'0.00%';
+                $total[$office->id]['data']['contact_rate']=$total[$office->id]['data']['zixun_count']>0?sprintf('%.2f',$total[$office->id]['data']['contact_count']*100.00/$total[$office->id]['data']['zixun_count']).'%':'0.00%';
+                $total[$office->id]['data']['arrive_rate']=$total[$office->id]['data']['should_count']>0?sprintf('%.2f',$total[$office->id]['data']['arrive_count']*100.00/$total[$office->id]['data']['should_count']).'%':'0.00%';
+                $total[$office->id]['data']['jiuzhen_rate']=$total[$office->id]['data']['arrive_count']>0?sprintf('%.2f',$total[$office->id]['data']['jiuzhen_count']*100.00/$total[$office->id]['data']['arrive_count']).'%':'0.00%';
 			}
 		}
+		//项目合计
+		$datatotal=[];
+		$datatotal['items']=$total;
+        $datatotal['zixun_count']=0;
+        $datatotal['yuyue_count']=0;
+        $datatotal['contact_count']=0;
+        $datatotal['arrive_count']=0;
+        $datatotal['should_count']=0;
+        $datatotal['jiuzhen_count']=0;
+		foreach ($total as $d){
+            $datatotal['zixun_count']+=$d['data']['zixun_count'];
+            $datatotal['yuyue_count']+=$d['data']['yuyue_count'];
+            $datatotal['contact_count']+=$d['data']['contact_count'];
+            $datatotal['arrive_count']+=$d['data']['arrive_count'];
+            $datatotal['should_count']+=$d['data']['should_count'];
+            $datatotal['jiuzhen_count']+=$d['data']['jiuzhen_count'];
+        }
+        $datatotal['yuyue_rate']=$datatotal['zixun_count']>0?sprintf('%.2f',$datatotal['yuyue_count']*100.00/$datatotal['zixun_count']).'%':'0.00%';
+        $datatotal['contact_rate']=$datatotal['zixun_count']>0?sprintf('%.2f',$datatotal['contact_count']*100.00/$datatotal['zixun_count']).'%':'0.00%';
+        $datatotal['arrive_rate']=$datatotal['should_count']>0?sprintf('%.2f',$datatotal['arrive_count']*100.00/$datatotal['should_count']).'%':'0.00%';
+        $datatotal['jiuzhen_rate']=$datatotal['arrive_count']>0?sprintf('%.2f',$datatotal['jiuzhen_count']*100.00/$datatotal['arrive_count']).'%':'0.00%';
+//        dd($datatotal);
 		//同咨询员项目合并
 		foreach ($data as $k=>$d){
 			$data[$k]['summary']['zixun_count']=0;
@@ -392,6 +436,7 @@ class ZxCustomerController extends Controller
             'start'=>$start,
             'end'=>$end,
             'cuser'=>$cuser,
+            'datatotal'=>$datatotal,
 		]);
     }
 
