@@ -185,7 +185,7 @@
                             <td>{{$customer->trans_user_id?$users[$customer->trans_user_id]:''}}</td>
                             {{--咨询员--}}
                             <td>{{$customer->user_id?$users[$customer->user_id]:''}}</td>
-                            <td>{{$customer->zixun_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->zixun_at)->toDateString():''}}</td>
+                            <td>{{$customer->zixun_at?$customer->zixun_at:''}}</td>
                             <td>{{$customer->yuyue_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->yuyue_at)->toDateString():''}}</td>
                             <td>{{$customer->arrive_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->arrive_at)->toDateString():''}}</td>
 

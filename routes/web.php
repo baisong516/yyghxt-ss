@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('huifangs','HuifangController');
 	    Route::get('summaries','ZxCustomerController@summary')->name('summaries.index');
 	    Route::post('summaries','ZxCustomerController@summary')->name('summaries.search');
+	    Route::get('exportexcel','ExcelController@index')->name('excel.create');
+	    Route::post('exportexcel','ExcelController@exportExcel')->name('excel.export');
     });
     //门诊
     Route::group(['prefix' => 'mz'],function(){
