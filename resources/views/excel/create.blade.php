@@ -13,12 +13,19 @@
     </div>
 @endsection
 @section('javascript')
+    <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         $("#select-all").click(function () {
             $("#option-form :checkbox").prop('checked',true);
         });
         $("#unselect-all").click(function () {
             $("#option-form :checkbox").removeAttr('checked');
+        });
+        lay('.date-item').each(function(){
+            laydate.render({
+                elem: this
+                ,trigger: 'click'
+            });
         });
     </script>
 @endsection

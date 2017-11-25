@@ -1,4 +1,16 @@
 <div class="box-body">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">开始时间</label>
+        <div class="col-sm-10">
+                <input type="text" class="form-control date-item" name="zxStart" id="zxStart">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">结束时间</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control date-item" name="zxEnd" id="zxEnd">
+        </div>
+    </div>
     @foreach($options as $o=>$option)
     <div class="form-group">
         <label class="col-sm-2 control-label">{{$option['name']}}</label>
@@ -11,6 +23,11 @@
         </div>
     </div>
     @endforeach
+    <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-2">
+            <p class="text-warning"><span class="text-danger">说明：</span>开始与结束时间以咨询时间为基线，留空则无时间限制，将导出全部数据！</p>
+        </div>
+    </div>
 </div>
 <div class="box-footer">
     <div class="form-group">

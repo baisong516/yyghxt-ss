@@ -19,7 +19,8 @@ return [
             'medias' => 'c,r,u,d',
             'huifangs' => 'c,r,u,d',
             'arrangements' => 'c,r,u,d',
-            'profiles' => 'r,u'
+            'profiles' => 'r,u',
+            'zx_excels'=>'c'
         ],
         'administrator' => [
             'users' => 'c,r,u,d',
