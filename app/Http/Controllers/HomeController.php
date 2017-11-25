@@ -102,6 +102,8 @@ class HomeController extends Controller
 			    ])->count();
 			    //预约量
 			    $data[$office->id]['yuyue_count']=ZxCustomer::where('office_id',$office->id)->where([
+                    ['zixun_at','>=',$start],
+                    ['zixun_at','<=',$end],
 				    ['created_at','>=',$start],
 				    ['created_at','<=',$end],
 			    ])->whereNotNull('yuyue_at')->count();
