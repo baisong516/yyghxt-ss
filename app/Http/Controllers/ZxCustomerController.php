@@ -336,6 +336,8 @@ class ZxCustomerController extends Controller
                     $total[$office->id]['data']['zixun_count']+=$data[$user->id]['data'][$office->id]['zixun_count'];
 					//预约量
 					$data[$user->id]['data'][$office->id]['yuyue_count']=ZxCustomer::where('office_id',$office->id)->where('user_id',$user->id)->where([
+                        ['zixun_at','>=',$start],
+                        ['zixun_at','<=',$end],
 						['created_at','>=',$start],
 						['created_at','<=',$end],
 					])->whereNotNull('yuyue_at')->count();
