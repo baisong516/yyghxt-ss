@@ -153,7 +153,7 @@
     <div class="form-group {{empty($errors->first('zixun_at'))?'':'has-error'}}">
         <label for="zixuntime" class="col-sm-2 control-label">咨询时间</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control item-date" name="zixun_at"  id="zixuntime" value="{{isset($customer)?$customer->zixun_at:old('zixun_at')}}">
+            <input type="text" class="form-control item-date" name="zixun_at"  id="zixuntime" value="{{isset($customer)?$customer->zixun_at:\Carbon\Carbon::now()->toDateTimeString()}}">
         </div>
     </div>
 

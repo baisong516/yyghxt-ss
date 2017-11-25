@@ -30,7 +30,9 @@ class ExcelController extends Controller
             $options=$this->getOptions();
             $zxCustomerSelect=$request->input('zx_customers');
             $excel->sheet($options['zx_customers']['name'], function($sheet) use ($zxCustomerSelect,$options){
-                $customers=ZxCustomer::select($zxCustomerSelect)->whereIn('office_id',ZxCustomer::offices())->get()->toArray();
+                $zxCustomers=ZxCustomer::select($zxCustomerSelect)->whereIn('office_id',ZxCustomer::offices())->get()->toArray();
+//                dd()
+                $customers=[];
                 $sheet->fromArray($customers);
                 $columns=[];
                 foreach ($zxCustomerSelect as $v){
