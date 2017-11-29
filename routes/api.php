@@ -20,5 +20,8 @@ Route::group(['middleware'=>['api']],function(){
     Route::post('get-offices-from-hospital','ApiController@getOfficesFromHospital');
     Route::post('get-offices-from-hospitals','ApiController@getOfficesFromHospitals');
     Route::post('get-huifangs-from-customer','ApiController@getHuifangsFromCustomer');
+    Route::post('get-huifangs-from-ghcustomer','ApiController@getHuifangsFromGhCustomer');
     Route::post('get-diseases-from-office','ApiController@getDiseasesFromOffice');
+
+    Route::get('diseases','ApiController@getDiseaseArray');
 });

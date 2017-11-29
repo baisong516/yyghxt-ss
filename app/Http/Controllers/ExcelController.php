@@ -49,6 +49,7 @@ class ExcelController extends Controller
                 $offices=Aiden::getAllModelArray('offices');
                 $diseases=Aiden::getAllModelArray('diseases');
                 $customertypes=Aiden::getAllModelArray('customer_types');
+                $custconditions=Aiden::getAllModelArray('customer_conditions');
                 $users=Aiden::getAllUserArray();
                 $customers=[];
                 foreach ($zxCustomers as $customer){
@@ -62,18 +63,25 @@ class ExcelController extends Controller
                     $customer['media_id']=$customer['media_id']?$medias[$customer['media_id']]:'';
                     $customer['webtype_id']=$customer['webtype_id']?$webtypes[$customer['webtype_id']]:'';
                     $customer['customer_type_id']=$customer['customer_type_id']?$customertypes[$customer['customer_type_id']]:'';
+                    $customer['customer_condition_id']=$customer['customer_condition_id']?$custconditions[$customer['customer_condition_id']]:'';
                     $customer['office_id']=$customer['office_id']?$offices[$customer['office_id']]:'';
                     $customer['disease_id']=$customer['disease_id']?$diseases[$customer['disease_id']]:'';
                     $customer['user_id']=$customer['user_id']?$users[$customer['user_id']]:'';
                     $customers[]=$customer;
                 }
                 $sheet->fromArray($customers);
+//                $sheet->cells('A1:Z1', function($cells) {
+//                    $cells->setBackground('#66d7ea');
+//                });
                 //设置标题行
                 $columns=[];
                 foreach ($zxCustomerSelect as $v){
                     $columns[]=$options['zx_customers']['data'][$v];
                 }
                 $sheet->row(1, $columns);
+                //冻结第一行
+                $sheet->freezeFirstRow();
+                $sheet->setAutoFilter();
             });
         })->export('xls');
     }
@@ -93,6 +101,7 @@ class ExcelController extends Controller
             'keywords'=>'搜索关键字',
             'media_id'=>'媒体类型',
             'webtype_id'=>'网站类型',
+            'customer_condition_id'=>'患者状态',
             'customer_type_id'=>'患者类型',
             'office_id'=>'科室',
             'disease_id'=>'病种',

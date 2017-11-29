@@ -14,61 +14,24 @@
             </div>
         </div>
         <div class="box-body">
-            <form class="form-inline" action="{{route('zxcustomers.search')}}"  id="search-form" name="search-form" method="POST">
+            {{--<form class="form-inline" action="{{route('ghcustomers.search')}}"  id="search-form" name="search-form" method="POST">--}}
+            <form class="form-inline" action="#"  id="search-form" name="search-form" method="POST">
                 {{csrf_field()}}
                 <input type="hidden" name="quickSearch" value="">
                 <div class="form-group">
-                    <label for="searchCustomerName">姓名：</label>
-                    <input type="text" class="form-control" name="searchCustomerName" id="searchCustomerName" placeholder="姓名">
+                    <label for="ghName">姓名：</label>
+                    <input type="text" class="form-control" name="ghName" id="ghName" placeholder="姓名">
                 </div>
                 <div class="form-group">
-                    <label for="searchCustomerTel">电话：</label>
-                    <input type="text" class="form-control" name="searchCustomerTel" id="searchCustomerTel" placeholder="电话">
-                </div>
-                <div class="form-group">
-                    <label for="searchCustomerQQ">QQ：</label>
-                    <input type="text" class="form-control" name="searchCustomerQQ" id="searchCustomerQQ" placeholder="QQ">
-                </div>
-                <div class="form-group">
-                    <label for="searchCustomerWechat">微信：</label>
-                    <input type="text" class="form-control" name="searchCustomerWechat" id="searchCustomerWechat" placeholder="微信">
-                </div>
-                <div class="form-group">
-                    <label for="searchIdCard">商务通ID：</label>
-                    <input type="text" class="form-control" name="searchIdCard" id="searchIdCard" placeholder="商务通ID">
+                    <label for="ghTel">电话：</label>
+                    <input type="text" class="form-control" name="ghTel" id="ghTel" placeholder="电话">
                 </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <div class="form-group">
-                    <label for="searchZx">咨询时间：</label>
-                    <input type="text" class="form-control date-item" name="searchZxStart" id="searchZxStart">
+                    <label for="ghDate">预约时间：</label>
+                    <input type="text" class="form-control date-item" name="ghDateStart" id="searchYuyueStart">
                     到
-                    <input type="text" class="form-control date-item" name="searchZxEnd" id="searchZxEnd">
-                </div>
-                <div class="form-group">
-                    <label for="searchYuyue">预约时间：</label>
-                    <input type="text" class="form-control date-item" name="searchYuyueStart" id="searchYuyueStart">
-                    到
-                    <input type="text" class="form-control date-item" name="searchYuyueEnd" id="searchYuyueEnd">
-                </div>
-                <hr style="margin-top: 5px;margin-bottom: 5px;"/>
-                <div class="form-group">
-                    <label for="searchArrive">到院时间：</label>
-                    <input type="text" class="form-control date-item" name="searchArriveStart" id="searchArriveStart">
-                    到
-                    <input type="text" class="form-control date-item" name="searchArriveEnd" id="searchArriveEnd">
-                </div>
-                <div class="form-group">
-                    <label for="searchLastHuifang">最近回访时间：</label>
-                    <input type="text" class="form-control date-item" name="searchLastHuifangStart" id="searchLastHuifangStart">
-                    到
-                    <input type="text" class="form-control date-item" name="searchLastHuifangEnd" id="searchLastHuifangEnd">
-                </div>
-                <hr style="margin-top: 5px;margin-bottom: 5px;"/>
-                <div class="form-group">
-                    <label for="searchNextHuifang">下次回访时间：</label>
-                    <input type="text" class="form-control date-item" name="searchNextHuifangStart" id="searchNextHuifangStart">
-                    到
-                    <input type="text" class="form-control date-item" name="searchNextHuifangEnd" id="searchNextHuifangEnd">
+                    <input type="text" class="form-control date-item" name="ghDateEnd" id="searchYuyueEnd">
                 </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <div class="form-group">
@@ -77,15 +40,6 @@
                         <option value="">--科室--</option>
                         @foreach(Auth::user()->offices as $office)
                             <option value="{{$office->id}}">{{$office->display_name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="searchUserId">咨询员：</label>
-                    <select name="searchUserId" id="searchUserId" class="form-control">
-                        <option value="">--咨询员--</option>
-                        @foreach($zxusers as $k=>$user)
-                            <option value="{{$k}}">{{$user}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -103,24 +57,14 @@
         <div class="box-header">
             <h3 class="box-title">列表</h3>
             <div class="box-tools">
-                <div class="input-group input-group-sm pull-right" style="">
-                    @ability('superadministrator', 'create-zx_customers')
-                    <a href="{{route('zxcustomers.create')}}" class="btn-sm btn-success">新增</a>
-                    @endability
-                </div>
-                <div class="input-group input-group-sm pull-right" style="margin-right: 1rem;">
-                    <a href="javascript:;" class="btn-sm btn-info" id="todayarrive">今日应到院</a>
-                </div>
-                <div class="input-group input-group-sm pull-right" style="margin-right: 1rem;">
-                    <a href="javascript:;" class="btn-sm btn-info" id="todayhuifang">今日应回访</a>
-                </div>
+
             </div>
         </div>
         <div class="box-body">
-            <form action="" method="post" class="zxcustomers-form">
+            <form action="" method="post" class="ghcustomers-form">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
-                <table id="zxcustomers-list-table" class="table table-striped table-bordered text-center">
+                <table id="ghcustomers-list-table" class="table table-striped table-bordered text-center">
                     <thead>
                     <tr>
                         <th><i class="fa fa-level-down" aria-hidden="true"></i></th>
@@ -128,27 +72,16 @@
                         <th>年龄</th>
                         <th>性别</th>
                         <th>联系</th>
-                        <th>微信</th>
-                        <th>QQ</th>
-                        <th style="display: none;">id</th>
-                        <th>关键词</th>
-                        <th>城市</th>
                         <th>来源</th>
-                        <th>网站</th>
                         <th>科室</th>
                         <th>病种</th>
+                        <th>病情描述</th>
                         <th>状态</th>
-                        <th>商务通转电话</th>
-                        <th>咨询员</th>
-                        <th>咨询</th>
                         <th>预约</th>
-                        <th>到院</th>
-                        <th>最近回访</th>
+                        <th>最近回访日期</th>
                         <th>最近回访人</th>
-                        <th>下次回访</th>
                         <th>下次回访人</th>
-                        <th>类型</th>
-                        <th style="display: none;">备注</th>
+                        <th>下次回访人</th>
                         <th>回访</th>
                         <th>操作</th>
                     </tr>
@@ -158,40 +91,28 @@
                     @foreach($customers as $customer)
                         <tr id="customer-{{$customer->id}}">
                             <td>{{$customer->id}}</td>
-                            <td>{{$customer->name}}</td>
-                            <td>{{$customer->age}}</td>
+                            <td>{{$customer->gh_name}}</td>
+                            <td>{{$customer->gh_age}}</td>
                             <td>
-                                @if(!empty($customer->sex))
-                                    @if($customer->sex=='male')
+                                @if(!empty($customer->gh_sex))
+                                    @if($customer->gh_sex=='male')
                                         男
-                                    @elseif($customer->sex=='female')
+                                    @elseif($customer->gh_sex=='female')
                                         女
                                     @endif
                                 @endif
                             </td>
-                            <td>{{$customer->tel}}</td>
-                            <td>{{$customer->wechat}}</td>
-                            <td>{{$customer->qq}}</td>
-                            <td style="display: none;">{{$customer->idcard}}</td>
-                            <td>{{$customer->keywords}}</td>
-                            <td>{{$customer->city}}</td>
-                            {{--媒体来源--}}
-                            <td>{{$customer->media_id?$medias[$customer->media_id]:''}}</td>
-                            {{--网站类型--}}
-                            <td>{{$customer->webtype_id?$webtypes[$customer->webtype_id]:''}}</td>
+                            <td>{{$customer->gh_tel}}</td>
+                            <td>{{$customer->gh_ref}}</td>
                             {{--科室--}}
-                            <td>{{$customer->office_id?$offices[$customer->office_id]:''}}</td>
+                            <td>{{$customer->gh_office?$offices[$customer->gh_office]:''}}</td>
                             {{--病种--}}
-                            <td>{{$customer->disease_id?$diseases[$customer->disease_id]:''}}</td>
-                            {{--状态--}}
+                            <td>{{$customer->gh_disease?$diseases[$customer->gh_disease]:''}}</td>
+                            {{--病情描述--}}
+                            <td><span data-toggle="tooltip" data-placement="top" title="{{$customer->gh_description?$customer->gh_description:''}}">{{str_limit($customer->gh_description?$customer->gh_description:'', $limit = 8, $end = '...')}}</span></td>
+
                             <td>{{$customer->customer_condition_id?$customerconditions[$customer->customer_condition_id]:''}}</td>
-                            {{--商务通转电话--}}
-                            <td>{{$customer->trans_user_id?$users[$customer->trans_user_id]:''}}</td>
-                            {{--咨询员--}}
-                            <td>{{$customer->user_id?$users[$customer->user_id]:''}}</td>
-                            <td>{{$customer->zixun_at?$customer->zixun_at:''}}</td>
-                            <td>{{$customer->yuyue_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->yuyue_at)->toDateString():''}}</td>
-                            <td>{{$customer->arrive_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->arrive_at)->toDateString():''}}</td>
+                            <td>{{$customer->gh_date?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->gh_date)->toDateString():''}}</td>
 
                             {{--最近回访日期--}}
                             <td class="created_at">{{$customer->huifangs->last()&&$customer->huifangs->last()->created_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->huifangs->last()->created_at)->toDateString():''}}</td>
@@ -201,10 +122,8 @@
                             <td class="next_at">{{$customer->huifangs->last()&&$customer->huifangs->last()->next_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->huifangs->last()->next_at)->toDateString():''}}</td>
                             {{--下次回访人--}}
                             <td class="next_user">{{$customer->huifangs->last()&&$customer->huifangs->last()->next_user_id?$users[$customer->huifangs->last()->next_user_id]:''}}</td>
-                            {{--<客户类型--}}
-                            <td>{{$customer->customer_type_id?$customertypes[$customer->customer_type_id]:''}}</td>
-                            {{--备注--}}
-                            <td style="display: none;">{{$customer->addons?$customer->addons:''}}</td>
+
+
                             <td class="huifang-cloumn">
                                 @if($enableHuifang)
                                     @if($customer->huifangs->count()<1)
@@ -215,11 +134,8 @@
                                 @endif
                             </td>
                             <td>
-                                @if($enableRead)
-                                <a href="{{route('zxcustomers.show',$customer->id)}}"  alt="查看" title="查看"><i class="fa fa-eye"></i></a>
-                                @endif
                                 @if($enableUpdate)
-                                    <a href="{{route('zxcustomers.edit',$customer->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
+                                    <a href="{{route('ghcustomers.edit',$customer->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
                                 @endif
                                 @if($enableDelete)
                                     <a href="javascript:void(0);"  alt="删除" data-id="{{$customer->id}}" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
@@ -243,7 +159,7 @@
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#zxcustomers-list-table').DataTable({
+            $('#ghcustomers-list-table').DataTable({
                 "order": [[ 0, "desc" ]],
                 "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
                 "language": {
@@ -256,8 +172,8 @@
                     content: '你确定要删除吗？',
                     btn: ['确定', '关闭'],
                     yes: function(index, layero){
-                        $('form.zxcustomers-form').attr('action',"{{route('zxcustomers.index')}}/"+id);
-                        $('form.zxcustomers-form').submit();
+                        $('form.ghcustomers-form').attr('action',"{{route('ghcustomers.index')}}/"+id);
+                        $('form.ghcustomers-form').submit();
                     },
                     btn2: function(index, layero){
                         //按钮【按钮二】的回调
@@ -278,6 +194,7 @@
                 $("#search-form :hidden[name=quickSearch]").val('todayarrive');
                 $("#search-form").submit();
             });
+            $('[data-toggle="tooltip"]').tooltip()
         } );
     </script>
     <!-- 回访modal -->
@@ -348,9 +265,9 @@
                     $("#huifang-add textarea[name=description]").val('');
                     var customer_id =$(this).attr('data-id');
                     $.ajax({
-                        url: '/api/get-huifangs-from-customer',
+                        url: '/api/get-huifangs-from-ghcustomer',
                         type: "post",
-                        data: {'zx_customer_id':customer_id,'_token': $('input[name=_token]').val()},
+                        data: {'gh_customer_id':customer_id,'_token': $('input[name=_token]').val()},
                         success: function(data){
                             $("#customerName").val(data.customer);
                             $("#huifang-add input:hidden[name=customer_id]").val(data.customer_id);
@@ -383,9 +300,9 @@
                     var next_user_id =$("#huifang-add select[name=next_user_id]").val();
                     var description =$("#huifang-add textarea[name=description]").val();
                     $.ajax({
-                        url:'{{route('huifangs.store')}}',
+                        url:'{{route('ghhuifangs.store')}}',
                         type: "post",
-                        data: {'zx_customer_id':customer_id,'next_at':next_at,'next_user_id':next_user_id,'description':description,'_token': $('input[name=_token]').val()},
+                        data: {'gh_customer_id':customer_id,'next_at':next_at,'next_user_id':next_user_id,'description':description,'_token': $('input[name=_token]').val()},
                         success: function(data){
                             if(data.status){
                                 $("#customer-"+data.customer_id+" .huifang-cloumn a").removeClass("text-red").addClass("text-blue");

@@ -62,5 +62,6 @@ Route::group(['middleware' => ['auth']], function() {
     //挂号
     Route::group(['prefix' => 'gh'],function(){
         Route::resource('ghcustomers','GhCustomerController');
+        Route::resource('ghhuifangs','GhHuifangController');
     });
 });
