@@ -109,7 +109,7 @@
             @endability
         </ul>
     </li>
-    <li class="treeview {{Request::is('gh.jss/*')?'active':''}}">
+    <li class="treeview {{Request::is('gh/*')?'active':''}}">
         <a href="#"><i class="fa fa-gg"></i> <span>网上挂号</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -117,7 +117,7 @@
         </a>
         <ul class="treeview-menu">
             @ability('superadministrator', 'read-gh_customers')
-            <li class="{{Request::is('gh.js/ghcustomers*')?'active':''}}"><a href="{{route('ghcustomers.index')}}"><i class="fa fa-plus-square"></i><span>挂号详情</span></a></li>
+            <li class="{{Request::is('gh/ghcustomers*')?'active':''}}"><a href="{{route('ghcustomers.index')}}"><i class="fa fa-plus-square"></i><span>挂号详情</span></a></li>
             @endability
         </ul>
     </li>
