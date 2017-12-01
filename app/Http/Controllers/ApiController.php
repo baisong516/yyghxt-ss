@@ -120,9 +120,9 @@ class ApiController extends Controller
     }
 
     //挂号患者录入接口
-    public function storeGhCustomers(Request $request)
+    public function guaHao(Request $request)
     {
-        //检测域名合法性
+        return response()->json($request->all());
     }
     //科室数据接口
     public function getDiseaseArray(){
