@@ -149,6 +149,7 @@ class ApiController extends Controller
             $ghDate=$ghDate?Carbon::createFromFormat('Y-m-d',str_replace('/','-',$ghDate)):Carbon::now();
             $customer->gh_date=$ghDate;
             $customer->gh_description=$request->input('gh_des');
+            $customer->gh_ref=$request->input('gh_refurl');
             $bool=$customer->save();
             $bool?$data=[
                 'type'=>'success',
