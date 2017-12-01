@@ -10,6 +10,7 @@ use App\Huifang;
 use App\Office;
 use App\User;
 use App\ZxCustomer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -136,7 +137,6 @@ class ApiController extends Controller
                 'content'=>'电话不能为空！',
             ];
         }else{
-            //todo  insert into mysql
             //gh_hosptial gh_refurl gh_offices gh_name gh_sex gh_age gh_tel gh_disease gh_des gh_date
             $customer=new GhCustomer();
             $customer->gh_name=$request->input('gh_name');
@@ -144,8 +144,10 @@ class ApiController extends Controller
             $customer->gh_sex=$request->input('gh_sex');
             $customer->gh_tel=$request->input('gh_tel');
             $customer->gh_office=$request->input('gh_offices');
-            $customer->gh_disease=$request->input('gh_disease');
-            $customer->gh_date=$request->input('gh_date');
+            $customer->gh_disease=$request->input('gh_disease')=='normal'?null:$request->input('gh_disease');
+            $ghDate=$request->input('gh_date');
+            $ghDate=$ghDate?Carbon::createFromFormat('Y-m-d',str_replace('/','-',$ghDate)):Carbon::now();
+            $customer->gh_date=$ghDate;
             $customer->gh_description=$request->input('gh_des');
             $bool=$customer->save();
             $bool?$data=[
