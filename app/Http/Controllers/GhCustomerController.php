@@ -154,7 +154,7 @@ class GhCustomerController extends Controller
             if (!empty($customerTel)){array_push($parms,['gh_tel','like','%'.$customerTel.'%']);}
             if (!empty($gh_office)){array_push($parms,['gh_office','=',$gh_office]);}
             if (!empty($gh_start)){array_push($parms,['gh_date','>=',$gh_start],['gh_date','<=',$gh_end]);}
-            $customers=GhCustomer::where($parms)->whereIn('office_id',GhCustomer::offices())->with('huifangs')->get();
+            $customers=GhCustomer::where($parms)->whereIn('gh_office',GhCustomer::offices())->with('huifangs')->get();
         }
         return view('ghcustomer.read',[
             'pageheader'=>'挂号',
