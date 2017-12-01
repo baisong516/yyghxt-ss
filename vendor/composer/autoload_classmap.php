@@ -43,7 +43,6 @@ return array(
     'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
     'App\\Http\\Controllers\\RoleController' => $baseDir . '/app/Http/Controllers/RoleController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
-    'App\\Http\\Controllers\\WeChatController' => $baseDir . '/app/Http/Controllers/WeChatController.php',
     'App\\Http\\Controllers\\WebTypeController' => $baseDir . '/app/Http/Controllers/WebTypeController.php',
     'App\\Http\\Controllers\\ZxCustomerController' => $baseDir . '/app/Http/Controllers/ZxCustomerController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',

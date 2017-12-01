@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('mzcustomersearch','MzCustomerController@customerSearch')->name('mzcustomers.search');
     });
     //挂号
-    Route::group(['prefix' => 'gh'],function(){
+    Route::group(['prefix' => 'gh.js'],function(){
         Route::resource('ghcustomers','GhCustomerController');
         Route::resource('ghhuifangs','GhHuifangController');
     });

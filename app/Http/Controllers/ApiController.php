@@ -161,6 +161,30 @@ class ApiController extends Controller
         }
         return response()->jsonp($request->input('callback'),$data);
     }
+
+    public function guaHaoJs(Request $request)
+    {
+        //$flag=$request->input('flag');
+        $flag='pcyy';
+        if (empty($flag)){return $this->errorResponse();}
+        $hospital=Hospital::where('name',$flag)->first();
+        if (empty($hospital)){return $this->errorResponse();}
+        $ghjs=file_get_contents('storage/template/gh.js');
+        $dataToReplace=['hospitalTel','hospitalId','officeId','diseaseOptions'];
+        $hospitalTel=$hospital->tel;
+        $hospitalId=$hospital->id;
+        $officeId=$hospital->offices()->first()->id;
+        $diseaseOptions='';
+        foreach ($hospital->diseases as $disease){
+            $diseaseOptions.='<option value="'.$disease->id.'">'.$disease->display_name.'</option>';
+        }
+        foreach ($dataToReplace as $v){
+            $ghjs=str_replace('{$_'.$v.'}',$$v,$ghjs);
+        }
+        return response($ghjs, 200)
+            ->header('Content-Type', 'application/javascript')
+            ->header('charset', 'utf-8');
+    }
     //科室数据接口
     public function getDiseaseArray(){
         //测试数据
@@ -175,6 +199,13 @@ class ApiController extends Controller
         return response()->json([
             'status'=>$status,
             'data'=>$diseasesArr,
+        ]);
+    }
+
+    public function errorResponse(){
+        return response()->json([
+            'status'=>0,
+            'data'=>'errorMsg',
         ]);
     }
 }

@@ -386,7 +386,6 @@ class ComposerStaticInit18b7e7367790bc1d0b93832281e1a7be
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
-        'App\\Http\\Controllers\\WeChatController' => __DIR__ . '/../..' . '/app/Http/Controllers/WeChatController.php',
         'App\\Http\\Controllers\\WebTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/WebTypeController.php',
         'App\\Http\\Controllers\\ZxCustomerController' => __DIR__ . '/../..' . '/app/Http/Controllers/ZxCustomerController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
