@@ -127,7 +127,7 @@ class ApiController extends Controller
             'type'=>'success',
             'content'=>'ok',
         ];
-        return response()->json($data);
+        return response()->jsonp($request->input('callback'),$data);
     }
     //科室数据接口
     public function getDiseaseArray(){
