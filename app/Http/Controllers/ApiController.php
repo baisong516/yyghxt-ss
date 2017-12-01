@@ -122,11 +122,40 @@ class ApiController extends Controller
     //挂号患者录入接口
     public function guaHao(Request $request)
     {
-        //todo  insert into mysql
-        $data=[
-            'type'=>'success',
-            'content'=>'ok',
-        ];
+        $data=[];
+        $ghName=$request->input('gh_name');
+        $ghTel=$request->input('gh_tel');
+        if (empty($ghName)){
+            $data=[
+                'type'=>'error',
+                'content'=>'姓名不能为空！',
+            ];
+        } elseif (empty($ghTel)){
+            $data=[
+                'type'=>'error',
+                'content'=>'电话不能为空！',
+            ];
+        }else{
+            //todo  insert into mysql
+            //gh_hosptial gh_refurl gh_offices gh_name gh_sex gh_age gh_tel gh_disease gh_des gh_date
+            $customer=new GhCustomer();
+            $customer->gh_name=$request->input('gh_name');
+            $customer->gh_age=$request->input('gh_age');
+            $customer->gh_sex=$request->input('gh_sex');
+            $customer->gh_tel=$request->input('gh_tel');
+            $customer->gh_office=$request->input('gh_offices');
+            $customer->gh_disease=$request->input('gh_disease');
+            $customer->gh_date=$request->input('gh_date');
+            $customer->gh_description=$request->input('gh_des');
+            $bool=$customer->save();
+            $bool?$data=[
+                'type'=>'success',
+                'content'=>'success',
+            ]:$data=[
+                'type'=>'error',
+                'content'=>'服务器错误！',
+            ];
+        }
         return response()->jsonp($request->input('callback'),$data);
     }
     //科室数据接口
