@@ -124,13 +124,10 @@ class ApiController extends Controller
     {
         //todo  insert into mysql
         $data=[
-        'type'=>'success',
-            'content'=>$request->all(),
+            'type'=>'success',
+            'content'=>'ok',
         ];
-        return response()->json([
-            'status'=>1,
-            'data'=>$data,
-        ]);
+        return response()->json($data);
     }
     //科室数据接口
     public function getDiseaseArray(){
