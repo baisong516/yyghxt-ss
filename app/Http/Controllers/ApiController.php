@@ -123,9 +123,13 @@ class ApiController extends Controller
     public function guaHao(Request $request)
     {
         //todo  insert into mysql
-        return response()->json([
-            'type'=>'success',
+        $data=[
+        'type'=>'success',
             'content'=>$request->all(),
+        ];
+        return response()->json([
+            'status'=>1,
+            'data'=>$data,
         ]);
     }
     //科室数据接口
