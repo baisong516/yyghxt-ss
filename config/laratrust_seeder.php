@@ -13,6 +13,7 @@ return [
             'departments' => 'c,r,u,d',
             'zx_customers' => 'c,r,u,d',
             'mz_customers' => 'r,u',
+            'gh_customers' => 'r,u,d',
             'customer_types' => 'c,r,u,d',
             'web_types' => 'c,r,u,d',
             'customer_conditions' => 'c,r,u,d',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Aiden;
 use App\GhCustomer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -133,5 +134,40 @@ class GhCustomerController extends Controller
             }
         }
         return abort(403,config('yyxt.permission_deny'));
+    }
+
+    //挂号患者搜索
+    public function customerSearch(Request $request)
+    {
+        $customerName=$request->input('ghName');
+        $customerTel=$request->input('ghTel');
+        $gh_start=$request->input('ghDateStart')?Carbon::createFromFormat('Y-m-d',$request->input('ghDateStart'))->startOfDay():null;
+        $gh_end=$request->input('ghDateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('ghDateEnd'))->endOfDay():Carbon::now()->endOfDay();
+        $gh_office=$request->input('searchOfficeId');
+        //条件为空
+        $customers=null;
+        if (empty($customerName)&&empty($customerTel)&&empty($gh_office)&&empty($gh_start)){
+            $customers=GhCustomer::getCustomers();
+        }else{
+            $parms=array();
+            if (!empty($customerName)){array_push($parms,['gh_name','like','%'.$customerName.'%']);}
+            if (!empty($customerTel)){array_push($parms,['gh_tel','like','%'.$customerTel.'%']);}
+            if (!empty($gh_office)){array_push($parms,['gh_office','=',$gh_office]);}
+            if (!empty($gh_start)){array_push($parms,['gh_date','>=',$gh_start],['gh_date','<=',$gh_end]);}
+            $customers=GhCustomer::where($parms)->whereIn('office_id',GhCustomer::offices())->with('huifangs')->get();
+        }
+        return view('ghcustomer.read',[
+            'pageheader'=>'挂号',
+            'pagedescription'=>'搜索结果',
+            'customers'=>$customers,
+            'offices'=>Aiden::getAllModelArray('offices'),
+            'diseases'=>Aiden::getAllModelArray('diseases'),
+            'customerconditions'=>Aiden::getAllModelArray('customer_conditions'),
+            'users'=>Aiden::getAllUserArray(),
+            'zxusers'=>Aiden::getAllZxUserArray(),
+            'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
+            'enableUpdate'=>Auth::user()->hasPermission('update-gh_customers'),
+            'enableDelete'=>Auth::user()->hasPermission('delete-gh_customers'),
+        ]);
     }
 }
