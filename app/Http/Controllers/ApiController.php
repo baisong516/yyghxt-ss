@@ -169,7 +169,7 @@ class ApiController extends Controller
         if (empty($flag)){return $this->errorResponse();}
         $hospital=Hospital::where('name',$flag)->first();
         if (empty($hospital)){return $this->errorResponse();}
-        $ghjs=file_get_contents('storage/template/gh.js');
+        $ghjs=file_get_contents('template/gh.js');
         $dataToReplace=['hospitalTel','hospitalId','officeId','diseaseOptions'];
         $hospitalTel=$hospital->tel;
         $hospitalId=$hospital->id;
