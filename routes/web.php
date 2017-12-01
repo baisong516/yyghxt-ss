@@ -63,5 +63,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['prefix' => 'gh'],function(){
         Route::resource('ghcustomers','GhCustomerController');
         Route::resource('ghhuifangs','GhHuifangController');
+        Route::post('ghcustomersearch','GhCustomerController@customerSearch')->name('ghcustomers.search');
     });
 });

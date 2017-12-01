@@ -14,8 +14,7 @@
             </div>
         </div>
         <div class="box-body">
-            {{--<form class="form-inline" action="{{route('ghcustomers.search')}}"  id="search-form" name="search-form" method="POST">--}}
-            <form class="form-inline" action="#"  id="search-form" name="search-form" method="POST">
+            <form class="form-inline" action="{{route('ghcustomers.search')}}"  id="search-form" name="search-form" method="POST">
                 {{csrf_field()}}
                 <input type="hidden" name="quickSearch" value="">
                 <div class="form-group">
