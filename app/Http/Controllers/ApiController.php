@@ -122,6 +122,7 @@ class ApiController extends Controller
     //挂号患者录入接口
     public function guaHao(Request $request)
     {
+        file_put_contents('/test.txt',$request->all());
         return response()->json($request->all());
     }
     //科室数据接口

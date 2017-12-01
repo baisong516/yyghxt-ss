@@ -24,5 +24,5 @@ Route::group(['middleware'=>['api']],function(){
     Route::post('get-diseases-from-office','ApiController@getDiseasesFromOffice');
 
     Route::get('diseases','ApiController@getDiseaseArray');
-    Route::post('gh','ApiController@guaHao');
+    Route::get('gh','ApiController@guaHao');
 });
