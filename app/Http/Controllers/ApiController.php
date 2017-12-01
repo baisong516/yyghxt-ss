@@ -164,8 +164,7 @@ class ApiController extends Controller
 
     public function guaHaoJs(Request $request)
     {
-        //$flag=$request->input('flag');
-        $flag='pcyy';
+        $flag=$request->input('flag');
         if (empty($flag)){return $this->errorResponse();}
         $hospital=Hospital::where('name',$flag)->first();
         if (empty($hospital)){return $this->errorResponse();}
