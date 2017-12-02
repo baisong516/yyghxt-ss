@@ -251,7 +251,7 @@
     that.Config_MobiScrollCssURL = that.Config_Oss + "/mobiscroll/css/mobiscroll.custom-3.0.0-beta2.min.css";
     that.Config_LayerMobileUrl = that.Config_Oss + "/layer/mobile/layer.js";
     that.Config_DateScriptURL = that.Config_Oss + "/laydate/laydate.js";
-    that.Config_LayPath = that.Config_Oss + "/layer_mobile/";
+    that.Config_LayPath = that.Config_Oss + "{$_layPath}";
     that.Config_LayScriptURL = that.Config_LayPath + "layer.js";
     that.Config_TelReg = /^1\d{10}$/;
     that.Config_NameReg = /^[一-龥]{2,5}$/;
