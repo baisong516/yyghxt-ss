@@ -137,6 +137,13 @@ class ApiController extends Controller
                 'content'=>'电话不能为空！',
             ];
         }else{
+            //检测电话全法性
+            if(!preg_match("/^1[34578]{1}\d{9}$/",$ghTel)){
+                return response()->jsonp($request->input('callback'),[
+                    'type'=>'error',
+                    'content'=>'请输入正确的手机号！',
+                ]);
+            }
             //gh_hosptial gh_refurl gh_offices gh_name gh_sex gh_age gh_tel gh_disease gh_des gh_date
             $customer=new GhCustomer();
             $customer->gh_name=$request->input('gh_name');
