@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -110,6 +111,15 @@ class ZxCustomer extends Model
         }
 //        return static::whereIn('office_id',$offices)->with('office','disease','media','user','huifangs','customertype','customercondition','webtype','transuser')->get();
         return static::whereIn('office_id',$offices)->with('huifangs')->get();
+    }
+    //根据分配到的项目查询患者数据
+    public static function getTodayCustomers(){
+        $offices=static::offices();
+        if (empty($offices)){
+            return null;
+        }
+//        return static::whereIn('office_id',$offices)->with('office','disease','media','user','huifangs','customertype','customercondition','webtype','transuser')->get();
+        return static::whereIn('office_id',$offices)->where('created_at','>=',Carbon::now()->startOfDay())->with('huifangs')->get();
     }
     //获取科室项目id
     public static function offices(){

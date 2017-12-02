@@ -8,7 +8,7 @@
             <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 80px;">
                     @ability('superadministrator', 'update-zx_customers')
-                    <a href="{{route('zxcustomers.index')}}" class="btn-sm btn-info">返回</a>
+                    <a href="javascript:history.go(-1);" class="btn-sm btn-info">返回</a>
                     @endability
                 </div>
             </div>

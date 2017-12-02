@@ -32,7 +32,8 @@ class ZxCustomerController extends Controller
             return view('zxcustomer.read',[
                 'pageheader'=>'患者',
                 'pagedescription'=>'列表',
-                'customers'=>ZxCustomer::getCustomers(),
+//                'customers'=>ZxCustomer::getCustomers(),
+                'customers'=>ZxCustomer::getTodayCustomers(),
                 'users'=>Aiden::getAllUserArray(),
                 'zxusers'=>Aiden::getAllZxUserArray(),
                 'offices'=>Aiden::getAllModelArray('offices'),
