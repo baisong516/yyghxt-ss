@@ -137,7 +137,7 @@ class ApiController extends Controller
                 'content'=>'电话不能为空！',
             ];
         }else{
-            //检测电话全法性
+            //检测电话合法性
             if(!preg_match("/^1[34578]{1}\d{9}$/",$ghTel)){
                 return response()->jsonp($request->input('callback'),[
                     'type'=>'error',
@@ -168,7 +168,7 @@ class ApiController extends Controller
         }
         return response()->jsonp($request->input('callback'),$data);
     }
-
+    //输出挂号js文件
     public function guaHaoJs(Request $request)
     {
         $flag=$request->input('flag');
@@ -209,7 +209,7 @@ class ApiController extends Controller
             'data'=>$diseasesArr,
         ]);
     }
-
+    //错误信息
     public function errorResponse(){
         return response()->json([
             'status'=>0,
