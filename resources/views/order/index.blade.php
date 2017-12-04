@@ -28,19 +28,46 @@
 </head>
 <body style="max-width: 640px;" class="mx-auto">
     <h5 class="title text-center mt-3 font-weight-bold">预约缴费</h5>
-    <form class="form-horizontal">
+    <form name="pay_form">
         <input type="hidden" name="pay" value="0.01">
-        <div class="form-group">
-            <label for="pay" class="col-sm-2 control-label">费用</label>
-            <div class="col-sm-10">
-                <span class="form-control">￥10.00</span>
+        <div class="form-group row mt-5 mx-3">
+            <label for="count" class="col-3 px-0 col-form-label text-right font-weight-bold">金额</label>
+            <div class="input-group col-9">
+                <div class="input-group-addon border-0">￥</div>
+                <input type="text" disabled class="form-control border-0" id="count" value="10.00">
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary btn-block">确定</button>
+        <div class="form-group row mt-3 mx-3">
+            <label for="addons" class="col-3 px-0 col-form-label text-right font-weight-bold">备注</label>
+            <div class="col-9">
+                <input type="text" class="form-control border-0" name="addons" disabled id="addons" value="预约挂号">
+            </div>
+        </div>
+        <div class="form-group row mx-3">
+            <div class="col-12">
+                <input type="submit" class="btn btn-primary btn-block" name="submit" value="微信支付">
             </div>
         </div>
     </form>
+    {{--<form class="form-horizontal">--}}
+        {{--<input type="hidden" name="pay" value="0.01">--}}
+        {{--<div class="form-group">--}}
+            {{--<label for="pay" class="col-2 control-label">金额</label>--}}
+            {{--<div class="col-10">--}}
+                {{--<span class="form-control">￥10.00</span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="form-group">--}}
+            {{--<label for="pay" class="col-2 control-label">备注</label>--}}
+            {{--<div class="col-10">--}}
+                {{--<span class="form-control">预约挂号</span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="form-group">--}}
+            {{--<div class="col-12">--}}
+                {{--<button type="submit" class="btn btn-primary btn-block">微信支付</button>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</form>--}}
 </body>
 </html>
