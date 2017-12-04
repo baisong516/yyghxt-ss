@@ -48,7 +48,7 @@ class WechatController extends Controller
     private function getAccessToken()
     {
         //https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
-        $client = new Client(['base_uri' => '']);
+        $client = new Client();
         $appid=Wechat::getAppid();
         $secret=Wechat::getSecret();
         $response = $client->request('GET', 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$secret);
