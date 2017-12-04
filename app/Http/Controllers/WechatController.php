@@ -23,7 +23,7 @@ class WechatController extends Controller
 
         //responseMsg
         $accessToken=$this->getAccessToken();
-        //$this->setMenus();//自定义菜单
+        $this->setMenus();//自定义菜单
     }
 
     private function checkSignature($request)
