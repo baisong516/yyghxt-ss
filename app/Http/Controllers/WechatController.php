@@ -88,18 +88,27 @@ class WechatController extends Controller
 
     private function setMenus()
     {
-       $menu=[
-           'button'=>[
-               ["type"=>"click","name"=>"今日歌曲","key"=>"V1001_TODAY_MUSIC"],
-               ["name"=>"菜单","sub_button"=>[
-                   ["type"=>"view","name"=>"搜索","url"=>"http://www.soso.com/"],
-                   ["type"=>"miniprogram","name"=>"wxa","url"=>"http://mp.weixin.qq.com","appid"=>"wx286b93c14bbf93aa","pagepath"=>"pages/lunar/index"],
-                   ["type"=>"click","name"=>"赞一下我们","key"=>"V1001_GOOD"],
-               ]],
-           ],
-       ];
-       $menu=json_encode($menu);
-       dd($menu);
+        $menu=[
+            'button'=>[
+                ["type"=>"click","name"=>"今日歌曲","key"=>"V1001_TODAY_MUSIC"],
+                ["name"=>"菜单","sub_button"=>[
+                    ["type"=>"view","name"=>"搜索","url"=>"http://www.soso.com/"],
+                    ["type"=>"miniprogram","name"=>"wxa","url"=>"http://mp.weixin.qq.com","appid"=>"wx286b93c14bbf93aa","pagepath"=>"pages/lunar/index"],
+                    ["type"=>"click","name"=>"赞一下我们","key"=>"V1001_GOOD"],
+                ]],
+            ],
+        ];
+        $menu=json_encode($menu);
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$this->getAccessToken();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $menu);
+        $output = curl_exec($ch);
+        curl_close($ch);
     }
 
 }
