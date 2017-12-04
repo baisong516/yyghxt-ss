@@ -23,9 +23,7 @@ class WechatController extends Controller
 
         //responseMsg
         $accessToken=$this->getAccessToken();
-        //dd($accessToken);
-        $this->setMenus();
-
+        //$this->setMenus();//自定义菜单
     }
 
     private function checkSignature($request)
@@ -51,7 +49,6 @@ class WechatController extends Controller
 
     private function getAccessToken()
     {
-
         //https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
         //公众号调用接口都不能超过一定限制 access_token 过期时间 应存入数据库
         $appid = Wechat::getAppid();
@@ -78,7 +75,10 @@ class WechatController extends Controller
         $access_token = $jsoninfo["access_token"];//token值
         $expires_in=$jsoninfo["expires_in"]-30;//过期时间
         $expires=Carbon::now()->addSeconds($expires_in);//token在此之前有效
-        $token=new Token();
+        $token=Token::where('app_id',$appid)->first();
+        if (!$token){
+            $token=new Token();
+        }
         $token->app_id=$appid;
         $token->token=$access_token;
         $token->expires=$expires;
@@ -86,15 +86,31 @@ class WechatController extends Controller
         return $access_token;
     }
 
+    //自定义菜单
     private function setMenus()
     {
         $menu=[
             'button'=>[
-                ["type"=>"click","name"=>"今日歌曲","key"=>"V1001_TODAY_MUSIC"],
-                ["name"=>"菜单","sub_button"=>[
-                    ["type"=>"view","name"=>"搜索","url"=>"http://www.soso.com/"],
-                    ["type"=>"miniprogram","name"=>"wxa","url"=>"http://mp.weixin.qq.com","appid"=>"wx286b93c14bbf93aa","pagepath"=>"pages/lunar/index"],
-                    ["type"=>"click","name"=>"赞一下我们","key"=>"V1001_GOOD"],
+                ["name"=>"掌上益寿","sub_button"=>[
+                    ["type"=>"view","name"=>"医院简介","url"=>"http://4g.22356666.com/yyjj/"],
+                    ["type"=>"view","name"=>"权威专家","url"=>"http://4g.22356666.com/team/"],
+                    ["type"=>"view","name"=>"权威疗法","url"=>"http://4g.22356666.com/qwjs/"],
+                    ["type"=>"view","name"=>"病友分享","url"=>"http://4g.22356666.com/swt/"],
+                    ["type"=>"view","name"=>"来院路线","url"=>"http://4g.22356666.com/lylx/"],
+                ]],
+                ["name"=>"疾病自测","sub_button"=>[
+                    ["type"=>"view","name"=>"失眠症自测","url"=>"http://4g.22356666.com/sm/"],
+                    ["type"=>"view","name"=>"抑郁症自测","url"=>"http://4g.22356666.com/yy/"],
+                    ["type"=>"view","name"=>"焦虑症自测","url"=>"http://4g.22356666.com/jl/"],
+                    ["type"=>"view","name"=>"精神分裂","url"=>"http://4g.22356666.com/jsfl/"],
+                    ["type"=>"view","name"=>"心理测试","url"=>"http://4g.22356666.com/swt/"],
+                ]],
+                ["name"=>"便民服务","sub_button"=>[
+                    ["type"=>"view","name"=>"在线预约","url"=>"http://4g.22356666.com/swt/"],
+                    ["type"=>"view","name"=>"自助挂号","url"=>"http://4g.22356666.com/swt/"],
+                    ["type"=>"view","name"=>"电话问诊","url"=>"http://4g.22356666.com/jl/"],
+                    ["type"=>"view","name"=>"最新援助","url"=>"http://4g.22356666.com/swt/"],
+                    ["type"=>"view","name"=>"免费WIFI","url"=>"http://4g.22356666.com/swt/"],
                 ]],
             ],
         ];

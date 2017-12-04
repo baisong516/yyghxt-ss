@@ -14,12 +14,13 @@
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('order','OrderController@index');
 
 Auth::routes();
 
 Route::any('wechat','WechatController@index');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth','operationlog']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::post('/home', 'HomeController@index')->name('home.search');
     //排班
