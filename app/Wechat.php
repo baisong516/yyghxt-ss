@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Wechat extends Model
 {
-    private static $appid='wx110530c920ff4de6';// AppID
-    private static $secret='a22459cc675a1f3cc5c6fdc3bcb82546';// AppSecret
+    private static $appid='wx721ef49077cecf22';// AppID
+    private static $secret='1edc12b639f8af7cd07eb873e097e0fb';// AppSecret
     private static $token='gzysyy';
 
     /**
