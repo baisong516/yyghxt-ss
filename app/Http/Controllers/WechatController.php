@@ -31,7 +31,7 @@ class WechatController extends Controller
         $signature = $request->input('signature');
         $timestamp = $request->input('timestamp');
         $nonce = $request->input('nonce');
-        $token =Wechat::getToken();
+        $token =getenv('WECHAT_TOKEN');
         $tmpArr = array($token, $timestamp, $nonce);
         // use SORT_STRING rule  字典序排序
         sort($tmpArr, SORT_STRING);
@@ -51,7 +51,7 @@ class WechatController extends Controller
     {
         //https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
         //公众号调用接口都不能超过一定限制 access_token 过期时间 应存入数据库
-        $appid = Wechat::getAppid();
+        $appid = getenv('WECHAT_APPID');
         $token=Token::where('app_id',$appid)->first();
         if (!empty($token)&&$token->expires>=Carbon::now()){
             return $token->token;
@@ -61,8 +61,8 @@ class WechatController extends Controller
 
     private function flushToken()
     {
-        $appid=Wechat::getAppid();
-        $appsecret = Wechat::getSecret();
+        $appid=getenv('WECHAT_APPID');
+        $appsecret = getenv('WECHAT_APPSECRET');
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
