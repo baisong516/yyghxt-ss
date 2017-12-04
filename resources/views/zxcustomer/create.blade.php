@@ -7,9 +7,7 @@
             <h3 class="box-title">添加</h3>
             <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 80px;">
-                    @ability('superadministrator', 'create-zx_customers')
-                    <a href="{{route('zxcustomers.index')}}" class="btn-sm btn-info">返回</a>
-                    @endability
+                    <a href="javascript:history.go(-1);" class="btn-sm btn-info">返回</a>
                 </div>
             </div>
         </div>
