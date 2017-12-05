@@ -279,6 +279,11 @@
                 $("#search-form").submit();
             });
         } );
+        //
+        layer.msg(
+            '<p>今日应回访：<span class="label bg-green">{{$todayHuifang}}</span></p><p>今日应到院：<span class="label bg-primary">{{$todayArrive}}</span></p>',
+            { offset:'rt',time: 3000}
+            )
     </script>
     <!-- 回访modal -->
     <div class="modal fade" id="huifangModal" tabindex="-1" role="dialog" aria-labelledby="huifangModalLabel">

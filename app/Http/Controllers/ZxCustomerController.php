@@ -29,6 +29,30 @@ class ZxCustomerController extends Controller
     public function index()
     {
         if (Auth::user()->ability('superadministrator', 'read-zx_customers')){
+            //今日应到院
+            $todayArrive =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+                ['yuyue_at','>=',Carbon::now()->startOfDay()],
+                ['yuyue_at','<=',Carbon::now()->endOfDay()],
+            ])->with('huifangs')->count();
+            //今日应回访
+            $huifangCustomers=Huifang::select('zx_customer_id')->where([
+                ['next_at','>=',Carbon::now()->startOfDay()],
+                ['next_at','<=',Carbon::now()->endOfDay()],
+            ])->get();
+            $huifangCustomerIds=[];
+            foreach ($huifangCustomers as $huifangCustomer){
+                $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
+            }
+            $customerIdstemp = array_unique($huifangCustomerIds);//一次过滤
+            //去除回访时间在今天之后的
+            $CustomerIds=[];
+            foreach ($customerIdstemp as $id){
+                $huifang=Huifang::where('zx_customer_id',$id)->orderBy('next_at', 'desc')->first();//最新回访
+                if ($huifang->next_at<=Carbon::now()->endOfDay()){
+                    $CustomerIds[]=$huifang->zx_customer_id;
+                }
+            }
+            $todayHuifang =ZxCustomer::whereIn('id',$CustomerIds)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->count();
             return view('zxcustomer.read',[
                 'pageheader'=>'患者',
                 'pagedescription'=>'列表',
@@ -47,6 +71,9 @@ class ZxCustomerController extends Controller
                 'enableUpdate'=>Auth::user()->hasPermission('update-zx_customers'),
                 'enableDelete'=>Auth::user()->hasPermission('delete-zx_customers'),
                 'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
+
+                'todayArrive'=>$todayArrive,
+                'todayHuifang'=>$todayHuifang,
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
