@@ -13,7 +13,22 @@
         </div>
         <form action="{{route('zxcustomers.store')}}" method="post" class="zxcustomers-form form-horizontal">
             {{csrf_field()}}
-            @include('zxcustomer.form')
+            <div class="box-body">
+                @include('zxcustomer.form')
+                <div class="form-group {{empty($errors->first('next_at'))?'':'has-error'}}">
+                    <label for="next_at" class="col-sm-2 control-label">下次回访时间</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control item-date" name="next_at"  id="next_at" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-info pull-right">提交</button>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 @endsection

@@ -14,7 +14,16 @@
         <form action="{{route('zxcustomers.update',$customer->id)}}" method="post" class="zxcustomers-form form-horizontal">
             {{csrf_field()}}
             {{method_field('PUT')}}
-            @include('zxcustomer.form')
+            <div class="box-body">
+                @include('zxcustomer.form')
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-info pull-right">提交</button>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 @endsection

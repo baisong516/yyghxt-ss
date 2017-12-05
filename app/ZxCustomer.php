@@ -36,7 +36,19 @@ class ZxCustomer extends Model
         $customer->customer_type_id=$request->input('customer_type_id');
         $customer->customer_condition_id=$request->input('customer_condition_id');
         $customer->addons=$request->input('addons');
-        return $customer->save();
+        $bool=$customer->save();
+        //创建回访
+        $next_at=$request->input('next_at');
+        if ($next_at){
+            $data=[
+                'zx_customer_id'=>$customer->id,
+                'next_at'=>$next_at,
+                'description'=>'数据录入',
+                'next_user_id'=>Auth::user()->id,
+            ];
+            Huifang::createHuifang($data);
+        }
+        return $bool;
     }
 
     public static function updateCustomer($request, $id)

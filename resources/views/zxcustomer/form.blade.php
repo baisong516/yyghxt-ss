@@ -1,4 +1,4 @@
-<div class="box-body">
+
     <div class="form-group {{empty($errors->first('name'))?'':'has-error'}}">
         <label for="name" class="col-sm-2 control-label">姓名</label>
         <div class="col-sm-10">
@@ -201,11 +201,3 @@
             <textarea name="addons" id="addons" class="form-control"  rows="5">{{isset($customer)?$customer->addons:old('addons')}}</textarea>
         </div>
     </div>
-</div>
-<div class="box-footer">
-    <div class="form-group">
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-info pull-right">提交</button>
-        </div>
-    </div>
-</div>
