@@ -281,7 +281,7 @@
         } );
         //
         layer.msg(
-            '<p>今日应回访：<span class="label bg-green">{{$todayHuifang}}</span></p><p>今日应到院：<span class="label bg-primary">{{$todayArrive}}</span></p>',
+            '<p>今日应回访：<span class="label bg-green">{{isset($todayHuifang)?$todayHuifang:''}}</span></p><p>今日应到院：<span class="label bg-primary">{{isset($todayArrive)?$todayArrive:''}}</span></p>',
             { offset:'rt',time: 3000}
             )
     </script>
