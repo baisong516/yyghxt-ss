@@ -282,7 +282,7 @@
         //
         @isset($todayHuifang)
         layer.msg(
-            '<p>今日应回访：<span class="label bg-green">{{isset($todayHuifang)?$todayHuifang:''}}</span></p><p>今日应到院：<span class="label bg-primary">{{isset($todayArrive)?$todayArrive:''}}</span></p>',
+            '<p>今日应回访：<span class="label bg-green">{{isset($todayHuifang)?$todayHuifang:''}}</span>人，已回访：<span class="label bg-green">{{$todayHuifangFinished}}</span>人</p><p>今日应到院：<span class="label bg-primary">{{isset($todayArrive)?$todayArrive:''}}</span>人',
             { offset:'rt',time: 3000}
             )
         @endisset

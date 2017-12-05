@@ -33,8 +33,14 @@ class ZxCustomerController extends Controller
             $todayArrive =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
                 ['yuyue_at','>=',Carbon::now()->startOfDay()],
                 ['yuyue_at','<=',Carbon::now()->endOfDay()],
-            ])->with('huifangs')->count();
+            ])->count();
             //今日应回访
+
+            //今日应回访数量
+            $todayHuifang =Huifang::select('zx_customer_id')->where([
+                ['next_at','>=',Carbon::now()->startOfDay()],
+                ['next_at','<=',Carbon::now()->endOfDay()],
+            ])->count();
             $huifangCustomers=Huifang::select('zx_customer_id')->where([
                 ['next_at','>=',Carbon::now()->startOfDay()],
                 ['next_at','<=',Carbon::now()->endOfDay()],
@@ -52,7 +58,10 @@ class ZxCustomerController extends Controller
                     $CustomerIds[]=$huifang->zx_customer_id;
                 }
             }
-            $todayHuifang =ZxCustomer::whereIn('id',$CustomerIds)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->count();
+            //今日应回访但未回访数量
+            $todayHuifangR=ZxCustomer::whereIn('id',$CustomerIds)->whereIn('office_id',ZxCustomer::offices())->count();
+            //今日已回访数量
+            $todayHuifangFinished=$todayHuifang-$todayHuifangR;
             return view('zxcustomer.read',[
                 'pageheader'=>'患者',
                 'pagedescription'=>'列表',
@@ -74,6 +83,7 @@ class ZxCustomerController extends Controller
 
                 'todayArrive'=>$todayArrive,
                 'todayHuifang'=>$todayHuifang,
+                'todayHuifangFinished'=>$todayHuifangFinished,
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -246,15 +256,16 @@ class ZxCustomerController extends Controller
 				    $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
 			    }
 			    $customerIdstemp = array_unique($huifangCustomerIds);//一次过滤
-			    //去除回访时间在今天之后的
-			    $CustomerIds=[];
-			    foreach ($customerIdstemp as $id){
-					$huifang=Huifang::where('zx_customer_id',$id)->orderBy('next_at', 'desc')->first();//最新回访
-					if ($huifang->next_at<=Carbon::now()->endOfDay()){
-						$CustomerIds[]=$huifang->zx_customer_id;
-					}
-			    }
-			    $customers =ZxCustomer::whereIn('id',$CustomerIds)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->get();
+//			    //去除回访时间在今天之后的
+//			    $CustomerIds=[];
+//			    foreach ($customerIdstemp as $id){
+//					$huifang=Huifang::where('zx_customer_id',$id)->orderBy('next_at', 'desc')->first();//最新回访
+//					if ($huifang->next_at<=Carbon::now()->endOfDay()){
+//						$CustomerIds[]=$huifang->zx_customer_id;
+//					}
+//			    }
+			    //$customers =ZxCustomer::whereIn('id',$CustomerIds)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->get();
+			    $customers =ZxCustomer::whereIn('id',$customerIdstemp)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->get();
 			}
 			if ($quickSearch=='todayarrive'){
 	    	    //今日应到院
