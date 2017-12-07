@@ -20,10 +20,14 @@ class StatisticController extends Controller
         $tempDate=Statistic::select('domain','flag','date_tag','count')->where('date_tag',Carbon::now()->toDateString())->get();
         $todayClick=[];
         foreach ($tempDate as $t){
-            $todayClick[$t->domain]['flag']=$t->flag;
-            $todayClick[$t->domain]['count']=$t->count;
+            $todayClick[$t->domain][]=[
+                'flag'=>$t->flag,
+                'count'=>$t->count,
+            ];
         }
         return view('button.read',[
+            'pageheader'=>'数据统计',
+            'pagedescription'=>'按钮点击量统计',
             'todayClick'=>$todayClick,
             'clickArray'=>$this->getClickArray(),
         ]);
@@ -101,21 +105,27 @@ class StatisticController extends Controller
             'top_swt'=>'顶部固定商务通',
             'top_tel'=>'顶部固定电话',
             'top_wechat'=>'顶部固定微信',
+            'top_qq'=>'顶部固定QQ',
             'left_swt'=>'左侧固定商务通',
             'left_tel'=>'左侧固定电话',
             'left_wechat'=>'左侧固定微信',
+            'left_qq'=>'左侧固定QQ',
             'right_swt'=>'右侧固定商务通',
             'right_tel'=>'右侧固定电话',
             'right_wechat'=>'右侧固定微信',
+            'right_qq'=>'右侧固定QQ',
             'bottom_tel'=>'底部固定电话',
             'bottom_swt'=>'底部固定商务通',
             'bottom_wechat'=>'底部固定微信',
+            'bottom_qq'=>'底部固定QQ',
             'center_tel'=>'中间弹出电话',
             'center_swt'=>'中间弹出商务通',
             'center_wechat'=>'中间弹出微信',
+            'center_qq'=>'中间弹出QQ',
             'bottom_window_tel'=>'底部弹出电话',
             'bottom_window_swt'=>'底部弹出商务通',
             'bottom_window_wechat'=>'底部弹出微信',
+            'bottom_window_qq'=>'底部弹出QQ',
             'bottom_window_content'=>'底部弹出内容',
         ];
     }
