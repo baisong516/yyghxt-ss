@@ -121,6 +121,18 @@
             @endability
         </ul>
     </li>
+    <li class="treeview {{Request::is('statistics/*')?'active':''}}">
+        <a href="#"><i class="fa fa-database"></i> <span>数据统计</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            @ability('superadministrator', 'read-statistics')
+            <li class="{{Request::is('statistics/buttons*')?'active':''}}"><a href="{{route('buttons.index')}}"><i class="fa fa-plus-square"></i><span>按钮点击统计</span></a></li>
+            @endability
+        </ul>
+    </li>
     @ability('superadministrator', 'read-arrangements')
     <li class="{{Request::is('arrangements*')?'active':''}}"><a href="{{route('arrangements.index')}}"><i class="fa fa-link"></i> <span>排班</span></a></li>
     @endability

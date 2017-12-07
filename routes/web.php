@@ -67,4 +67,8 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('ghhuifangs','GhHuifangController');
         Route::post('ghcustomersearch','GhCustomerController@customerSearch')->name('ghcustomers.search');
     });
+    //
+    Route::group(['prefix' => 'statistics'],function(){
+        Route::resource('buttons','StatisticController');
+    });
 });

@@ -23,7 +23,7 @@ class OperationLogMiddleware
                 'path'    => $request->path(),
                 'method'  => $request->method(),
                 'ip'      => $request->getClientIp(),
-                'input'   => json_encode($request->input()),
+                'input'   => '',
             ];
 
             OperationLog::create($log);

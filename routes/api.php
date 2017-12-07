@@ -26,4 +26,7 @@ Route::group(['middleware'=>['api']],function(){
     Route::get('diseases','ApiController@getDiseaseArray');
     Route::get('gh','ApiController@guaHao');
     Route::get('gh.js','ApiController@guaHaoJs');
+
+    //统计
+    Route::any('buttonStatistic','ApiController@buttonStatistic');
 });

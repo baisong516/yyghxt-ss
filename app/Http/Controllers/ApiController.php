@@ -8,6 +8,7 @@ use App\GhHuifang;
 use App\Hospital;
 use App\Huifang;
 use App\Office;
+use App\Statistic;
 use App\User;
 use App\ZxCustomer;
 use Carbon\Carbon;
@@ -211,6 +212,41 @@ class ApiController extends Controller
     }
     //错误信息
     public function errorResponse(){
+        return response()->json([
+            'status'=>0,
+            'data'=>'errorMsg',
+        ]);
+    }
+
+    //按钮点击统计
+    public function buttonStatistic(Request $request)
+    {
+        //domain flag date_tag count
+        $domain=$request->input('domain');
+        $flag=$request->input('flag');
+        $date_tag=Carbon::now()->toDateString();
+        if (!empty($domain)&&!empty($flag)){
+            $data=Statistic::where([
+                ['date_tag','=',$date_tag],
+                ['domain','=',$domain],
+                ['flag','=',$flag],
+            ])->first();
+            if (empty($data)){
+                $data=new Statistic();
+                $data->domain=$domain;
+                $data->flag=$flag;
+                $data->date_tag=$date_tag;
+                $data->count=1;
+                $data->save();
+            }else{
+                $data->count=$data->count+1;
+                $data->save();
+            }
+            return response()->json([
+                'status'=>1,
+                'data'=>'ok',
+            ]);
+        }
         return response()->json([
             'status'=>0,
             'data'=>'errorMsg',
