@@ -227,11 +227,7 @@ class ApiController extends Controller
         $description=$request->input('des');
         $date_tag=Carbon::now()->toDateString();
         if (!empty($domain)&&!empty($flag)){
-            $data=Statistic::where([
-                ['date_tag','=',$date_tag],
-                ['domain','=',$domain],
-                ['flag','=',$flag],
-            ])->first();
+            $data=Statistic::where('domain',$domain)->where('flag',$flag)->where('date_tag',$date_tag)->first();
             if (empty($data)){
                 $data=new Statistic();
                 $data->domain=$domain;
@@ -243,6 +239,7 @@ class ApiController extends Controller
             }else{
                 $data->count=$data->count+1;
                 $data->save();
+                dd($data);
             }
             return response()->json([
                 'status'=>1,
