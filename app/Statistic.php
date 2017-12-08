@@ -8,4 +8,7 @@ class Statistic extends Model
 {
     protected $table = 'statistics';
 
+    public static function createData($dataRequest=array()){
+
+    }
 }
