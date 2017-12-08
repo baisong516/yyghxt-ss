@@ -211,13 +211,27 @@ class ApiController extends Controller
     //按钮统计
     public function saveClickCount(Request $request)
     {
-        dd($request->all());
         $domain=$request->input('domain');
         $flag=$request->input('flag');
         if (empty($domain)||empty($flag)){return $this->errorResponse();}
         $date_tag=Carbon::now()->toDateString();
         $click=Statistic::where('domain',$domain)->where('flag',$flag)->where('date_tag',$date_tag)->first();
-        dd($click);
+        if (empty($click)) {
+            $click = new Statistic();
+            $click->domain=$domain;
+            $click->flag=$flag;
+            $click->date_tag=$date_tag;
+            $click->count=1;
+            $click->save();
+        }else{
+            $count=$click->count;
+            $click->count=$count + 1;
+            $click->save();
+        }
+        return response()->json([
+            'status'=>1,
+            'data'=>'ok',
+        ]);
     }
     //错误信息
     public function errorResponse(){
