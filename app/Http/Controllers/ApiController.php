@@ -222,7 +222,6 @@ class ApiController extends Controller
     public function buttonStatistic(Request $request)
     {
         //domain flag date_tag count
-        dd($request->all());
         $domain=$request->input('domain');
         $flag=$request->input('flag');
         if (empty($domain)){return $this->errorResponse();}
@@ -242,7 +241,6 @@ class ApiController extends Controller
         }else{
             $data->count=$data->count+1;
             $data->save();
-            dd($data);
         }
         return response()->json([
             'status'=>1,
@@ -250,4 +248,5 @@ class ApiController extends Controller
         ]);
 
     }
+
 }

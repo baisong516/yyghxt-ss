@@ -17,12 +17,13 @@ class StatisticController extends Controller
     public function index()
     {
         //今日点击量
-        $tempDate=Statistic::select('domain','flag','date_tag','count')->where('date_tag',Carbon::now()->toDateString())->get();
+        $tempDate=Statistic::select('domain','flag','date_tag','count','description')->where('date_tag',Carbon::now()->toDateString())->get();
         $todayClick=[];
         foreach ($tempDate as $t){
             $todayClick[$t->domain][]=[
                 'flag'=>$t->flag,
                 'count'=>$t->count,
+                'description'=>$t->description,
             ];
         }
         return view('button.read',[

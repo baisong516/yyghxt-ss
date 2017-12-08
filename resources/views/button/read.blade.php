@@ -25,6 +25,7 @@
                 <tr>
                     <th class="text-center">网站</th>
                     <th class="text-center">位置</th>
+                    <th class="text-center">说明</th>
                     <th class="text-center">点击次数</th>
                 </tr>
                 </thead>
@@ -40,6 +41,7 @@
                                 {{isset($clickArray[$e])?$clickArray[$e]:$e}}
                             @endforeach
                         </td>
+                        <td class="text-center">{{isset($d['description'])?$d['description']:''}}</td>
                         <td class="text-center">{{$d['count']}}</td>
                     </tr>
                     @endforeach
