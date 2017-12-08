@@ -21,7 +21,7 @@ Auth::routes();
 Route::any('wechat','WechatController@index');
 
 //统计
-Route::any('buttonStatistic','ApiController@buttonStatistic');
+Route::get('/buttons','ApiController@buttonStatisticTest');
 
 Route::group(['middleware' => ['auth','operationlog']], function() {
     Route::get('/home', 'HomeController@index')->name('home');

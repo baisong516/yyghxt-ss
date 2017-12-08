@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Disease;
 use App\GhCustomer;
 use App\GhHuifang;
@@ -13,7 +12,6 @@ use App\User;
 use App\ZxCustomer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class ApiController extends Controller
 {
@@ -219,16 +217,15 @@ class ApiController extends Controller
     }
 
     //按钮点击统计
-    public function buttonStatistic(Request $request)
+    public function buttonStatisticTest()
     {
         //domain flag date_tag count
-        $domain=$request->input('domain');
-        $flag=$request->input('flag');
+        $domain=isset($_GET['domain'])?$_GET['domain']:null;
+        $flag=isset($_GET['flag'])?$_GET['flag']:null;
         if (empty($domain)){return $this->errorResponse();}
         if (empty($flag)){return $this->errorResponse();}
-        $description=$request->input('des')?$request->input('des'):'';
+        $description=isset($_GET['des'])?$_GET['des']:'';
         $date_tag=Carbon::now()->toDateString();
-
         $data=Statistic::where('domain',$domain)->where('flag',$flag)->where('date_tag',$date_tag)->first();
         if (empty($data)){
             $data=new Statistic();
@@ -246,7 +243,34 @@ class ApiController extends Controller
             'status'=>1,
             'data'=>'ok',
         ]);
+    }
 
+    public function buttonStatistic(Request $request)
+    {
+        //domain flag date_tag count
+        $domain=$request->input('domain');
+        $flag=$request->input('flag');
+        if (empty($domain)){return $this->errorResponse();}
+        if (empty($flag)){return $this->errorResponse();}
+        $description=$request->input('des');
+        $date_tag=Carbon::now()->toDateString();
+        $data=Statistic::where('domain',$domain)->where('flag',$flag)->where('date_tag',$date_tag)->first();
+        if (empty($data)){
+            $data=new Statistic();
+            $data->domain=$domain;
+            $data->flag=$flag;
+            $data->date_tag=$date_tag;
+            $data->count=1;
+            $data->description=$description;
+            $bool=$data->save();
+        }else{
+            $data->count=$data->count+1;
+            $bool=$data->save();
+        }
+        return response()->json([
+            'status'=>1,
+            'data'=>'ok',
+        ]);
     }
 
 }

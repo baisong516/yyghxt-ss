@@ -16,9 +16,6 @@ use Illuminate\Http\Request;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-
-
-
 Route::group(['middleware'=>['api']],function(){
     Route::post('get-offices-from-hospital','ApiController@getOfficesFromHospital');
     Route::post('get-offices-from-hospitals','ApiController@getOfficesFromHospitals');
@@ -29,4 +26,7 @@ Route::group(['middleware'=>['api']],function(){
     Route::get('diseases','ApiController@getDiseaseArray');
     Route::get('gh','ApiController@guaHao');
     Route::get('gh.js','ApiController@guaHaoJs');
+
+    //统计
+    Route::get('buttonStatistic','ApiController@buttonStatistic');
 });
