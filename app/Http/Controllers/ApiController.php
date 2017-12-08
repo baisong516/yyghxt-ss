@@ -224,6 +224,7 @@ class ApiController extends Controller
         //domain flag date_tag count
         $domain=$request->input('domain');
         $flag=$request->input('flag');
+        $description=$request->input('des');
         $date_tag=Carbon::now()->toDateString();
         if (!empty($domain)&&!empty($flag)){
             $data=Statistic::where([
@@ -237,6 +238,7 @@ class ApiController extends Controller
                 $data->flag=$flag;
                 $data->date_tag=$date_tag;
                 $data->count=1;
+                $data->description=$description;
                 $data->save();
             }else{
                 $data->count=$data->count+1;

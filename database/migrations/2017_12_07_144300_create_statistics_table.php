@@ -19,6 +19,7 @@ class CreateStatisticsTable extends Migration
             $table->string('domain')->comment('域名');
             $table->string('flag')->comment('所统计按钮标识');
             $table->string('date_tag')->comment('日期标识');
+            $table->string('description')->nullable()->comment('说明');
             $table->unsignedInteger('count')->default(0)->comment('点击次数');
             $table->timestamps();
         });

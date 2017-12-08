@@ -35,7 +35,11 @@
                         @if($loop->first)
                         <td rowspan="{{$loop->count}}" class="text-center" style="vertical-align: middle;">{{$k}}</td>
                         @endif
-                        <td class="text-center">{{isset($clickArray[$d['flag']])?$clickArray[$d['flag']]:$d['flag']}}</td>
+                        <td class="text-center">{{isset($clickArray[$d['flag']])?$clickArray[$d['flag']]:}}
+                            @foreach(array_filter(explode('_',$d['flag'])) as $e)
+                                {{$clickArray[$d['flag']]}}
+                            @endforeach
+                        </td>
                         <td class="text-center">{{$d['count']}}</td>
                     </tr>
                     @endforeach
