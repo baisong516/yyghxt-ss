@@ -208,6 +208,17 @@ class ApiController extends Controller
             'data'=>$diseasesArr,
         ]);
     }
+    //按钮统计
+    public function saveClickCount(Request $request)
+    {
+        dd($request->all());
+        $domain=$request->input('domain');
+        $flag=$request->input('flag');
+        if (empty($domain)||empty($flag)){return $this->errorResponse();}
+        $date_tag=Carbon::now()->toDateString();
+        $click=Statistic::where('domain',$domain)->where('flag',$flag)->where('date_tag',$date_tag)->first();
+        dd($click);
+    }
     //错误信息
     public function errorResponse(){
         return response()->json([
@@ -215,67 +226,4 @@ class ApiController extends Controller
             'data'=>'errorMsg',
         ]);
     }
-
-    //按钮点击统计
-    public function buttonStatisticTest()
-    {
-        //domain flag date_tag count
-        $domain=isset($_GET['domain'])?$_GET['domain']:null;
-        $flag=isset($_GET['flag'])?$_GET['flag']:null;
-        if (empty($domain)){return $this->errorResponse();}
-        if (empty($flag)){return $this->errorResponse();}
-        $description=isset($_GET['des'])?$_GET['des']:'';
-        $date_tag=Carbon::now()->toDateString();
-        $data=Statistic::where('domain',$domain)->where('flag',$flag)->where('date_tag',$date_tag)->first();
-        if (empty($data)){
-            $data=new Statistic();
-            $data->domain=$domain;
-            $data->flag=$flag;
-            $data->date_tag=$date_tag;
-            $data->count=1;
-            $data->description=$description;
-            $data->save();
-        }else{
-            $data->count=$data->count+1;
-            $data->save();
-        }
-        return response()->json([
-            'status'=>1,
-            'data'=>'ok',
-        ]);
-    }
-
-    public function buttonStatistic(Request $request)
-    {
-        $domain=$request->input('domain');
-        $flag=$request->input('flag');
-        $date_tag=Carbon::now()->toDateString();
-        if (!empty($domain)&&!empty($flag)){
-            $data=Statistic::where([
-                ['date_tag','=',$date_tag],
-                ['domain','=',$domain],
-                ['flag','=',$flag],
-            ])->first();
-            if (empty($data)){
-                $data=new Statistic();
-                $data->domain=$domain;
-                $data->flag=$flag;
-                $data->date_tag=$date_tag;
-                $data->count=1;
-                $data->save();
-            }else{
-                $data->count=$data->count+1;
-                $data->save();
-            }
-            return response()->json([
-                'status'=>1,
-                'data'=>'ok',
-            ]);
-        }
-        return response()->json([
-            'status'=>0,
-            'data'=>'errorMsg',
-        ]);
-    }
-
 }
