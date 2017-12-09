@@ -9,9 +9,9 @@
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="buttonDate">日期：</label>
-                    <input type="text" class="form-control date-item" name="dateStart" id="dateStart" value="{{isset($start)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
+                    <input type="text" class="form-control date-item" name="dateStart" id="dateStart" value="{{isset($start)?$start:\Carbon\Carbon::now()->toDateString()}}">
                     到
-                    <input type="text" class="form-control date-item" name="dateEnd" id="dateEnd" value="{{isset($end)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
+                    <input type="text" class="form-control date-item" name="dateEnd" id="dateEnd" value="{{isset($end)?$end:\Carbon\Carbon::now()->toDateString()}}">
                 </div>
                 <button type="submit" class="btn btn-success">搜索</button>
             </form>
