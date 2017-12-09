@@ -6,6 +6,7 @@ use App\Statistic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class StatisticController extends Controller
 {
@@ -16,22 +17,24 @@ class StatisticController extends Controller
      */
     public function index()
     {
-        //今日点击量
-        $tempDate=Statistic::select('domain','flag','date_tag','count','description')->where('date_tag',Carbon::now()->toDateString())->get();
-        $todayClick=[];
-        foreach ($tempDate as $t){
-            $todayClick[$t->domain][]=[
-                'flag'=>$t->flag,
-                'count'=>$t->count,
-                'description'=>$t->description,
-            ];
+        if (Auth::user()->ability('superadministrator', 'read-buttons')) {
+            //今日点击量
+            $tempDate = Statistic::select('domain', 'flag', 'date_tag', 'count', 'description')->where('date_tag', Carbon::now()->toDateString())->get();
+            $todayClick = [];
+            foreach ($tempDate as $t) {
+                $todayClick[$t->domain][] = [
+                    'flag' => $t->flag,
+                    'count' => $t->count,
+                    'description' => $t->description,
+                ];
+            }
+            return view('button.read', [
+                'pageheader' => '数据统计',
+                'pagedescription' => '按钮点击量统计',
+                'todayClick' => $todayClick,
+                'clickArray' => $this->getClickArray(),
+            ]);
         }
-        return view('button.read',[
-            'pageheader'=>'数据统计',
-            'pagedescription'=>'按钮点击量统计',
-            'todayClick'=>$todayClick,
-            'clickArray'=>$this->getClickArray(),
-        ]);
     }
 
     /**
@@ -98,6 +101,34 @@ class StatisticController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //搜索
+    public function search(Request $request)
+    {
+        if (Auth::user()->ability('superadministrator', 'read-buttons')) {
+            //点击量
+            $start=$request->input('dateStart')?$request->input('dateStart'):Carbon::now()->toDateString();
+            $end=$request->input('dateEnd')?$request->input('dateEnd'):Carbon::now()->toDateString();
+            $tempDate = Statistic::select('domain', 'flag', 'date_tag', 'count', 'description')->where([
+                ['date_tag','>=',$start],
+                ['date_tag','<=',$end],
+            ])->get();
+            $todayClick = [];
+            foreach ($tempDate as $t) {
+                $todayClick[$t->domain][] = [
+                    'flag' => $t->flag,
+                    'count' => $t->count,
+                    'description' => $t->description,
+                ];
+            }
+            return view('button.read', [
+                'pageheader' => '数据统计',
+                'pagedescription' => '按钮点击量统计',
+                'todayClick' => $todayClick,
+                'clickArray' => $this->getClickArray(),
+            ]);
+        }
     }
 
     private function getClickArray()

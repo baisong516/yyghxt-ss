@@ -71,5 +71,6 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
     //
     Route::group(['prefix' => 'statistics'],function(){
         Route::resource('buttons','StatisticController');
+        Route::post('buttonsearch','StatisticController@search')->name('buttons.search');
     });
 });

@@ -5,13 +5,13 @@
     <link type="text/css" href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <div class="box box-info">
         <div class="box-header">
-            <form class="form-inline" action="{{route('summaries.search')}}"  id="search-form" name="search-form" method="POST">
+            <form class="form-inline" action="{{route('buttons.search')}}"  id="search-form" name="search-form" method="POST">
                 {{csrf_field()}}
                 <div class="form-group">
-                    <label for="summaryDate">日期：</label>
-                    <input type="text" class="form-control date-item" name="summaryDateStart" id="summaryDateStart" value="{{isset($start)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
+                    <label for="buttonDate">日期：</label>
+                    <input type="text" class="form-control date-item" name="dateStart" id="dateStart" value="{{isset($start)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
                     到
-                    <input type="text" class="form-control date-item" name="summaryDateEnd" id="summaryDateEnd" value="{{isset($end)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
+                    <input type="text" class="form-control date-item" name="dateEnd" id="dateEnd" value="{{isset($end)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
                 </div>
                 <button type="submit" class="btn btn-success">搜索</button>
             </form>
