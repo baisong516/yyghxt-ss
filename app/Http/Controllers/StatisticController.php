@@ -17,7 +17,7 @@ class StatisticController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->ability('superadministrator', 'read-buttons')) {
+        if (Auth::user()->ability('superadministrator', 'read-statistics')) {
             //今日点击量
             $tempDate = Statistic::select('domain', 'flag', 'date_tag', 'count', 'description')->where('date_tag', Carbon::now()->toDateString())->get();
             $todayClick = [];
@@ -106,7 +106,7 @@ class StatisticController extends Controller
     //搜索
     public function search(Request $request)
     {
-        if (Auth::user()->ability('superadministrator', 'read-buttons')) {
+        if (Auth::user()->ability('superadministrator', 'read-statistics')) {
             //点击量
             $start=$request->input('dateStart')?$request->input('dateStart'):Carbon::now()->toDateString();
             $end=$request->input('dateEnd')?$request->input('dateEnd'):Carbon::now()->toDateString();
