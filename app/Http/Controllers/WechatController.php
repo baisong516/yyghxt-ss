@@ -22,8 +22,7 @@ class WechatController extends Controller
         }
 
         //responseMsg
-        $accessToken=$this->getAccessToken();
-        $this->setMenus();//自定义菜单
+        $this->responseMsg();
     }
 
     private function checkSignature($request)
@@ -126,6 +125,54 @@ class WechatController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $menu);
         $output = curl_exec($ch);
         curl_close($ch);
+    }
+
+    private function responseMsg()
+    {
+        $this->setMenus();//自定义菜单
+        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        if (!empty($postStr)){
+            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $RX_TYPE = trim($postObj->MsgType);
+            $result='';
+            switch($RX_TYPE){
+                case "event":
+                    $result = $this->receiveEvent($postObj);
+                    break;
+            }
+            echo $result;
+        }else{
+            echo "";
+            exit;
+        }
+    }
+
+    private function receiveEvent($object){
+        $content = "";
+        switch ($object->Event){
+            case "subscribe":
+                $content = "欢迎关注";//这里是向关注者发送的提示信息
+                break;
+            case "unsubscribe":
+                $content = "";
+                break;
+        }
+        $result = $this->transmitText($object,$content);
+        return $result;
+    }
+
+    private function transmitText($object,$content){
+        $textTpl = "<xml>
+       <ToUserName><![CDATA[%s]]></ToUserName>
+       <FromUserName><![CDATA[%s]]></FromUserName>
+       <CreateTime>%s</CreateTime>
+       <MsgType><![CDATA[text]]></MsgType>
+       <Content><![CDATA[%s]]></Content>
+       <FuncFlag>0</FuncFlag>
+       </xml>";
+        $result = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $content);
+        return $result;
+
     }
 
 }
