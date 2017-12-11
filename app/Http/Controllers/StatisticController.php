@@ -141,11 +141,11 @@ class StatisticController extends Controller
             'top'=>'上侧',
             'bottom'=>'下侧',
             'center'=>'中间',
+            'window'=>'弹出',
             'swt'=>'商务通',
             'tel'=>'电话',
             'qq'=>'QQ',
             'wechat'=>'微信',
-            'window'=>'弹出',
             'content'=>'内容',
         ];
     }

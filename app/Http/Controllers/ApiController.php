@@ -228,10 +228,7 @@ class ApiController extends Controller
             $click->count=$count + 1;
             $click->save();
         }
-        return response()->json([
-            'status'=>1,
-            'data'=>'ok',
-        ]);
+        return response()->jsonp($request->input('callback'),['status'=>1, 'data'=>'ok']);
     }
     //错误信息
     public function errorResponse(){
