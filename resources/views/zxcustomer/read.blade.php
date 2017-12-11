@@ -123,7 +123,7 @@
                 <table id="zxcustomers-list-table" class="table table-striped table-bordered text-center">
                     <thead>
                     <tr>
-                        <th><i class="fa fa-level-down" aria-hidden="true"></i></th>
+                        <th style="display: none;"><i class="fa fa-level-down" aria-hidden="true"></i></th>
                         <th>患者</th>
                         <th>年龄</th>
                         <th>性别</th>
@@ -158,7 +158,7 @@
                     @if(!empty($customers))
                     @foreach($customers as $customer)
                         <tr id="customer-{{$customer->id}}">
-                            <td>{{$customer->id}}</td>
+                            <td style="display: none;">{{$customer->id}}</td>
                             <td>{{$customer->name}}</td>
                             <td>{{$customer->age}}</td>
                             <td>
