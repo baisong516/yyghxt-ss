@@ -129,7 +129,7 @@
         </a>
         <ul class="treeview-menu">
             @ability('superadministrator', 'read-statistics')
-            <li class="{{Request::is('statistics/buttons*')?'active':''}}"><a href="{{route('buttons.index')}}"><i class="fa fa-plus-square"></i><span>按钮点击统计</span></a></li>
+            <li class="{{Request::is('statistics/buttons*')?'active':''}}"><a href="{{route('buttons.index')}}"><i class="fa fa-hand-pointer-o"></i><span>按钮点击统计</span></a></li>
             @endability
         </ul>
     </li>
