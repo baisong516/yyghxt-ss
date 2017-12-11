@@ -32,6 +32,7 @@ class ZxCustomer extends Model
         $customer->trans_user_id=$request->input('trans_user_id');
         $customer->zixun_at=$request->input('zixun_at');
         $customer->yuyue_at=$request->input('yuyue_at');
+        $customer->time_slot=$request->input('time_slot');
         $customer->arrive_at=$request->input('arrive_at');
         $customer->customer_type_id=$request->input('customer_type_id');
         $customer->customer_condition_id=$request->input('customer_condition_id');
@@ -72,6 +73,7 @@ class ZxCustomer extends Model
         $customer->trans_user_id=$request->input('trans_user_id');
         $customer->zixun_at=$request->input('zixun_at');
         $customer->yuyue_at=$request->input('yuyue_at');
+        $customer->time_slot=$request->input('time_slot');
         $customer->arrive_at=$request->input('arrive_at');
         $customer->customer_type_id=$request->input('customer_type_id');
         $customer->customer_condition_id=$request->input('customer_condition_id');

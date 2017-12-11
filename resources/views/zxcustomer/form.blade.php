@@ -163,6 +163,12 @@
             <input type="text" class="form-control item-date" name="yuyue_at" id="yuyuetime" value="{{isset($customer)?$customer->yuyue_at:old('yuyue_at')}}">
         </div>
     </div>
+    <div class="form-group {{empty($errors->first('time_slot'))?'':'has-error'}}">
+        <label for="time_slot" class="col-sm-2 control-label">时段</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" maxlength="191" name="time_slot" id="time_slot" value="{{isset($customer)?$customer->time_slot:old('time_slot')}}">
+        </div>
+    </div>
 
     <div class="form-group {{empty($errors->first('arrive_at'))?'':'has-error'}}">
         <label for="arrivetime" class="col-sm-2 control-label">到院时间</label>

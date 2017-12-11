@@ -33,6 +33,7 @@ class CreateCustomersTable extends Migration
             $table->text('description')->nullable()->comment('咨询内容');
             $table->timestamp('zixun_at')->nullable()->comment('咨询时间');
             $table->timestamp('yuyue_at')->nullable()->comment('预约时间');
+            $table->string('time_slot')->nullable()->comment('时段');
             $table->timestamp('arrive_at')->nullable()->comment('到院时间');
             $table->unsignedInteger('office_id')->nullable()->comment('科室');
             $table->unsignedInteger('disease_id')->nullable()->comment('病种');
