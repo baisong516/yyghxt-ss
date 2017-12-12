@@ -131,6 +131,7 @@ class WechatController extends Controller
     {
         $this->setMenus();//自定义菜单
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        file_put_contents('/wechat.txt',$postStr);
         if (!empty($postStr)){
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $RX_TYPE = trim($postObj->MsgType);
@@ -141,10 +142,8 @@ class WechatController extends Controller
                     break;
             }
             echo $result;
-        }else{
-            echo "";
-            exit;
         }
+
     }
 
     private function receiveEvent($object){
@@ -163,16 +162,15 @@ class WechatController extends Controller
 
     private function transmitText($object,$content){
         $textTpl = "<xml>
-       <ToUserName><![CDATA[%s]]></ToUserName>
-       <FromUserName><![CDATA[%s]]></FromUserName>
-       <CreateTime>%s</CreateTime>
-       <MsgType><![CDATA[text]]></MsgType>
-       <Content><![CDATA[%s]]></Content>
-       <FuncFlag>0</FuncFlag>
-       </xml>";
+                       <ToUserName><![CDATA[%s]]></ToUserName>
+                       <FromUserName><![CDATA[%s]]></FromUserName>
+                       <CreateTime>%s</CreateTime>
+                       <MsgType><![CDATA[text]]></MsgType>
+                       <Content><![CDATA[%s]]></Content>
+                       <FuncFlag>0</FuncFlag>
+                   </xml>";
         $result = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $content);
         return $result;
-
     }
 
 }
