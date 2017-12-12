@@ -86,6 +86,10 @@
                     <td style="width: 80%">{{$customer->yuyue_at}}</td>
                 </tr>
                 <tr>
+                    <td style="width: 20%"><b>时段</b></td>
+                    <td style="width: 80%">{{$customer->time_slot}}</td>
+                </tr>
+                <tr>
                     <td style="width: 20%"><b>到院时间</b></td>
                     <td style="width: 80%">{{$customer->arrive_at}}</td>
                 </tr>
