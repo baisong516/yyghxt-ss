@@ -116,8 +116,8 @@
                 </div>
             </div>
         </div>
-        <div class="box-body">
-            <form action="" method="post" class="zxcustomers-form">
+        <form action="" method="post" class="zxcustomers-form">
+        <div class="box-body table-responsive">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
                 <table id="zxcustomers-list-table" class="table table-striped table-bordered text-center">
@@ -232,9 +232,9 @@
                     @endif
                     </tbody>
                 </table>
-            </form>
         </div>
         <!-- /.box-body -->
+    </form>
     </div>
 @endsection
 
