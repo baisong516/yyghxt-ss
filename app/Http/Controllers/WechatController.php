@@ -131,6 +131,7 @@ class WechatController extends Controller
     {
         $this->setMenus();//自定义菜单
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        //file_put_contents('/wechat.txt','recive msg start');
         file_put_contents('/wechat.txt',$postStr);
         if (!empty($postStr)){
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -139,6 +140,9 @@ class WechatController extends Controller
             switch($RX_TYPE){
                 case "event":
                     $result = $this->receiveEvent($postObj);
+                    break;
+                case 'text':
+                    $result = $this->receiveText($postObj);
                     break;
             }
             echo $result;
@@ -170,6 +174,13 @@ class WechatController extends Controller
                        <FuncFlag>0</FuncFlag>
                    </xml>";
         $result = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $content);
+        return $result;
+    }
+
+    private function receiveText($object)
+    {
+        $content = "你好";
+        $result = $this->transmitText($object,$content);
         return $result;
     }
 
