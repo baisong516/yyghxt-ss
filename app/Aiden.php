@@ -20,6 +20,7 @@ class Aiden extends Model
         }
         return $users;
     }
+    //所有有效用户
     public static function getAllActiveUserArray()
     {
         $obj=User::select('id','realname')->whereIn('department_id',[1,2])->where('is_active',1)->get();
@@ -29,7 +30,16 @@ class Aiden extends Model
         }
         return $users;
     }
-
+    //所有有有效竞价用户
+    public static function getAllActiveJingjiaUserArray()
+    {
+        $obj=User::select('id','realname')->whereIn('department_id',[1])->where('is_active',1)->get();
+        $users=[];
+        foreach ($obj as $user){
+            $users[$user->id]=$user->realname;
+        }
+        return $users;
+    }
     /*
      * return 对应表的id和名称组成的一维数组
      */
@@ -64,6 +74,19 @@ class Aiden extends Model
             $diseases[$office->id]['name']=$office->display_name;
             foreach ($office->diseases as $disease){
                 $diseases[$office->id]['diseases'][$disease->id]=$disease->display_name;
+            }
+        }
+        return $diseases;
+    }
+    /*
+     * return 当前用户权限对应的病种id
+     */
+    public static function getAuthdDiseasesId()
+    {
+        $diseases=[];
+        foreach (Auth::user()->offices as $office){
+            foreach ($office->diseases as $disease){
+                $diseases[]=$disease->id;
             }
         }
         return $diseases;

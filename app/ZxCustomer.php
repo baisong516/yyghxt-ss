@@ -37,6 +37,7 @@ class ZxCustomer extends Model
         $customer->customer_type_id=$request->input('customer_type_id');
         $customer->customer_condition_id=$request->input('customer_condition_id');
         $customer->addons=$request->input('addons');
+        $customer->jingjia_user_id=$request->input('jingjia_user_id');
         $bool=$customer->save();
         //创建回访
         $next_at=$request->input('next_at');
@@ -78,6 +79,7 @@ class ZxCustomer extends Model
         $customer->customer_type_id=$request->input('customer_type_id');
         $customer->customer_condition_id=$request->input('customer_condition_id');
         $customer->addons=$request->input('addons');
+        $customer->jingjia_user_id=$request->input('jingjia_user_id');
         return $customer->save();
     }
 

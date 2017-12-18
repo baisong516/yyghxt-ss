@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('webtypes','WebTypeController');
         Route::resource('customertypes','CustomerTypeController');
         Route::resource('customerconditions','CustomerConditionController');
+        Route::resource('platforms','PlatFormController');
+        Route::resource('areas','AreaController');
     });
     //咨询
     Route::group(['prefix' => 'zx'],function(){
@@ -56,6 +58,11 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
 	    Route::post('summaries','ZxCustomerController@summary')->name('summaries.search');
 	    Route::get('exportexcel','ExcelController@index')->name('excel.create');
 	    Route::post('exportexcel','ExcelController@exportExcel')->name('excel.export');
+    });
+    //竞价
+    Route::group(['prefix' => 'jingjia'],function(){
+        Route::resource('auctions','AuctionController');
+        Route::post('auctionsearch','AuctionController@search')->name('auctions.search');
     });
     //门诊
     Route::group(['prefix' => 'mz'],function(){

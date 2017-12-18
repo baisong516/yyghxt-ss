@@ -66,6 +66,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td style="width: 20%"><b>当班竞价</b></td>
+                    <td style="width: 80%">{{\App\User::find($customer->jingjia_user_id)?\App\User::find($customer->jingjia_user_id)->realname:''}}</td>
+                </tr>
+                <tr>
                     <td style="width: 20%"><b>商务通转电话</b></td>
                     <td style="width: 80%">{{\App\User::find($customer->trans_user_id)?\App\User::find($customer->trans_user_id)->realname:''}}</td>
                 </tr>

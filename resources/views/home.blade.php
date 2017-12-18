@@ -31,6 +31,8 @@
                                 <th>咨询量</th>
                                 <th>预约量</th>
                                 <th>留联系</th>
+                                <th>电话量</th>
+                                <th>总咨询量</th>
                                 <th>应到院</th>
                                 <th>到院量</th>
                                 <th>就诊量</th>
@@ -38,6 +40,7 @@
                                 <th>留联率</th>
                                 <th>到院率</th>
                                 <th>就诊率</th>
+                                <th>咨询转化率</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -47,6 +50,8 @@
                                     <td>{{$v['zixun_count']}}</td>
                                     <td>{{$v['yuyue_count']}}</td>
                                     <td>{{$v['contact_count']}}</td>
+                                    <td>{{$v['tel_count']}}</td>
+                                    <td>{{$v['total_count']}}</td>
                                     <td>{{$v['should_count']}}</td>
                                     <td>{{$v['arrive_count']}}</td>
                                     <td>{{$v['jiuzhen_count']}}</td>
@@ -54,6 +59,7 @@
                                     <td>{{$v['contact_rate']}}</td>
                                     <td>{{$v['arrive_rate']}}</td>
                                     <td>{{$v['jiuzhen_rate']}}</td>
+                                    <td>{{$v['zhuanhua_rate']}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -167,10 +173,19 @@
                             </tr>
                             <tr class="table-mobile-column">
                                 <th>留联系</th>
-                                <th>应到院</th>
+                                <th>电话量</th>
                             </tr>
                             <tr>
                                 <td>{{$v['contact_count']}}</td>
+                                <td>{{$v['tel_count']}}</td>
+                            </tr>
+                            <tr class="table-mobile-column">
+
+                                <th>总咨询量</th>
+                                <th>应到院</th>
+                            </tr>
+                            <tr>
+                                <td>{{$v['total_count']}}</td>
                                 <td>{{$v['should_count']}}</td>
                             </tr>
                             <tr class="table-mobile-column">
@@ -190,12 +205,20 @@
                                 <td>{{$v['contact_rate']}}</td>
                             </tr>
                             <tr class="table-mobile-column">
-                                <th>就诊率</th>
                                 <th>到院率</th>
+                                <th>就诊率</th>
                             </tr>
                             <tr>
-                                <td>{{$v['jiuzhen_rate']}}</td>
                                 <td>{{$v['arrive_rate']}}</td>
+                                <td>{{$v['jiuzhen_rate']}}</td>
+                            </tr>
+                            <tr class="table-mobile-column">
+                                <th>咨询转化率</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>{{$v['zhuanhua_rate']}}</td>
+                                <td></td>
                             </tr>
                         </table>
                     @endforeach

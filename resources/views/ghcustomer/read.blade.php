@@ -13,7 +13,7 @@
                     <i class="fa fa-times"></i></button>
             </div>
         </div>
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <form class="form-inline" action="{{route('ghcustomers.search')}}"  id="search-form" name="search-form" method="POST">
                 {{csrf_field()}}
                 <input type="hidden" name="quickSearch" value="">

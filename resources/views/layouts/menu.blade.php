@@ -60,6 +60,12 @@
             @ability('superadministrator', 'read-customer_conditions')
             <li class="{{Request::is('sysconf/customerconditions*')?'active':''}}"><a href="{{route('customerconditions.index')}}"><i class="fa fa-spinner"></i><span>客户状态设置</span></a></li>
             @endability
+            @ability('superadministrator', 'read-platforms')
+            <li class="{{Request::is('sysconf/platforms*')?'active':''}}"><a href="{{route('platforms.index')}}"><i class="fa fa-laptop"></i><span>平台渠道</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-areas')
+            <li class="{{Request::is('sysconf/areas*')?'active':''}}"><a href="{{route('areas.index')}}"><i class="fa fa-location-arrow"></i><span>地域</span></a></li>
+            @endability
             {{--<li><a href="#"><i class="fa fa-internet-explorer"></i><span>搜索引擎设置</span></a></li>--}}
         </ul>
     </li>
@@ -97,6 +103,30 @@
             {{--<li><a href="#"><i class="fa fa-save"></i><span>病人数据导出</span></a></li>--}}
         </ul>
     </li>
+    <li class="treeview {{Request::is('jingjia/*')?'active':''}}">
+        <a href="#"><i class="fa fa-jpy" aria-hidden="true"></i> <span>竞价</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            @ability('superadministrator', 'read-auctions')
+            <li class="{{Request::is('jingjia/auctions*')?'active':''}}"><a href="{{route('auctions.index')}}"><i class="fa fa-th"></i><span>竞价报表</span></a></li>
+            @endability
+        </ul>
+    </li>
+    <li class="treeview {{Request::is('statistics/*')?'active':''}}">
+        <a href="#"><i class="fa fa-database"></i> <span>企划</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            @ability('superadministrator', 'read-statistics')
+            <li class="{{Request::is('statistics/buttons*')?'active':''}}"><a href="{{route('buttons.index')}}"><i class="fa fa-hand-pointer-o"></i><span>按钮点击统计</span></a></li>
+            @endability
+        </ul>
+    </li>
     <li class="treeview {{Request::is('mz/*')?'active':''}}">
         <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i> <span>门诊</span>
             <span class="pull-right-container">
@@ -118,18 +148,6 @@
         <ul class="treeview-menu">
             @ability('superadministrator', 'read-gh_customers')
             <li class="{{Request::is('gh/ghcustomers*')?'active':''}}"><a href="{{route('ghcustomers.index')}}"><i class="fa fa-plus-square"></i><span>挂号详情</span></a></li>
-            @endability
-        </ul>
-    </li>
-    <li class="treeview {{Request::is('statistics/*')?'active':''}}">
-        <a href="#"><i class="fa fa-database"></i> <span>数据统计</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu">
-            @ability('superadministrator', 'read-statistics')
-            <li class="{{Request::is('statistics/buttons*')?'active':''}}"><a href="{{route('buttons.index')}}"><i class="fa fa-hand-pointer-o"></i><span>按钮点击统计</span></a></li>
             @endability
         </ul>
     </li>

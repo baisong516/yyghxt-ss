@@ -140,6 +140,7 @@
                         <th>状态</th>
                         <th>商务通转电话</th>
                         <th>咨询员</th>
+                        <th>当班竞价</th>
                         <th>咨询</th>
                         <th>预约</th>
                         <th>时段</th>
@@ -190,6 +191,9 @@
                             <td>{{$customer->trans_user_id?$users[$customer->trans_user_id]:''}}</td>
                             {{--咨询员--}}
                             <td>{{$customer->user_id?$users[$customer->user_id]:''}}</td>
+                            {{--竞价员--}}
+                            <td>{{$customer->jingjia_user_id?$users[$customer->jingjia_user_id]:''}}</td>
+
                             <td>{{$customer->zixun_at?$customer->zixun_at:''}}</td>
                             <td>{{$customer->yuyue_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->yuyue_at)->toDateString():''}}</td>
                             <td>{{$customer->time_slot?$customer->time_slot:''}}</td>

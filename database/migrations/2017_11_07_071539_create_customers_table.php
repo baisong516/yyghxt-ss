@@ -28,6 +28,7 @@ class CreateCustomersTable extends Migration
             $table->unsignedInteger('media_id')->nullable()->comment('媒体来源');
             $table->unsignedInteger('webtype_id')->nullable()->comment('网站类型');//
             $table->unsignedInteger('user_id')->nullable()->comment('咨询员');
+            $table->unsignedInteger('jingjia_user_id')->nullable()->comment('当班竞价员');
             $table->unsignedInteger('trans_user_id')->nullable()->comment('商务通转电话人员');
             $table->unsignedInteger('customer_condition_id')->nullable()->comment('客户状态');//
             $table->text('description')->nullable()->comment('咨询内容');

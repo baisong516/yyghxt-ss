@@ -138,6 +138,18 @@
         </div>
     </div>
 
+    <div class="form-group {{empty($errors->first('jingjia_user_id'))?'':'has-error'}}">
+        <label for="trans-user" class="col-sm-2 control-label">当班竞价员</label>
+        <div class="col-sm-10">
+            <select name="jingjia_user_id" id="jingjia-user" class="form-control">
+                <option value="" selected>--选择--</option>
+                @foreach($activeJingjiaUsers as $k=>$v)
+                    <option value="{{$k}}" {{old('jingjia_user_id')==$k?'selected':''}} {{isset($customer)&&$customer->jingjia_user_id==$k?'selected':''}}>{{$v}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
     <div class="form-group {{empty($errors->first('media'))?'':'has-error'}}">
         <label for="trans-user" class="col-sm-2 control-label">商务通转电话</label>
         <div class="col-sm-10">

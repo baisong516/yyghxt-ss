@@ -95,11 +95,18 @@ class HomeController extends Controller
 	    if (!empty($user->offices)){
 		    foreach ($user->offices as $office){
 			    $data[$office->id]['name']=$office->display_name;
-			    //咨询量
-			    $data[$office->id]['zixun_count']=ZxCustomer::where('office_id',$office->id)->where([
+			    //总咨询量
+			    $data[$office->id]['total_count']=ZxCustomer::where('office_id',$office->id)->where([
 				    ['zixun_at','>=',$start],
 				    ['zixun_at','<=',$end],
 			    ])->count();
+			    //电话量
+                $data[$office->id]['tel_count']=ZxCustomer::where('office_id',$office->id)->where([
+                    ['zixun_at','>=',$start],
+                    ['zixun_at','<=',$end],
+                ])->whereNull('tel')->count();
+                //网络咨询量
+                $data[$office->id]['zixun_count']=$data[$office->id]['total_count']-$data[$office->id]['tel_count'];
 			    //预约量
 			    $data[$office->id]['yuyue_count']=ZxCustomer::where('office_id',$office->id)->where([
                     ['zixun_at','>=',$start],
@@ -134,13 +141,15 @@ class HomeController extends Controller
 				    ['arrive_at','<=',$end],
 			    ])->where('customer_condition_id',1)->count();
 			    //预约率
-			    $data[$office->id]['yuyue_rate']=$data[$office->id]['zixun_count']>0?sprintf("%.2f",$data[$office->id]['yuyue_count']*100.00/$data[$office->id]['zixun_count'])."%":'0.00%';
+			    $data[$office->id]['yuyue_rate']=$data[$office->id]['zixun_count']>0?sprintf("%.2f",$data[$office->id]['yuyue_count']*100.00/$data[$office->id]['total_count'])."%":'0.00%';
 			    //留联率
-			    $data[$office->id]['contact_rate']=$data[$office->id]['zixun_count']>0?sprintf("%.2f",$data[$office->id]['contact_count']*100.00/$data[$office->id]['zixun_count'])."%":'0.00%';
+			    $data[$office->id]['contact_rate']=$data[$office->id]['zixun_count']>0?sprintf("%.2f",$data[$office->id]['contact_count']*100.00/$data[$office->id]['total_count'])."%":'0.00%';
 			    //到院率
 			    $data[$office->id]['arrive_rate']=$data[$office->id]['should_count']>0?sprintf("%.2f",$data[$office->id]['arrive_count']*100.00/$data[$office->id]['should_count'])."%":'0.00%';
 			    //就诊率
 			    $data[$office->id]['jiuzhen_rate']=$data[$office->id]['arrive_count']>0?sprintf("%.2f",$data[$office->id]['jiuzhen_count']*100.00/$data[$office->id]['arrive_count'])."%":'0.00%';
+			    //咨询转化率
+			    $data[$office->id]['zhuanhua_rate']=$data[$office->id]['zixun_count']>0?sprintf("%.2f",$data[$office->id]['arrive_count']*100.00/$data[$office->id]['total_count'])."%":'0.00%';
 		    }
 	    }
 	    return view('home',[
