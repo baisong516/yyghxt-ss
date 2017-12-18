@@ -127,6 +127,24 @@
             @endability
         </ul>
     </li>
+    <li class="treeview {{Request::is('outputs/*')?'active':''}}">
+        <a href="#"><i class="fa fa-sign-out"></i> <span>产出</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            @ability('superadministrator', 'read-outputs')
+            <li class="{{Request::is('outputs/outputs*')?'active':''}}"><a href="{{route('outputs.index')}}"><i class="fa fa-sign-out"></i><span>产出总览</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-zxoutputs')
+            <li class="{{Request::is('outputs/zxoutputs*')?'active':''}}"><a href="{{route('zxoutputs.index')}}"><i class="fa fa-sign-out"></i><span>咨询产出</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-jjoutputs')
+            <li class="{{Request::is('outputs/jjoutputs*')?'active':''}}"><a href="{{route('jjoutputs.index')}}"><i class="fa fa-sign-out"></i><span>竞价产出</span></a></li>
+            @endability
+        </ul>
+    </li>
     <li class="treeview {{Request::is('mz/*')?'active':''}}">
         <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i> <span>门诊</span>
             <span class="pull-right-container">

@@ -104,7 +104,7 @@ class HomeController extends Controller
                 $data[$office->id]['tel_count']=ZxCustomer::where('office_id',$office->id)->where([
                     ['zixun_at','>=',$start],
                     ['zixun_at','<=',$end],
-                ])->whereNull('tel')->count();
+                ])->where('media_id',2)->count();
                 //网络咨询量
                 $data[$office->id]['zixun_count']=$data[$office->id]['total_count']-$data[$office->id]['tel_count'];
 			    //预约量

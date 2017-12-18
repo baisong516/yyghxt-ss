@@ -64,6 +64,14 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('auctions','AuctionController');
         Route::post('auctionsearch','AuctionController@search')->name('auctions.search');
     });
+    //产出
+    Route::group(['prefix' => 'outputs'],function(){
+        Route::get('outputs','OutputController@index')->name('outputs.index');
+        Route::resource('zxoutputs','ZxOutputController');
+        Route::resource('jjoutputs','JjOutputController');
+        Route::post('zxoutputsearch','ZxOutputController@search')->name('zxoutputs.search');
+        Route::post('jjoutputsearch','JjOutputController@search')->name('jjoutputs.search');
+    });
     //门诊
     Route::group(['prefix' => 'mz'],function(){
         Route::resource('menzhens','MzCustomerController');
