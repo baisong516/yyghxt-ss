@@ -119,6 +119,25 @@ class ApiController extends Controller
         ]);
     }
 
+    public static function getZxUsersFromOffice(Request $request)
+    {
+        $officeId=$request->input('office_id');
+        $users=Office::findOrFail($officeId)->users->where('is_active',1)->where('department_id',2);
+        $usersArray=[];
+        foreach ($users as $user){
+            $usersArray[]=[
+                'id'=>$user->id,
+                'name'=>$user->realname,
+            ];
+        }
+        $status=0;
+        if (!empty($usersArray)){$status=1;}
+        return response()->json([
+            'status'=>$status,
+            'data'=>$usersArray,
+        ]);
+    }
+
     //挂号患者录入接口
     public function guaHao(Request $request)
     {

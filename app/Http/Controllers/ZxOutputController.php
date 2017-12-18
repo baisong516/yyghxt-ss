@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Aiden;
 use App\ZxOutput;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +19,12 @@ class ZxOutputController extends Controller
     public function index()
     {
         if (Auth::user()->ability('superadministrator', 'read-zxoutputs')){
+            $outputs=ZxOutput::getAllZxOutputs();
             return view('zxoutput.read',[
                 'pageheader'=>'产出',
                 'pagedescription'=>'咨询产出',
+                'users'=>Aiden::getAllUserArray(),
+                'outputs'=>$outputs,
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -31,13 +35,14 @@ class ZxOutputController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         if (Auth::user()->ability('superadministrator', 'create-zxoutputs')){
             return view('zxoutput.create',[
                 'pageheader'=>'产出',
                 'pagedescription'=>'咨询产出录入',
                 'zxusers'=>Aiden::getAllZxUserArray(),
+                'offices'=>Aiden::getAuthdOffices(),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

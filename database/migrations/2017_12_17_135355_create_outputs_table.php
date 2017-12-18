@@ -38,6 +38,7 @@ class CreateOutputsTable extends Migration
             $table->string('jiuzhen_rate')->comment('合计就诊率');
             $table->string('trans_rate')->comment('合计转化率');
             $table->timestamp('date_tag')->comment('日期');
+            $table->index(['user_id','office_id']);
             $table->timestamps();
         });
         //竞价产出 项目	竞价员	班次	预算	消费	点击	咨询量	预约量	到院量	咨询成本	预约成本	到院成本
@@ -56,6 +57,7 @@ class CreateOutputsTable extends Migration
             $table->decimal('yuyue_cost')->comment('预约成本');
             $table->decimal('arrive_cost')->comment('到院成本');
             $table->timestamp('date_tag')->comment('日期');
+            $table->index(['user_id','office_id']);
             $table->timestamps();
         });
     }

@@ -24,7 +24,71 @@
             </div>
         </div>
         <div class="box-body table-responsive">
-
+            <table class="table text-center table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="2"></th>
+                        <th colspan="4">商务通</th>
+                        <th colspan="3">电话</th>
+                        <th colspan="3">回访</th>
+                        <th colspan="8">合计</th>
+                    </tr>
+                    <tr>
+                        <th>项目</th>
+                        <th>咨询员</th>
+                        <th>咨询量</th>
+                        <th>预约量</th>
+                        <th>留联系</th>
+                        <th>到院量</th>
+                        <th>电话量</th>
+                        <th>预约量</th>
+                        <th>到院量</th>
+                        <th>回访量</th>
+                        <th>预约量</th>
+                        <th>到院量</th>
+                        <th>咨询量</th>
+                        <th>预约量</th>
+                        <th>到院量</th>
+                        <th>就诊量</th>
+                        <th>预约率</th>
+                        <th>到院率</th>
+                        <th>就诊率</th>
+                        <th>咨询转化率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @isset($outputs)
+                        @foreach($outputs as $d)
+                        @foreach($d['data'] as $output)
+                        <tr>
+                            @if($loop->first)
+                            <td rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$d['office']}}</td>
+                            @endif
+                            <td>{{$output->user_id?$users[$output->user_id]:''}}</td>
+                            <td>{{$output->swt_zixun_count}}</td>
+                            <td>{{$output->swt_yuyue_count}}</td>
+                            <td>{{$output->swt_contact_count}}</td>
+                            <td>{{$output->swt_arrive_count}}</td>
+                            <td>{{$output->tel_zixun_count}}</td>
+                            <td>{{$output->tel_yuyue_count}}</td>
+                            <td>{{$output->tel_arrive_count}}</td>
+                            <td>{{$output->hf_zixun_count}}</td>
+                            <td>{{$output->hf_yuyue_count}}</td>
+                            <td>{{$output->hf_arrive_count}}</td>
+                            <td>{{$output->total_zixun_count}}</td>
+                            <td>{{$output->total_yuyue_count}}</td>
+                            <td>{{$output->total_arrive_count}}</td>
+                            <td>{{$output->total_jiuzhen_count}}</td>
+                            <td>{{$output->yuyue_rate}}</td>
+                            <td>{{$output->arrive_rate}}</td>
+                            <td>{{$output->jiuzhen_rate}}</td>
+                            <td>{{$output->trans_rate}}</td>
+                        </tr>
+                        @endforeach
+                        @endforeach
+                    @endisset
+                </tbody>
+            </table>
         </div>
         <!-- /.box-body -->
     </div>

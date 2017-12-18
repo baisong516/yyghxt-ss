@@ -28,6 +28,26 @@
                 // value: new Date()
             });
         });
+        //change zxusers on office change
+        $("#office").on('change',function(){
+            var officeId=$(this).val();
+            $.ajax({
+                url: '/api/get-zxusers-from-office',
+                type: "post",
+                data: {'office_id':officeId,'_token': $('input[name=_token]').val()},
+                success: function(data){
+                    console.log(data);
+                    $("#user").empty();
+                    if(data.status){
+                        var html='';
+                        for (var i=0;i<data.data.length;i++){
+                            html += "<option value=\""+data.data[i].id+"\">"+data.data[i].name+"</option>";
+                        }
+                        $("#user").append(html);
+                    }
+                }
+            });
+        });
     </script>
 @endsection
 

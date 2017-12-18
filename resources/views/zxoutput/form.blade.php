@@ -1,8 +1,19 @@
 <div class="box-body">
-    <div class="form-group {{empty($errors->first('user_id'))?'':'has-error'}}">
+    <div class="form-group {{empty($errors->first('office_id'))?'':'has-error'}}">
+        <label for="office_id" class="col-sm-2 control-label">(科室)项目</label>
+        <div class="col-sm-8">
+            <select name="office_id" id="office" class="form-control">
+                <option value="">--选择科室--</option>
+                @foreach($offices as $k=>$office)
+                    <option value="{{$k}}">{{$office}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-group {{empty($errors->first('office_id'))?'':'has-error'}}">
         <label for="user" class="col-sm-2 control-label">咨询员</label>
         <div class="col-sm-8">
-            <select name="user_id" id="platform" class="form-control">
+            <select name="user_id" id="user" class="form-control">
                 <option value="">--选择咨询员--</option>
                 @foreach($zxusers as $k=>$user)
                     <option value="{{$k}}">{{$user}}</option>
@@ -87,6 +98,7 @@
         </div>
     </div>
 </div>
+
 <div class="box-footer">
     <div class="form-group">
         <div class="col-sm-10">
