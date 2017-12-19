@@ -31,7 +31,7 @@
                         <th colspan="4">商务通</th>
                         <th colspan="3">电话</th>
                         <th colspan="3">回访</th>
-                        <th colspan="8">合计</th>
+                        <th colspan="9">合计</th>
                     </tr>
                     <tr>
                         <th>项目</th>
@@ -54,6 +54,7 @@
                         <th>到院率</th>
                         <th>就诊率</th>
                         <th>咨询转化率</th>
+                        <th>OP</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,6 +84,14 @@
                             <td>{{$output->arrive_rate}}</td>
                             <td>{{$output->jiuzhen_rate}}</td>
                             <td>{{$output->trans_rate}}</td>
+                            <td>
+                                @if($enableUpdate)
+                                    <a href="{{route('zxoutputs.edit',$output->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
+                                @endif
+                                @if($enableDelete)
+                                    <a href="javascript:void(0);"  alt="删除" data-id="{{$output->id}}" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                         @endforeach

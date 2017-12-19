@@ -19,12 +19,16 @@ class ZxOutputController extends Controller
     public function index()
     {
         if (Auth::user()->ability('superadministrator', 'read-zxoutputs')){
-            $outputs=ZxOutput::getAllZxOutputs();
+            $start=Carbon::now()->startOfDay();
+            $end=Carbon::now()->endOfDay();
+            $outputs=ZxOutput::getZxOutputs($start,$end);
             return view('zxoutput.read',[
                 'pageheader'=>'产出',
                 'pagedescription'=>'咨询产出',
                 'users'=>Aiden::getAllUserArray(),
                 'outputs'=>$outputs,
+                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-zxoutputs'),
+                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-zxoutputs'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

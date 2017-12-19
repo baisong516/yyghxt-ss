@@ -63,13 +63,16 @@ class ZxOutput extends Model
         return $bool;
     }
 
-    public static function getAllZxOutputs()
+    public static function getZxOutputs($start,$end)
     {
         $offices=Aiden::getAuthdOffices();
         $outputs=[];
         foreach ($offices as $k=>$v){
             $outputs[$k]['office']=$v;
-            $outputs[$k]['data']=ZxOutput::where('office_id',$k)->get();
+            $outputs[$k]['data']=ZxOutput::where('office_id',$k)->where([
+                ['date_tag','>=',$start],
+                ['date_tag','<=',$end],
+            ])->get();
         }
         return $outputs;
     }
