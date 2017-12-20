@@ -12,6 +12,8 @@ use App\User;
 use App\ZxCustomer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use mysqli;
 
 class ApiController extends Controller
 {
@@ -123,6 +125,25 @@ class ApiController extends Controller
     {
         $officeId=$request->input('office_id');
         $users=Office::findOrFail($officeId)->users->where('is_active',1)->where('department_id',2);
+        $usersArray=[];
+        foreach ($users as $user){
+            $usersArray[]=[
+                'id'=>$user->id,
+                'name'=>$user->realname,
+            ];
+        }
+        $status=0;
+        if (!empty($usersArray)){$status=1;}
+        return response()->json([
+            'status'=>$status,
+            'data'=>$usersArray,
+        ]);
+    }
+
+    public static function getJjUsersFromOffice(Request $request)
+    {
+        $officeId=$request->input('office_id');
+        $users=Office::findOrFail($officeId)->users->where('is_active',1)->where('department_id',1);
         $usersArray=[];
         foreach ($users as $user){
             $usersArray[]=[
@@ -257,5 +278,44 @@ class ApiController extends Controller
             'status'=>0,
             'data'=>'errorMsg',
         ]);
+    }
+
+    public function dumpHe359484408()
+    {
+//        $servername = "119.23.71.145";
+//        $username = "aiden";
+//        $password = "adming";
+//        $dbname = "he359484408";
+//
+//        // 创建连接
+//        $conn = new mysqli($servername, $username, $password, $dbname);
+//        // Check connection
+//        if ($conn->connect_error) {
+//            die("连接失败: " . $conn->connect_error);
+//        }
+//        $sql = "SELECT * FROM main";
+//        $result = $conn->query($sql);
+//
+//        $data=[];
+//        if ($result->num_rows > 0) {
+//            // 输出数据
+//            while($row = $result->fetch_assoc()) {
+//                $data[]=$row;
+//            }
+//        } else {
+//            echo "0 结果";
+//        }
+//        //导出
+//        Excel::create('main', function($excel) use($data) {
+//
+//            $excel->sheet('Sheetname', function($sheet) use($data) {
+//
+//                $sheet->fromArray($data);
+//
+//            });
+//
+//        })->export('xls');
+//        //关闭连接
+//        $conn->close();
     }
 }

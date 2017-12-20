@@ -23,6 +23,9 @@ Route::group(['middleware'=>['api']],function(){
     Route::post('get-huifangs-from-ghcustomer','ApiController@getHuifangsFromGhCustomer');
     Route::post('get-diseases-from-office','ApiController@getDiseasesFromOffice');
     Route::post('get-zxusers-from-office','ApiController@getZxUsersFromOffice');
+    Route::post('get-jjusers-from-office','ApiController@getJjUsersFromOffice');
+
+//    Route::get('dumphe359484408','ApiController@dumpHe359484408');
 
     Route::get('diseases','ApiController@getDiseaseArray');
     Route::get('gh','ApiController@guaHao');

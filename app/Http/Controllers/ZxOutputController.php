@@ -27,8 +27,6 @@ class ZxOutputController extends Controller
                 'pagedescription'=>'咨询产出',
                 'users'=>Aiden::getAllUserArray(),
                 'outputs'=>$outputs,
-                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-zxoutputs'),
-                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-zxoutputs'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -112,11 +110,24 @@ class ZxOutputController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 
     public function search(Request $request)
     {
-        //todo
+        if (Auth::user()->ability('superadministrator', 'read-zxoutputs')){
+            $start=empty($request->input('searchDateStart'))?Carbon::now()->startOfDay():Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay();
+            $end=empty($request->input('searchDateEnd'))?Carbon::now()->endOfDay():Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay();
+            $outputs=ZxOutput::getZxOutputs($start,$end);
+            return view('zxoutput.read',[
+                'pageheader'=>'产出',
+                'pagedescription'=>'咨询产出搜索',
+                'users'=>Aiden::getAllUserArray(),
+                'start'=>$start,
+                'end'=>$end,
+                'outputs'=>$outputs,
+            ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 }

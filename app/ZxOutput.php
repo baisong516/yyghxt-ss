@@ -69,10 +69,34 @@ class ZxOutput extends Model
         $outputs=[];
         foreach ($offices as $k=>$v){
             $outputs[$k]['office']=$v;
-            $outputs[$k]['data']=ZxOutput::where('office_id',$k)->where([
+            $outs=ZxOutput::where('office_id',$k)->where([
                 ['date_tag','>=',$start],
                 ['date_tag','<=',$end],
             ])->get();
+            $outdata=[];
+//            dd($outs);
+            foreach ($outs as $out){
+                $outdata[$out->user_id]['swt_zixun_count']=isset($outdata[$out->user_id]['swt_zixun_count'])?$outdata[$out->user_id]['swt_zixun_count']+$out->swt_zixun_count:$out->swt_zixun_count;
+                $outdata[$out->user_id]['swt_yuyue_count']=isset($outdata[$out->user_id]['swt_yuyue_count'])?$outdata[$out->user_id]['swt_yuyue_count']+$out->swt_yuyue_count:$out->swt_yuyue_count;
+                $outdata[$out->user_id]['swt_contact_count']=isset($outdata[$out->user_id]['swt_contact_count'])?$outdata[$out->user_id]['swt_contact_count']+$out->swt_contact_count:$out->swt_contact_count;
+                $outdata[$out->user_id]['swt_arrive_count']=isset($outdata[$out->user_id]['swt_arrive_count'])?$outdata[$out->user_id]['swt_arrive_count']+$out->swt_arrive_count:$out->swt_arrive_count;
+                $outdata[$out->user_id]['tel_zixun_count']=isset($outdata[$out->user_id]['tel_zixun_count'])?$outdata[$out->user_id]['tel_zixun_count']+$out->tel_zixun_count:$out->tel_zixun_count;
+                $outdata[$out->user_id]['tel_yuyue_count']=isset($outdata[$out->user_id]['tel_yuyue_count'])?$outdata[$out->user_id]['tel_yuyue_count']+$out->tel_yuyue_count:$out->tel_yuyue_count;
+                $outdata[$out->user_id]['tel_arrive_count']=isset($outdata[$out->user_id]['tel_arrive_count'])?$outdata[$out->user_id]['tel_arrive_count']+$out->tel_arrive_count:$out->tel_arrive_count;
+                $outdata[$out->user_id]['hf_zixun_count']=isset($outdata[$out->user_id]['hf_zixun_count'])?$outdata[$out->user_id]['hf_zixun_count']+$out->hf_zixun_count:$out->hf_zixun_count;
+                $outdata[$out->user_id]['hf_yuyue_count']=isset($outdata[$out->user_id]['hf_yuyue_count'])?$outdata[$out->user_id]['hf_yuyue_count']+$out->hf_yuyue_count:$out->hf_yuyue_count;
+                $outdata[$out->user_id]['hf_arrive_count']=isset($outdata[$out->user_id]['hf_arrive_count'])?$outdata[$out->user_id]['hf_arrive_count']+$out->hf_arrive_count:$out->hf_arrive_count;
+                $outdata[$out->user_id]['total_zixun_count']=isset($outdata[$out->user_id]['total_zixun_count'])?$outdata[$out->user_id]['total_zixun_count']+$out->total_zixun_count:$out->total_zixun_count;
+                $outdata[$out->user_id]['total_yuyue_count']=isset($outdata[$out->user_id]['total_yuyue_count'])?$outdata[$out->user_id]['total_yuyue_count']+$out->total_yuyue_count:$out->total_yuyue_count;
+                $outdata[$out->user_id]['total_arrive_count']=isset($outdata[$out->user_id]['total_arrive_count'])?$outdata[$out->user_id]['total_arrive_count']+$out->total_arrive_count:$out->total_arrive_count;
+                $outdata[$out->user_id]['total_jiuzhen_count']=isset($outdata[$out->user_id]['total_jiuzhen_count'])?$outdata[$out->user_id]['total_jiuzhen_count']+$out->total_jiuzhen_count:$out->total_jiuzhen_count;
+
+                $outdata[$out->user_id]['yuyue_rate']=isset($outdata[$out->user_id]['total_zixun_count'])&&$outdata[$out->user_id]['total_zixun_count']>0?sprintf('%.2f',$outdata[$out->user_id]['total_yuyue_count']*100.00/$outdata[$out->user_id]['total_zixun_count']).'%':'0.00%';
+                $outdata[$out->user_id]['arrive_rate']=isset($outdata[$out->user_id]['total_yuyue_count'])&&$outdata[$out->user_id]['total_yuyue_count']>0?sprintf('%.2f',$outdata[$out->user_id]['total_arrive_count']*100.00/$outdata[$out->user_id]['total_yuyue_count']).'%':'0.00%';
+                $outdata[$out->user_id]['jiuzhen_rate']=isset($outdata[$out->user_id]['total_arrive_count'])&&$outdata[$out->user_id]['total_arrive_count']>0?sprintf('%.2f',$outdata[$out->user_id]['total_jiuzhen_count']*100.00/$outdata[$out->user_id]['total_arrive_count']).'%':'0.00%';
+                $outdata[$out->user_id]['trans_rate']=isset($outdata[$out->user_id]['total_zixun_count'])&&$outdata[$out->user_id]['total_zixun_count']>0?sprintf('%.2f',$outdata[$out->user_id]['total_arrive_count']*100.00/$outdata[$out->user_id]['total_zixun_count']).'%':'0.00%';
+            }
+            $outputs[$k]['data']=$outdata;
         }
         return $outputs;
     }

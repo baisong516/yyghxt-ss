@@ -10,7 +10,7 @@
             </select>
         </div>
     </div>
-    <div class="form-group {{empty($errors->first('office_id'))?'':'has-error'}}">
+    <div class="form-group {{empty($errors->first('user_id'))?'':'has-error'}}">
         <label for="user" class="col-sm-2 control-label">咨询员</label>
         <div class="col-sm-8">
             <select name="user_id" id="user" class="form-control">

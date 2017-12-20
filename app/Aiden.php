@@ -110,4 +110,14 @@ class Aiden extends Model
         }
         return $users;
     }
+    public static function getAllJjUserArray()
+    {
+        $users=[];
+        foreach (Auth::user()->offices as $office){
+            foreach ($office->users()->where('users.department_id',1)->where('users.is_active',1)->get() as $user){
+                $users[$user->id]=$user->realname;
+            }
+        }
+        return $users;
+    }
 }

@@ -64,9 +64,19 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('auctions','AuctionController');
         Route::post('auctionsearch','AuctionController@search')->name('auctions.search');
     });
+    //企划
+    Route::group(['prefix' => 'qh'],function(){
+        Route::resource('buttons','StatisticController');
+        Route::post('buttonsearch','StatisticController@search')->name('buttons.search');
+
+        Route::resource('specials','SpecialController');
+        Route::resource('specialtrans','SpecialtranController');
+        Route::post('specialtransearch','SpecialtranController@search')->name('specialtrans.search');
+    });
     //产出
     Route::group(['prefix' => 'outputs'],function(){
         Route::get('outputs','OutputController@index')->name('outputs.index');
+        Route::post('outputsearch','OutputController@search')->name('outputs.search');
         Route::resource('zxoutputs','ZxOutputController');
         Route::resource('jjoutputs','JjOutputController');
         Route::post('zxoutputsearch','ZxOutputController@search')->name('zxoutputs.search');
@@ -82,10 +92,5 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('ghcustomers','GhCustomerController');
         Route::resource('ghhuifangs','GhHuifangController');
         Route::post('ghcustomersearch','GhCustomerController@customerSearch')->name('ghcustomers.search');
-    });
-    //
-    Route::group(['prefix' => 'statistics'],function(){
-        Route::resource('buttons','StatisticController');
-        Route::post('buttonsearch','StatisticController@search')->name('buttons.search');
     });
 });
