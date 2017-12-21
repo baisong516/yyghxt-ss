@@ -8,7 +8,7 @@
             {{--区域右侧工具--}}
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <h3 class="text-center text-danger">客户详细</h3>
             <table class="table table-bordered table-hover">
                 <tr>
