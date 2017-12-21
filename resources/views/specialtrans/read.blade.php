@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">灰指甲科</a></li>

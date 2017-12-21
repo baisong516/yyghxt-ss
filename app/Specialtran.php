@@ -23,5 +23,7 @@ class Specialtran extends Model
         $specialtran->yuyue=$request->input('yuyue')?$request->input('yuyue'):0;
         $specialtran->arrive=$request->input('arrive')?$request->input('arrive'):0;
         $specialtran->date_tag=$request->input('arrive')?Carbon::createFromFormat('Y-m-d',$request->input('arrive')):Carbon::now();
+        //calc 跳出率=点击-
+
     }
 }
