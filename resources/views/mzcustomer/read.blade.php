@@ -78,7 +78,7 @@
             <div class="box-tools">
             </div>
         </div>
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <form action="" method="post" class="zxcustomers-form">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
