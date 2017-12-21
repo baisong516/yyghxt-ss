@@ -81,6 +81,7 @@
     {{--</ul>--}}
     {{--</li>--}}
     @endrole
+    @role('superadministrator|administrator|zixun|jingjia')
     <li class="treeview {{Request::is('zx/*')?'active':''}}">
         <a href="#"><i class="fa fa-tripadvisor"></i> <span>咨询</span>
             <span class="pull-right-container">
@@ -103,6 +104,8 @@
             {{--<li><a href="#"><i class="fa fa-save"></i><span>病人数据导出</span></a></li>--}}
         </ul>
     </li>
+    @endrole
+    @role('superadministrator|administrator|jingjia')
     <li class="treeview {{Request::is('jingjia/*')?'active':''}}">
         <a href="#"><i class="fa fa-jpy" aria-hidden="true"></i> <span>竞价</span>
             <span class="pull-right-container">
@@ -115,6 +118,8 @@
             @endability
         </ul>
     </li>
+    @endrole
+    @role('superadministrator|administrator')
     <li class="treeview {{Request::is('qh/*')?'active':''}}">
         <a href="#"><i class="fa fa-database"></i> <span>企划</span>
             <span class="pull-right-container">
@@ -123,13 +128,18 @@
         </a>
         <ul class="treeview-menu">
             @ability('superadministrator', 'read-statistics')
-            <li class="{{Request::is('qh/buttons*')?'active':''}}"><a href="{{route('buttons.index')}}"><i class="fa fa-hand-pointer-o"></i><span>按钮点击</span></a></li>
+            <li class="{{Request::is('qh/buttons*')?'active':''}}"><a href="{{route('buttons.index')}}"><i class="fa fa-hand-pointer-o"></i><span>按钮点击统计</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-specialtrans')
+            <li class="{{Request::is('qh/specialtrans*')?'active':''}}"><a href="{{route('specialtrans.index')}}"><i class="fa fa-table"></i><span>专题转化统计</span></a></li>
             @endability
             @ability('superadministrator', 'read-specials')
-            <li class="{{Request::is('qh/specials*')?'active':''}}"><a href="{{route('specials.index')}}"><i class="fa fa-feed"></i><span>专题</span></a></li>
+            <li class="{{Request::is('qh/specials*')?'active':''}}"><a href="{{route('specials.index')}}"><i class="fa fa-feed"></i><span>专题列表</span></a></li>
             @endability
         </ul>
     </li>
+    @endrole
+    @role('superadministrator|administrator|zixun|jingjia')
     <li class="treeview {{Request::is('outputs/*')?'active':''}}">
         <a href="#"><i class="fa fa-sign-out"></i> <span>产出</span>
             <span class="pull-right-container">
@@ -148,6 +158,7 @@
             @endability
         </ul>
     </li>
+    @endrole
     <li class="treeview {{Request::is('mz/*')?'active':''}}">
         <a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i> <span>门诊</span>
             <span class="pull-right-container">
@@ -160,6 +171,7 @@
             @endability
         </ul>
     </li>
+    @role('superadministrator|administrator|zixun|jingjia')
     <li class="treeview {{Request::is('gh/*')?'active':''}}">
         <a href="#"><i class="fa fa-gg"></i> <span>网上挂号</span>
             <span class="pull-right-container">
@@ -172,6 +184,7 @@
             @endability
         </ul>
     </li>
+    @endrole
     @ability('superadministrator', 'read-arrangements')
     <li class="{{Request::is('arrangements*')?'active':''}}"><a href="{{route('arrangements.index')}}"><i class="fa fa-link"></i> <span>排班</span></a></li>
     @endability

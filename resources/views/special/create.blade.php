@@ -32,6 +32,7 @@
             });
         });
         //change zxusers on office change
+        var diseases=[];
         $("#office").on('change',function(){
             var officeId=$(this).val();
             $.ajax({
@@ -42,8 +43,8 @@
                     $("#disease").empty();
                     if (data.status){
                         var html='';
-                        var options=array();
                         for (var i=0;i<data.data['diseases'].length;i++){
+                            diseases[data.data['diseases'][i]['id']]=data.data['diseases'][i]['display_name'];
                             html+='<option value="'+data.data['diseases'][i]['id']+'">'+data.data['diseases'][i]['display_name']+'</option>';
                         }
                         $("#disease").html(html);
@@ -51,7 +52,15 @@
                 }
             });
         });
-
+        $("#disease").on('change',function () {
+            var diseaseIds=$(this).val();
+            $("#options").empty();
+            for (var i=0;i<diseaseIds.length;i++){
+                var child="<div class=\"form-group\" id=\"option-"+diseaseIds[i]+"\" data-disease=\""+diseaseIds[i]+"\"><label for=\"type\" class=\"col-sm-2 control-label\">"+diseases[diseaseIds[i]]+"</label>"+
+                    "<div class=\"col-sm-8\"><input type=\"text\"  name=\"types["+diseaseIds[i]+"]\" class=\"form-control\"></div></div>";
+                $("#options").append(child);
+            }
+        });
         $(document).ready(function() {
             $('#disease').select2();
         });

@@ -8,42 +8,16 @@
             <h3 class="box-title">列表</h3>
             <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 80px;">
-                    @ability('superadministrator', 'create-web_types')
-                        <a href="{{route('webtypes.create')}}" class="btn-sm btn-info">新增</a>
-                    @endability
+                    <a href="{{route('specialtrans.create')}}" class="btn-sm btn-info">录入</a>
                 </div>
             </div>
         </div>
-        <div class="box-body table-responsive">
-            <form action="" method="post" class="webtypes-form">
+        <div class="box-body">
+            <form action="" method="post" class="medias-form">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
-            <table id="webtypes-list-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>WebType</th>
-                    <th>名称</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($webtypes as $webtype)
-                    <tr>
-                        <td>{{$webtype->id}}</td>
-                        <td>{{$webtype->name}}</td>
-                        <td>{{$webtype->display_name}}</td>
-                        <td>
-                            @if($enableUpdate)
-                                <a href="{{route('webtypes.edit',$webtype->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
-                            @endif
-                            @if($enableDelete)
-                                <a href="javascript:void(0);" data-id="{{$webtype->id}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
+            <table id="medias-list-table" class="table table-striped table-bordered table-hover">
+
             </table>
             </form>
         </div>
@@ -57,7 +31,7 @@
     <script type="text/javascript" src="http://yygh.oss-cn-shenzhen.aliyuncs.com/layer/layer.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#webtypes-list-table').DataTable({
+            $('#media-list-table').DataTable({
                 "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
                 "language": {
                     "url": "/datables-language-zh-CN.json"
@@ -69,8 +43,8 @@
                     content: '你确定要删除吗？',
                     btn: ['确定', '关闭'],
                     yes: function(index, layero){
-                        $('form.webtypes-form').attr('action',"{{route('webtypes.index')}}/"+id);
-                        $('form.webtypes-form').submit();
+                        $('form.medias-form').attr('action',"{{route('medias.index')}}/"+id);
+                        $('form.medias-form').submit();
                     },
                     btn2: function(index, layero){
                         //按钮【按钮二】的回调

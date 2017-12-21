@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Aiden;
+use App\Special;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,6 +22,11 @@ class SpecialController extends Controller
             return view('special.read',[
                 'pageheader'=>'专题',
                 'pagedescription'=>'列表',
+                'specials'=>Special::getSpecialsList(),
+                'offices'=>Aiden::getAllModelArray('offices'),
+                'diseases'=>Aiden::getAllModelArray('diseases'),
+                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-specials'),
+                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-specials'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -51,7 +57,14 @@ class SpecialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'create-specials')){
+            if (Special::createSpecial($request)){
+                return redirect()->route('specials.index')->with('success','Well Done');
+            }else{
+                return redirect()->back()->with('error','Something Wrong!');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**
@@ -73,7 +86,17 @@ class SpecialController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'update-specials')){
+            $special=Special::findOrFail($id);
+            return view('special.update',[
+                'pageheader'=>'专题',
+                'pagedescription'=>'更新',
+                'offices'=>Aiden::getAuthdOffices(),
+                'diseases'=>Aiden::getAllModelArray('diseases'),
+                'special'=>$special,
+            ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**
@@ -85,7 +108,14 @@ class SpecialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'update-specials')){
+            if (Special::updateSpecial($request,$id)){
+                return redirect()->route('specials.index')->with('success','Well Done');
+            }else{
+                return redirect()->back()->with('error','Something Wrong!');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**
@@ -96,6 +126,14 @@ class SpecialController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'delete-specials')){
+            $special=Special::findOrFail($id);
+            if ($special->delete()){
+                return redirect()->route('specials.index')->with('success','Well Done');
+            }else{
+                return redirect()->back()->with('error','Something Wrong!');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 }

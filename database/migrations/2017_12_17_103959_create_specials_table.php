@@ -35,6 +35,7 @@ class CreateSpecialsTable extends Migration
             $table->string('click_trans_rate')->comment('点击转化率');
             $table->unsignedInteger('yuyue')->comment('预约');
             $table->unsignedInteger('arrive')->comment('到院');
+            $table->timestamp('date_tag')->comment('日期');
             $table->timestamps();
         });
     }

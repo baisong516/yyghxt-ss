@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <form action="" method="post" class="users-form">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
