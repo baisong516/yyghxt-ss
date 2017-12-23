@@ -29,7 +29,7 @@ class StatisticController extends Controller
                     'description' => $t->description,
                 ];
             }
-            dd($todayClick);
+//            dd($todayClick);
             return view('button.read', [
                 'pageheader' => '数据统计',
                 'pagedescription' => '按钮点击量统计',
