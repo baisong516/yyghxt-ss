@@ -254,6 +254,7 @@ class ApiController extends Controller
         $domain=$request->input('domain');
         $flag=$request->input('flag');
         $description=$request->input('des');
+        $office_id=$request->input('office')?$request->input('office'):1;
         if (empty($domain)||empty($flag)){return $this->errorResponse();}
         $date_tag=Carbon::now()->toDateString();
         $click=Statistic::where('domain',$domain)->where('flag',$flag)->where('date_tag',$date_tag)->first();
@@ -263,6 +264,7 @@ class ApiController extends Controller
             $click->flag=$flag;
             $click->description=$description;
             $click->date_tag=$date_tag;
+            $click->office_id=$office_id;
             $click->count=1;
             $click->save();
         }else{

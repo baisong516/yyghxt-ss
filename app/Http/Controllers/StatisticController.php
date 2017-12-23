@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aiden;
 use App\Statistic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,18 +20,20 @@ class StatisticController extends Controller
     {
         if (Auth::user()->ability('superadministrator', 'read-statistics')) {
             //今日点击量
-            $tempDate = Statistic::select('domain', 'flag', 'date_tag', 'count', 'description')->where('date_tag', Carbon::now()->toDateString())->get();
+            $tempDate = Statistic::select('office_id','domain', 'flag', 'date_tag', 'count', 'description')->where('date_tag', Carbon::now()->toDateString())->get();
             $todayClick = [];
             foreach ($tempDate as $t) {
-                $todayClick[$t->domain][] = [
+                $todayClick[$t->office_id][$t->domain][] = [
                     'flag' => $t->flag,
                     'count' => $t->count,
                     'description' => $t->description,
                 ];
             }
+            dd($todayClick);
             return view('button.read', [
                 'pageheader' => '数据统计',
                 'pagedescription' => '按钮点击量统计',
+                'offices'=>Aiden::getAllModelArray('offices'),
                 'todayClick' => $todayClick,
                 'clickArray' => $this->getClickArray(),
             ]);
@@ -110,22 +113,24 @@ class StatisticController extends Controller
             //点击量
             $start=$request->input('dateStart')?$request->input('dateStart'):Carbon::now()->toDateString();
             $end=$request->input('dateEnd')?$request->input('dateEnd'):Carbon::now()->toDateString();
-            $tempDate = Statistic::select('domain', 'flag', 'date_tag', 'count', 'description')->where([
+            $tempDate = Statistic::select('office_id','domain', 'flag', 'date_tag', 'count', 'description')->where([
                 ['date_tag','>=',$start],
                 ['date_tag','<=',$end],
             ])->get();
             $todayClick = [];
             foreach ($tempDate as $t) {
-                $todayClick[$t->domain][] = [
+                $todayClick[$t->office_id][$t->domain][] = [
                     'flag' => $t->flag,
                     'count' => $t->count,
                     'description' => $t->description,
                 ];
             }
+//            dd($todayClick);
             return view('button.read', [
                 'pageheader' => '数据统计',
                 'pagedescription' => '按钮点击量统计',
                 'todayClick' => $todayClick,
+                'offices'=>Aiden::getAllModelArray('offices'),
                 'start'=>$start,
                 'end'=>$end,
                 'clickArray' => $this->getClickArray(),

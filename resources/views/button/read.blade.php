@@ -16,38 +16,84 @@
                 <button type="submit" class="btn btn-success">搜索</button>
             </form>
         </div>
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <form action="" method="post" class="hospitals-form">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
-            <table id="buttons-list-table" class="table table-bordered">
-                <thead>
-                <tr>
-                    <th class="text-center">网站</th>
-                    <th class="text-center">位置</th>
-                    <th class="text-center">说明</th>
-                    <th class="text-center">点击次数</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($todayClick as $k => $v)
-                    @foreach($v as $d)
-                    <tr>
-                        @if($loop->first)
-                        <td rowspan="{{$loop->count}}" class="text-center" style="vertical-align: middle;">{{$k}}</td>
-                        @endif
-                        <td class="text-center">
-                            @foreach(array_filter(explode('_',$d['flag'])) as $e)
-                                {{isset($clickArray[$e])?$clickArray[$e]:$e}}
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        @if(!empty($todayClick))
+                            @foreach($todayClick as $k=>$d)
+                                <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
                             @endforeach
-                        </td>
-                        <td class="text-center">{{isset($d['description'])?$d['description']:''}}</td>
-                        <td class="text-center">{{$d['count']}}</td>
-                    </tr>
-                    @endforeach
-                @endforeach
-                </tbody>
-            </table>
+                        @endif
+                    </ul>
+                    <div class="tab-content">
+                        @if(!empty($todayClick))
+                            @foreach($todayClick as $k=>$d)
+                                <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$k}}">
+                                    <table class="table table-bordered">
+                                        <thead class="text-center">
+                                        <tr>
+                                            <th class="text-center">网站</th>
+                                            <th class="text-center">位置</th>
+                                            <th class="text-center">说明</th>
+                                            <th class="text-center">点击次数</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="text-align: center">
+                                        @foreach($d as $m=>$v)
+                                            @foreach($v as $d)
+                                                <tr>
+                                                    @if($loop->first)
+                                                        <td rowspan="{{$loop->count}}" class="text-center" style="vertical-align: middle;">{{$m}}</td>
+                                                    @endif
+                                                    <td class="text-center">
+                                                        @foreach(array_filter(explode('_',$d['flag'])) as $e)
+                                                            {{isset($clickArray[$e])?$clickArray[$e]:$e}}
+                                                        @endforeach
+                                                    </td>
+                                                    <td class="text-center">{{isset($d['description'])?$d['description']:''}}</td>
+                                                    <td class="text-center">{{$d['count']}}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+            {{--<table class="table table-bordered">--}}
+                {{--<thead>--}}
+                {{--<tr>--}}
+                    {{--<th class="text-center">网站</th>--}}
+                    {{--<th class="text-center">位置</th>--}}
+                    {{--<th class="text-center">说明</th>--}}
+                    {{--<th class="text-center">点击次数</th>--}}
+                {{--</tr>--}}
+                {{--</thead>--}}
+                {{--<tbody>--}}
+                {{--@foreach($todayClick as $k => $v)--}}
+                    {{--@foreach($v as $d)--}}
+                    {{--<tr>--}}
+                        {{--@if($loop->first)--}}
+                        {{--<td rowspan="{{$loop->count}}" class="text-center" style="vertical-align: middle;">{{$k}}</td>--}}
+                        {{--@endif--}}
+                        {{--<td class="text-center">--}}
+                            {{--@foreach(array_filter(explode('_',$d['flag'])) as $e)--}}
+                                {{--{{isset($clickArray[$e])?$clickArray[$e]:$e}}--}}
+                            {{--@endforeach--}}
+                        {{--</td>--}}
+                        {{--<td class="text-center">{{isset($d['description'])?$d['description']:''}}</td>--}}
+                        {{--<td class="text-center">{{$d['count']}}</td>--}}
+                    {{--</tr>--}}
+                    {{--@endforeach--}}
+                {{--@endforeach--}}
+                {{--</tbody>--}}
+            {{--</table>--}}
             </form>
         </div>
         <p class="text-red">显示当天点击量总数，其它根据日期查询！</p>
@@ -74,25 +120,25 @@
                     ,trigger: 'click'
                 });
             });
-            $(".delete-operation").on('click',function(){
-                var id=$(this).attr('data-id');
-                layer.open({
-                    content: '你确定要删除吗？',
-                    btn: ['确定', '关闭'],
-                    yes: function(index, layero){
-                        $('form.hospitals-form').attr('action',"{{route('hospitals.index')}}/"+id);
-                        $('form.hospitals-form').submit();
-                    },
-                    btn2: function(index, layero){
-                        //按钮【按钮二】的回调
-                        //return false 开启该代码可禁止点击该按钮关闭
-                    },
-                    cancel: function(){
-                        //右上角关闭回调
-                        //return false; 开启该代码可禁止点击该按钮关闭
-                    }
-                });
-            });
+            {{--$(".delete-operation").on('click',function(){--}}
+                {{--var id=$(this).attr('data-id');--}}
+                {{--layer.open({--}}
+                    {{--content: '你确定要删除吗？',--}}
+                    {{--btn: ['确定', '关闭'],--}}
+                    {{--yes: function(index, layero){--}}
+                        {{--$('form.hospitals-form').attr('action',"{{route('hospitals.index')}}/"+id);--}}
+                        {{--$('form.hospitals-form').submit();--}}
+                    {{--},--}}
+                    {{--btn2: function(index, layero){--}}
+                        {{--//按钮【按钮二】的回调--}}
+                        {{--//return false 开启该代码可禁止点击该按钮关闭--}}
+                    {{--},--}}
+                    {{--cancel: function(){--}}
+                        {{--//右上角关闭回调--}}
+                        {{--//return false; 开启该代码可禁止点击该按钮关闭--}}
+                    {{--}--}}
+                {{--});--}}
+            {{--});--}}
         } );
     </script>
 @endsection
