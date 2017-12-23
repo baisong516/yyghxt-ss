@@ -147,9 +147,7 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            @ability('superadministrator', 'read-outputs')
             <li class="{{Request::is('outputs/outputs*')?'active':''}}"><a href="{{route('outputs.index')}}"><i class="fa fa-sign-out"></i><span>产出总览</span></a></li>
-            @endability
             @ability('superadministrator', 'read-zxoutputs')
             <li class="{{Request::is('outputs/zxoutputs*')?'active':''}}"><a href="{{route('zxoutputs.index')}}"><i class="fa fa-sign-out"></i><span>咨询产出</span></a></li>
             @endability
