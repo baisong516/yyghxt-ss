@@ -10,6 +10,11 @@ class Special extends Model
 {
     protected $table = 'specials';
 
+    public function specialtrans()
+    {
+        return $this->hasMany('App\Specialtran');
+    }
+
     public static function createSpecial($request)
     {
         $special=new Special();

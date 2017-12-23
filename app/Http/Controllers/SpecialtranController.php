@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Aiden;
 use App\Special;
 use App\Specialtran;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -19,14 +20,16 @@ class SpecialtranController extends Controller
     public function index()
     {
         if (Auth::user()->ability('superadministrator', 'read-specialtrans')){
+            $start=Carbon::yesterday()->startOfDay();
+            $end=Carbon::now()->endOfDay();
             return view('specialtran.read',[
                 'pageheader'=>'专题统计',
                 'pagedescription'=>'列表',
-                'specials'=>Special::getSpecialsList(),
+                'specialtrans'=>Specialtran::getSpecialtransList($start,$end),
                 'offices'=>Aiden::getAllModelArray('offices'),
                 'diseases'=>Aiden::getAllModelArray('diseases'),
-                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-specialtrans'),
-                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-specialtrans'),
+//                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-specialtrans'),
+//                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-specialtrans'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -112,5 +115,25 @@ class SpecialtranController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        if (Auth::user()->ability('superadministrator', 'read-specialtrans')){
+            $start=$request->input('dateStart')?Carbon::createFromFormat('Y-m-d',$request->input('dateStart'))->startOfDay():Carbon::now()->startOfDay();
+            $end=$request->input('dateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('dateEnd'))->endOfDay():Carbon::now()->endOfDay();
+            return view('specialtran.read',[
+                'pageheader'=>'专题统计',
+                'pagedescription'=>'查询',
+                'specialtrans'=>Specialtran::getSpecialtransList($start,$end),
+                'offices'=>Aiden::getAllModelArray('offices'),
+                'diseases'=>Aiden::getAllModelArray('diseases'),
+                'start'=>$start,
+                'end'=>$end,
+//                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-specialtrans'),
+//                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-specialtrans'),
+            ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 }
