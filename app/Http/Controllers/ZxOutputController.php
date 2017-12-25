@@ -143,6 +143,15 @@ class ZxOutputController extends Controller
             }else{
                 $res=[];
                 $dateTag=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag')):Carbon::now();
+                $start=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag'))->startOfDay():Carbon::now()->startOfDay();
+                $end=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag'))->endOfDay():Carbon::now()->endOfDay();
+                $isExist=ZxOutput::where([
+                    ['date_tag','>=',$start],
+                    ['date_tag','<=',$end],
+                ])->count();
+                if ($isExist>0){
+                    return redirect()->back()->with('error',$request->input('date_tag').'的数据已录过一次，为避免数据混乱，禁止二次录入！');
+                }
                 Excel::load($file, function($reader) use( &$res,$dateTag ) {
                     $reader = $reader->getSheet(0);
                     $res = $reader->toArray();
