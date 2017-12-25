@@ -60,7 +60,7 @@
                 </thead>
                 <tbody>
                     @isset($zxoutputs)
-                        @foreach($zxoutputs as $d)
+                        @foreach($zxoutputs['outputs'] as $d)
                         @foreach($d['data'] as $u=>$output)
                         <tr>
                             @if($loop->first)
@@ -88,6 +88,28 @@
                         </tr>
                         @endforeach
                         @endforeach
+                        <tr>
+                            <td></td>
+                            <td>合计</td>
+                            <td>{{$zxoutputs['total']['swt_zixun_count']}}</td>
+                            <td>{{$zxoutputs['total']['swt_yuyue_count']}}</td>
+                            <td>{{$zxoutputs['total']['swt_contact_count']}}</td>
+                            <td>{{$zxoutputs['total']['swt_arrive_count']}}</td>
+                            <td>{{$zxoutputs['total']['tel_zixun_count']}}</td>
+                            <td>{{$zxoutputs['total']['tel_yuyue_count']}}</td>
+                            <td>{{$zxoutputs['total']['tel_arrive_count']}}</td>
+                            <td>{{$zxoutputs['total']['hf_zixun_count']}}</td>
+                            <td>{{$zxoutputs['total']['hf_yuyue_count']}}</td>
+                            <td>{{$zxoutputs['total']['hf_arrive_count']}}</td>
+                            <td>{{$zxoutputs['total']['total_zixun_count']}}</td>
+                            <td>{{$zxoutputs['total']['total_yuyue_count']}}</td>
+                            <td>{{$zxoutputs['total']['total_arrive_count']}}</td>
+                            <td>{{$zxoutputs['total']['total_jiuzhen_count']}}</td>
+                            <td>{{$zxoutputs['total']['yuyue_rate']}}</td>
+                            <td>{{$zxoutputs['total']['arrive_rate']}}</td>
+                            <td>{{$zxoutputs['total']['jiuzhen_rate']}}</td>
+                            <td>{{$zxoutputs['total']['trans_rate']}}</td>
+                        </tr>
                     @endisset
                 </tbody>
             </table>

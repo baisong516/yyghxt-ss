@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::get('outputs','OutputController@index')->name('outputs.index');
         Route::post('outputsearch','OutputController@search')->name('outputs.search');
         Route::resource('zxoutputs','ZxOutputController');
+        Route::post('zxoutputsimport','ZxOutputController@import')->name('zxoutputs.import');
         Route::resource('jjoutputs','JjOutputController');
         Route::post('zxoutputsearch','ZxOutputController@search')->name('zxoutputs.search');
         Route::post('jjoutputsearch','JjOutputController@search')->name('jjoutputs.search');

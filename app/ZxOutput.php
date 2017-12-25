@@ -67,6 +67,7 @@ class ZxOutput extends Model
     {
         $offices=Aiden::getAuthdOffices();
         $outputs=[];
+        $totalu=[];
         foreach ($offices as $k=>$v){
             $outputs[$k]['office']=$v;
             $outs=ZxOutput::where('office_id',$k)->where([
@@ -97,7 +98,33 @@ class ZxOutput extends Model
                 $outdata[$out->user_id]['trans_rate']=isset($outdata[$out->user_id]['total_zixun_count'])&&$outdata[$out->user_id]['total_zixun_count']>0?sprintf('%.2f',$outdata[$out->user_id]['total_arrive_count']*100.00/$outdata[$out->user_id]['total_zixun_count']).'%':'0.00%';
             }
             $outputs[$k]['data']=$outdata;
+//            dd($outdata);
+            foreach ($outdata as $udata){
+                $totalu['swt_zixun_count']=isset($totalu['swt_zixun_count'])?$totalu['swt_zixun_count']+$udata['swt_zixun_count']:$udata['swt_zixun_count'];
+                $totalu['swt_yuyue_count']=isset($totalu['swt_yuyue_count'])?$totalu['swt_yuyue_count']+$udata['swt_yuyue_count']:$udata['swt_yuyue_count'];
+                $totalu['swt_contact_count']=isset($totalu['swt_contact_count'])?$totalu['swt_contact_count']+$udata['swt_contact_count']:$udata['swt_contact_count'];
+                $totalu['swt_arrive_count']=isset($totalu['swt_arrive_count'])?$totalu['swt_arrive_count']+$udata['swt_arrive_count']:$udata['swt_arrive_count'];
+                $totalu['tel_zixun_count']=isset($totalu['tel_zixun_count'])?$totalu['tel_zixun_count']+$udata['tel_zixun_count']:$udata['tel_zixun_count'];
+                $totalu['tel_yuyue_count']=isset($totalu['tel_yuyue_count'])?$totalu['tel_yuyue_count']+$udata['tel_yuyue_count']:$udata['tel_yuyue_count'];
+                $totalu['tel_arrive_count']=isset($totalu['tel_arrive_count'])?$totalu['tel_arrive_count']+$udata['tel_arrive_count']:$udata['tel_arrive_count'];
+                $totalu['hf_zixun_count']=isset($totalu['hf_zixun_count'])?$totalu['hf_zixun_count']+$udata['hf_zixun_count']:$udata['hf_zixun_count'];
+                $totalu['hf_yuyue_count']=isset($totalu['hf_yuyue_count'])?$totalu['hf_yuyue_count']+$udata['hf_yuyue_count']:$udata['hf_yuyue_count'];
+                $totalu['hf_arrive_count']=isset($totalu['hf_arrive_count'])?$totalu['hf_arrive_count']+$udata['hf_arrive_count']:$udata['hf_arrive_count'];
+                $totalu['total_zixun_count']=isset($totalu['total_zixun_count'])?$totalu['total_zixun_count']+$udata['total_zixun_count']:$udata['total_zixun_count'];
+                $totalu['total_yuyue_count']=isset($totalu['total_yuyue_count'])?$totalu['total_yuyue_count']+$udata['total_yuyue_count']:$udata['total_yuyue_count'];
+                $totalu['total_arrive_count']=isset($totalu['total_arrive_count'])?$totalu['total_arrive_count']+$udata['total_arrive_count']:$udata['total_arrive_count'];
+                $totalu['total_jiuzhen_count']=isset($totalu['total_jiuzhen_count'])?$totalu['total_jiuzhen_count']+$udata['total_jiuzhen_count']:$udata['total_jiuzhen_count'];
+
+                $totalu['yuyue_rate']=isset($totalu['total_zixun_count'])&&$totalu['total_zixun_count']>0?sprintf('%.2f',$totalu['total_yuyue_count']*100.00/$totalu['total_zixun_count']).'%':'0.00%';
+                $totalu['arrive_rate']=isset($totalu['total_yuyue_count'])&&$totalu['total_yuyue_count']>0?sprintf('%.2f',$totalu['total_arrive_count']*100.00/$totalu['total_yuyue_count']).'%':'0.00%';
+                $totalu['jiuzhen_rate']=isset($totalu['total_arrive_count'])&&$totalu['total_arrive_count']>0?sprintf('%.2f',$totalu['total_jiuzhen_count']*100.00/$totalu['total_arrive_count']).'%':'0.00%';
+                $totalu['trans_rate']=isset($totalu['total_zixun_count'])&&$totalu['total_zixun_count']>0?sprintf('%.2f',$totalu['total_arrive_count']*100.00/$totalu['total_zixun_count']).'%':'0.00%';
+            }
         }
-        return $outputs;
+        $data=[
+            'total'=>$totalu,
+            'outputs'=>$outputs,
+        ];
+        return $data;
     }
 }
