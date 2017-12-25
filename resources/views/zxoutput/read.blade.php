@@ -16,10 +16,11 @@
                 <button type="submit" class="btn btn-success">搜索</button>
             </form>
             <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 180px;">
+                <div class="input-group input-group-sm" style="width: 280px;">
                     @ability('superadministrator', 'create-zxoutputs')
                         <a href="{{route('zxoutputs.create')}}" class="btn-sm btn-info" style="margin-right: 20px;">录入</a>
-                        <a href="javascript:;" data-toggle="modal" data-target="#importModal"  class="btn-sm btn-success">导入</a>
+                        <a href="javascript:;" data-toggle="modal" data-target="#importModal" class="btn-sm btn-success" style="margin-right: 20px;">导入</a>
+                        <a href="/template/zixun.xlsx" class="btn-sm btn-danger">模板</a>
                     @endability
                 </div>
             </div>
