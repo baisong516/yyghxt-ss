@@ -61,8 +61,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @isset($data['outputs'])
-                        @foreach($data['outputs'] as $d)
+                    @isset($outputs)
+                        @foreach($outputs['outputs'] as $d)
                         @foreach($d['data'] as $u=>$output)
                         <tr>
                             @if($loop->first)
@@ -93,24 +93,24 @@
                         <tr>
                             <td></td>
                             <td>合计</td>
-                            <td>{{$data['total']['swt_zixun_count']}}</td>
-                            <td>{{$data['total']['swt_yuyue_count']}}</td>
-                            <td>{{$data['total']['swt_contact_count']}}</td>
-                            <td>{{$data['total']['swt_arrive_count']}}</td>
-                            <td>{{$data['total']['tel_zixun_count']}}</td>
-                            <td>{{$data['total']['tel_yuyue_count']}}</td>
-                            <td>{{$data['total']['tel_arrive_count']}}</td>
-                            <td>{{$data['total']['hf_zixun_count']}}</td>
-                            <td>{{$data['total']['hf_yuyue_count']}}</td>
-                            <td>{{$data['total']['hf_arrive_count']}}</td>
-                            <td>{{$data['total']['total_zixun_count']}}</td>
-                            <td>{{$data['total']['total_yuyue_count']}}</td>
-                            <td>{{$data['total']['total_arrive_count']}}</td>
-                            <td>{{$data['total']['total_jiuzhen_count']}}</td>
-                            <td>{{$data['total']['yuyue_rate']}}</td>
-                            <td>{{$data['total']['arrive_rate']}}</td>
-                            <td>{{$data['total']['jiuzhen_rate']}}</td>
-                            <td>{{$data['total']['trans_rate']}}</td>
+                            <td>{{$outputs['total']['swt_zixun_count']}}</td>
+                            <td>{{$outputs['total']['swt_yuyue_count']}}</td>
+                            <td>{{$outputs['total']['swt_contact_count']}}</td>
+                            <td>{{$outputs['total']['swt_arrive_count']}}</td>
+                            <td>{{$outputs['total']['tel_zixun_count']}}</td>
+                            <td>{{$outputs['total']['tel_yuyue_count']}}</td>
+                            <td>{{$outputs['total']['tel_arrive_count']}}</td>
+                            <td>{{$outputs['total']['hf_zixun_count']}}</td>
+                            <td>{{$outputs['total']['hf_yuyue_count']}}</td>
+                            <td>{{$outputs['total']['hf_arrive_count']}}</td>
+                            <td>{{$outputs['total']['total_zixun_count']}}</td>
+                            <td>{{$outputs['total']['total_yuyue_count']}}</td>
+                            <td>{{$outputs['total']['total_arrive_count']}}</td>
+                            <td>{{$outputs['total']['total_jiuzhen_count']}}</td>
+                            <td>{{$outputs['total']['yuyue_rate']}}</td>
+                            <td>{{$outputs['total']['arrive_rate']}}</td>
+                            <td>{{$outputs['total']['jiuzhen_rate']}}</td>
+                            <td>{{$outputs['total']['trans_rate']}}</td>
                         </tr>
                     @endisset
                 </tbody>

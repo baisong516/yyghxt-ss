@@ -29,7 +29,7 @@ class ZxOutputController extends Controller
                 'pageheader'=>'产出',
                 'pagedescription'=>'咨询产出',
                 'users'=>Aiden::getAllUserArray(),
-                'data'=>$outputs,
+                'outputs'=>$outputs,
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
