@@ -90,6 +90,7 @@
                         </tr>
                         @endforeach
                         @endforeach
+                        @if(isset($outputs['total'])&&!empty($outputs['total']))
                         <tr>
                             <td></td>
                             <td>合计</td>
@@ -112,6 +113,7 @@
                             <td>{{$outputs['total']['jiuzhen_rate']}}</td>
                             <td>{{$outputs['total']['trans_rate']}}</td>
                         </tr>
+                        @endif
                     @endisset
                 </tbody>
             </table>

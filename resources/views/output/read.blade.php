@@ -88,6 +88,7 @@
                         </tr>
                         @endforeach
                         @endforeach
+                        @if(isset($zxoutputs['total'])&&!empty($zxoutputs['total']))
                         <tr>
                             <td></td>
                             <td>合计</td>
@@ -110,6 +111,7 @@
                             <td>{{$zxoutputs['total']['jiuzhen_rate']}}</td>
                             <td>{{$zxoutputs['total']['trans_rate']}}</td>
                         </tr>
+                        @endif
                     @endisset
                 </tbody>
             </table>
