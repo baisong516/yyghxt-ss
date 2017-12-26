@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JjOutputController extends Controller
 {
@@ -128,6 +129,72 @@ class JjOutputController extends Controller
                 'end'=>$end,
                 'outputs'=>$outputs,
             ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
+    }
+
+    public function import(Request $request)
+    {
+        if (Auth::user()->ability('superadministrator', 'create-jjoutputs')){
+            $file = $request->file('file');
+            if (empty($file)){
+                return redirect()->back()->with('error','没有选择文件');
+            }else{
+                $res=[];
+                $dateTag=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag')):Carbon::now();
+                $start=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag'))->startOfDay():Carbon::now()->startOfDay();
+                $end=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag'))->endOfDay():Carbon::now()->endOfDay();
+                $isExist=JjOutput::where([
+                    ['date_tag','>=',$start],
+                    ['date_tag','<=',$end],
+                ])->count();
+                if ($isExist>0){
+                    return redirect()->back()->with('error',$request->input('date_tag').'的数据已录过一次，为避免数据混乱，禁止二次录入！');
+                }
+                Excel::load($file, function($reader) use( &$res,$dateTag ) {
+                    $reader = $reader->getSheet(0);
+                    $res = $reader->toArray();
+                });
+                $res=array_slice($res,1);
+                $offices=Aiden::getAllModelArray('offices');
+                $users=Aiden::getAllUserArray();
+                foreach ($res as $d){
+                    $office_id=array_search($d[0],$offices);//项目
+                    $user_id=array_search($d[1],$users);//竞价员
+                    $rank=$d[2]&&$d[2]=='早班'?0:1;//班次
+                    $budget=$d[3]?$d[3]:0;//预算
+                    $cost=$d[4]?$d[4]:0;//消费
+                    $click=$d[5]?$d[5]:0;//点击
+                    $zixun=$d[6]?$d[6]:0;//咨询量
+                    $yuyue=$d[7]?$d[7]:0;//预约量
+                    $arrive=$d[8]?$d[8]:0;//到院量
+
+
+                    $date_tag=$dateTag;//日期
+
+                    $zixun_cost=$zixun>0?sprintf('%.2f',$cost/$zixun):$cost;
+                    $yuyue_cost=$yuyue>0?sprintf('%.2f',$cost/$yuyue):$cost;
+                    $arrive_cost=$arrive>0?sprintf('%.2f',$cost/$arrive):$cost;
+
+                    $jjoutput=new JjOutput();
+                    $jjoutput->user_id=$user_id;
+                    $jjoutput->office_id=$office_id;
+                    $jjoutput->rank=$rank;
+                    $jjoutput->budget=$budget;
+                    $jjoutput->cost=$cost;
+                    $jjoutput->click=$click;
+                    $jjoutput->zixun=$zixun;
+                    $jjoutput->yuyue=$yuyue;
+                    $jjoutput->arrive=$arrive;
+                    $jjoutput->zixun_cost=$zixun_cost;
+                    $jjoutput->yuyue_cost=$yuyue_cost;
+                    $jjoutput->arrive_cost=$arrive_cost;
+                    $jjoutput->date_tag=$date_tag;
+
+                    $bool=$jjoutput->save();
+                }
+                return redirect()->route('jjoutputs.index')->with('success','导入完成!');
+            }
         }
         return abort(403,config('yyxt.permission_deny'));
     }
