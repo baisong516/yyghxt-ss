@@ -16,7 +16,9 @@
             <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 80px;">
                     @ability('superadministrator', 'create-jjoutputs')
-                        <a href="{{route('jjoutputs.create')}}" class="btn-sm btn-info">录入</a>
+                        <a href="{{route('jjoutputs.create')}}" class="btn-sm btn-info" style="margin-right: 20px;">录入</a>
+                        <a href="{{route('jjoutputs.import')}}" class="btn-sm btn-success">导入</a>
+                        <a href="/template/jingjia.xlsx" class="btn-sm btn-danger">模板</a>
                     @endability
                 </div>
             </div>

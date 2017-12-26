@@ -42,17 +42,36 @@
                                 </thead>
                                 <tbody style="text-align: center">
                                 @foreach($special as $v)
-                                    @foreach($v['type'] as $d=>$t)
-                                    <tr>
-                                        @if($loop->first)
-                                        <td rowspan="{{$loop->count}}" style="vertical-align: middle">{{$v['name']}}</td>
-                                        <td rowspan="{{$loop->count}}" style="vertical-align: middle">{{$v['url']}}</td>
-                                        @endif
-                                        <td>{{$diseases[$d]}}</td>
-                                        <td>{{$t}}</td>
-                                        @if($loop->first)
-                                            <td rowspan="{{$loop->count}}" style="vertical-align: middle">{{$v['change_date']}}</td>
-                                            <td rowspan="{{$loop->count}}" style="vertical-align: middle">
+                                    @if(!empty($v['type']))
+                                        @foreach($v['type'] as $d=>$t)
+                                        <tr>
+                                            @if($loop->first)
+                                            <td rowspan="{{$loop->count}}" style="vertical-align: middle">{{$v['name']}}</td>
+                                            <td rowspan="{{$loop->count}}" style="vertical-align: middle">{{$v['url']}}</td>
+                                            @endif
+                                            <td>{{$diseases[$d]}}</td>
+                                            <td>{{$t}}</td>
+                                            @if($loop->first)
+                                                <td rowspan="{{$loop->count}}" style="vertical-align: middle">{{$v['change_date']}}</td>
+                                                <td rowspan="{{$loop->count}}" style="vertical-align: middle">
+                                                    @if($enableUpdate)
+                                                        <a href="{{route('specials.edit',$v['id'])}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
+                                                    @endif
+                                                    @if($enableDelete)
+                                                        <a href="javascript:void(0);" data-id="{{$v['id']}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
+                                                    @endif
+                                                </td>
+                                            @endif
+                                        </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td>{{$v['name']}}</td>
+                                            <td>{{$v['url']}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{$v['change_date']}}</td>
+                                            <td>
                                                 @if($enableUpdate)
                                                     <a href="{{route('specials.edit',$v['id'])}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
                                                 @endif
@@ -60,9 +79,8 @@
                                                     <a href="javascript:void(0);" data-id="{{$v['id']}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
                                                 @endif
                                             </td>
-                                        @endif
-                                    </tr>
-                                    @endforeach
+                                        </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>

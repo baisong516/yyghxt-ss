@@ -9,7 +9,7 @@
     <div class="form-group {{empty($errors->first('office_id'))?'':'has-error'}}">
         <label for="office_id" class="col-sm-2 control-label">(科室)项目</label>
         <div class="col-sm-8">
-            <select name="office_id" id="office" {{isset($special)?'disabled':''}} class="form-control">
+            <select name="office_id" id="office" class="form-control">
                 <option value="">--选择科室--</option>
                 @foreach($offices as $k=>$office)
                     <option value="{{$k}}" {{isset($special)&&$special->office_id==$k?"selected":''}}>{{$office}}</option>
@@ -33,10 +33,10 @@
     <div class="form-group {{empty($errors->first('disease_id'))?'':'has-error'}}">
         <label for="disease" class="col-sm-2 control-label">病种</label>
         <div class="col-sm-8">
-            <select name="disease_id[]" id="disease" {{isset($special)?'disabled':''}} multiple="multiple" class="form-control" style="width: 100%;">
+            <select name="disease_id[]" id="disease"  multiple="multiple" class="form-control" style="width: 100%;">
                 @isset($special)
                     @foreach(\App\Office::findOrFail($special->office_id)->diseases as $disease)
-                        <option value="{{$disease->id}}" {{key_exists($disease->id,json_decode($special->type,true))?'selected':''}}>{{$disease->display_name}}</option>
+                        <option value="{{$disease->id}}" {{!empty(json_decode($special->type,true))&&key_exists($disease->id,json_decode($special->type,true))?'selected':''}}>{{$disease->display_name}}</option>
                     @endforeach
                 @endif
             </select>
@@ -44,7 +44,7 @@
     </div>
 
     <div id="options">
-        @isset($special)
+        @if(isset($special)&&!empty(json_decode($special->type,true)))
             @foreach(json_decode($special->type,true) as $k=>$t)
             <div class="form-group" id="option-{{$k}}" data-disease="">
                 <label for="type" class="col-sm-2 control-label">{{$diseases[$k]}}</label>
@@ -53,7 +53,7 @@
                 </div>
             </div>
             @endforeach
-        @endisset
+        @endif
     </div>
 
 </div>

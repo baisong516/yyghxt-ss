@@ -14,12 +14,12 @@ class JjOutput extends Model
         $office_id=$request->input('office_id');
         $user_id=$request->input('user_id');
         $rank=$request->input('rank');
-        $budget=$request->input('budget');
-        $cost=$request->input('cost');
-        $click=$request->input('click');
-        $zixun=$request->input('zixun');
-        $yuyue=$request->input('yuyue');
-        $arrive=$request->input('arrive');
+        $budget=$request->input('budget')?$request->input('budget'):0;
+        $cost=$request->input('cost')?$request->input('cost'):0;
+        $click=$request->input('click')?$request->input('click'):0;
+        $zixun=$request->input('zixun')?$request->input('zixun'):0;
+        $yuyue=$request->input('yuyue')?$request->input('yuyue'):0;
+        $arrive=$request->input('arrive')?$request->input('arrive'):0;
 
         $zixun_cost=$zixun>0?sprintf('%.2f',$cost/$zixun):$cost;
         $yuyue_cost=$yuyue>0?sprintf('%.2f',$cost/$yuyue):$cost;

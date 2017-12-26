@@ -18,6 +18,7 @@ class SpecialController extends Controller
      */
     public function index()
     {
+//        dd(Special::getSpecialsList());
         if (Auth::user()->ability('superadministrator', 'read-specials')){
             return view('special.read',[
                 'pageheader'=>'专题',
