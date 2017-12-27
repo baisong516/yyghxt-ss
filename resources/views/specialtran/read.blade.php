@@ -67,7 +67,7 @@
                                         <td>{{$diseases[$diseaseId]}}</td>
                                         <td>{{$type}}</td>
                                         @if($loop->first)
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['cost']}}</td>
+                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{sprintf('%.2f',$special['cost'])}}</td>
                                             <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['click']}}</td>
                                             <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['show']}}</td>
                                             <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['view']}}</td>
