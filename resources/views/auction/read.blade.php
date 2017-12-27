@@ -154,7 +154,7 @@
                                                 @if($loop->first)
                                                 <td  rowspan="{{$loop->count}}" style="vertical-align: middle" class="bg-tree"><strong>病种</strong></td>
                                                 @endif
-                                                <td>{{$auction->type_id?$areas[$auction->type_id]:''}}</td>
+                                                <td>{{$auction->type_id?$diseases[$auction->type_id]:''}}</td>
                                                 <td>{{$auction->budget}}</td>
                                                 <td>{{$auction->cost}}</td>
                                                 <td>{{$auction->click}}</td>
