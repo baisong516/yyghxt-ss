@@ -161,7 +161,6 @@ class SpecialtranController extends Controller
                     $res = $reader->toArray();
                 });
                 $res=array_slice($res,1);
-                dd($res);
                 $specials=Aiden::getSpecialsArray();
                 foreach ($res as $d){
                     $special_id=array_search($d[1],$specials);//专题
