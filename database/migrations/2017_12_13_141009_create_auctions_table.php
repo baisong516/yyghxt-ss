@@ -15,9 +15,9 @@ class CreateAuctionsTable extends Migration
     {
         Schema::create('auctions', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('platform_id');
-            $table->unsignedInteger('area_id');
-            $table->unsignedInteger('disease_id');
+            $table->unsignedInteger('office_id')->comment('科室');
+            $table->string('type')->comment('类型：按病种|按地域|按平台');
+            $table->unsignedInteger('type_id');
             $table->string('budget')->comment('预算');
             $table->string('cost')->comment('消费');
             $table->unsignedInteger('click')->default(0)->comment('点击');

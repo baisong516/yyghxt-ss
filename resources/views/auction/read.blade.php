@@ -24,156 +24,168 @@
             </div>
         </div>
         <div class="box-body table-responsive">
-            <style>
-                .box-body>table thead tr{background: #c5be97;}
-                .bg-tree{background: #c5be97;}
-                /*table tr,table th,table td{border: solid 1px #000;}*/
-            </style>
-            <h3 class="text-center">竞价报表</h3>
-            <table class="table table-bordered">
-                <thead class="text-center">
-                    <tr>
-                        <th width="10%"></th>
-                        <th width="10%" class="text-center">平台</th>
-                        <th width="10%" class="text-center">预算</th>
-                        <th width="10%" class="text-center">消费</th>
-                        <th width="10%" class="text-center">点击</th>
-                        <th width="10%" class="text-center">咨询量</th>
-                        <th width="10%" class="text-center">预约量</th>
-                        <th width="10%" class="text-center">总到院</th>
-                        <th width="10%" class="text-center">咨询成本</th>
-                        <th width="10%" class="text-center">到院成本</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @isset($auctions['platform'])
-                    @foreach($auctions['platform'] as $platform_id => $auction)
-                    <tr class="text-center">
-                        @if($loop->first)
-                        <td rowspan="{{$loop->count}}" style="vertical-align: middle;" class="bg-tree"><strong>渠道</strong></td>
-                        @endif
-                        <td>{{$platform_id?$platforms[$platform_id]:''}}</td>
-                        <td>{{$auction['budget']}}</td>
-                        <td>{{$auction['cost']}}</td>
-                        <td>{{$auction['click']}}</td>
-                        <td>{{$auction['zixun']}}</td>
-                        <td>{{$auction['yuyue']}}</td>
-                        <td>{{$auction['arrive']}}</td>
-                        <td>{{$auction['zixun_cost']}}</td>
-                        <td>{{$auction['arrive_cost']}}</td>
-                    </tr>
-                    @endforeach
-                    @endisset
-                    <tr class="text-center">
-                        <td class="bg-tree"></td>
-                        <td>合计汇总</td>
-                        <td>{{$total['budget']}}</td>
-                        <td>{{$total['cost']}}</td>
-                        <td>{{$total['click']}}</td>
-                        <td>{{$total['zixun']}}</td>
-                        <td>{{$total['yuyue']}}</td>
-                        <td>{{$total['arrive']}}</td>
-                        <td>{{$total['zixun_cost']}}</td>
-                        <td>{{$total['arrive_cost']}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered">
-                <thead class="text-center">
-                    <tr>
-                        <th width="10%"></th>
-                        <th width="10%" class="text-center">地域</th>
-                        <th width="10%" class="text-center">预算</th>
-                        <th width="10%" class="text-center">消费</th>
-                        <th width="10%" class="text-center">点击</th>
-                        <th width="10%" class="text-center">咨询量</th>
-                        <th width="10%" class="text-center">预约量</th>
-                        <th width="10%" class="text-center">总到院</th>
-                        <th width="10%" class="text-center">咨询成本</th>
-                        <th width="10%" class="text-center">到院成本</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @isset($auctions['area'])
-                    @foreach($auctions['area'] as $area_id => $auction)
-                    <tr class="text-center">
-                        @if($loop->first)
-                        <td rowspan="{{$loop->count}}" style="vertical-align: middle" class="bg-tree"><strong>地区</strong></td>
-                        @endif
-                        <td>{{$area_id?$areas[$area_id]:''}}</td>
-                        <td>{{$auction['budget']}}</td>
-                        <td>{{$auction['cost']}}</td>
-                        <td>{{$auction['click']}}</td>
-                        <td>{{$auction['zixun']}}</td>
-                        <td>{{$auction['yuyue']}}</td>
-                        <td>{{$auction['arrive']}}</td>
-                        <td>{{$auction['zixun_cost']}}</td>
-                        <td>{{$auction['arrive_cost']}}</td>
-                    </tr>
-                    @endforeach
-                    @endisset
-                    <tr class="text-center">
-                        <td class="bg-tree"></td>
-                        <td>合计汇总</td>
-                        <td>{{$total['budget']}}</td>
-                        <td>{{$total['cost']}}</td>
-                        <td>{{$total['click']}}</td>
-                        <td>{{$total['zixun']}}</td>
-                        <td>{{$total['yuyue']}}</td>
-                        <td>{{$total['arrive']}}</td>
-                        <td>{{$total['zixun_cost']}}</td>
-                        <td>{{$total['arrive_cost']}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered">
-                <thead class="text-center">
-                    <tr>
-                        <th width="10%"></th>
-                        <th width="10%" class="text-center">病种</th>
-                        <th width="10%" class="text-center">预算</th>
-                        <th width="10%" class="text-center">消费</th>
-                        <th width="10%" class="text-center">点击</th>
-                        <th width="10%" class="text-center">咨询量</th>
-                        <th width="10%" class="text-center">预约量</th>
-                        <th width="10%" class="text-center">总到院</th>
-                        <th width="10%" class="text-center">咨询成本</th>
-                        <th width="10%" class="text-center">到院成本</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @isset($auctions['disease'])
-                    @foreach($auctions['disease'] as $disease_id => $auction)
-                    <tr class="text-center">
-                        @if($loop->first)
-                        <td  rowspan="{{$loop->count}}" style="vertical-align: middle" class="bg-tree"><strong>病种</strong></td>
-                        @endif
-                        <td>{{$disease_id?$diseases[$disease_id]:''}}</td>
-                        <td>{{$auction['budget']}}</td>
-                        <td>{{$auction['cost']}}</td>
-                        <td>{{$auction['click']}}</td>
-                        <td>{{$auction['zixun']}}</td>
-                        <td>{{$auction['yuyue']}}</td>
-                        <td>{{$auction['arrive']}}</td>
-                        <td>{{$auction['zixun_cost']}}</td>
-                        <td>{{$auction['arrive_cost']}}</td>
-                    </tr>
-                    @endforeach
-                    @endisset
-                    <tr class="text-center">
-                        <td  class="bg-tree"></td>
-                        <td>合计汇总</td>
-                        <td>{{$total['budget']}}</td>
-                        <td>{{$total['cost']}}</td>
-                        <td>{{$total['click']}}</td>
-                        <td>{{$total['zixun']}}</td>
-                        <td>{{$total['yuyue']}}</td>
-                        <td>{{$total['arrive']}}</td>
-                        <td>{{$total['zixun_cost']}}</td>
-                        <td>{{$total['arrive_cost']}}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    @if(!empty($auctions))
+                        @foreach($auctions as $k=>$v)
+                            <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                        @endforeach
+                    @endif
+                </ul>
+                <div class="tab-content">
+                    @if(!empty($auctions))
+                        @foreach($auctions as $k=>$v)
+                            <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$k}}">
+                                @isset($v['platform'])
+                                <table class="table table-bordered">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th width="10%"></th>
+                                            <th width="10%" class="text-center">平台</th>
+                                            <th width="10%" class="text-center">预算</th>
+                                            <th width="10%" class="text-center">消费</th>
+                                            <th width="10%" class="text-center">点击</th>
+                                            <th width="10%" class="text-center">咨询量</th>
+                                            <th width="10%" class="text-center">预约量</th>
+                                            <th width="10%" class="text-center">总到院</th>
+                                            <th width="10%" class="text-center">咨询成本</th>
+                                            <th width="10%" class="text-center">到院成本</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($v['platform']['auctions'] as $auction)
+                                            <tr class="text-center">
+                                                @if($loop->first)
+                                                    <td rowspan="{{$loop->count}}" style="vertical-align: middle;" class="bg-tree"><strong>渠道</strong></td>
+                                                @endif
+                                                <td>{{$auction->type_id?$platforms[$auction->type_id]:''}}</td>
+                                                <td>{{$auction->budget}}</td>
+                                                <td>{{$auction->cost}}</td>
+                                                <td>{{$auction->click}}</td>
+                                                <td>{{$auction->zixun}}</td>
+                                                <td>{{$auction->yuyue}}</td>
+                                                <td>{{$auction->arrive}}</td>
+                                                <td>{{$auction->zixun_cost}}</td>
+                                                <td>{{$auction->arrive_cost}}</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr class="text-center">
+                                            <td class="bg-tree"></td>
+                                            <td>合计汇总</td>
+                                            <td>{{$v['platform']['budget']}}</td>
+                                            <td>{{$v['platform']['cost']}}</td>
+                                            <td>{{$v['platform']['click']}}</td>
+                                            <td>{{$v['platform']['zixun']}}</td>
+                                            <td>{{$v['platform']['yuyue']}}</td>
+                                            <td>{{$v['platform']['arrive']}}</td>
+                                            <td>{{$v['platform']['zixun_cost']}}</td>
+                                            <td>{{$v['platform']['arrive_cost']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                @endisset
+                                @isset($v['area'])
+                                <table class="table table-bordered">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th width="10%"></th>
+                                            <th width="10%" class="text-center">地域</th>
+                                            <th width="10%" class="text-center">预算</th>
+                                            <th width="10%" class="text-center">消费</th>
+                                            <th width="10%" class="text-center">点击</th>
+                                            <th width="10%" class="text-center">咨询量</th>
+                                            <th width="10%" class="text-center">预约量</th>
+                                            <th width="10%" class="text-center">总到院</th>
+                                            <th width="10%" class="text-center">咨询成本</th>
+                                            <th width="10%" class="text-center">到院成本</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($v['area']['auctions'] as $auction)
+                                            <tr class="text-center">
+                                                @if($loop->first)
+                                                <td rowspan="{{$loop->count}}" style="vertical-align: middle" class="bg-tree"><strong>地区</strong></td>
+                                                @endif
+                                                <td>{{$auction->type_id?$areas[$auction->type_id]:''}}</td>
+                                                <td>{{$auction->budget}}</td>
+                                                <td>{{$auction->cost}}</td>
+                                                <td>{{$auction->click}}</td>
+                                                <td>{{$auction->zixun}}</td>
+                                                <td>{{$auction->yuyue}}</td>
+                                                <td>{{$auction->arrive}}</td>
+                                                <td>{{$auction->zixun_cost}}</td>
+                                                <td>{{$auction->arrive_cost}}</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr class="text-center">
+                                            <td class="bg-tree"></td>
+                                            <td>合计汇总</td>
+                                            <td>{{$v['area']['budget']}}</td>
+                                            <td>{{$v['area']['cost']}}</td>
+                                            <td>{{$v['area']['click']}}</td>
+                                            <td>{{$v['area']['zixun']}}</td>
+                                            <td>{{$v['area']['yuyue']}}</td>
+                                            <td>{{$v['area']['arrive']}}</td>
+                                            <td>{{$v['area']['zixun_cost']}}</td>
+                                            <td>{{$v['area']['arrive_cost']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                @endisset
+                                @isset($v['disease'])
+                                <table class="table table-bordered">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th width="10%"></th>
+                                            <th width="10%" class="text-center">病种</th>
+                                            <th width="10%" class="text-center">预算</th>
+                                            <th width="10%" class="text-center">消费</th>
+                                            <th width="10%" class="text-center">点击</th>
+                                            <th width="10%" class="text-center">咨询量</th>
+                                            <th width="10%" class="text-center">预约量</th>
+                                            <th width="10%" class="text-center">总到院</th>
+                                            <th width="10%" class="text-center">咨询成本</th>
+                                            <th width="10%" class="text-center">到院成本</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($v['disease']['auctions'] as $auction)
+                                            <tr class="text-center">
+                                                @if($loop->first)
+                                                <td  rowspan="{{$loop->count}}" style="vertical-align: middle" class="bg-tree"><strong>病种</strong></td>
+                                                @endif
+                                                <td>{{$auction->type_id?$areas[$auction->type_id]:''}}</td>
+                                                <td>{{$auction->budget}}</td>
+                                                <td>{{$auction->cost}}</td>
+                                                <td>{{$auction->click}}</td>
+                                                <td>{{$auction->zixun}}</td>
+                                                <td>{{$auction->yuyue}}</td>
+                                                <td>{{$auction->arrive}}</td>
+                                                <td>{{$auction->zixun_cost}}</td>
+                                                <td>{{$auction->arrive_cost}}</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr class="text-center">
+                                            <td  class="bg-tree"></td>
+                                            <td>合计汇总</td>
+                                            <td>{{$v['disease']['budget']}}</td>
+                                            <td>{{$v['disease']['cost']}}</td>
+                                            <td>{{$v['disease']['click']}}</td>
+                                            <td>{{$v['disease']['zixun']}}</td>
+                                            <td>{{$v['disease']['yuyue']}}</td>
+                                            <td>{{$v['disease']['arrive']}}</td>
+                                            <td>{{$v['disease']['zixun_cost']}}</td>
+                                            <td>{{$v['disease']['arrive_cost']}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                @endisset
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+                <!-- /.tab-content -->
+            </div>
         </div>
         <!-- /.box-body -->
     </div>

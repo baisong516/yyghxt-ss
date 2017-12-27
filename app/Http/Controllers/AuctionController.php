@@ -24,14 +24,14 @@ class AuctionController extends Controller
         if (Auth::user()->ability('superadministrator', 'read-auctions')){
             $start=Carbon::now()->startOfDay();
             $end=Carbon::now()->endOfDay();
-            $data=Auction::getAuctionData($start,$end);
+//            dd(Auction::getAuctionData($start,$end));
             return view('auction.read',[
                 'pageheader'=>'竞价部',
                 'pagedescription'=>'报表',
-                'auctions'=>$data['auctions'],
-                'total'=>$data['total'],
+                'auctions'=>Auction::getAuctionData($start,$end),
                 'platforms'=>Aiden::getAllModelArray('platforms'),
                 'areas'=>Aiden::getAllModelArray('areas'),
+                'offices'=>Aiden::getAllModelArray('offices'),
                 'diseases'=>Aiden::getAllModelArray('diseases'),
                 'start'=>$start,
                 'end'=>$end,
@@ -49,14 +49,11 @@ class AuctionController extends Controller
      */
     public function create()
     {
-//        dd(Aiden::getAuthdDiseases());
         if (Auth::user()->ability('superadministrator', 'create-auctions')){
             return view('auction.create',[
                 'pageheader'=>'竞价报表',
                 'pagedescription'=>'录入',
-                'platforms'=>PlatForm::all(),
-                'areas'=>Area::all(),
-                'diseases'=>Aiden::getAuthdDiseases(),
+                'offices'=>Aiden::getAllModelArray('offices'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

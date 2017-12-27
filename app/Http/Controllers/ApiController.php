@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Aiden;
 use App\Disease;
 use App\GhCustomer;
 use App\GhHuifang;
@@ -156,6 +157,23 @@ class ApiController extends Controller
         return response()->json([
             'status'=>$status,
             'data'=>$usersArray,
+        ]);
+    }
+
+    public function getValuesFromType(Request $request)
+    {
+        $type=$request->input('type');
+        $data=[];
+        if ($type=='area'){
+            $data=Aiden::getAllModelArray('areas');
+        }elseif ($type=='platform'){
+            $data=Aiden::getAllModelArray('platforms');
+        }elseif ($type=='disease'){
+            $data=$this->getAllDiseases();
+        }
+        return response()->json([
+            'type'=>$type,
+            'data'=>$data,
         ]);
     }
 
@@ -319,5 +337,17 @@ class ApiController extends Controller
 //        })->export('xls');
 //        //关闭连接
 //        $conn->close();
+    }
+
+    public function getAllDiseases()
+    {
+        $diseases=[];
+        foreach (Office::all() as $office){
+            $diseases[$office->id]['name']=$office->display_name;
+            foreach ($office->diseases as $disease){
+                $diseases[$office->id]['diseases'][$disease->id]=$disease->display_name;
+            }
+        }
+        return $diseases;
     }
 }

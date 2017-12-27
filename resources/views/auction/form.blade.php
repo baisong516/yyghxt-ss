@@ -1,38 +1,31 @@
 <div class="box-body">
-    <div class="form-group {{empty($errors->first('platform_id'))?'':'has-error'}}">
-        <label for="platform" class="col-sm-2 control-label">平台渠道</label>
+    <div class="form-group {{empty($errors->first('office_id'))?'':'has-error'}}">
+        <label for="office_id" class="col-sm-2 control-label">科室</label>
         <div class="col-sm-8">
-            <select name="platform_id" id="platform" class="form-control">
-                <option value="">--选择平台--</option>
-                @foreach($platforms as $platform)
-                    <option value="{{$platform->id}}">{{$platform->display_name}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="form-group {{empty($errors->first('area_id'))?'':'has-error'}}">
-        <label for="area" class="col-sm-2 control-label">地域</label>
-        <div class="col-sm-8">
-            <select name="area_id" id="area" class="form-control">
-                <option value="">--选择地域--</option>
-                @foreach($areas as $area)
-                    <option value="{{$area->id}}">{{$area->display_name}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="form-group {{empty($errors->first('disease_id'))?'':'has-error'}}">
-        <label for="disease" class="col-sm-2 control-label">病种</label>
-        <div class="col-sm-8">
-            <select name="disease_id" id="disease" class="form-control">
-                @foreach($diseases as $g)
-                    <optgroup label="{{$g['name']}}">
-                    @foreach($g['diseases'] as $id=>$disease)
-                        <option value="{{$id}}">{{$disease}}</option>
+            <select name="office_id" id="office_id" class="form-control">
+                @isset($offices)
+                    @foreach($offices as $k=>$v)
+                        <option value="{{$k}}">{{$v}}</option>
                     @endforeach
-                    </optgroup>
-                @endforeach
+                @endisset
             </select>
+        </div>
+    </div>
+    <div class="form-group {{empty($errors->first('type'))?'':'has-error'}}">
+        <label for="type" class="col-sm-2 control-label">类型</label>
+        <div class="col-sm-8">
+            <select name="type" id="type" class="form-control">
+                <option value="">--选择类型--</option>
+                <option value="platform">渠道平台</option>
+                <option value="area">地域</option>
+                <option value="disease">病种</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group {{empty($errors->first('type_id'))?'':'has-error'}}">
+        <label for="type_id" class="col-sm-2 control-label">类型值</label>
+        <div class="col-sm-8">
+            <select name="type_id" id="type_id" class="form-control"></select>
         </div>
     </div>
     <div class="form-group {{empty($errors->first('budget'))?'':'has-error'}}">

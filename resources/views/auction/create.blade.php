@@ -32,6 +32,32 @@
                 // value: new Date()
             });
         });
+        $("#type").on('change',function(){
+            var type=$(this).val();
+            $.ajax({
+                url: '/api/get-values-from-type',
+                type: "post",
+                data: {'type':type,'_token': $('input[name=_token]').val()},
+                success: function(data){
+                    $("#type_id").empty();
+                    var html='';
+                    if (data.type == 'disease'){
+                        for (var i in data.data){
+                            html += "<optgroup label=\""+data.data[i]['name']+"\">";
+                            for (var j in data.data[i]['diseases']){
+                                html += "<option value=\""+j+"\">"+data.data[i]['diseases'][j]+"</option>";
+                            }
+                            html += "</optgroup>";
+                        }
+                    }else{
+                        for (var i in data.data){
+                            html += "<option value=\""+i+"\">"+data.data[i]+"</option>";
+                        }
+                    }
+                    $("#type_id").html(html);
+                }
+            });
+        });
     </script>
 @endsection
 

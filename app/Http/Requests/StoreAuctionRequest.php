@@ -24,9 +24,9 @@ class StoreAuctionRequest extends FormRequest
     public function rules()
     {
         return [
-            'platform_id'=>'required',
-            'area_id'=>'required',
-            'disease_id'=>'required',
+            'office_id'=>'required',
+            'type'=>'required',
+            'type_id'=>'required',
             'budget'=>'required',
             'cost'=>'required',
             'click'=>'required',
@@ -39,6 +39,9 @@ class StoreAuctionRequest extends FormRequest
     public function messages()
     {
         return [
+            'office_id.required' => '必填',
+            'type.required' => '必填',
+            'type_id.required' => '必填',
             'budget.required' => '必填',
             'cost.required'  => '必填',
             'click.required'  => '必填',
