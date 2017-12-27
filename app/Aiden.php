@@ -120,4 +120,15 @@ class Aiden extends Model
         }
         return $users;
     }
+
+    //获取专题一维数组（special_id=>special_url）
+    public static function getSpecialsArray()
+    {
+        $data=[];
+        $specials=Special::select('id','url')->get();
+        foreach ($specials as $special){
+            $data[$special->id]=$special->url;
+        }
+        return $data;
+    }
 }

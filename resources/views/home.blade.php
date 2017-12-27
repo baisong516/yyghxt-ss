@@ -76,7 +76,7 @@
         <div class="box box-solid">
             <div class="box-body">
                 <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
-                    当日排班
+                    今日排班
                 </h4>
                 <div class="box">
                     <div class="box-body table-responsive table-bordered">

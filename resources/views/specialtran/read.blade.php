@@ -16,8 +16,10 @@
                 <button type="submit" class="btn btn-success">搜索</button>
             </form>
             <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 80px;">
-                    <a href="{{route('specialtrans.create')}}" class="btn-sm btn-info">录入</a>
+                <div class="input-group input-group-sm" style="width: 280px;">
+                    <a href="{{route('specialtrans.create')}}" class="btn-sm btn-info" style="margin-right: 20px;">录入</a>
+                    <a href="javascript:;" data-toggle="modal" data-target="#importModal" class="btn-sm btn-success" style="margin-right: 20px;">导入</a>
+                    <a href="/template/specialtrans.xlsx" class="btn-sm btn-danger">模板下载</a>
                 </div>
             </div>
         </div>
@@ -90,6 +92,38 @@
             </div>
         </div>
         <!-- /.box-body -->
+    </div>
+    <!-- importModal -->
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel">
+        <div class="modal-dialog" role="document">
+            <form method="post" class="form-horizontal" action="{{route('specialtrans.import')}}" enctype="multipart/form-data">
+                {{csrf_field()}}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center" id="importModalLabel">文件选择</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="inInputFile" class="col-sm-2 control-label">文件</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="file" id="inInputFile" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateTag" class="col-sm-2 control-label">日期</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control date-item" name="date_tag" id="dateTag" value="{{\Carbon\Carbon::now()->toDateString()}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">开始导入</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 @endsection
 

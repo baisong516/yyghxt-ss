@@ -72,6 +72,8 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('specials','SpecialController');
         Route::resource('specialtrans','SpecialtranController');
         Route::post('specialtransearch','SpecialtranController@search')->name('specialtrans.search');
+
+        Route::post('specialtransimport','SpecialtranController@import')->name('specialtrans.import');
     });
     //产出
     Route::group(['prefix' => 'outputs'],function(){
