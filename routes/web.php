@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
     Route::group(['prefix' => 'jingjia'],function(){
         Route::resource('auctions','AuctionController');
         Route::post('auctionsearch','AuctionController@search')->name('auctions.search');
+        Route::post('auctionsimport','AuctionController@import')->name('auctions.import');
     });
     //企划
     Route::group(['prefix' => 'qh'],function(){
