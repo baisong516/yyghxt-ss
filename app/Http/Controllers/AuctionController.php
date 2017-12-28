@@ -128,7 +128,8 @@ class AuctionController extends Controller
         if (Auth::user()->ability('superadministrator', 'read-auctions')){
             $start=$request->input('searchDateStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay():Carbon::now()->startOfDay();
             $end=$request->input('searchDateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay():Carbon::now()->endOfDay();
-            //$data=Auction::getAuctionData($start,$end);
+            $data=Auction::getAuctionData($start,$end);
+            dd($data);
             return view('auction.read',[
                 'pageheader'=>'竞价部',
                 'pagedescription'=>'报表',
