@@ -199,8 +199,8 @@ class AuctionController extends Controller
                     $yuyue=$d[7]?$d[7]:0;//预约量
                     $arrive=$d[8]?$d[8]:0;//总到院
 
-                    $zixun_cost=$zixun>0?sprintf('%.2f',$cost/$zixun):'-';//咨询成本
-                    $arrive_cost=$arrive>0?sprintf('%.2f',$cost/$arrive):'-';//到院成本
+                    $zixun_cost=$zixun>0?sprintf('%.2f',$cost/$zixun):0;//咨询成本
+                    $arrive_cost=$arrive>0?sprintf('%.2f',$cost/$arrive):0;//到院成本
                     $date_tag=$dateTag;//日期
 
 
