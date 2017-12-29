@@ -250,21 +250,32 @@ class ApiController extends Controller
             ->header('Content-Type', 'application/javascript')
             ->header('charset', 'utf-8');
     }
-    //科室数据接口
-    public function getDiseaseArray(){
+    //病种数据接口
+    public function getDisease(Request $request){
         //测试数据
-        $diseases=Disease::select('id','display_name')->where('office_id',2)->get();
-
-        $diseasesArr=[];
-        $status=0;
-        foreach ($diseases as $disease){
-            $diseasesArr[$disease->id]=$disease->display_name;
+        $office_id=$request->input('office_id');
+        $data=[];
+        if (empty($office_id)){
+            $offices=Aiden::getAllModelArray('offices');
+            foreach ($offices as $oid=>$office){
+                $data[$oid]=[
+                    'office_id'=>$oid,
+                    'office_name'=>$office,
+                ];
+                $data[$oid]['diseases']=[];
+                $diseases=Disease::select('id','display_name')->where('office_id',$oid)->get();
+                foreach ($diseases as $disease){
+                    $data[$oid]['diseases'][]=[
+                        'disease_id'=>$disease->id,
+                        'disease_name'=>$disease->display_name,
+                    ];
+                }
+            }
+        }else{
+            $diseases=Disease::select('id','display_name')->where('office_id',$office_id)->get();
+            $data=$diseases;
         }
-        if (!empty($diseasesArr)){$status=1;}
-        return response()->json([
-            'status'=>$status,
-            'data'=>$diseasesArr,
-        ]);
+        return response()->json($data);
     }
     //按钮统计
     public function saveClickCount(Request $request)
