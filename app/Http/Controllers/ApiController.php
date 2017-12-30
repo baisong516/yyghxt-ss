@@ -259,15 +259,15 @@ class ApiController extends Controller
             $offices=Aiden::getAllModelArray('offices');
             foreach ($offices as $oid=>$office){
                 $data[$oid]=[
-                    'office_id'=>$oid,
-                    'office_name'=>$office,
+                    'id'=>$oid,
+                    'name'=>$office,
                 ];
                 $data[$oid]['diseases']=[];
                 $diseases=Disease::select('id','display_name')->where('office_id',$oid)->get();
                 foreach ($diseases as $disease){
                     $data[$oid]['diseases'][]=[
-                        'disease_id'=>$disease->id,
-                        'disease_name'=>$disease->display_name,
+                        'id'=>$disease->id,
+                        'name'=>$disease->display_name,
                     ];
                 }
             }
