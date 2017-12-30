@@ -49,8 +49,8 @@ class ZxCustomerController extends Controller
             //去除回访时间在今天之后的
             $CustomerIds=[];
             foreach ($customerIdstemp as $id){
-                $huifang=Huifang::where('zx_customer_id',$id)->orderBy('created_at', 'desc')->first();//最新回访
-                if (!empty($huifang->next_at)&&$huifang->next_at<=Carbon::now()->endOfDay()){
+                $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
+                if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
                     $CustomerIds[]=$huifang->zx_customer_id;
                 }
             }
@@ -245,7 +245,7 @@ class ZxCustomerController extends Controller
 	    if (!empty($quickSearch)){
 	    	if ($quickSearch=='todayhuifang'){
 			    //今日应回访
-			    $huifangCustomers=Huifang::select('zx_customer_id')->where([
+			    $huifangCustomers=Huifang::select('zx_customer_id')->whereNotNull('next_at')->where([
 				    ['next_at','>=',Carbon::now()->startOfDay()],
 				    ['next_at','<=',Carbon::now()->endOfDay()],
 			    ])->get();
@@ -254,14 +254,14 @@ class ZxCustomerController extends Controller
 				    $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
 			    }
 			    $customerIdstemp = array_unique($huifangCustomerIds);//一次过滤
-			    //去除回访时间在今天之后的
-			    $CustomerIds=[];
-			    foreach ($customerIdstemp as $id){
-					$huifang=Huifang::where('zx_customer_id',$id)->orderBy('created_at', 'desc')->first();//最新回访
-					if (!empty($huifang->next_at)&&$huifang->next_at<=Carbon::now()->endOfDay()){
-						$CustomerIds[]=$huifang->zx_customer_id;
-					}
-			    }
+			    //去除没有下次回访时间，和下次回访时间在今天之后的
+//			    $CustomerIds=[];
+//			    foreach ($customerIdstemp as $id){
+//					$huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
+//					if (!empty($huifang->next_at)&&$huifang->next_at<=Carbon::now()->endOfDay()){
+//						$CustomerIds[]=$huifang->zx_customer_id;
+//					}
+//			    }
 			    $customers =ZxCustomer::whereIn('id',$customerIdstemp)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->get();
 			}
 			if ($quickSearch=='todayarrive'){

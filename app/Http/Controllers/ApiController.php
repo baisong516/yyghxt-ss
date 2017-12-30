@@ -183,7 +183,12 @@ class ApiController extends Controller
         $data=[];
         $ghName=$request->input('gh_name');
         $ghTel=$request->input('gh_tel');
-        if (empty($ghName)){
+        if (empty($request->input('gh_offices'))){
+            $data=[
+                'type'=>'error',
+                'content'=>'科室不能为空！',
+            ];
+        }elseif (empty($ghName)){
             $data=[
                 'type'=>'error',
                 'content'=>'姓名不能为空！',
@@ -201,7 +206,7 @@ class ApiController extends Controller
                     'content'=>'请输入正确的手机号！',
                 ]);
             }
-            //gh_hosptial gh_refurl gh_offices gh_name gh_sex gh_age gh_tel gh_disease gh_des gh_date
+            //gh_refurl gh_offices gh_name gh_sex gh_age gh_tel gh_disease gh_des gh_date
             $customer=new GhCustomer();
             $customer->gh_name=$request->input('gh_name');
             $customer->gh_age=$request->input('gh_age');
