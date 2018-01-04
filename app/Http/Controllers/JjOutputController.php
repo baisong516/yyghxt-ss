@@ -117,9 +117,8 @@ class JjOutputController extends Controller
     public function search(Request $request)
     {
         if (Auth::user()->ability('superadministrator', 'read-jjoutputs')){
-            $date=$request->input('searchDate');
-            $start=Carbon::createFromFormat('Y-m-d',$date)->startOfDay();
-            $end=Carbon::createFromFormat('Y-m-d',$date)->endOfDay();
+            $start=Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay();
+            $end=Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay();
             $outputs=JjOutput::getJjOutputs($start,$end);
             return view('jjoutput.read',[
                 'pageheader'=>'产出',

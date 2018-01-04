@@ -158,7 +158,7 @@
                     <tbody>
                     @if(!empty($customers))
                     @foreach($customers as $customer)
-                        <tr id="customer-{{$customer->id}}" class="{{isset($quicksearch)&&$quicksearch=='todayhuifang'&&$customer->huifangs->last()&&$customer->huifangs->last()->next_at>=\Carbon\Carbon::now()->endOfDay()?'bg-red':''}}">
+                        <tr id="customer-{{$customer->id}}" class="{{isset($quicksearch)&&$quicksearch=='todayhuifang'&&$customer->huifangs->last()&&($customer->huifangs->last()->next_at>=\Carbon\Carbon::now()->endOfDay()||$customer->huifangs->last()->now_at>=\Carbon\Carbon::now()->startOfDay())?'bg-red':''}}">
                             <td style="display: none;">{{$customer->id}}</td>
                             <td>{{$customer->name}}</td>
                             <td>{{$customer->age}}</td>

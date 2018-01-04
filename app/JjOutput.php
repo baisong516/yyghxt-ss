@@ -56,7 +56,24 @@ class JjOutput extends Model
                 ['date_tag','>=',$start],
                 ['date_tag','<=',$end],
             ])->get();
-            $outputs[$k]['data']=$outs;
+            //$outputs[$k]['data']=$outs;
+            foreach ($outs as $out){
+                if ($out->rank==0){
+                    isset($outputs[$k]['data'][$out->user_id]['rank_0'])?$outputs[$k]['data'][$out->user_id]['rank_0']+=1:$outputs[$k]['data'][$out->user_id]['rank_0']=1;
+                }
+                if ($out->rank==1){
+                    isset($outputs[$k]['data'][$out->user_id]['rank_1'])?$outputs[$k]['data'][$out->user_id]['rank_1']+=1:$outputs[$k]['data'][$out->user_id]['rank_1']=1;
+                }
+                isset($outputs[$k]['data'][$out->user_id]['budget'])?$outputs[$k]['data'][$out->user_id]['budget']+=$outputs[$k]['data'][$out->user_id]['budget']:$outputs[$k]['data'][$out->user_id]['budget']=$out->budget;
+                isset($outputs[$k]['data'][$out->user_id]['cost'])?$outputs[$k]['data'][$out->user_id]['cost']+=$outputs[$k]['data'][$out->user_id]['cost']:$outputs[$k]['data'][$out->user_id]['cost']=$out->cost;
+                isset($outputs[$k]['data'][$out->user_id]['click'])?$outputs[$k]['data'][$out->user_id]['click']+=$outputs[$k]['data'][$out->user_id]['click']:$outputs[$k]['data'][$out->user_id]['click']=$out->click;
+                isset($outputs[$k]['data'][$out->user_id]['zixun'])?$outputs[$k]['data'][$out->user_id]['zixun']+=$outputs[$k]['data'][$out->user_id]['zixun']:$outputs[$k]['data'][$out->user_id]['zixun']=$out->zixun;
+                isset($outputs[$k]['data'][$out->user_id]['yuyue'])?$outputs[$k]['data'][$out->user_id]['yuyue']+=$outputs[$k]['data'][$out->user_id]['yuyue']:$outputs[$k]['data'][$out->user_id]['yuyue']=$out->yuyue;
+                isset($outputs[$k]['data'][$out->user_id]['arrive'])?$outputs[$k]['data'][$out->user_id]['arrive']+=$outputs[$k]['data'][$out->user_id]['arrive']:$outputs[$k]['data'][$out->user_id]['arrive']=$out->arrive;
+                $outputs[$k]['data'][$out->user_id]['zixun_cost'] =isset($outputs[$k]['data'][$out->user_id]['zixun'])&&$outputs[$k]['data'][$out->user_id]['zixun']>0?$outputs[$k]['data'][$out->user_id]['cost']/$outputs[$k]['data'][$out->user_id]['zixun']:0;
+                $outputs[$k]['data'][$out->user_id]['yuyue_cost'] = isset($outputs[$k]['data'][$out->user_id]['yuyue'])&&$outputs[$k]['data'][$out->user_id]['yuyue']>0?$outputs[$k]['data'][$out->user_id]['cost']/$outputs[$k]['data'][$out->user_id]['yuyue']:0;
+                $outputs[$k]['data'][$out->user_id]['arrive_cost'] = isset($outputs[$k]['data'][$out->user_id]['arrive'])&&$outputs[$k]['data'][$out->user_id]['arrive']>0?$outputs[$k]['data'][$out->user_id]['cost']/$outputs[$k]['data'][$out->user_id]['arrive']:0;
+            }
         }
         return $outputs;
     }
