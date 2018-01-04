@@ -55,20 +55,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($v['platform']['auctions'] as $auction)
+                                        @foreach($v['platform']['auctions'] as $typeId=>$auction)
                                             <tr class="text-center">
                                                 @if($loop->first)
                                                     <td rowspan="{{$loop->count}}" style="vertical-align: middle;" class="bg-tree"><strong>渠道</strong></td>
                                                 @endif
-                                                <td>{{$auction->type_id?$platforms[$auction->type_id]:''}}</td>
-                                                <td>{{$auction->budget}}</td>
-                                                <td>{{sprintf('%.2f',$auction->cost)}}</td>
-                                                <td>{{$auction->click}}</td>
-                                                <td>{{$auction->zixun}}</td>
-                                                <td>{{$auction->yuyue}}</td>
-                                                <td>{{$auction->arrive}}</td>
-                                                <td>{{$auction->zixun_cost}}</td>
-                                                <td>{{$auction->arrive_cost}}</td>
+                                                <td>{{$typeId?$platforms[$typeId]:''}}</td>
+                                                <td>{{$auction['budget']}}</td>
+                                                <td>{{sprintf('%.2f',$auction['cost'])}}</td>
+                                                <td>{{$auction['click']}}</td>
+                                                <td>{{$auction['zixun']}}</td>
+                                                <td>{{$auction['yuyue']}}</td>
+                                                <td>{{$auction['arrive']}}</td>
+                                                <td>{{$auction['zixun_cost']}}</td>
+                                                <td>{{$auction['arrive_cost']}}</td>
                                             </tr>
                                         @endforeach
                                         <tr class="text-center">
@@ -103,20 +103,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($v['area']['auctions'] as $auction)
+                                        @foreach($v['area']['auctions'] as $typeId=>$auction)
                                             <tr class="text-center">
                                                 @if($loop->first)
                                                 <td rowspan="{{$loop->count}}" style="vertical-align: middle" class="bg-tree"><strong>地区</strong></td>
                                                 @endif
-                                                <td>{{$auction->type_id?$areas[$auction->type_id]:''}}</td>
-                                                <td>{{$auction->budget}}</td>
-                                                <td>{{sprintf('%.2f',$auction->cost)}}</td>
-                                                <td>{{$auction->click}}</td>
-                                                <td>{{$auction->zixun}}</td>
-                                                <td>{{$auction->yuyue}}</td>
-                                                <td>{{$auction->arrive}}</td>
-                                                <td>{{$auction->zixun_cost}}</td>
-                                                <td>{{$auction->arrive_cost}}</td>
+                                                <td>{{$typeId?$areas[$typeId]:''}}</td>
+                                                <td>{{$auction['budget']}}</td>
+                                                <td>{{sprintf('%.2f',$auction['cost'])}}</td>
+                                                <td>{{$auction['click']}}</td>
+                                                <td>{{$auction['zixun']}}</td>
+                                                <td>{{$auction['yuyue']}}</td>
+                                                <td>{{$auction['arrive']}}</td>
+                                                <td>{{$auction['zixun_cost']}}</td>
+                                                <td>{{$auction['arrive_cost']}}</td>
                                             </tr>
                                         @endforeach
                                         <tr class="text-center">
@@ -151,20 +151,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($v['disease']['auctions'] as $auction)
+                                        @foreach($v['disease']['auctions'] as $typeId=>$auction)
                                             <tr class="text-center">
                                                 @if($loop->first)
                                                 <td  rowspan="{{$loop->count}}" style="vertical-align: middle" class="bg-tree"><strong>病种</strong></td>
                                                 @endif
-                                                <td>{{$auction->type_id?$diseases[$auction->type_id]:''}}</td>
-                                                <td>{{$auction->budget}}</td>
-                                                <td>{{sprintf('%.2f',$auction->cost)}}</td>
-                                                <td>{{$auction->click}}</td>
-                                                <td>{{$auction->zixun}}</td>
-                                                <td>{{$auction->yuyue}}</td>
-                                                <td>{{$auction->arrive}}</td>
-                                                <td>{{$auction->zixun_cost}}</td>
-                                                <td>{{$auction->arrive_cost}}</td>
+                                                <td>{{$typeId?$diseases[$typeId]:''}}</td>
+                                                <td>{{$auction['budget']}}</td>
+                                                <td>{{sprintf('%.2f',$auction['cost'])}}</td>
+                                                <td>{{$auction['click']}}</td>
+                                                <td>{{$auction['zixun']}}</td>
+                                                <td>{{$auction['yuyue']}}</td>
+                                                <td>{{$auction['arrive']}}</td>
+                                                <td>{{$auction['zixun_cost']}}</td>
+                                                <td>{{$auction['arrive_cost']}}</td>
                                             </tr>
                                         @endforeach
                                         <tr class="text-center">

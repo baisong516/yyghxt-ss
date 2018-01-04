@@ -62,9 +62,17 @@ class Auction extends Model
         $auctionsData=[];
         foreach ($tempData as $k=>$o){
             foreach ($o as $type=>$auctions){
-
                 foreach ($auctions as $auction){
-                    $auctionsData[$k][$type]['auctions'][]=$auction;
+                    //$auctionsData[$k][$type]['auctions'][]=$auction;
+                    isset($auctionsData[$k][$type]['auctions'][$auction->type_id]['budget'])?$auctionsData[$k][$type]['auctions'][$auction->type_id]['budget']+=$auction->budget:$auctionsData[$k][$type]['auctions'][$auction->type_id]['budget']=$auction->budget;
+                    isset($auctionsData[$k][$type]['auctions'][$auction->type_id]['cost'])?$auctionsData[$k][$type]['auctions'][$auction->type_id]['cost']+=$auction->cost:$auctionsData[$k][$type]['auctions'][$auction->type_id]['cost']=$auction->cost;
+                    isset($auctionsData[$k][$type]['auctions'][$auction->type_id]['click'])?$auctionsData[$k][$type]['auctions'][$auction->type_id]['click']+=$auction->click:$auctionsData[$k][$type]['auctions'][$auction->type_id]['click']=$auction->click;
+                    isset($auctionsData[$k][$type]['auctions'][$auction->type_id]['zixun'])?$auctionsData[$k][$type]['auctions'][$auction->type_id]['zixun']+=$auction->zixun:$auctionsData[$k][$type]['auctions'][$auction->type_id]['zixun']=$auction->zixun;
+                    isset($auctionsData[$k][$type]['auctions'][$auction->type_id]['yuyue'])?$auctionsData[$k][$type]['auctions'][$auction->type_id]['yuyue']+=$auction->yuyue:$auctionsData[$k][$type]['auctions'][$auction->type_id]['yuyue']=$auction->yuyue;
+                    isset($auctionsData[$k][$type]['auctions'][$auction->type_id]['arrive'])?$auctionsData[$k][$type]['auctions'][$auction->type_id]['arrive']+=$auction->arrive:$auctionsData[$k][$type]['auctions'][$auction->type_id]['arrive']=$auction->arrive;
+                    $auctionsData[$k][$type]['auctions'][$auction->type_id]['zixun_cost']=isset($auctionsData[$k][$type]['auctions'][$auction->type_id]['zixun'])&&$auctionsData[$k][$type]['auctions'][$auction->type_id]['zixun']>0?sprintf('%.2f',$auctionsData[$k][$type]['auctions'][$auction->type_id]['cost']/$auctionsData[$k][$type]['auctions'][$auction->type_id]['zixun']):0;
+                    $auctionsData[$k][$type]['auctions'][$auction->type_id]['arrive_cost']=isset($auctionsData[$k][$type]['auctions'][$auction->type_id]['arrive'])&&$auctionsData[$k][$type]['auctions'][$auction->type_id]['arrive']>0?sprintf('%.2f',$auctionsData[$k][$type]['auctions'][$auction->type_id]['cost']/$auctionsData[$k][$type]['auctions'][$auction->type_id]['arrive']):0;
+                    //合计汇总
                     isset($auctionsData[$k][$type]['budget'])?$auctionsData[$k][$type]['budget']+=$auction->budget:$auctionsData[$k][$type]['budget']=$auction->budget;
                     isset($auctionsData[$k][$type]['cost'])?$auctionsData[$k][$type]['cost']+=$auction->cost:$auctionsData[$k][$type]['cost']=$auction->cost;
                     isset($auctionsData[$k][$type]['click'])?$auctionsData[$k][$type]['click']+=$auction->click:$auctionsData[$k][$type]['click']=$auction->click;
@@ -78,6 +86,7 @@ class Auction extends Model
                 }
             }
         }
+        //dd($auctionsData);
         return $auctionsData;
     }
 }
