@@ -62,7 +62,7 @@
                                                 @endif
                                                 <td>{{$auction->type_id?$platforms[$auction->type_id]:''}}</td>
                                                 <td>{{$auction->budget}}</td>
-                                                <td>{{$auction->cost}}</td>
+                                                <td>{{sprintf('%.2f',$auction->cost)}}</td>
                                                 <td>{{$auction->click}}</td>
                                                 <td>{{$auction->zixun}}</td>
                                                 <td>{{$auction->yuyue}}</td>
@@ -75,7 +75,7 @@
                                             <td class="bg-tree"></td>
                                             <td>合计汇总</td>
                                             <td>{{$v['platform']['budget']}}</td>
-                                            <td>{{$v['platform']['cost']}}</td>
+                                            <td>{{sprintf('%.2f',$v['platform']['cost'])}}</td>
                                             <td>{{$v['platform']['click']}}</td>
                                             <td>{{$v['platform']['zixun']}}</td>
                                             <td>{{$v['platform']['yuyue']}}</td>
@@ -110,7 +110,7 @@
                                                 @endif
                                                 <td>{{$auction->type_id?$areas[$auction->type_id]:''}}</td>
                                                 <td>{{$auction->budget}}</td>
-                                                <td>{{$auction->cost}}</td>
+                                                <td>{{sprintf('%.2f',$auction->cost)}}</td>
                                                 <td>{{$auction->click}}</td>
                                                 <td>{{$auction->zixun}}</td>
                                                 <td>{{$auction->yuyue}}</td>
@@ -123,7 +123,7 @@
                                             <td class="bg-tree"></td>
                                             <td>合计汇总</td>
                                             <td>{{$v['area']['budget']}}</td>
-                                            <td>{{$v['area']['cost']}}</td>
+                                            <td>{{sprintf('%.2f',$v['area']['cost'])}}</td>
                                             <td>{{$v['area']['click']}}</td>
                                             <td>{{$v['area']['zixun']}}</td>
                                             <td>{{$v['area']['yuyue']}}</td>
@@ -158,7 +158,7 @@
                                                 @endif
                                                 <td>{{$auction->type_id?$diseases[$auction->type_id]:''}}</td>
                                                 <td>{{$auction->budget}}</td>
-                                                <td>{{$auction->cost}}</td>
+                                                <td>{{sprintf('%.2f',$auction->cost)}}</td>
                                                 <td>{{$auction->click}}</td>
                                                 <td>{{$auction->zixun}}</td>
                                                 <td>{{$auction->yuyue}}</td>
@@ -171,7 +171,7 @@
                                             <td  class="bg-tree"></td>
                                             <td>合计汇总</td>
                                             <td>{{$v['disease']['budget']}}</td>
-                                            <td>{{$v['disease']['cost']}}</td>
+                                            <td>{{sprintf('%.2f',$v['disease']['cost'])}}</td>
                                             <td>{{$v['disease']['click']}}</td>
                                             <td>{{$v['disease']['zixun']}}</td>
                                             <td>{{$v['disease']['yuyue']}}</td>
