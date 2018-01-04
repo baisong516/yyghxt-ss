@@ -148,10 +148,10 @@
                                     <td>{{isset($output['rank_0'])?'早班：'.$output['rank_0']:''}} {{isset($output['rank_1'])?'晚班：'.$output['rank_1']:''}}</td>
                                     <td>{{isset($output['budget'])?sprintf('%.2f',$output['budget']):''}}</td>
                                     <td>{{isset($output['cost'])?sprintf('%.2f',$output['cost']):''}}</td>
-                                    <td>{{isset($output['click'])?sprintf('%.2f',$output['click']):''}}</td>
-                                    <td>{{isset($output['zixun'])?sprintf('%.2f',$output['zixun']):''}}</td>
-                                    <td>{{isset($output['yuyue'])?sprintf('%.2f',$output['yuyue']):''}}</td>
-                                    <td>{{isset($output['arrive'])?sprintf('%.2f',$output['arrive']):''}}</td>
+                                    <td>{{isset($output['click'])?$output['click']:''}}</td>
+                                    <td>{{isset($output['zixun'])?$output['zixun']:''}}</td>
+                                    <td>{{isset($output['yuyue'])?$output['yuyue']:''}}</td>
+                                    <td>{{isset($output['arrive'])?$output['arrive']:''}}</td>
                                     <td>{{isset($output['zixun_cost'])?sprintf('%.2f',$output['zixun_cost']):''}}</td>
                                     <td>{{isset($output['yuyue_cost'])?sprintf('%.2f',$output['yuyue_cost']):''}}</td>
                                     <td>{{isset($output['arrive_cost'])?sprintf('%.2f',$output['arrive_cost']):''}}</td>
