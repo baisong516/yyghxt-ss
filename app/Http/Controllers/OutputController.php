@@ -31,9 +31,8 @@ class OutputController extends Controller
 
     public function search(Request $request)
     {
-        $date=$request->input('searchDate');
-        $start=$date?Carbon::createFromFormat('Y-m-d',$date)->startOfDay():Carbon::now()->startOfDay();
-        $end=$date?Carbon::createFromFormat('Y-m-d',$date)->endOfDay():Carbon::now()->endOfDay();
+        $start=$request->input('searchDateStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay():Carbon::now()->startOfDay();
+        $end=$request->input('searchDateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay():Carbon::now()->endOfDay();
         $zxoutputs=ZxOutput::getZxOutputs($start,$end);
         $jjoutputs=JjOutput::getJjOutputs($start,$end);
         return view('output.read',[

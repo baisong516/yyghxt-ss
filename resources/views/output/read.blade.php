@@ -9,8 +9,10 @@
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="searchDate">日期：</label>
-                    <input type="text" class="form-control date-item" name="searchDate" id="searchDate" required value="{{isset($start)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
-                   </div>
+                    <input type="text" class="form-control date-item" name="searchDateStart" id="searchDateStart" required value="{{isset($start)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
+                    到
+                    <input type="text" class="form-control date-item" name="searchDateEnd" id="searchDateEnd" required value="{{isset($end)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
+                </div>
                 <button type="submit" class="btn btn-success">搜索</button>
             </form>
             <div class="box-tools">
@@ -136,24 +138,26 @@
                 <tbody>
                 @isset($jjoutputs)
                     @foreach($jjoutputs as $g)
-                        @foreach($g['data'] as $output)
-                            <tr>
-                                @if($loop->first)
-                                    <td rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$g['office']}}</td>
-                                @endif
-                                <td>{{$output->user_id?$users[$output->user_id]:''}}</td>
-                                <td>{{$output->rank==1?'晚班':'早班'}}</td>
-                                <td>{{$output->budget?$output->budget:''}}</td>
-                                <td>{{$output->cost?$output->cost:''}}</td>
-                                <td>{{$output->click?$output->click:''}}</td>
-                                <td>{{$output->zixun?$output->zixun:''}}</td>
-                                <td>{{$output->yuyue?$output->yuyue:''}}</td>
-                                <td>{{$output->arrive?$output->arrive:''}}</td>
-                                <td>{{$output->zixun_cost?$output->zixun_cost:''}}</td>
-                                <td>{{$output->yuyue_cost?$output->yuyue_cost:''}}</td>
-                                <td>{{$output->arrive_cost?$output->arrive_cost:''}}</td>
-                            </tr>
-                        @endforeach
+                        @isset($g['data'])
+                            @foreach($g['data'] as $userId=>$output)
+                                <tr>
+                                    @if($loop->first)
+                                        <td rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$g['office']}}</td>
+                                    @endif
+                                    <td>{{$userId?$users[$userId]:''}}</td>
+                                    <td>{{isset($output['rank_0'])?'早班：'.$output['rank_0']:''}} {{isset($output['rank_1'])?'晚班：'.$output['rank_1']:''}}</td>
+                                    <td>{{isset($output['budget'])?sprintf('%.2f',$output['budget']):''}}</td>
+                                    <td>{{isset($output['cost'])?sprintf('%.2f',$output['cost']):''}}</td>
+                                    <td>{{isset($output['click'])?sprintf('%.2f',$output['click']):''}}</td>
+                                    <td>{{isset($output['zixun'])?sprintf('%.2f',$output['zixun']):''}}</td>
+                                    <td>{{isset($output['yuyue'])?sprintf('%.2f',$output['yuyue']):''}}</td>
+                                    <td>{{isset($output['arrive'])?sprintf('%.2f',$output['arrive']):''}}</td>
+                                    <td>{{isset($output['zixun_cost'])?sprintf('%.2f',$output['zixun_cost']):''}}</td>
+                                    <td>{{isset($output['yuyue_cost'])?sprintf('%.2f',$output['yuyue_cost']):''}}</td>
+                                    <td>{{isset($output['arrive_cost'])?sprintf('%.2f',$output['arrive_cost']):''}}</td>
+                                </tr>
+                            @endforeach
+                        @endisset
                     @endforeach
                 @endisset
                 </tbody>
