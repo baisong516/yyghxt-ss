@@ -49,6 +49,7 @@
                 <tbody>
                     @isset($outputs)
                         @foreach($outputs as $g)
+                            @isset($g['data'])
                             @foreach($g['data'] as $userId=>$output)
                             <tr>
                                 @if($loop->first)
@@ -67,6 +68,7 @@
                                 <td>{{isset($output['arrive_cost'])?sprintf('%.2f',$output['arrive_cost']):''}}</td>
                             </tr>
                             @endforeach
+                            @endisset
                         @endforeach
                     @endisset
                 </tbody>
