@@ -50,7 +50,7 @@ class ZxCustomerController extends Controller
             $CustomerIds=[];
             foreach ($customerIdstemp as $id){
                 $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
-                if ($huifang->next_at>=Carbon::now()->startOfDay()&&$huifang->next_at>=Carbon::now()->endOfDay()){
+                if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
                     $CustomerIds[]=$huifang->zx_customer_id;
                 }
             }
