@@ -23,11 +23,8 @@ class StatisticController extends Controller
             $tempDate = Statistic::select('office_id','domain', 'flag', 'date_tag', 'count', 'description')->where('date_tag', Carbon::now()->toDateString())->get();
             $todayClick = [];
             foreach ($tempDate as $t) {
-                $todayClick[$t->office_id][$t->domain][] = [
-                    'flag' => $t->flag,
-                    'count' => $t->count,
-                    'description' => $t->description,
-                ];
+                $todayClick[$t->office_id][$t->domain][$t->flag]['description']=$t->description;
+                isset($todayClick[$t->office_id][$t->domain][$t->flag]['count'])?$todayClick[$t->office_id][$t->domain][$t->flag]['count']+=$t->count:$todayClick[$t->office_id][$t->domain][$t->flag]['count']=$t->count;
             }
 //            dd($todayClick);
             return view('button.read', [
@@ -118,12 +115,10 @@ class StatisticController extends Controller
                 ['date_tag','<=',$end],
             ])->get();
             $todayClick = [];
+//            dd($tempDate);
             foreach ($tempDate as $t) {
-                $todayClick[$t->office_id][$t->domain][] = [
-                    'flag' => $t->flag,
-                    'count' => $t->count,
-                    'description' => $t->description,
-                ];
+                $todayClick[$t->office_id][$t->domain][$t->flag]['description']=$t->description;
+                isset($todayClick[$t->office_id][$t->domain][$t->flag]['count'])?$todayClick[$t->office_id][$t->domain][$t->flag]['count']+=$t->count:$todayClick[$t->office_id][$t->domain][$t->flag]['count']=$t->count;
             }
 //            dd($todayClick);
             return view('button.read', [

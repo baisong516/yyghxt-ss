@@ -43,18 +43,18 @@
                                         </thead>
                                         <tbody style="text-align: center">
                                         @foreach($d as $m=>$v)
-                                            @foreach($v as $d)
+                                            @foreach($v as $p=>$it)
                                                 <tr>
                                                     @if($loop->first)
                                                         <td rowspan="{{$loop->count}}" class="text-center" style="vertical-align: middle;">{{$m}}</td>
                                                     @endif
                                                     <td class="text-center">
-                                                        @foreach(array_filter(explode('_',$d['flag'])) as $e)
+                                                        @foreach(array_filter(explode('_',$p)) as $e)
                                                             {{isset($clickArray[$e])?$clickArray[$e]:$e}}
                                                         @endforeach
                                                     </td>
-                                                    <td class="text-center">{{isset($d['description'])?$d['description']:''}}</td>
-                                                    <td class="text-center">{{$d['count']}}</td>
+                                                    <td class="text-center">{{isset($it['description'])?$it['description']:''}}</td>
+                                                    <td class="text-center">{{$it['count']}}</td>
                                                 </tr>
                                             @endforeach
                                         @endforeach
