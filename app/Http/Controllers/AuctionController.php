@@ -220,7 +220,7 @@ class AuctionController extends Controller
                     $auction->date_tag=$date_tag;
                     $bool=$auction->save();
                 }
-                return redirect()->route('zxoutputs.index')->with('success','导入完成!');
+                return redirect()->route('auctions.index')->with('success','导入完成!');
             }
         }
         return abort(403,config('yyxt.permission_deny'));
