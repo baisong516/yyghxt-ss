@@ -171,7 +171,7 @@
     </li>
     @role('superadministrator|administrator|zixun|jingjia')
     <li class="treeview {{Request::is('gh/*')?'active':''}}">
-        <a href="#"><i class="fa fa-gg"></i> <span>网上挂号</span>
+        <a href="#"><i class="fa fa-gg"></i> <span>挂号</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>

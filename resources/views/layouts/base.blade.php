@@ -125,7 +125,7 @@
      {{--/.content-wrapper--}}
 
      {{--Main Footer --}}
-    <footer class="main-footer">
+    <footer class="main-footer" style="margin-left:150px;">
         {{--To the right--}}
         <div class="pull-right hidden-xs">
             {{config('yyxt.version')}}
