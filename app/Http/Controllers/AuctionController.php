@@ -136,7 +136,15 @@ class AuctionController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        if (Auth::user()->ability('superadministrator', 'delete-auctions')){
+            $auction=Auction::findOrFail($id);
+            if ($auction->delete()){
+                return redirect()->route('auctions.index')->with('success','Well Done!');
+            }else{
+                return redirect()->back()->with('error','Something Wrong!');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     public function search(Request $request)
