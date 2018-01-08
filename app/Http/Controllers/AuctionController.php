@@ -36,8 +36,8 @@ class AuctionController extends Controller
                 'diseases'=>Aiden::getAllModelArray('diseases'),
                 'start'=>$start,
                 'end'=>$end,
-//                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-areas'),
-//                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-areas'),
+                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-auctions'),
+                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-auctions'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
