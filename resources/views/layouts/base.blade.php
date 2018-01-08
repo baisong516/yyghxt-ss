@@ -45,14 +45,14 @@
     {{--Main Header--}}
     <header class="main-header">
         {{--Logo--}}
-        <a href="/home" class="logo" style="width:150px;">
+        <a href="/home" class="logo" >
             {{--mini logo for sidebar mini 50x50 pixels--}}
             <span class="logo-mini"><b>{{config('yyxt.short_name')}}</b></span>
             {{--logo for regular state and mobile devices--}}
             <span class="logo-lg"><b>{{config('yyxt.web_name')}}</b></span>
         </a>
          {{--Header Navbar--}}
-        <nav class="navbar navbar-static-top" role="navigation" style="margin-left:150px;">
+        <nav class="navbar navbar-static-top" role="navigation" >
             {{--Sidebar toggle button--}}
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <span class="sr-only">Toggle navigation</span>
@@ -92,7 +92,7 @@
         </nav>
     </header>
     {{--Left side column. contains the logo and sidebar--}}
-    <aside class="main-sidebar" style="width: 150px;">
+    <aside class="main-sidebar">
         {{--sidebar: style can be found in sidebar.less--}}
         <section class="sidebar">
             {{--左边栏主菜单--}}
@@ -103,7 +103,7 @@
     </aside>
 
     {{--Content Wrapper. Contains page content--}}
-    <div class="content-wrapper" style="margin-left: 150px;">
+    <div class="content-wrapper">
          {{--Content Header (Page header)--}}
         <section class="content-header">
             <h1>
@@ -125,7 +125,7 @@
      {{--/.content-wrapper--}}
 
      {{--Main Footer --}}
-    <footer class="main-footer" style="margin-left:150px;">
+    <footer class="main-footer">
         {{--To the right--}}
         <div class="pull-right hidden-xs">
             {{config('yyxt.version')}}
