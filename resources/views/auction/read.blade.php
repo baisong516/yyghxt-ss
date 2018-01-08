@@ -26,6 +26,9 @@
             </div>
         </div>
         <div class="box-body table-responsive">
+            <form action="" method="post" class="auctions-form">
+                {{method_field('DELETE')}}
+                {{csrf_field()}}
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     @if(!empty($auctions))
@@ -42,16 +45,19 @@
                                 <table class="table table-bordered">
                                     <thead class="text-center">
                                         <tr>
-                                            <th width="10%"></th>
-                                            <th width="10%" class="text-center">平台</th>
-                                            <th width="10%" class="text-center">预算</th>
-                                            <th width="10%" class="text-center">消费</th>
-                                            <th width="10%" class="text-center">点击</th>
-                                            <th width="10%" class="text-center">咨询量</th>
-                                            <th width="10%" class="text-center">预约量</th>
-                                            <th width="10%" class="text-center">总到院</th>
-                                            <th width="10%" class="text-center">咨询成本</th>
-                                            <th width="10%" class="text-center">到院成本</th>
+                                            <th width="9%"></th>
+                                            <th width="9%" class="text-center">平台</th>
+                                            <th width="9%" class="text-center">预算</th>
+                                            <th width="9%" class="text-center">消费</th>
+                                            <th width="9%" class="text-center">点击</th>
+                                            <th width="9%" class="text-center">咨询量</th>
+                                            <th width="9%" class="text-center">预约量</th>
+                                            <th width="9%" class="text-center">总到院</th>
+                                            <th width="9%" class="text-center">咨询成本</th>
+                                            <th width="9%" class="text-center">到院成本</th>
+                                            @if(isset($start)&&isset($end)&&\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()==\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString())
+                                            <th width="9%" class="text-center">OP</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,6 +75,16 @@
                                                 <td>{{$auction['arrive']}}</td>
                                                 <td>{{$auction['zixun_cost']}}</td>
                                                 <td>{{$auction['arrive_cost']}}</td>
+                                                @if(isset($start)&&isset($end)&&\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()==\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString())
+                                                <td>
+                                                    @if($enableUpdate)
+                                                        <a href="{{route('auctions.edit',$auction['id'])}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
+                                                    @endif
+                                                    @if($enableDelete)
+                                                        <a href="javascript:void(0);" data-id="{{$auction['id']}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
+                                                    @endif
+                                                </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                         <tr class="text-center">
@@ -90,16 +106,19 @@
                                 <table class="table table-bordered">
                                     <thead class="text-center">
                                         <tr>
-                                            <th width="10%"></th>
-                                            <th width="10%" class="text-center">地域</th>
-                                            <th width="10%" class="text-center">预算</th>
-                                            <th width="10%" class="text-center">消费</th>
-                                            <th width="10%" class="text-center">点击</th>
-                                            <th width="10%" class="text-center">咨询量</th>
-                                            <th width="10%" class="text-center">预约量</th>
-                                            <th width="10%" class="text-center">总到院</th>
-                                            <th width="10%" class="text-center">咨询成本</th>
-                                            <th width="10%" class="text-center">到院成本</th>
+                                            <th width="9%"></th>
+                                            <th width="9%" class="text-center">地域</th>
+                                            <th width="9%" class="text-center">预算</th>
+                                            <th width="9%" class="text-center">消费</th>
+                                            <th width="9%" class="text-center">点击</th>
+                                            <th width="9%" class="text-center">咨询量</th>
+                                            <th width="9%" class="text-center">预约量</th>
+                                            <th width="9%" class="text-center">总到院</th>
+                                            <th width="9%" class="text-center">咨询成本</th>
+                                            <th width="9%" class="text-center">到院成本</th>
+                                            @if(isset($start)&&isset($end)&&\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()==\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString())
+                                                <th width="9%" class="text-center">OP</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -117,6 +136,16 @@
                                                 <td>{{$auction['arrive']}}</td>
                                                 <td>{{$auction['zixun_cost']}}</td>
                                                 <td>{{$auction['arrive_cost']}}</td>
+                                                @if(isset($start)&&isset($end)&&\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()==\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString())
+                                                    <td>
+                                                        @if($enableUpdate)
+                                                            <a href="{{route('auctions.edit',$auction['id'])}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
+                                                        @endif
+                                                        @if($enableDelete)
+                                                            <a href="javascript:void(0);" data-id="{{$auction['id']}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
+                                                        @endif
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                         <tr class="text-center">
@@ -138,16 +167,19 @@
                                 <table class="table table-bordered">
                                     <thead class="text-center">
                                         <tr>
-                                            <th width="10%"></th>
-                                            <th width="10%" class="text-center">病种</th>
-                                            <th width="10%" class="text-center">预算</th>
-                                            <th width="10%" class="text-center">消费</th>
-                                            <th width="10%" class="text-center">点击</th>
-                                            <th width="10%" class="text-center">咨询量</th>
-                                            <th width="10%" class="text-center">预约量</th>
-                                            <th width="10%" class="text-center">总到院</th>
-                                            <th width="10%" class="text-center">咨询成本</th>
-                                            <th width="10%" class="text-center">到院成本</th>
+                                            <th width="9%"></th>
+                                            <th width="9%" class="text-center">病种</th>
+                                            <th width="9%" class="text-center">预算</th>
+                                            <th width="9%" class="text-center">消费</th>
+                                            <th width="9%" class="text-center">点击</th>
+                                            <th width="9%" class="text-center">咨询量</th>
+                                            <th width="9%" class="text-center">预约量</th>
+                                            <th width="9%" class="text-center">总到院</th>
+                                            <th width="9%" class="text-center">咨询成本</th>
+                                            <th width="9%" class="text-center">到院成本</th>
+                                            @if(isset($start)&&isset($end)&&\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()==\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString())
+                                                <th width="9%" class="text-center">OP</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -165,6 +197,16 @@
                                                 <td>{{$auction['arrive']}}</td>
                                                 <td>{{$auction['zixun_cost']}}</td>
                                                 <td>{{$auction['arrive_cost']}}</td>
+                                                @if(isset($start)&&isset($end)&&\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()==\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString())
+                                                    <td>
+                                                        @if($enableUpdate)
+                                                            <a href="{{route('auctions.edit',$auction['id'])}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
+                                                        @endif
+                                                        @if($enableDelete)
+                                                            <a href="javascript:void(0);" data-id="{{$auction['id']}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
+                                                        @endif
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                         <tr class="text-center">
@@ -188,6 +230,7 @@
                 </div>
                 <!-- /.tab-content -->
             </div>
+            </form>
         </div>
         <!-- /.box-body -->
     </div>
@@ -227,6 +270,7 @@
 
 @section('javascript')
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
+    <script type="text/javascript" src="http://yygh.oss-cn-shenzhen.aliyuncs.com/layer/layer.js"></script>
     <script type="text/javascript">
         //data item
         lay('.date-item').each(function(){
@@ -237,5 +281,27 @@
                 // value: new Date()
             });
         });
+        $(document).ready(function() {
+            $(".delete-operation").on('click',function(){
+                var id=$(this).attr('data-id');
+                layer.open({
+                    content: '你确定要删除吗？',
+                    btn: ['确定', '关闭'],
+                    yes: function(index, layero){
+                        $('form.auctions-form').attr('action',"{{route('auctions.index')}}/"+id);
+                        $('form.auctions-form').submit();
+                    },
+                    btn2: function(index, layero){
+                        //按钮【按钮二】的回调
+                        //return false 开启该代码可禁止点击该按钮关闭
+                    },
+                    cancel: function(){
+                        //右上角关闭回调
+                        //return false; 开启该代码可禁止点击该按钮关闭
+                    }
+                });
+            });
+        });
+
     </script>
 @endsection

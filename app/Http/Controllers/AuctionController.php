@@ -97,7 +97,16 @@ class AuctionController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'update-auctions')){
+            return view('auction.update',[
+                'pageheader'=>'竞价报表',
+                'pagedescription'=>'更新',
+                'offices'=>Aiden::getAllModelArray('offices'),
+                'options'=>Aiden::getAllModelArray(Auction::findOrFail($id)->type.'s'),
+                'auction'=>Auction::findOrFail($id),
+            ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**
@@ -109,7 +118,14 @@ class AuctionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'update-auctions')){
+            if (Auction::updateAuction($request,$id)){
+                return redirect()->route('auctions.index')->with('success','Well Done!');
+            }else{
+                return redirect()->back()->with('error','Something Wrong!');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**
@@ -120,7 +136,7 @@ class AuctionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 
     public function search(Request $request)
@@ -140,8 +156,8 @@ class AuctionController extends Controller
                 'diseases'=>Aiden::getAllModelArray('diseases'),
                 'start'=>$start,
                 'end'=>$end,
-//                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-areas'),
-//                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-areas'),
+                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-auctions'),
+                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-auctions'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
