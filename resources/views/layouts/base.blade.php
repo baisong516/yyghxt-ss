@@ -40,19 +40,19 @@
 {{--|               | sidebar-mini                            |--}}
 {{--|---------------------------------------------------------|--}}
 {{---->--}}
-<body class="hold-transition {{config('yyxt.res.app_skin')}} sidebar-mini sidebar-collapse">
+<body class="hold-transition {{config('yyxt.res.app_skin')}} sidebar-mini">
 <div class="wrapper">
     {{--Main Header--}}
     <header class="main-header">
         {{--Logo--}}
-        <a href="/home" class="logo">
+        <a href="/home" class="logo" style="width:150px;">
             {{--mini logo for sidebar mini 50x50 pixels--}}
             <span class="logo-mini"><b>{{config('yyxt.short_name')}}</b></span>
             {{--logo for regular state and mobile devices--}}
             <span class="logo-lg"><b>{{config('yyxt.web_name')}}</b></span>
         </a>
          {{--Header Navbar--}}
-        <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-left:150px;">
             {{--Sidebar toggle button--}}
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <span class="sr-only">Toggle navigation</span>
@@ -92,7 +92,7 @@
         </nav>
     </header>
     {{--Left side column. contains the logo and sidebar--}}
-    <aside class="main-sidebar">
+    <aside class="main-sidebar" style="width: 150px;">
         {{--sidebar: style can be found in sidebar.less--}}
         <section class="sidebar">
             {{--左边栏主菜单--}}
@@ -103,7 +103,7 @@
     </aside>
 
     {{--Content Wrapper. Contains page content--}}
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="margin-left: 150px;">
          {{--Content Header (Page header)--}}
         <section class="content-header">
             <h1>
