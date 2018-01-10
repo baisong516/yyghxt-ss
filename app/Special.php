@@ -52,6 +52,7 @@ class Special extends Model
         $special=Special::findOrFail($id);
         $special->name=$request->input('name');
         $special->url=$request->input('url');
+        $special->office_id=$request->input('office_id');
         $special->change_date=$request->input('change_date')?Carbon::createFromFormat('Y-m-d',$request->input('change_date')):Carbon::now();
         $special->type=json_encode($request->input('types'));
         return $special->save();
