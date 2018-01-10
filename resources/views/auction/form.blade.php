@@ -5,7 +5,7 @@
             <select name="office_id" id="office_id" class="form-control">
                 @isset($offices)
                     @foreach($offices as $k=>$v)
-                        <option value="{{$k}}">{{$v}}</option>
+                        <option value="{{$k}}" {{isset($auction)&&$auction->office_id==$k?'selected':''}}>{{$v}}</option>
                     @endforeach
                 @endisset
             </select>
