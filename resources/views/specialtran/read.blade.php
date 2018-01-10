@@ -84,26 +84,22 @@
                                     @endforeach
                                     @else
                                     <tr>
-                                        @if($loop->first)
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['name']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['url']}}</td>
-                                        @endif
+                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['name']}}</td>
+                                        <td style="vertical-align: middle;">{{$special['url']}}</td>
                                         <td>{{isset($diseaseId)?$diseases[$diseaseId]:''}}</td>
-                                        <td></td>
-                                        @if($loop->first)
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{sprintf('%.2f',$special['cost'])}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['click']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['show']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['view']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['skip_rate']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['swt_lg_one']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['swt_lg_three']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['click_trans_rate']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['yuyue']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['arrive']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['change_date']}}</td>
-                                        @endif
-                                        </tr>
+                                        <td>{{isset($type)?$type:''}}</td>
+                                        <td style="vertical-align: middle;">{{sprintf('%.2f',$special['cost'])}}</td>
+                                        <td style="vertical-align: middle;">{{$special['click']}}</td>
+                                        <td style="vertical-align: middle;">{{$special['show']}}</td>
+                                        <td style="vertical-align: middle;" >{{$special['view']}}</td>
+                                        <td style="vertical-align: middle;">{{$special['skip_rate']}}</td>
+                                        <td style="vertical-align: middle;">{{$special['swt_lg_one']}}</td>
+                                        <td style="vertical-align: middle;">{{$special['swt_lg_three']}}</td>
+                                        <td style="vertical-align: middle;">{{$special['click_trans_rate']}}</td>
+                                        <td style="vertical-align: middle;">{{$special['yuyue']}}</td>
+                                        <td style="vertical-align: middle;">{{$special['arrive']}}</td>
+                                        <td style="vertical-align: middle;">{{$special['change_date']}}</td>
+                                    </tr>
                                     @endif
                                 @endforeach
                                 </tbody>
