@@ -23,6 +23,7 @@ class SpecialtranController extends Controller
         if (Auth::user()->ability('superadministrator', 'read-specialtrans')){
             $start=Carbon::now()->startOfDay();
             $end=Carbon::now()->endOfDay();
+//            dd(Specialtran::getSpecialtransList($start,$end));
             return view('specialtran.read',[
                 'pageheader'=>'专题统计',
                 'pagedescription'=>'列表',
