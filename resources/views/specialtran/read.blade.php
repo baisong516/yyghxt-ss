@@ -58,7 +58,6 @@
                                 </thead>
                                 <tbody class="text-center">
                                 @foreach($s as $specialId=>$special)
-                                    @if(isset($special['type']))
                                     @foreach($special['type'] as $diseaseId=>$type)
                                     <tr>
                                         @if($loop->first)
@@ -82,25 +81,6 @@
                                         @endif
                                     </tr>
                                     @endforeach
-                                    @else
-                                    <tr>
-                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['name']}}</td>
-                                        <td style="vertical-align: middle;">{{$special['url']}}</td>
-                                        <td>{{isset($diseaseId)?$diseases[$diseaseId]:''}}</td>
-                                        <td>{{isset($type)?$type:''}}</td>
-                                        <td style="vertical-align: middle;">{{sprintf('%.2f',$special['cost'])}}</td>
-                                        <td style="vertical-align: middle;">{{$special['click']}}</td>
-                                        <td style="vertical-align: middle;">{{$special['show']}}</td>
-                                        <td style="vertical-align: middle;" >{{$special['view']}}</td>
-                                        <td style="vertical-align: middle;">{{$special['skip_rate']}}</td>
-                                        <td style="vertical-align: middle;">{{$special['swt_lg_one']}}</td>
-                                        <td style="vertical-align: middle;">{{$special['swt_lg_three']}}</td>
-                                        <td style="vertical-align: middle;">{{$special['click_trans_rate']}}</td>
-                                        <td style="vertical-align: middle;">{{$special['yuyue']}}</td>
-                                        <td style="vertical-align: middle;">{{$special['arrive']}}</td>
-                                        <td style="vertical-align: middle;">{{$special['change_date']}}</td>
-                                    </tr>
-                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
