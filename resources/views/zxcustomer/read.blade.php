@@ -120,7 +120,7 @@
         <div class="box-body table-responsive">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
-                <table id="zxcustomers-list-table" class="table table-striped table-bordered text-center">
+                <table id="zxcustomers-list-table" class="table table-striped table-bordered text-center" style="font-size: 12px;">
                     <thead>
                     <tr>
                         <th style="display: none;"><i class="fa fa-level-down" aria-hidden="true"></i></th>
