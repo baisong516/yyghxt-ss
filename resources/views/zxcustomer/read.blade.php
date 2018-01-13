@@ -81,6 +81,12 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="searchDiseaseId">病种：</label>
+                    <select name="searchDiseaseId" id="searchDiseaseId" class="form-control">
+                        <option value="">--病种--</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="searchUserId">咨询员：</label>
                     <select name="searchUserId" id="searchUserId" class="form-control">
                         <option value="">--咨询员--</option>
@@ -255,6 +261,26 @@
                 "language": {
                     "url": "/datables-language-zh-CN.json"
                 }
+            });
+            $("#searchOfficeId").on('change',function(){
+                var officeId=$(this).val();
+                $.ajax({
+                    url: '/api/get-diseases-from-office',
+                    type: "post",
+                    data: {'office_id':officeId,'_token': $('input[name=_token]').val()},
+                    success: function(data){
+                        $("#searchDiseaseId").empty();
+                        if(data.status){
+                            var html='<option value="">--选择病种--</option>';
+                            html += "<optgroup label=\""+data.data['name']+"\">";
+                            for (var i=0;i<data.data['diseases'].length;i++){
+                                html += "<option value=\""+data.data['diseases'][i].id+"\">"+data.data['diseases'][i].display_name+"</option>";
+                            }
+                            html += "</optgroup>";
+                            $("#searchDiseaseId").append(html);
+                        }
+                    }
+                });
             });
             $(".delete-operation").on('click',function(){
                 var id=$(this).attr('data-id');

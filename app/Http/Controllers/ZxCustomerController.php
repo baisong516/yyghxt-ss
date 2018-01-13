@@ -232,6 +232,7 @@ class ZxCustomerController extends Controller
         $customerIdCard=$request->input('searchIdCard');
         $zxUser=$request->input('searchUserId');
         $officeId=$request->input('searchOfficeId');
+        $diseaseId=$request->input('searchDiseaseId');
         $zx_start=$request->input('searchZxStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchZxStart'))->startOfDay():null;
         $zx_end=$request->input('searchZxEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchZxEnd'))->endOfDay():Carbon::now()->endOfDay();
         $yy_start=$request->input('searchYuyueStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchYuyueStart'))->startOfDay():null;
@@ -300,6 +301,7 @@ class ZxCustomerController extends Controller
 			    if (!empty($customerIdCard)){array_push($parms,['idcard','like','%'.$customerIdCard.'%']);}
 			    if (!empty($zxUser)){array_push($parms,['user_id','=',$zxUser]);}
 			    if (!empty($officeId)){array_push($parms,['office_id','=',$officeId]);}
+			    if (!empty($diseaseId)){array_push($parms,['disease_id','=',$diseaseId]);}
 
 			    if (!empty($zx_start)){array_push($parms,['zixun_at','>=',$zx_start],['zixun_at','<=',$zx_end]);}
 			    if (!empty($yy_start)){array_push($parms,['yuyue_at','>=',$yy_start],['yuyue_at','<=',$yy_end]);}
