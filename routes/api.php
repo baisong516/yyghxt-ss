@@ -34,4 +34,5 @@ Route::group(['middleware'=>['api']],function(){
     Route::get('ghjs','ApiController@guaHaoJs');
     Route::get('button-click','ApiController@saveClickCount');
 
+    Route::post('draw','ApiController@drawTest');
 });

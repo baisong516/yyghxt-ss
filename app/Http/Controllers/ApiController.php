@@ -13,11 +13,17 @@ use App\User;
 use App\ZxCustomer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use mysqli;
 
 class ApiController extends Controller
 {
+    public function drawTest(Request $request)
+    {
+        $imgData=$request->input('img');
+        $url=Storage::disk('local')->put('img.txt', $imgData);
+    }
     public function getOfficesFromHospital(Request $request){
         $hospital_id=$request->input('hospital_id');
         $offices = Office::where('hospital_id',$hospital_id)->get();
