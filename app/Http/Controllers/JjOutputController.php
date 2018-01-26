@@ -23,11 +23,18 @@ class JjOutputController extends Controller
             $start=Carbon::now()->startOfDay();
             $end=Carbon::now()->endOfDay();
             $outputs=JjOutput::getJjOutputs($start,$end);
+            $lastMonthOutputs = JjOutput::getJjOutputs(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
+            //$monthOutputs = JjOutput::getJjOutputs(Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth());
+            //$lastYearOutputs=JjOutput::getJjOutputs(Carbon::now()->subYear()->startOfYear(),Carbon::now()->subYear()->endOfYear());
+            $yearOutputs=JjOutput::getJjOutputs(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
             return view('jjoutput.read',[
                 'pageheader'=>'产出',
                 'pagedescription'=>'竞价产出',
                 'users'=>Aiden::getAllUserArray(),
                 'outputs'=>$outputs,
+                'lastMonthOutputs'=>$lastMonthOutputs,
+                //'lastYearOutputs'=>$lastYearOutputs,
+                'yearOutputs'=>$yearOutputs,
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));

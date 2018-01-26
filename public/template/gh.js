@@ -81,7 +81,7 @@
                     break;
                     return false
                 }
-                if (jqVerArr[1] < 9 && jqVerArr[1] != 9) {
+                if (jqVerArr[0]==1 && jqVerArr[1] < 9 && jqVerArr[1] != 9) {
                     break;
                     return false
                 }
