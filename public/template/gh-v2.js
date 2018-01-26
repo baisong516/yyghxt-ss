@@ -235,7 +235,7 @@
     that.StrMsg_CactapError = "验证错误，请重试！";
     that.Config_Domain = "http://www.yyyygh.com/";
     that.Config_DateScriptURL = that.Config_Domain + "js/laydate/laydate.js";
-    that.Config_LayPath = Config_Domain+"js/layer/";
+    that.Config_LayPath = that.Config_Domain+"js/layer/";
     that.Config_LayScriptURL = that.Config_LayPath + "layer.js";
     that.Config_TelReg = /^1\d{10}$/;
     that.Config_NameReg = /^[一-龥]{2,5}$/;
