@@ -270,7 +270,7 @@
 
 @section('javascript')
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
-    <script type="text/javascript" src="http://yygh.oss-cn-shenzhen.aliyuncs.com/layer/layer.js"></script>
+    <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript">
         //data item
         lay('.date-item').each(function(){
