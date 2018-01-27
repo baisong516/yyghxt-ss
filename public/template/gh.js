@@ -122,7 +122,7 @@
                 } else {
                     layer.open({
                         content: '<img src="' + that.StrIconSuccess + '" style="width:32px;height:32px;vertical-align: middle;margin-right: 5px;">' + msg,
-                        time: 3
+                        time: 10
                     });
                     typeof that.Obj_Form[0].reset == "function" ? that.Obj_Form[0].reset() : that.Obj_Form[0].reset.click()
                 }
