@@ -69,7 +69,7 @@
                 content: msg,
                 style: 'bottom: 0px;',
                 skin: 'msg',
-                time: 3
+                time: 3000
             })
         },
         CompareJQ: function(jq) {
@@ -121,8 +121,8 @@
                     window[that.isExitsFunction(that.Config_ApiName[3])](msg)
                 } else {
                     layer.open({
-                        content: '<img src="' + that.StrIconSuccess + '" style="width:32px;height:32px;vertical-align: middle;margin-right: 5px;">' + msg,
-                        time: 10
+                        content:  msg,
+                        time: 3000
                     });
                     typeof that.Obj_Form[0].reset == "function" ? that.Obj_Form[0].reset() : that.Obj_Form[0].reset.click()
                 }
@@ -236,8 +236,8 @@
     that.StrMsg_DiseasesError = "预约科室不能为空，请选择您要预约的科室！";
     that.StrMsg_DoctorNull = "请选择要预约的专家！";
     that.StrMsg_DescriptNull = "病情描述不能为空，请用简短的话语描述您的病情！";
-    that.StrMsg_SendOkOnline = "您的申请已提交成功，请注意留意接收手机预约短信，如有疑问可拨打<a style=\"color:#337ab7;\" href=\"tel:{$_hospitalTel}\" target=\"_self\">{$_hospitalTel}</a>联系。";
-    that.StrMsg_SendOkOffline = "您的申请已提交成功，请注意留意接收手机预约短信，如有疑问可拨打<a style=\"color:#337ab7;\" href=\"tel:{$_hospitalTel}\" target=\"_self\">{$_hospitalTel}</a>联系。";
+    that.StrMsg_SendOkOnline = "您的申请已提交成功，如有疑问可拨打<a style=\"color:#337ab7;\" href=\"tel:{$_hospitalTel}\" target=\"_self\">{$_hospitalTel}</a>联系。";
+    that.StrMsg_SendOkOffline = "您的申请已提交成功，如有疑问可拨打<a style=\"color:#337ab7;\" href=\"tel:{$_hospitalTel}\" target=\"_self\">{$_hospitalTel}</a>联系。";
     that.StrMsg_SendError = "提交失败，请稍后再试！";
     that.StrMsg_SendLoading = "正在提交挂号信息中,请稍候...";
     that.StrMsg_SendLoadingSmaill = "提交中";
