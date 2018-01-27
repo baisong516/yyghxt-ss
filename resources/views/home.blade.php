@@ -141,7 +141,122 @@
             </div>
         </div>
     </div>
-
+    <div class="col-sm-12">
+        <div class="box box-solid">
+            <div class="box-body">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
+                    上月数据
+                </h4>
+                <div class="box">
+                    <div class="box-body table-responsive table-bordered">
+                        <style type="text/css">
+                            table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
+                        </style>
+                        <table class="table table-hover text-center tab-sum" style="margin-top: 2rem;">
+                            <thead>
+                            <tr style="background: #66d7ea;">
+                                <th>项目</th>
+                                <th>咨询量</th>
+                                <th>预约量</th>
+                                <th>留联系</th>
+                                <th>电话量</th>
+                                <th>总咨询量</th>
+                                <th>应到院</th>
+                                <th>到院量</th>
+                                <th>就诊量</th>
+                                <th>预约率</th>
+                                <th>留联率</th>
+                                <th>到院率</th>
+                                <th>就诊率</th>
+                                <th>咨询转化率</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($monthData as $v)
+                                <tr>
+                                    <td>{{$v['name']}}</td>
+                                    <td>{{$v['zixun_count']}}</td>
+                                    <td>{{$v['yuyue_count']}}</td>
+                                    <td>{{$v['contact_count']}}</td>
+                                    <td>{{$v['tel_count']}}</td>
+                                    <td>{{$v['total_count']}}</td>
+                                    <td>{{$v['should_count']}}</td>
+                                    <td>{{$v['arrive_count']}}</td>
+                                    <td>{{$v['jiuzhen_count']}}</td>
+                                    <td>{{$v['yuyue_rate']}}</td>
+                                    <td>{{$v['contact_rate']}}</td>
+                                    <td>{{$v['arrive_rate']}}</td>
+                                    <td>{{$v['jiuzhen_rate']}}</td>
+                                    <td>{{$v['zhuanhua_rate']}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="box box-solid">
+            <div class="box-body">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
+                    年汇总数据
+                </h4>
+                <div class="box">
+                    <div class="box-body table-responsive table-bordered">
+                        <style type="text/css">
+                            table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
+                        </style>
+                        <table class="table table-hover text-center tab-sum" style="margin-top: 2rem;">
+                            <thead>
+                            <tr style="background: #66d7ea;">
+                                <th>项目</th>
+                                <th>咨询量</th>
+                                <th>预约量</th>
+                                <th>留联系</th>
+                                <th>电话量</th>
+                                <th>总咨询量</th>
+                                <th>应到院</th>
+                                <th>到院量</th>
+                                <th>就诊量</th>
+                                <th>预约率</th>
+                                <th>留联率</th>
+                                <th>到院率</th>
+                                <th>就诊率</th>
+                                <th>咨询转化率</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($yearData as $v)
+                                <tr>
+                                    <td>{{$v['name']}}</td>
+                                    <td>{{$v['zixun_count']}}</td>
+                                    <td>{{$v['yuyue_count']}}</td>
+                                    <td>{{$v['contact_count']}}</td>
+                                    <td>{{$v['tel_count']}}</td>
+                                    <td>{{$v['total_count']}}</td>
+                                    <td>{{$v['should_count']}}</td>
+                                    <td>{{$v['arrive_count']}}</td>
+                                    <td>{{$v['jiuzhen_count']}}</td>
+                                    <td>{{$v['yuyue_rate']}}</td>
+                                    <td>{{$v['contact_rate']}}</td>
+                                    <td>{{$v['arrive_rate']}}</td>
+                                    <td>{{$v['jiuzhen_rate']}}</td>
+                                    <td>{{$v['zhuanhua_rate']}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <style>
         #proModal .column-title{background: #66d7ea;}
