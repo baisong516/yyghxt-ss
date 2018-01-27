@@ -36,7 +36,7 @@
                     @if(isset($specialtrans)&&!empty($specialtrans))
                         @foreach($specialtrans as $officeid=>$s)
                         <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$officeid}}">
-                            <table id="specialtrans-list-talbe" class="table table-bordered">
+                            <table id="specialtrans-list-talbe" class="table table-bordered" style="font-size: 12px;">
                                 <thead class="text-center">
                                     <tr>
                                         <th class="text-center">页面名称</th>
@@ -63,7 +63,7 @@
                                     <tr>
                                         @if($loop->first)
                                             <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['name']}}</td>
-                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['url']}}</td>
+                                            <td style="vertical-align: middle;" rowspan="{{$loop->count}}"><small>{{$special['url']}}</small></td>
                                         @endif
                                         <td>{{isset($diseaseId)?$diseases[$diseaseId]:''}}</td>
                                         <td>{{isset($type)?$type:''}}</td>
@@ -154,12 +154,12 @@
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#specialtrans-list-talbe').DataTable({
-                "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
-                "language": {
-                    "url": "/datables-language-zh-CN.json"
-                }
-            });
+            // $('#specialtrans-list-talbe').DataTable({
+            //     "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
+            //     "language": {
+            //         "url": "/datables-language-zh-CN.json"
+            //     }
+            // });
             lay('.date-item').each(function(){
                 laydate.render({
                     elem: this
