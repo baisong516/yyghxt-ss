@@ -137,8 +137,8 @@
                         <th>患者</th>
                         <th>年龄</th>
                         <th>性别</th>
-                        <th style="width: 5%;">联系</th>
-                        <th style="width: 5%;">微信</th>
+                        <th width="5%">联系</th>
+                        <th width="5%">微信</th>
                         <th>QQ</th>
                         <th style="display: none;">id</th>
                         <th>关键词</th>
