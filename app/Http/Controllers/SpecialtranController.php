@@ -200,11 +200,22 @@ class SpecialtranController extends Controller
                     }else{
                         //没有找到专题  新建专题
                         $special=new Special();
-                        $special->name=$d[0];//页面名称
+                        $special->name=$d[0]?$d[0]:'未知';//页面名称
                         $special->url=$d[1];//专题链接
                         $offices=Aiden::getAllModelArray('offices');
                         $diseases=Aiden::getAllModelArray('diseases');
+                        if (empty($d[10])){
+                            if (preg_match('/22356666.com/',$d[1])){
+                                $d[10]='精神科';
+                            }
+                            if (preg_match('/zx.82112525.com/',$d[1])){
+                                $d[10]='灰指甲科';
+                            }
+                        }
                         $special->office_id=array_search($d[10],$offices);
+                        if (empty($d[11])){
+                            $d[11]='其它';
+                        }
                         $disease_id=array_search($d[11],$diseases);
                         if ($disease_id){
                             $special->type=json_encode([$disease_id=>null]);

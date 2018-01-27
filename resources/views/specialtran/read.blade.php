@@ -36,7 +36,7 @@
                     @if(isset($specialtrans)&&!empty($specialtrans))
                         @foreach($specialtrans as $officeid=>$s)
                         <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$officeid}}">
-                            <table class="table table-bordered">
+                            <table id="specialtrans-list-talbe" class="table table-bordered">
                                 <thead class="text-center">
                                     <tr>
                                         <th class="text-center">页面名称</th>
@@ -148,10 +148,18 @@
 @endsection
 
 @section('javascript')
+    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            $('#specialtrans-list-talbe').DataTable({
+                "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
+                "language": {
+                    "url": "/datables-language-zh-CN.json"
+                }
+            });
             lay('.date-item').each(function(){
                 laydate.render({
                     elem: this

@@ -29,7 +29,7 @@
                     @if(!empty($specials))
                         @foreach($specials as $k=>$special)
                         <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$k}}">
-                            <table class="table table-bordered">
+                            <table class="specials-list-table table table-bordered">
                                 <thead class="text-center">
                                     <tr>
                                         <td>名称</td>
@@ -97,10 +97,18 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="/assset/layer/layer.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            // $('.specials-list-table').DataTable({
+            //     "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
+            //     "language": {
+            //         "url": "/datables-language-zh-CN.json"
+            //     }
+            // });
             lay('.date-item').each(function(){
                 laydate.render({
                     elem: this

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aiden;
 use App\Disease;
 use App\Hospital;
 use App\Http\Requests\StoreDiseaseRequest;
@@ -19,12 +20,17 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-        //dd(Disease::with('hospital','office')->get()->first()->hospital);
         if (Auth::user()->ability('superadministrator', 'read-diseases')){
+            $diseasesCol=Disease::with('hospital','office')->get();
+            $diseases=[];
+            foreach ($diseasesCol as $c){
+                $diseases[$c->office_id][]=$c;
+            }
             return view('disease.read',[
                 'pageheader'=>'病种',
                 'pagedescription'=>'列表',
-                'diseases'=>Disease::with('hospital','office')->get(),
+                'diseasesGroup'=>$diseases,
+                'offices'=>Aiden::getAllModelArray('offices'),
                 'enableUpdate'=>Auth::user()->hasPermission('update-diseases'),
                 'enableDelete'=>Auth::user()->hasPermission('delete-diseases'),
             ]);
