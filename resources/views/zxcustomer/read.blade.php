@@ -137,8 +137,8 @@
                         <th>患者</th>
                         <th>年龄</th>
                         <th>性别</th>
-                        <th width="5%">联系</th>
-                        <th width="5%">微信</th>
+                        <th>联系</th>
+                        <th>微信</th>
                         <th>QQ</th>
                         <th style="display: none;">id</th>
                         <th>关键词</th>
@@ -170,8 +170,8 @@
                     @foreach($customers as $customer)
                         <tr id="customer-{{$customer->id}}" class="{{isset($quicksearch)&&$quicksearch=='todayhuifang'&&$customer->huifangs->last()&&($customer->huifangs->last()->next_at>=\Carbon\Carbon::now()->endOfDay()||$customer->huifangs->last()->now_at>=\Carbon\Carbon::now()->startOfDay())?'bg-red':''}}">
                             <td style="display: none;">{{$customer->id}}</td>
-                            <td>{{$customer->name}}</td>
-                            <td>{{$customer->age}}</td>
+                            <td><small>{{$customer->name}}</small></td>
+                            <td><small>{{$customer->age}}</small></td>
                             <td>
                                 @if(!empty($customer->sex))
                                     @if($customer->sex=='male')
@@ -181,52 +181,52 @@
                                     @endif
                                 @endif
                             </td>
-                            <td>{{$customer->tel}}</td>
-                            <td>{{$customer->wechat}}</td>
-                            <td>{{$customer->qq}}</td>
-                            <td style="display: none;">{{$customer->idcard}}</td>
-                            <td>{{$customer->keywords}}</td>
-                            <td>{{$customer->city}}</td>
+                            <td><small>{{$customer->tel}}</small></td>
+                            <td><small>{{$customer->wechat}}</small></td>
+                            <td><small>{{$customer->qq}}</small></td>
+                            <td style="display: none;"><small>{{$customer->idcard}}</small></td>
+                            <td><small>{{$customer->keywords}}</small></td>
+                            <td><small>{{$customer->city}}</small></td>
                             {{--媒体来源--}}
-                            <td>{{$customer->media_id?$medias[$customer->media_id]:''}}</td>
+                            <td><small>{{$customer->media_id?$medias[$customer->media_id]:''}}</small></td>
                             {{--网站类型--}}
-                            <td>{{$customer->webtype_id?$webtypes[$customer->webtype_id]:''}}</td>
+                            <td><small>{{$customer->webtype_id?$webtypes[$customer->webtype_id]:''}}</small></td>
                             {{--科室--}}
-                            <td>{{$customer->office_id?$offices[$customer->office_id]:''}}</td>
+                            <td><small>{{$customer->office_id?$offices[$customer->office_id]:''}}</small></td>
                             {{--病种--}}
-                            <td>{{$customer->disease_id?$diseases[$customer->disease_id]:''}}</td>
+                            <td><small>{{$customer->disease_id?$diseases[$customer->disease_id]:''}}</small></td>
                             {{--状态--}}
-                            <td>{{$customer->customer_condition_id?$customerconditions[$customer->customer_condition_id]:''}}</td>
+                            <td><small>{{$customer->customer_condition_id?$customerconditions[$customer->customer_condition_id]:''}}</small></td>
                             {{--商务通转电话--}}
-                            <td>{{$customer->trans_user_id?$users[$customer->trans_user_id]:''}}</td>
+                            <td><small>{{$customer->trans_user_id?$users[$customer->trans_user_id]:''}}</small></td>
                             {{--咨询员--}}
-                            <td>{{$customer->user_id?$users[$customer->user_id]:''}}</td>
+                            <td><small>{{$customer->user_id?$users[$customer->user_id]:''}}</small></td>
                             {{--竞价员--}}
-                            <td>{{$customer->jingjia_user_id?$users[$customer->jingjia_user_id]:''}}</td>
+                            <td><small>{{$customer->jingjia_user_id?$users[$customer->jingjia_user_id]:''}}</small></td>
 
-                            <td>{{$customer->zixun_at?$customer->zixun_at:''}}</td>
-                            <td>{{$customer->yuyue_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->yuyue_at)->toDateString():''}}</td>
-                            <td>{{$customer->time_slot?$customer->time_slot:''}}</td>
-                            <td>{{$customer->arrive_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->arrive_at)->toDateString():''}}</td>
+                            <td><small>{{$customer->zixun_at?$customer->zixun_at:''}}</small></td>
+                            <td><small>{{$customer->yuyue_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->yuyue_at)->toDateString():''}}</small></td>
+                            <td><small>{{$customer->time_slot?$customer->time_slot:''}}</small></td>
+                            <td><small>{{$customer->arrive_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->arrive_at)->toDateString():''}}</small></td>
 
                             {{--最近回访日期--}}
-                            <td class="created_at">{{$customer->huifangs->last()&&$customer->huifangs->last()->created_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->huifangs->last()->created_at)->toDateString():''}}</td>
+                            <td class="created_at"><small>{{$customer->huifangs->last()&&$customer->huifangs->last()->created_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->huifangs->last()->created_at)->toDateString():''}}</small></td>
                             {{--最近回访人--}}
-                            <td class="now_user">{{$customer->huifangs->last()?$users[$customer->huifangs->last()->now_user_id]:''}}</td>
+                            <td class="now_user"><small>{{$customer->huifangs->last()?$users[$customer->huifangs->last()->now_user_id]:''}}</small></td>
                             {{--下次回访日期--}}
-                            <td class="next_at">{{$customer->huifangs->last()&&$customer->huifangs->last()->next_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->huifangs->last()->next_at)->toDateString():''}}</td>
+                            <td class="next_at"><small>{{$customer->huifangs->last()&&$customer->huifangs->last()->next_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->huifangs->last()->next_at)->toDateString():''}}</small></td>
                             {{--下次回访人--}}
-                            <td class="next_user">{{$customer->huifangs->last()&&$customer->huifangs->last()->next_user_id?$users[$customer->huifangs->last()->next_user_id]:''}}</td>
+                            <td class="next_user"><small>{{$customer->huifangs->last()&&$customer->huifangs->last()->next_user_id?$users[$customer->huifangs->last()->next_user_id]:''}}</small></td>
                             {{--<客户类型--}}
-                            <td style="display: none;">{{$customer->customer_type_id?$customertypes[$customer->customer_type_id]:''}}</td>
+                            <td style="display: none;"><small>{{$customer->customer_type_id?$customertypes[$customer->customer_type_id]:''}}</small></td>
                             {{--备注--}}
                             <td style="display: none;">{{$customer->addons?$customer->addons:''}}</td>
                             <td class="huifang-cloumn">
                                 @if($enableHuifang)
                                     @if($customer->huifangs->count()<1)
-                                        <a href="javascript:void(0);" data-id="{{$customer->id}}" data-toggle="modal" data-target="#huifangModal"  class="hf-btn text-red" >未回访</a>
+                                        <a href="javascript:void(0);" data-id="{{$customer->id}}" data-toggle="modal" data-target="#huifangModal"  class="hf-btn text-red" ><small>未回访</small></a>
                                     @else
-                                        <a href="javascript:void(0);" data-id="{{$customer->id}}" data-toggle="modal" data-target="#huifangModal" class="hf-btn text-blue">已回访</a>
+                                        <a href="javascript:void(0);" data-id="{{$customer->id}}" data-toggle="modal" data-target="#huifangModal" class="hf-btn text-blue"><small>已回访</small></a>
                                     @endif
                                 @endif
                             </td>
