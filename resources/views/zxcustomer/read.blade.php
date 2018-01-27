@@ -126,6 +126,10 @@
         <div class="box-body table-responsive">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
+            <style>
+                #zxcustomers-list-table th{padding-right: 0;}
+                #zxcustomers-list-table th:after{content: '';}
+            </style>
                 <table id="zxcustomers-list-table" class="table table-striped table-bordered text-center" style="font-size: 12px;">
                     <thead>
                     <tr>
