@@ -29,6 +29,7 @@
         {{method_field('DELETE')}}
         {{csrf_field()}}
         <div class="box-body table-responsive">
+            <h5 class="text-center"><strong></strong></h5>
             <table class="table text-center table-bordered">
                 <thead>
                     <tr>
@@ -116,6 +117,188 @@
                         </tr>
                         @endif
                     @endisset
+                </tbody>
+            </table>
+            <hr>
+            <h5 class="text-center"><strong>上月({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})数据</strong></h5>
+            <table class="table text-center table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th colspan="4">商务通</th>
+                    <th colspan="3">电话</th>
+                    <th colspan="3">回访</th>
+                    <th colspan="8">合计</th>
+                </tr>
+                <tr>
+                    <th>项目</th>
+                    <th>咨询员</th>
+                    <th>咨询量</th>
+                    <th>预约量</th>
+                    <th>留联系</th>
+                    <th>到院量</th>
+                    <th>电话量</th>
+                    <th>预约量</th>
+                    <th>到院量</th>
+                    <th>回访量</th>
+                    <th>预约量</th>
+                    <th>到院量</th>
+                    <th>咨询量</th>
+                    <th>预约量</th>
+                    <th>到院量</th>
+                    <th>就诊量</th>
+                    <th>预约率</th>
+                    <th>到院率</th>
+                    <th>就诊率</th>
+                    <th>咨询转化率</th>
+                </tr>
+                </thead>
+                <tbody>
+                @isset($lastMonthOutputs)
+                    @foreach($lastMonthOutputs['outputs'] as $d)
+                        @foreach($d['data'] as $u=>$output)
+                            <tr>
+                                @if($loop->first)
+                                    <td rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$d['office']}}</td>
+                                @endif
+                                <td>{{$u?$users[$u]:''}}</td>
+                                <td>{{$output['swt_zixun_count']}}</td>
+                                <td>{{$output['swt_yuyue_count']}}</td>
+                                <td>{{$output['swt_contact_count']}}</td>
+                                <td>{{$output['swt_arrive_count']}}</td>
+                                <td>{{$output['tel_zixun_count']}}</td>
+                                <td>{{$output['tel_yuyue_count']}}</td>
+                                <td>{{$output['tel_arrive_count']}}</td>
+                                <td>{{$output['hf_zixun_count']}}</td>
+                                <td>{{$output['hf_yuyue_count']}}</td>
+                                <td>{{$output['hf_arrive_count']}}</td>
+                                <td>{{$output['total_zixun_count']}}</td>
+                                <td>{{$output['total_yuyue_count']}}</td>
+                                <td>{{$output['total_arrive_count']}}</td>
+                                <td>{{$output['total_jiuzhen_count']}}</td>
+                                <td>{{$output['yuyue_rate']}}</td>
+                                <td>{{$output['arrive_rate']}}</td>
+                                <td>{{$output['jiuzhen_rate']}}</td>
+                                <td>{{$output['trans_rate']}}</td>
+                            </tr>
+                        @endforeach
+                    @endforeach
+                    @if(isset($lastMonthOutputs['total'])&&!empty($lastMonthOutputs['total']))
+                        <tr>
+                            <td></td>
+                            <td>合计</td>
+                            <td>{{$lastMonthOutputs['total']['swt_zixun_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['swt_yuyue_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['swt_contact_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['swt_arrive_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['tel_zixun_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['tel_yuyue_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['tel_arrive_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['hf_zixun_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['hf_yuyue_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['hf_arrive_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['total_zixun_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['total_yuyue_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['total_arrive_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['total_jiuzhen_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['yuyue_rate']}}</td>
+                            <td>{{$lastMonthOutputs['total']['arrive_rate']}}</td>
+                            <td>{{$lastMonthOutputs['total']['jiuzhen_rate']}}</td>
+                            <td>{{$lastMonthOutputs['total']['trans_rate']}}</td>
+                        </tr>
+                    @endif
+                @endisset
+                </tbody>
+            </table>
+            <hr>
+            <h5 class="text-center"><strong>{{\Carbon\Carbon::now()->year}}年数据</strong></h5>
+            <table class="table text-center table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th colspan="4">商务通</th>
+                    <th colspan="3">电话</th>
+                    <th colspan="3">回访</th>
+                    <th colspan="8">合计</th>
+                </tr>
+                <tr>
+                    <th>项目</th>
+                    <th>咨询员</th>
+                    <th>咨询量</th>
+                    <th>预约量</th>
+                    <th>留联系</th>
+                    <th>到院量</th>
+                    <th>电话量</th>
+                    <th>预约量</th>
+                    <th>到院量</th>
+                    <th>回访量</th>
+                    <th>预约量</th>
+                    <th>到院量</th>
+                    <th>咨询量</th>
+                    <th>预约量</th>
+                    <th>到院量</th>
+                    <th>就诊量</th>
+                    <th>预约率</th>
+                    <th>到院率</th>
+                    <th>就诊率</th>
+                    <th>咨询转化率</th>
+                </tr>
+                </thead>
+                <tbody>
+                @isset($yearOutputs)
+                    @foreach($yearOutputs['outputs'] as $d)
+                        @foreach($d['data'] as $u=>$output)
+                            <tr>
+                                @if($loop->first)
+                                    <td rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$d['office']}}</td>
+                                @endif
+                                <td>{{$u?$users[$u]:''}}</td>
+                                <td>{{$output['swt_zixun_count']}}</td>
+                                <td>{{$output['swt_yuyue_count']}}</td>
+                                <td>{{$output['swt_contact_count']}}</td>
+                                <td>{{$output['swt_arrive_count']}}</td>
+                                <td>{{$output['tel_zixun_count']}}</td>
+                                <td>{{$output['tel_yuyue_count']}}</td>
+                                <td>{{$output['tel_arrive_count']}}</td>
+                                <td>{{$output['hf_zixun_count']}}</td>
+                                <td>{{$output['hf_yuyue_count']}}</td>
+                                <td>{{$output['hf_arrive_count']}}</td>
+                                <td>{{$output['total_zixun_count']}}</td>
+                                <td>{{$output['total_yuyue_count']}}</td>
+                                <td>{{$output['total_arrive_count']}}</td>
+                                <td>{{$output['total_jiuzhen_count']}}</td>
+                                <td>{{$output['yuyue_rate']}}</td>
+                                <td>{{$output['arrive_rate']}}</td>
+                                <td>{{$output['jiuzhen_rate']}}</td>
+                                <td>{{$output['trans_rate']}}</td>
+                            </tr>
+                        @endforeach
+                    @endforeach
+                    @if(isset($yearOutputs['total'])&&!empty($yearOutputs['total']))
+                        <tr>
+                            <td></td>
+                            <td>合计</td>
+                            <td>{{$yearOutputs['total']['swt_zixun_count']}}</td>
+                            <td>{{$yearOutputs['total']['swt_yuyue_count']}}</td>
+                            <td>{{$yearOutputs['total']['swt_contact_count']}}</td>
+                            <td>{{$yearOutputs['total']['swt_arrive_count']}}</td>
+                            <td>{{$yearOutputs['total']['tel_zixun_count']}}</td>
+                            <td>{{$yearOutputs['total']['tel_yuyue_count']}}</td>
+                            <td>{{$yearOutputs['total']['tel_arrive_count']}}</td>
+                            <td>{{$yearOutputs['total']['hf_zixun_count']}}</td>
+                            <td>{{$yearOutputs['total']['hf_yuyue_count']}}</td>
+                            <td>{{$yearOutputs['total']['hf_arrive_count']}}</td>
+                            <td>{{$yearOutputs['total']['total_zixun_count']}}</td>
+                            <td>{{$yearOutputs['total']['total_yuyue_count']}}</td>
+                            <td>{{$yearOutputs['total']['total_arrive_count']}}</td>
+                            <td>{{$yearOutputs['total']['total_jiuzhen_count']}}</td>
+                            <td>{{$yearOutputs['total']['yuyue_rate']}}</td>
+                            <td>{{$yearOutputs['total']['arrive_rate']}}</td>
+                            <td>{{$yearOutputs['total']['jiuzhen_rate']}}</td>
+                            <td>{{$yearOutputs['total']['trans_rate']}}</td>
+                        </tr>
+                    @endif
+                @endisset
                 </tbody>
             </table>
         </div>

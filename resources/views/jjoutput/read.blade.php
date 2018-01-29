@@ -73,6 +73,98 @@
                     @endisset
                 </tbody>
             </table>
+            <hr>
+            <h5 class="text-center"><strong>上月产出</strong></h5>
+            <table class="table text-center table-bordered">
+                <thead>
+                <tr>
+                    <th>项目</th>
+                    <th>竞价员</th>
+                    <th>班次</th>
+                    <th>预算</th>
+                    <th>消费</th>
+                    <th>点击</th>
+                    <th>咨询量</th>
+                    <th>预约量</th>
+                    <th>到院量</th>
+                    <th>咨询成本</th>
+                    <th>预约成本</th>
+                    <th>到院成本</th>
+                </tr>
+                </thead>
+                <tbody>
+                @isset($lastMonthOutputs)
+                    @foreach($lastMonthOutputs as $g)
+                        @isset($g['data'])
+                            @foreach($g['data'] as $userId=>$output)
+                                <tr>
+                                    @if($loop->first)
+                                        <td rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$g['office']}}</td>
+                                    @endif
+                                    <td>{{$userId?$users[$userId]:''}}</td>
+                                    <td>{{isset($output['rank_0'])?'早班：'.$output['rank_0']:''}} {{isset($output['rank_1'])?'晚班：'.$output['rank_1']:''}}</td>
+                                    <td>{{isset($output['budget'])?sprintf('%.2f',$output['budget']):''}}</td>
+                                    <td>{{isset($output['cost'])?sprintf('%.2f',$output['cost']):''}}</td>
+                                    <td>{{isset($output['click'])?$output['click']:''}}</td>
+                                    <td>{{isset($output['zixun'])?$output['zixun']:''}}</td>
+                                    <td>{{isset($output['yuyue'])?$output['yuyue']:''}}</td>
+                                    <td>{{isset($output['arrive'])?$output['arrive']:''}}</td>
+                                    <td>{{isset($output['zixun_cost'])?sprintf('%.2f',$output['zixun_cost']):''}}</td>
+                                    <td>{{isset($output['yuyue_cost'])?sprintf('%.2f',$output['yuyue_cost']):''}}</td>
+                                    <td>{{isset($output['arrive_cost'])?sprintf('%.2f',$output['arrive_cost']):''}}</td>
+                                </tr>
+                            @endforeach
+                        @endisset
+                    @endforeach
+                @endisset
+                </tbody>
+            </table>
+            <hr>
+            <h5 class="text-center"><strong>{{\Carbon\Carbon::now()->year}}产出</strong></h5>
+            <table class="table text-center table-bordered">
+                <thead>
+                <tr>
+                    <th>项目</th>
+                    <th>竞价员</th>
+                    <th>班次</th>
+                    <th>预算</th>
+                    <th>消费</th>
+                    <th>点击</th>
+                    <th>咨询量</th>
+                    <th>预约量</th>
+                    <th>到院量</th>
+                    <th>咨询成本</th>
+                    <th>预约成本</th>
+                    <th>到院成本</th>
+                </tr>
+                </thead>
+                <tbody>
+                @isset($yearOutputs)
+                    @foreach($yearOutputs as $g)
+                        @isset($g['data'])
+                            @foreach($g['data'] as $userId=>$output)
+                                <tr>
+                                    @if($loop->first)
+                                        <td rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$g['office']}}</td>
+                                    @endif
+                                    <td>{{$userId?$users[$userId]:''}}</td>
+                                    <td>{{isset($output['rank_0'])?'早班：'.$output['rank_0']:''}} {{isset($output['rank_1'])?'晚班：'.$output['rank_1']:''}}</td>
+                                    <td>{{isset($output['budget'])?sprintf('%.2f',$output['budget']):''}}</td>
+                                    <td>{{isset($output['cost'])?sprintf('%.2f',$output['cost']):''}}</td>
+                                    <td>{{isset($output['click'])?$output['click']:''}}</td>
+                                    <td>{{isset($output['zixun'])?$output['zixun']:''}}</td>
+                                    <td>{{isset($output['yuyue'])?$output['yuyue']:''}}</td>
+                                    <td>{{isset($output['arrive'])?$output['arrive']:''}}</td>
+                                    <td>{{isset($output['zixun_cost'])?sprintf('%.2f',$output['zixun_cost']):''}}</td>
+                                    <td>{{isset($output['yuyue_cost'])?sprintf('%.2f',$output['yuyue_cost']):''}}</td>
+                                    <td>{{isset($output['arrive_cost'])?sprintf('%.2f',$output['arrive_cost']):''}}</td>
+                                </tr>
+                            @endforeach
+                        @endisset
+                    @endforeach
+                @endisset
+                </tbody>
+            </table>
         </div>
         <!-- /.box-body -->
         </form>

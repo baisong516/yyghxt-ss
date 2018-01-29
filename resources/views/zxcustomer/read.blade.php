@@ -170,8 +170,8 @@
                     @foreach($customers as $customer)
                         <tr id="customer-{{$customer->id}}" class="{{isset($quicksearch)&&$quicksearch=='todayhuifang'&&$customer->huifangs->last()&&($customer->huifangs->last()->next_at>=\Carbon\Carbon::now()->endOfDay()||$customer->huifangs->last()->now_at>=\Carbon\Carbon::now()->startOfDay())?'bg-red':''}}">
                             <td style="display: none;">{{$customer->id}}</td>
-                            <td><small>{{$customer->name}}</small></td>
-                            <td><small>{{$customer->age}}</small></td>
+                            <td>{{$customer->name}}</td>
+                            <td>{{$customer->age}}</td>
                             <td>
                                 @if(!empty($customer->sex))
                                     @if($customer->sex=='male')
@@ -185,7 +185,7 @@
                             <td><small>{{$customer->wechat}}</small></td>
                             <td><small>{{$customer->qq}}</small></td>
                             <td style="display: none;"><small>{{$customer->idcard}}</small></td>
-                            <td><small>{{$customer->keywords}}</small></td>
+                            <td>{{$customer->keywords}}</td>
                             <td><small>{{$customer->city}}</small></td>
                             {{--媒体来源--}}
                             <td><small>{{$customer->media_id?$medias[$customer->media_id]:''}}</small></td>

@@ -19,6 +19,9 @@ class StatisticController extends Controller
     public function index()
     {
         if (Auth::user()->ability('superadministrator', 'read-statistics')) {
+            $start=Carbon::now()->startOfDay();
+            $end=Carbon::now()->endOfDay();
+            $this->getClickData($start,$end);
             //今日点击量
             $tempDate = Statistic::select('office_id','domain', 'flag', 'date_tag', 'count', 'description')->where('date_tag', Carbon::now()->toDateString())->get();
             $todayClick = [];
@@ -148,5 +151,19 @@ class StatisticController extends Controller
             'wechat'=>'微信',
             'content'=>'内容',
         ];
+    }
+
+    private function getClickData($start, $end)
+    {
+        $tempDate = Statistic::select('office_id','domain', 'flag', 'date_tag', 'count', 'description')->where([
+            ['created_at','>=',$start],
+            ['created_at','<=',$end],
+        ])->get();
+        $tempClick = [];
+        foreach ($tempDate as $t) {
+            $tempClick[$t->office_id][$t->domain][$t->flag]['description']=$t->description;
+            isset($tempClick[$t->office_id][$t->domain][$t->flag]['count'])?$tempClick[$t->office_id][$t->domain][$t->flag]['count']+=$t->count:$tempClick[$t->office_id][$t->domain][$t->flag]['count']=$t->count;
+        }
+         return $tempClick;
     }
 }
