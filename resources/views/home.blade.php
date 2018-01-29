@@ -271,7 +271,72 @@
                     <h4 class="modal-title text-center" id="proModalLabel">预览</h4>
                 </div>
                 <div class="modal-body box">
-                    <img src="" class="img-fluid" id="domImg" style="width: 100%;">
+                    @foreach($data as $v)
+                        <h3 class="text-center">{{$v['name']}}</h3>
+                        <style>
+                            #mobile-table tr,#mobile-table th,#mobile-table td{border: solid 1px #666;}
+                            #mobile-table .table-mobile-column{background: #66d7ea;}
+                        </style>
+                        <table class="table table-hover text-center table-mobile" id="mobile-table">
+                            <tr class="table-mobile-column">
+                                <th>咨询量</th>
+                                <th>预约量</th>
+                            </tr>
+                            <tr>
+                                <td>{{$v['zixun_count']}}</td>
+                                <td>{{$v['yuyue_count']}}</td>
+                            </tr>
+                            <tr class="table-mobile-column">
+                                <th>留联系</th>
+                                <th>电话量</th>
+                            </tr>
+                            <tr>
+                                <td>{{$v['contact_count']}}</td>
+                                <td>{{$v['tel_count']}}</td>
+                            </tr>
+                            <tr class="table-mobile-column">
+
+                                <th>总咨询量</th>
+                                <th>应到院</th>
+                            </tr>
+                            <tr>
+                                <td>{{$v['total_count']}}</td>
+                                <td>{{$v['should_count']}}</td>
+                            </tr>
+                            <tr class="table-mobile-column">
+                                <th>到院量</th>
+                                <th>就诊量</th>
+                            </tr>
+                            <tr>
+                                <td>{{$v['arrive_count']}}</td>
+                                <td>{{$v['jiuzhen_count']}}</td>
+                            </tr>
+                            <tr class="table-mobile-column">
+                                <th>预约率</th>
+                                <th>留联率</th>
+                            </tr>
+                            <tr>
+                                <td>{{$v['yuyue_rate']}}</td>
+                                <td>{{$v['contact_rate']}}</td>
+                            </tr>
+                            <tr class="table-mobile-column">
+                                <th>到院率</th>
+                                <th>就诊率</th>
+                            </tr>
+                            <tr>
+                                <td>{{$v['arrive_rate']}}</td>
+                                <td>{{$v['jiuzhen_rate']}}</td>
+                            </tr>
+                            <tr class="table-mobile-column">
+                                <th>咨询转化率</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>{{$v['zhuanhua_rate']}}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    @endforeach
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -292,21 +357,21 @@
             });
         });
 
-        $('.img-dom').click(function () {
-            var nodeId=$(this).attr('data-id');
-            console.log(nodeId);
-            var node = document.getElementById(nodeId);
-            domtoimage.toPng(node)
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.width='100%';
-                    $('#domImg').attr('src',dataUrl);
-                })
-                .catch(function (error) {
-                    console.error('oops, something went wrong!', error);
-                });
-        });
+        // $('.img-dom').click(function () {
+        //     var nodeId=$(this).attr('data-id');
+        //     console.log(nodeId);
+        //     var node = document.getElementById(nodeId);
+        //     domtoimage.toPng(node)
+        //         .then(function (dataUrl) {
+        //             var img = new Image();
+        //             img.src = dataUrl;
+        //             img.width='100%';
+        //             $('#domImg').attr('src',dataUrl);
+        //         })
+        //         .catch(function (error) {
+        //             console.error('oops, something went wrong!', error);
+        //         });
+        // });
 
     </script>
 @endsection
