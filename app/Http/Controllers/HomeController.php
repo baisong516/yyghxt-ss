@@ -29,20 +29,20 @@ class HomeController extends Controller
         $file_data = $request->input('imgData');
 
         //save svg
-        $file_name = 'image_table.svg'; //generating unique file name;
-        $file_data=substr($file_data,strpos($file_data,'<'));
-        if($file_data!=""){ // storing image in storage/app/public Folder
-            Storage::disk('public')->put($file_name,urldecode($file_data));
-            return Storage::url($file_name.'?v='.time());
-        }
-        //save png
-//        $file_name = 'image_table.png'; //generating file name;
-//        @list($type, $file_data) = explode(';', $file_data);
-//        @list(, $file_data) = explode(',', $file_data);
+//        $file_name = 'image_table.svg'; //generating unique file name;
+//        $file_data=substr($file_data,strpos($file_data,'<'));
 //        if($file_data!=""){ // storing image in storage/app/public Folder
 //            Storage::disk('public')->put($file_name,urldecode($file_data));
 //            return Storage::url($file_name.'?v='.time());
 //        }
+        //save png
+        $file_name = 'image_table.jpg'; //generating file name;
+        @list($type, $file_data) = explode(';', $file_data);
+        @list(, $file_data) = explode(',', $file_data);
+        if($file_data!=""){ // storing image in storage/app/public Folder
+            Storage::disk('public')->put($file_name,base64_decode($file_data));
+            return Storage::url($file_name.'?v='.time());
+        }
     }
     /**
      * Show the application dashboard.
