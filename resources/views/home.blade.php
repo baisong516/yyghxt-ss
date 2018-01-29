@@ -75,7 +75,7 @@
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="todayRange" class="img-dom" data-id="table-range"  data-toggle="modal" data-target="#proModal">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="todayRange" class="img-dom" data-id="table-range">
                     今日排班
                 </h4>
                 <div class="box">
@@ -144,7 +144,7 @@
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="" class="img-dom" data-id="month-data"  data-toggle="modal" data-target="#proModal">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="" class="img-dom" data-id="month-data">
                     上月数据({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})
                 </h4>
                 <div class="box">
@@ -202,7 +202,7 @@
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" class="img-dom" data-id="year-data"  data-toggle="modal" data-target="#proModal">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" class="img-dom" data-id="year-data">
                     {{\Carbon\Carbon::now()->year}}年汇总数据
                 </h4>
                 <div class="box">
