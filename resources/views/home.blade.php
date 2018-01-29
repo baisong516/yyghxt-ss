@@ -361,6 +361,7 @@
             $('.table-head').on('click',function () {
                 var nodeId=$(this).attr('data-id');
                 var node = document.getElementById(nodeId);
+                alert('click  start');
                 domtoimage.toPng(node)
                     .then(function (dataUrl) {
                         alert('ajax start');
