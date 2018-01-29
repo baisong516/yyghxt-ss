@@ -357,27 +357,28 @@
             });
         });
 
-        $('.table-dom').click(function () {
-            var nodeId=$(this).attr('id');
-            var node = document.getElementById(nodeId);
-            var url='';
-            domtoimage.toPng(node)
-                .then(function (dataUrl) {
-                    alert('ajax start');
-                    $.ajax({
-                        url:'/home/uploadimage',
-                        type:'post',
-                        data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
-                        success:function (data) {
-                            alert(data);
-                            // window.location.href=data;
-                        }
+        $(document).ready(function () {
+            $('.table-dom').on('click',function () {
+                var nodeId=$(this).attr('id');
+                var node = document.getElementById(nodeId);
+                domtoimage.toPng(node)
+                    .then(function (dataUrl) {
+                        alert('ajax start');
+                        $.ajax({
+                            url:'/home/uploadimage',
+                            type:'post',
+                            data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
+                            success:function (data) {
+                                alert(data);
+                                // window.location.href=data;
+                            }
+                        });
+                        alert('ajax end');
+                    })
+                    .catch(function (error) {
+                        console.error('oops, something went wrong!', error);
                     });
-                    alert('ajax end');
-                })
-                .catch(function (error) {
-                    console.error('oops, something went wrong!', error);
-                });
+            });
         });
 
     </script>
