@@ -32,7 +32,7 @@ class HomeController extends Controller
         @list(, $file_data) = explode(',', $file_data);
         if($file_data!=""){ // storing image in storage/app/public Folder
             Storage::disk('public')->put($file_name,base64_decode($file_data));
-            return Storage::url($file_name);
+            return Storage::url($file_name.'v='.time());
         }
     }
     /**
