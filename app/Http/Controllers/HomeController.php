@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function uploadImage(Request $request)
     {
         $file_data = $request->input('imgData');
-        $file_name = 'image_'.time().'.png'; //generating unique file name;
+        $file_name = 'image_table.png'; //generating unique file name;
         @list($type, $file_data) = explode(';', $file_data);
         @list(, $file_data) = explode(',', $file_data);
         if($file_data!=""){ // storing image in storage/app/public Folder

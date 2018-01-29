@@ -358,7 +358,6 @@
         });
 
         $('.table-dom').click(function () {
-            alert('click');
             var nodeId=$(this).attr('id');
             var node = document.getElementById(nodeId);
             domtoimage.toPng(node)
