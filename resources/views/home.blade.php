@@ -16,7 +16,7 @@
                 </form>
             </div>
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" data-toggle="modal" data-target="#proModal">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" class="img-dom" data-toggle="modal" data-target="#proModal" data-id="tab-sum">
                     项目情况表
                 </h4>
                 <div class="box">
@@ -24,7 +24,7 @@
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center tab-sum" id="tab-sum" style="margin-top: 2rem;">
+                        <table class="table table-hover text-center tab-sum" id="tab-sum">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -75,7 +75,7 @@
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="todayRange" class="img-dom" data-id="table-range"  data-toggle="modal" data-target="#proModal">
                     今日排班
                 </h4>
                 <div class="box">
@@ -84,7 +84,7 @@
                             /*table.table-arrangement td{border-color: #ccc !important;}*/
                             table.table-arrangement tr,table.table-arrangement th,table.table-arrangement td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center table-arrangement" style="margin-top: 2rem;">
+                        <table class="table table-hover text-center table-arrangement" id="table-range">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -144,15 +144,15 @@
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
-                    上月数据
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="" class="img-dom" data-id="month-data"  data-toggle="modal" data-target="#proModal">
+                    上月数据({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})
                 </h4>
                 <div class="box">
                     <div class="box-body table-responsive table-bordered">
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center tab-sum" style="margin-top: 2rem;">
+                        <table class="table table-hover text-center tab-sum" id="month-data">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -202,15 +202,15 @@
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
-                    年汇总数据
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" class="img-dom" data-id="year-data"  data-toggle="modal" data-target="#proModal">
+                    {{\Carbon\Carbon::now()->year}}年汇总数据
                 </h4>
                 <div class="box">
                     <div class="box-body table-responsive table-bordered">
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center tab-sum" style="margin-top: 2rem;">
+                        <table class="table table-hover text-center tab-sum" id="year-data">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -268,75 +268,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="proModalLabel">今日项目情况</h4>
+                    <h4 class="modal-title text-center" id="proModalLabel">预览</h4>
                 </div>
                 <div class="modal-body box">
-                    @foreach($data as $v)
-                        <h3 class="text-center">{{$v['name']}}</h3>
-                        <style>
-                            #mobile-table tr,#mobile-table th,#mobile-table td{border: solid 1px #666;}
-                            #mobile-table .table-mobile-column{background: #66d7ea;}
-                        </style>
-                        <table class="table table-hover text-center table-mobile" id="mobile-table">
-                            <tr class="table-mobile-column">
-                                <th>咨询量</th>
-                                <th>预约量</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['zixun_count']}}</td>
-                                <td>{{$v['yuyue_count']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>留联系</th>
-                                <th>电话量</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['contact_count']}}</td>
-                                <td>{{$v['tel_count']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-
-                                <th>总咨询量</th>
-                                <th>应到院</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['total_count']}}</td>
-                                <td>{{$v['should_count']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>到院量</th>
-                                <th>就诊量</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['arrive_count']}}</td>
-                                <td>{{$v['jiuzhen_count']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>预约率</th>
-                                <th>留联率</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['yuyue_rate']}}</td>
-                                <td>{{$v['contact_rate']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>到院率</th>
-                                <th>就诊率</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['arrive_rate']}}</td>
-                                <td>{{$v['jiuzhen_rate']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>咨询转化率</th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['zhuanhua_rate']}}</td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    @endforeach
+                    <img src="" class="img-fluid" id="domImg" style="width: 100%;">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -347,6 +282,7 @@
 @endsection
 
 @section('javascript')
+    <script src="https://cdn.bootcss.com/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         lay('.date-item').each(function(){
@@ -355,5 +291,22 @@
                 ,trigger: 'click'
             });
         });
+
+        $('.img-dom').click(function () {
+            var nodeId=$(this).attr('data-id');
+            console.log(nodeId);
+            var node = document.getElementById(nodeId);
+            domtoimage.toPng(node)
+                .then(function (dataUrl) {
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.width='100%';
+                    $('#domImg').attr('src',dataUrl);
+                })
+                .catch(function (error) {
+                    console.error('oops, something went wrong!', error);
+                });
+        });
+
     </script>
 @endsection
