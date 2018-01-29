@@ -367,7 +367,8 @@
                         type:'post',
                         data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
                         success:function (data) {
-                            window.location.href=data;
+                            alert(data);
+                            // window.location.href=data;
                         }
                     });
                 })
