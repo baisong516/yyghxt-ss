@@ -20,7 +20,7 @@
             <form action="" method="post" class="hospitals-form">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
-                <h5 class="text-center">今日数据</h5>
+                <h5 class="text-center">当前区间数据</h5>
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         @if(!empty($todayClick))
