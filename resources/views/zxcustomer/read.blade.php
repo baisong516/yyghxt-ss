@@ -130,7 +130,7 @@
                 #zxcustomers-list-table th{padding-right: 0;}
                 #zxcustomers-list-table th:after{content: '';}
             </style>
-                <table id="zxcustomers-list-table" class="table table-striped table-bordered text-center" style="font-size: 12px;">
+                <table id="zxcustomers-list-table" class="table table-striped table-bordered text-center" style="font-size: 14px;">
                     <thead>
                     <tr>
                         <th style="display: none;"><i class="fa fa-level-down" aria-hidden="true"></i></th>
