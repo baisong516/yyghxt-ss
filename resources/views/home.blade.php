@@ -362,30 +362,30 @@
                 var nodeId=$(this).attr('data-id');
                 var node = document.getElementById(nodeId);
                 // console.log(nodeId);
-                // domtoimage.toSvg(node)
-                //     .then(function (dataUrl) {
-                //         // console.log(dataUrl);
-                //         $.ajax({
-                //             url:'/home/uploadimage',
-                //             type:'post',
-                //             data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
-                //             success:function (data) {
-                //                 window.location.href=data;
-                //             }
-                //         });
-                //     });
-                domtoimage.toPng(node).then(function (dataUrl) {
-                        alert('ajax start');
-                        // $.ajax({
-                        //     url:'/home/uploadimage',
-                        //     type:'post',
-                        //     data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
-                        //     success:function (data) {
-                        //         alert(data);
-                        //         // window.location.href=data;
-                        //     }
-                        // });
+                domtoimage.toSvg(node)
+                    .then(function (dataUrl) {
+                        // console.log(dataUrl);
+                        $.ajax({
+                            url:'/home/uploadimage',
+                            type:'post',
+                            data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
+                            success:function (data) {
+                                window.location.href=data;
+                            }
+                        });
                     });
+                // domtoimage.toPng(node).then(function (dataUrl) {
+                //         alert('ajax start');
+                //         // $.ajax({
+                //         //     url:'/home/uploadimage',
+                //         //     type:'post',
+                //         //     data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
+                //         //     success:function (data) {
+                //         //         alert(data);
+                //         //         // window.location.href=data;
+                //         //     }
+                //         // });
+                //     });
             });
         });
 
