@@ -75,7 +75,7 @@
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="todayRange" class="img-dom" data-id="table-range">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="todayRange" class="table-head" data-id="table-range">
                     今日排班
                 </h4>
                 <div class="box">
@@ -84,7 +84,7 @@
                             /*table.table-arrangement td{border-color: #ccc !important;}*/
                             table.table-arrangement tr,table.table-arrangement th,table.table-arrangement td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center table-arrangement table-dom" id="table-range">
+                        <table class="table table-hover text-center table-arrangement" id="table-range">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -144,7 +144,7 @@
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="" class="img-dom" data-id="month-data">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="" class="table-head" data-id="month-data">
                     上月数据({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})
                 </h4>
                 <div class="box">
@@ -152,7 +152,7 @@
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center tab-sum table-dom" id="month-data">
+                        <table class="table table-hover text-center tab-sum" id="month-data">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -202,7 +202,7 @@
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" class="img-dom" data-id="year-data">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" class="table-head" data-id="year-data">
                     {{\Carbon\Carbon::now()->year}}年汇总数据
                 </h4>
                 <div class="box">
@@ -210,7 +210,7 @@
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center tab-sum table-dom" id="year-data">
+                        <table class="table table-hover text-center tab-sum" id="year-data">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -358,8 +358,8 @@
         });
 
         $(document).ready(function () {
-            $('.table-dom').on('click',function () {
-                var nodeId=$(this).attr('id');
+            $('.table-head').on('click',function () {
+                var nodeId=$(this).attr('data-id');
                 var node = document.getElementById(nodeId);
                 domtoimage.toPng(node)
                     .then(function (dataUrl) {
