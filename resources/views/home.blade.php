@@ -362,7 +362,7 @@
                 var nodeId=$(this).attr('data-id');
                 var node = document.getElementById(nodeId);
                 // console.log(nodeId);
-                domtoimage.toPng(node)
+                domtoimage.toSvg(node)
                     .then(function (dataUrl) {
                         alert('test');
                     });
