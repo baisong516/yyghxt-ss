@@ -360,8 +360,10 @@
         $('.table-dom').click(function () {
             var nodeId=$(this).attr('id');
             var node = document.getElementById(nodeId);
+            var url='';
             domtoimage.toPng(node)
                 .then(function (dataUrl) {
+                    alert('ajax start');
                     $.ajax({
                         url:'/home/uploadimage',
                         type:'post',
@@ -371,6 +373,7 @@
                             // window.location.href=data;
                         }
                     });
+                    alert('ajax end');
                 })
                 .catch(function (error) {
                     console.error('oops, something went wrong!', error);
