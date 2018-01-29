@@ -361,24 +361,26 @@
             $('.table-head').on('click',function () {
                 var nodeId=$(this).attr('data-id');
                 var node = document.getElementById(nodeId);
-                alert('click  start');
-                domtoimage.toPng(node)
+                console.log(nodeId);
+                domtoimage.toSvg(node)
                     .then(function (dataUrl) {
-                        alert('ajax start');
-                        // $.ajax({
-                        //     url:'/home/uploadimage',
-                        //     type:'post',
-                        //     data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
-                        //     success:function (data) {
-                        //         alert(data);
-                        //         // window.location.href=data;
-                        //     }
-                        // });
-                        alert('ajax end');
-                    })
-                    .catch(function (error) {
-                        console.error('oops, something went wrong!', error);
+                        alert('test');
                     });
+                // domtoimage.toPng(node).then(function (dataUrl) {
+                //         alert('ajax start');
+                //         $.ajax({
+                //             url:'/home/uploadimage',
+                //             type:'post',
+                //             data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
+                //             success:function (data) {
+                //                 alert(data);
+                //                 // window.location.href=data;
+                //             }
+                //         });
+                //         alert('ajax end');
+                //     }).catch(function (error) {
+                //         console.error('oops, something went wrong!', error);
+                //     });
             });
         });
 
