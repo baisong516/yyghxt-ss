@@ -365,15 +365,15 @@
                 domtoimage.toPng(node)
                     .then(function (dataUrl) {
                         alert('ajax start');
-                        $.ajax({
-                            url:'/home/uploadimage',
-                            type:'post',
-                            data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
-                            success:function (data) {
-                                alert(data);
-                                // window.location.href=data;
-                            }
-                        });
+                        // $.ajax({
+                        //     url:'/home/uploadimage',
+                        //     type:'post',
+                        //     data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
+                        //     success:function (data) {
+                        //         alert(data);
+                        //         // window.location.href=data;
+                        //     }
+                        // });
                         alert('ajax end');
                     })
                     .catch(function (error) {
