@@ -26,12 +26,14 @@ class HomeController extends Controller
 
     public function uploadImage(Request $request)
     {
-        $imgName=Carbon::now()->timestamp.'.png';
-        $base64 = preg_replace("/\s/",'+',$request->input('imgData'));
-        $img = base64_decode($base64);
-//        return $imgName;
-        Storage::disk('public')->put($imgName,$img);
-        return Storage::url($imgName);
+        $file_data = $request->input('imgData');
+        $file_name = 'image_'.time().'.png'; //generating unique file name;
+        @list($type, $file_data) = explode(';', $file_data);
+        @list(, $file_data) = explode(',', $file_data);
+        if($file_data!=""){ // storing image in storage/app/public Folder
+            Storage::disk('public')->put($file_name,base64_decode($file_data));
+            return Storage::url($file_name);
+        }
     }
     /**
      * Show the application dashboard.
