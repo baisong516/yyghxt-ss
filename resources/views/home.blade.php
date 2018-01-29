@@ -24,7 +24,7 @@
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center tab-sum" id="tab-sum">
+                        <table class="table table-hover text-center tab-sum table-dom" id="tab-sum">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -84,7 +84,7 @@
                             /*table.table-arrangement td{border-color: #ccc !important;}*/
                             table.table-arrangement tr,table.table-arrangement th,table.table-arrangement td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center table-arrangement" id="table-range">
+                        <table class="table table-hover text-center table-arrangement table-dom" id="table-range">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -152,7 +152,7 @@
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center tab-sum" id="month-data">
+                        <table class="table table-hover text-center tab-sum table-dom" id="month-data">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -210,7 +210,7 @@
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
-                        <table class="table table-hover text-center tab-sum" id="year-data">
+                        <table class="table table-hover text-center tab-sum table-dom" id="year-data">
                             <thead>
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
@@ -357,21 +357,24 @@
             });
         });
 
-        // $('.img-dom').click(function () {
-        //     var nodeId=$(this).attr('data-id');
-        //     console.log(nodeId);
-        //     var node = document.getElementById(nodeId);
-        //     domtoimage.toPng(node)
-        //         .then(function (dataUrl) {
-        //             var img = new Image();
-        //             img.src = dataUrl;
-        //             img.width='100%';
-        //             $('#domImg').attr('src',dataUrl);
-        //         })
-        //         .catch(function (error) {
-        //             console.error('oops, something went wrong!', error);
-        //         });
-        // });
+        $('.table-dom').click(function () {
+            var nodeId=$(this).attr('id');
+            var node = document.getElementById(nodeId);
+            domtoimage.toPng(node)
+                .then(function (dataUrl) {
+                    $.ajax({
+                        url:'/home/uploadimage',
+                        type:'post',
+                        data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
+                        success:function (data) {
+                            console.log(data);
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    console.error('oops, something went wrong!', error);
+                });
+        });
 
     </script>
 @endsection

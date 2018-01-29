@@ -24,6 +24,7 @@ Route::any('wechat','WechatController@index');
 Route::group(['middleware' => ['auth','operationlog']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::post('/home', 'HomeController@index')->name('home.search');
+    Route::post('/home/uploadimage', 'HomeController@uploadImage')->name('home.uploadImage');
     //排班
     Route::resource('arrangements', 'ArrangementController');
     //用户菜单

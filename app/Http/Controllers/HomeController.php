@@ -10,6 +10,7 @@ use App\ZxCustomer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function uploadImage(Request $request)
+    {
+        $imgName=Carbon::now()->toDateString();
+        return Storage::disk('local')->put($imgName.'.png', $request->input('imgData'));
+    }
     /**
      * Show the application dashboard.
      *
