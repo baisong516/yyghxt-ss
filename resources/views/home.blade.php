@@ -16,7 +16,7 @@
                 </form>
             </div>
             <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" class="img-dom" data-toggle="modal" data-target="#proModal" data-id="tab-sum">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" class="table-head" data-id="tab-sum">
                     项目情况表
                 </h4>
                 <div class="box">
