@@ -20,18 +20,115 @@
             <form action="" method="post" class="hospitals-form">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
+                <h5 class="text-center">今日数据</h5>
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         @if(!empty($todayClick))
                             @foreach($todayClick as $k=>$d)
-                                <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                                <li class="{{$loop->first?'active':''}}"><a href="#today_tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
                             @endforeach
                         @endif
                     </ul>
                     <div class="tab-content">
                         @if(!empty($todayClick))
                             @foreach($todayClick as $k=>$d)
-                                <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$k}}">
+                                <div class="tab-pane {{$loop->first?'active':''}}" id="today_tab_{{$k}}">
+                                    <table class="table table-bordered">
+                                        <thead class="text-center">
+                                        <tr>
+                                            <th class="text-center">网站</th>
+                                            <th class="text-center">位置</th>
+                                            <th class="text-center">说明</th>
+                                            <th class="text-center">点击次数</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="text-align: center">
+                                        @foreach($d as $m=>$v)
+                                            @foreach($v as $p=>$it)
+                                                <tr>
+                                                    @if($loop->first)
+                                                        <td rowspan="{{$loop->count}}" class="text-center" style="vertical-align: middle;">{{$m}}</td>
+                                                    @endif
+                                                    <td class="text-center">
+                                                        @foreach(array_filter(explode('_',$p)) as $e)
+                                                            {{isset($clickArray[$e])?$clickArray[$e]:$e}}
+                                                        @endforeach
+                                                    </td>
+                                                    <td class="text-center">{{isset($it['description'])?$it['description']:''}}</td>
+                                                    <td class="text-center">{{$it['count']}}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <hr>
+                <h5 class="text-center">上月数据</h5>
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        @if(!empty($monthClick))
+                            @foreach($monthClick as $k=>$d)
+                                <li class="{{$loop->first?'active':''}}"><a href="#month_tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                            @endforeach
+                        @endif
+                    </ul>
+                    <div class="tab-content">
+                        @if(!empty($monthClick))
+                            @foreach($monthClick as $k=>$d)
+                                <div class="tab-pane {{$loop->first?'active':''}}" id="month_tab_{{$k}}">
+                                    <table class="table table-bordered">
+                                        <thead class="text-center">
+                                        <tr>
+                                            <th class="text-center">网站</th>
+                                            <th class="text-center">位置</th>
+                                            <th class="text-center">说明</th>
+                                            <th class="text-center">点击次数</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="text-align: center">
+                                        @foreach($d as $m=>$v)
+                                            @foreach($v as $p=>$it)
+                                                <tr>
+                                                    @if($loop->first)
+                                                        <td rowspan="{{$loop->count}}" class="text-center" style="vertical-align: middle;">{{$m}}</td>
+                                                    @endif
+                                                    <td class="text-center">
+                                                        @foreach(array_filter(explode('_',$p)) as $e)
+                                                            {{isset($clickArray[$e])?$clickArray[$e]:$e}}
+                                                        @endforeach
+                                                    </td>
+                                                    <td class="text-center">{{isset($it['description'])?$it['description']:''}}</td>
+                                                    <td class="text-center">{{$it['count']}}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <hr>
+                <h5 class="text-center">{{\Carbon\Carbon::now()->year}}年数据</h5>
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        @if(!empty($yearClick))
+                            @foreach($yearClick as $k=>$d)
+                                <li class="{{$loop->first?'active':''}}"><a href="#year_tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                            @endforeach
+                        @endif
+                    </ul>
+                    <div class="tab-content">
+                        @if(!empty($yearClick))
+                            @foreach($yearClick as $k=>$d)
+                                <div class="tab-pane {{$loop->first?'active':''}}" id="year_tab_{{$k}}">
                                     <table class="table table-bordered">
                                         <thead class="text-center">
                                         <tr>

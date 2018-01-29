@@ -21,20 +21,16 @@ class StatisticController extends Controller
         if (Auth::user()->ability('superadministrator', 'read-statistics')) {
             $start=Carbon::now()->startOfDay();
             $end=Carbon::now()->endOfDay();
-            $this->getClickData($start,$end);
-            //今日点击量
-            $tempDate = Statistic::select('office_id','domain', 'flag', 'date_tag', 'count', 'description')->where('date_tag', Carbon::now()->toDateString())->get();
-            $todayClick = [];
-            foreach ($tempDate as $t) {
-                $todayClick[$t->office_id][$t->domain][$t->flag]['description']=$t->description;
-                isset($todayClick[$t->office_id][$t->domain][$t->flag]['count'])?$todayClick[$t->office_id][$t->domain][$t->flag]['count']+=$t->count:$todayClick[$t->office_id][$t->domain][$t->flag]['count']=$t->count;
-            }
-//            dd($todayClick);
+            $todayClick=$this->getClickData($start,$end);
+            $lastMonthClick=$this->getClickData(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
+            $yearClick=$this->getClickData(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
             return view('button.read', [
                 'pageheader' => '数据统计',
                 'pagedescription' => '按钮点击量统计',
                 'offices'=>Aiden::getAllModelArray('offices'),
                 'todayClick' => $todayClick,
+                'monthClick'=>$lastMonthClick,
+                'yearClick'=>$yearClick,
                 'clickArray' => $this->getClickArray(),
             ]);
         }
@@ -111,19 +107,11 @@ class StatisticController extends Controller
     {
         if (Auth::user()->ability('superadministrator', 'read-statistics')) {
             //点击量
-            $start=$request->input('dateStart')?$request->input('dateStart'):Carbon::now()->toDateString();
-            $end=$request->input('dateEnd')?$request->input('dateEnd'):Carbon::now()->toDateString();
-            $tempDate = Statistic::select('office_id','domain', 'flag', 'date_tag', 'count', 'description')->where([
-                ['date_tag','>=',$start],
-                ['date_tag','<=',$end],
-            ])->get();
-            $todayClick = [];
-//            dd($tempDate);
-            foreach ($tempDate as $t) {
-                $todayClick[$t->office_id][$t->domain][$t->flag]['description']=$t->description;
-                isset($todayClick[$t->office_id][$t->domain][$t->flag]['count'])?$todayClick[$t->office_id][$t->domain][$t->flag]['count']+=$t->count:$todayClick[$t->office_id][$t->domain][$t->flag]['count']=$t->count;
-            }
-//            dd($todayClick);
+            $start=$request->input('dateStart')?Carbon::createFromFormat('Y-m-d',$request->input('dateStart'))->startOfDay():Carbon::now()->startOfDay();
+            $end=$request->input('dateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('dateEnd'))->endOfDay():Carbon::now()->endOfDay();
+            $todayClick=$this->getClickData($start,$end);
+            $lastMonthClick=$this->getClickData(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
+            $yearClick=$this->getClickData(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
             return view('button.read', [
                 'pageheader' => '数据统计',
                 'pagedescription' => '按钮点击量统计',
@@ -132,6 +120,8 @@ class StatisticController extends Controller
                 'start'=>$start,
                 'end'=>$end,
                 'clickArray' => $this->getClickArray(),
+                'monthClick'=>$lastMonthClick,
+                'yearClick'=>$yearClick,
             ]);
         }
     }
