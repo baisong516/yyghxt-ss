@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Imagick;
+use Psy\Exception\Exception;
 
 class HomeController extends Controller
 {
@@ -33,7 +35,8 @@ class HomeController extends Controller
         $file_data=substr($file_data,strpos($file_data,'<'));
         if($file_data!=""){ // storing image in storage/app/public Folder
             Storage::disk('public')->put($file_name,urldecode($file_data));
-            return Storage::url($file_name.'?v='.time());
+            $link=Storage::url($file_name);
+            return $link.'?v='.time();
         }
         //save png
 //        $file_name = 'image_table.png'; //generating file name;

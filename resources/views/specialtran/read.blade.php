@@ -22,6 +22,10 @@
                     <a href="/template/specialtrans.xlsx" class="btn-sm btn-danger">模板下载</a>
                 </div>
             </div>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+            </div>
         </div>
         <div class="box-body table-responsive">
             <div class="nav-tabs-custom">
@@ -105,6 +109,206 @@
                                 </tbody>
                             </table>
                         </div>
+                        @endforeach
+                    @endif
+                </div>
+                <!-- /.tab-content -->
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title" style="margin-left: 48%;">上月数据</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    @if(isset($monthspecialtrans)&&!empty($monthspecialtrans))
+                        @foreach($monthspecialtrans as $officeid=>$s)
+                            <li class="{{$loop->first?'active':''}}"><a href="#tab_month_{{$officeid}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$officeid]}}</a></li>
+                        @endforeach
+                    @endif
+                </ul>
+                <div class="tab-content">
+                    @if(isset($monthspecialtrans)&&!empty($monthspecialtrans))
+                        @foreach($monthspecialtrans as $officeid=>$s)
+                            <div class="tab-pane {{$loop->first?'active':''}}" id="tab_month_{{$officeid}}">
+                                <table id="specialtrans-list-talbe" class="table table-bordered" style="font-size: 12px;">
+                                    <thead class="text-center">
+                                    <tr>
+                                        <th class="text-center">页面名称</th>
+                                        <th class="text-center">现URL</th>
+                                        <th class="text-center">病种</th>
+                                        <th class="text-center">类别(词性)</th>
+                                        <th class="text-center">消费</th>
+                                        <th class="text-center">点击</th>
+                                        <th class="text-center">展现</th>
+                                        <th class="text-center">唯一身份浏览量</th>
+                                        <th class="text-center">跳出率</th>
+                                        <th class="text-center">商务通大于等于1</th>
+                                        <th class="text-center">商务通大于等于3</th>
+                                        <th class="text-center">点击转化率</th>
+                                        <th class="text-center">预约</th>
+                                        <th class="text-center">到院</th>
+                                        <th class="text-center">更换时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                    @foreach($s as $specialId=>$special)
+                                        @if(!empty($special['type']))
+                                            @foreach($special['type'] as $diseaseId=>$type)
+                                                <tr>
+                                                    @if($loop->first)
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['name']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}"><small>{{$special['url']}}</small></td>
+                                                    @endif
+                                                    <td>{{isset($diseaseId)?$diseases[$diseaseId]:''}}</td>
+                                                    <td>{{isset($type)?$type:''}}</td>
+                                                    @if($loop->first)
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{sprintf('%.2f',$special['cost'])}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['click']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['show']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['view']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['skip_rate']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['swt_lg_one']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['swt_lg_three']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['click_trans_rate']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['yuyue']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['arrive']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['change_date']}}</td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td style="vertical-align: middle;">{{$special['name']}}</td>
+                                                <td style="vertical-align: middle;">{{$special['url']}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="vertical-align: middle;">{{sprintf('%.2f',$special['cost'])}}</td>
+                                                <td style="vertical-align: middle;">{{$special['click']}}</td>
+                                                <td style="vertical-align: middle;">{{$special['show']}}</td>
+                                                <td style="vertical-align: middle;">{{$special['view']}}</td>
+                                                <td style="vertical-align: middle;">{{$special['skip_rate']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['swt_lg_one']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['swt_lg_three']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['click_trans_rate']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['yuyue']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['arrive']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['change_date']}}</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+                <!-- /.tab-content -->
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <div class="box box-danger">
+        <div class="box-header with-border">
+            <h3 class="box-title" style="margin-left: 47%;">{{\Carbon\Carbon::now()->year}}年数据</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    @if(isset($yearspecialtrans)&&!empty($yearspecialtrans))
+                        @foreach($yearspecialtrans as $officeid=>$s)
+                            <li class="{{$loop->first?'active':''}}"><a href="#tab_year_{{$officeid}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$officeid]}}</a></li>
+                        @endforeach
+                    @endif
+                </ul>
+                <div class="tab-content">
+                    @if(isset($yearspecialtrans)&&!empty($yearspecialtrans))
+                        @foreach($yearspecialtrans as $officeid=>$s)
+                            <div class="tab-pane {{$loop->first?'active':''}}" id="tab_year_{{$officeid}}">
+                                <table id="specialtrans-list-talbe" class="table table-bordered" style="font-size: 12px;">
+                                    <thead class="text-center">
+                                    <tr>
+                                        <th class="text-center">页面名称</th>
+                                        <th class="text-center">现URL</th>
+                                        <th class="text-center">病种</th>
+                                        <th class="text-center">类别(词性)</th>
+                                        <th class="text-center">消费</th>
+                                        <th class="text-center">点击</th>
+                                        <th class="text-center">展现</th>
+                                        <th class="text-center">唯一身份浏览量</th>
+                                        <th class="text-center">跳出率</th>
+                                        <th class="text-center">商务通大于等于1</th>
+                                        <th class="text-center">商务通大于等于3</th>
+                                        <th class="text-center">点击转化率</th>
+                                        <th class="text-center">预约</th>
+                                        <th class="text-center">到院</th>
+                                        <th class="text-center">更换时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                    @foreach($s as $specialId=>$special)
+                                        @if(!empty($special['type']))
+                                            @foreach($special['type'] as $diseaseId=>$type)
+                                                <tr>
+                                                    @if($loop->first)
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['name']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}"><small>{{$special['url']}}</small></td>
+                                                    @endif
+                                                    <td>{{isset($diseaseId)?$diseases[$diseaseId]:''}}</td>
+                                                    <td>{{isset($type)?$type:''}}</td>
+                                                    @if($loop->first)
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{sprintf('%.2f',$special['cost'])}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['click']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['show']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['view']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['skip_rate']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['swt_lg_one']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['swt_lg_three']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['click_trans_rate']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['yuyue']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['arrive']}}</td>
+                                                        <td style="vertical-align: middle;" rowspan="{{$loop->count}}">{{$special['change_date']}}</td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td style="vertical-align: middle;">{{$special['name']}}</td>
+                                                <td style="vertical-align: middle;">{{$special['url']}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="vertical-align: middle;">{{sprintf('%.2f',$special['cost'])}}</td>
+                                                <td style="vertical-align: middle;">{{$special['click']}}</td>
+                                                <td style="vertical-align: middle;">{{$special['show']}}</td>
+                                                <td style="vertical-align: middle;">{{$special['view']}}</td>
+                                                <td style="vertical-align: middle;">{{$special['skip_rate']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['swt_lg_one']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['swt_lg_three']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['click_trans_rate']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['yuyue']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['arrive']}}</td>
+                                                <td style="vertical-align: middle;" >{{$special['change_date']}}</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @endforeach
                     @endif
                 </div>

@@ -15,8 +15,8 @@
                     <button type="submit" class="btn btn-success">搜索</button>
                 </form>
             </div>
-            <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" class="table-head" data-id="tab-sum">
+            <div class="box-body" id="table-sum-box-body">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" class="img-dom" data-toggle="modal" data-target="#proModal" data-id="tab-sum">
                     项目情况表
                 </h4>
                 <div class="box">
@@ -74,7 +74,7 @@
     </div>
     <div class="col-sm-12">
         <div class="box box-solid">
-            <div class="box-body">
+            <div class="box-body" id="table-range-box-body">
                 <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="todayRange" class="table-head" data-id="table-range">
                     今日排班
                 </h4>
@@ -143,8 +143,8 @@
     </div>
     <div class="col-sm-12">
         <div class="box box-solid">
-            <div class="box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="" class="table-head" data-id="month-data">
+            <div class="box-body" id="month-data-box-body">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="month-data-head" class="table-head" data-id="month-data">
                     上月数据({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})
                 </h4>
                 <div class="box">
@@ -201,7 +201,7 @@
     </div>
     <div class="col-sm-12">
         <div class="box box-solid">
-            <div class="box-body">
+            <div class="box-body" id="year-data-box-body">
                 <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" class="table-head" data-id="year-data">
                     {{\Carbon\Carbon::now()->year}}年汇总数据
                 </h4>
@@ -358,34 +358,26 @@
         });
 
         $(document).ready(function () {
+
             $('.table-head').on('click',function () {
                 var nodeId=$(this).attr('data-id');
                 var node = document.getElementById(nodeId);
-                // console.log(nodeId);
-                domtoimage.toSvg(node)
-                    .then(function (dataUrl) {
-                        // console.log(dataUrl);
+                // domtoimage.toPng(node)
+                //     .then(function (dataUrl) {
+                //         alert('ddd');
+                //     });
+                domtoimage.toSvg(node).then(function (dataUrl) {
                         $.ajax({
                             url:'/home/uploadimage',
                             type:'post',
                             data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
                             success:function (data) {
+                                // console.log(data);
+                                // alert(data);
                                 window.location.href=data;
                             }
                         });
                     });
-                // domtoimage.toPng(node).then(function (dataUrl) {
-                //         alert('ajax start');
-                //         // $.ajax({
-                //         //     url:'/home/uploadimage',
-                //         //     type:'post',
-                //         //     data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
-                //         //     success:function (data) {
-                //         //         alert(data);
-                //         //         // window.location.href=data;
-                //         //     }
-                //         // });
-                //     });
             });
         });
 
