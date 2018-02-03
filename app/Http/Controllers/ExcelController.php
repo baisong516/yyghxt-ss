@@ -82,8 +82,8 @@ class ExcelController extends Controller
                 }
                 $sheet->row(1, $columns);
                 //冻结第一行
-                $sheet->freezeFirstRow();
-                $sheet->setAutoFilter();
+                //$sheet->freezeFirstRow();
+                //$sheet->setAutoFilter();
             });
         })->export('xls');
     }
