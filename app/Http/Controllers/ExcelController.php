@@ -53,20 +53,22 @@ class ExcelController extends Controller
                 $users=Aiden::getAllUserArray();
                 $customers=[];
                 foreach ($zxCustomers as $customer){
-                    if ($customer['sex']=='female'){
-                        $customer['sex']='女';
-                    }elseif ($customer['sex']=='male'){
-                        $customer['sex']='男';
-                    }else{
-                        $customer['sex']='';
+                    if (isset($customer['sex'])){
+                        if ($customer['sex']=='female'){
+                            $customer['sex']='女';
+                        }elseif ($customer['sex']=='male'){
+                            $customer['sex']='男';
+                        }else{
+                            $customer['sex']='';
+                        }
                     }
-                    $customer['media_id']=$customer['media_id']?$medias[$customer['media_id']]:'';
-                    $customer['webtype_id']=$customer['webtype_id']?$webtypes[$customer['webtype_id']]:'';
-                    $customer['customer_type_id']=$customer['customer_type_id']?$customertypes[$customer['customer_type_id']]:'';
-                    $customer['customer_condition_id']=$customer['customer_condition_id']?$custconditions[$customer['customer_condition_id']]:'';
-                    $customer['office_id']=$customer['office_id']?$offices[$customer['office_id']]:'';
-                    $customer['disease_id']=$customer['disease_id']?$diseases[$customer['disease_id']]:'';
-                    $customer['user_id']=$customer['user_id']?$users[$customer['user_id']]:'';
+                    if (isset($customer['media_id'])){$customer['media_id']=$customer['media_id']?$medias[$customer['media_id']]:'';}
+                    if (isset($customer['webtype_id'])){$customer['webtype_id']=$customer['webtype_id']?$webtypes[$customer['webtype_id']]:'';}
+                    if (isset($customer['customer_type_id'])){$customer['customer_type_id']=$customer['customer_type_id']?$customertypes[$customer['customer_type_id']]:'';}
+                    if (isset($customer['customer_condition_id'])){$customer['customer_condition_id']=$customer['customer_condition_id']?$custconditions[$customer['customer_condition_id']]:'';}
+                    if (isset($customer['office_id'])){$customer['office_id']=$customer['office_id']?$offices[$customer['office_id']]:'';}
+                    if (isset($customer['disease_id'])){$customer['disease_id']=$customer['disease_id']?$diseases[$customer['disease_id']]:'';}
+                    if (isset($customer['user_id'])){$customer['user_id']=$customer['user_id']?$users[$customer['user_id']]:'';}
                     $customers[]=$customer;
                 }
                 $sheet->fromArray($customers);
