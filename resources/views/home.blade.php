@@ -443,7 +443,8 @@
                                     src: dataUrl,
                                     w: 375,
                                     h: 60,
-                                    maxSpreadZoom: 5
+                                    zoomEl: true,
+                                    shareEl: true,
                                 }
                             ];
                             // define options (if needed)
