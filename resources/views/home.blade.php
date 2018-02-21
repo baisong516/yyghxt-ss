@@ -20,7 +20,7 @@
                 </form>
             </div>
             <div class="box-body" id="table-sum-box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" class="img-dom" data-toggle="modal" data-target="#proModal" data-id="tab-sum">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" class="img-dom table-head"  data-id="tab-sum">
                     项目情况表
                 </h4>
                 <div class="box">
@@ -261,94 +261,8 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <style>
-        #proModal .column-title{background: #66d7ea;}
-        #proModal .pro-columns>div{line-height: 3rem;height: 3rem;font-size: 1.5rem;}
-        #proModal .pro-columns:nth-child(odd){border-right: solid 1px #ccc;}
-    </style>
-    <div class="modal fade" id="proModal" tabindex="-1" role="dialog" aria-labelledby="proModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="proModalLabel">预览</h4>
-                </div>
-                <div class="modal-body box">
-                    @foreach($data as $v)
-                        <h3 class="text-center">{{$v['name']}}</h3>
-                        <style>
-                            #mobile-table tr,#mobile-table th,#mobile-table td{border: solid 1px #666;}
-                            #mobile-table .table-mobile-column{background: #66d7ea;}
-                        </style>
-                        <table class="table table-hover text-center table-mobile" id="mobile-table">
-                            <tr class="table-mobile-column">
-                                <th>咨询量</th>
-                                <th>预约量</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['zixun_count']}}</td>
-                                <td>{{$v['yuyue_count']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>留联系</th>
-                                <th>电话量</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['contact_count']}}</td>
-                                <td>{{$v['tel_count']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
 
-                                <th>总咨询量</th>
-                                <th>应到院</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['total_count']}}</td>
-                                <td>{{$v['should_count']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>到院量</th>
-                                <th>就诊量</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['arrive_count']}}</td>
-                                <td>{{$v['jiuzhen_count']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>预约率</th>
-                                <th>留联率</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['yuyue_rate']}}</td>
-                                <td>{{$v['contact_rate']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>到院率</th>
-                                <th>就诊率</th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['arrive_rate']}}</td>
-                                <td>{{$v['jiuzhen_rate']}}</td>
-                            </tr>
-                            <tr class="table-mobile-column">
-                                <th>咨询转化率</th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td>{{$v['zhuanhua_rate']}}</td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    @endforeach
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <button id="btn">Open PhotoSwipe</button>
+    {{--<button id="btn">Open PhotoSwipe</button>--}}
 
     <!-- Root element of PhotoSwipe. Must have class pswp. -->
     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
