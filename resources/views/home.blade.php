@@ -441,8 +441,8 @@
                             var items = [
                                 {
                                     src: dataUrl,
-                                    w: 375,
-                                    h: 60,
+                                    w: 1100,
+                                    h: 150,
                                     zoomEl: true,
                                     shareEl: true,
                                 }
