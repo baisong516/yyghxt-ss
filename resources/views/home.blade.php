@@ -441,8 +441,9 @@
                             var items = [
                                 {
                                     src: dataUrl,
-                                    w: 300,
-                                    h: 50,
+                                    w: 375,
+                                    h: 60,
+                                    initialZoomLevel: 5
                                 }
                             ];
                             // define options (if needed)
