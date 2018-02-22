@@ -345,7 +345,7 @@
             // 0
             var nodeId0=$(".table-item").eq(0).children('table').attr('id');
             var node0 = document.getElementById(nodeId0);
-            domtoimage.toJpeg(node0,{bgcolor: '#fff'})
+            domtoimage.toSvg(node0,{bgcolor: '#fff'})
                 .then(function (dataUrl) {
                     // document.getElementById('btn').onclick = openPhotoSwipe;
                     var img = new Image();
