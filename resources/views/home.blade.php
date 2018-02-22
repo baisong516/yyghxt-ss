@@ -24,7 +24,7 @@
                     项目情况表
                 </h4>
                 <div class="box">
-                    <div class="box-body table-responsive table-bordered">
+                    <div class="box-body table-item table-responsive table-bordered">
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
@@ -68,7 +68,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <p class="visible-xs text-red">提示：手机点击标题查看<p/>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -83,7 +82,7 @@
                     今日排班
                 </h4>
                 <div class="box">
-                    <div class="box-body table-responsive table-bordered">
+                    <div class="box-body table-item table-responsive table-bordered">
                         <style type="text/css">
                             /*table.table-arrangement td{border-color: #ccc !important;}*/
                             table.table-arrangement tr,table.table-arrangement th,table.table-arrangement td{border: solid 1px #666;}
@@ -152,7 +151,7 @@
                     上月数据({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})
                 </h4>
                 <div class="box">
-                    <div class="box-body table-responsive table-bordered">
+                    <div class="box-body table-item table-responsive table-bordered">
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
@@ -210,7 +209,7 @@
                     {{\Carbon\Carbon::now()->year}}年汇总数据
                 </h4>
                 <div class="box">
-                    <div class="box-body table-responsive table-bordered">
+                    <div class="box-body table-item table-responsive table-bordered">
                         <style type="text/css">
                             table.tab-sum tr,table.tab-sum th,table.tab-sum td{border: solid 1px #666;}
                         </style>
@@ -343,54 +342,55 @@
         });
 
         $(document).ready(function () {
+            // 0
+            var nodeId0=$(".table-item").eq(0).children('table').attr('id');
+            var node0 = document.getElementById(nodeId0);
+            domtoimage.toPng(node0,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node0.remove();
+                    $(".table-item").eq(0).append(img);
+                });
+            // 1
+            var nodeId1=$(".table-item").eq(1).children('table').attr('id');
+            var node1 = document.getElementById(nodeId1);
+            domtoimage.toPng(node1,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node1.remove();
+                    $(".table-item").eq(1).append(img);
+                });
+            // 2
+            var nodeId2=$(".table-item").eq(2).children('table').attr('id');
+            var node2 = document.getElementById(nodeId2);
+            domtoimage.toPng(node2,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node2.remove();
+                    $(".table-item").eq(2).append(img);
+                });
+            // 3
+            var nodeId3=$(".table-item").eq(3).children('table').attr('id');
+            var node3 = document.getElementById(nodeId3);
+            domtoimage.toPng(node3,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node3.remove();
+                    $(".table-item").eq(3).append(img);
+                });
 
-            $('.table-head').on('click',function () {
-                var nodeId=$(this).attr('data-id');
-                var node = document.getElementById(nodeId);
-                domtoimage.toSvg(node,{bgcolor: '#fff'})
-                    .then(function (dataUrl) {
-                        var openPhotoSwipe = function() {
-                            var pswpElement = document.querySelectorAll('.pswp')[0];
-                            // build items array
-                            var items = [
-                                {
-                                    src: dataUrl,
-                                    w: 1100,
-                                    h: 150,
-                                    zoomEl: true,
-                                    shareEl: true,
-                                }
-                            ];
-                            // define options (if needed)
-                            var options = {
-                                // history & focus options are disabled on CodePen
-                                history: false,
-                                focus: false,
-                                showAnimationDuration: 0,
-                                hideAnimationDuration: 0
-                            };
-                            var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-                            gallery.init();
-                        };
-                        openPhotoSwipe();
-                        // document.getElementById('btn').onclick = openPhotoSwipe;
-                        // var img = new Image();
-                        // img.src = dataUrl;
-                        // document.body.appendChild(img);
-                    });
-                // domtoimage.toSvg(node).then(function (dataUrl) {
-                //         $.ajax({
-                //             url:'/home/uploadimage',
-                //             type:'post',
-                //             data:{'imgData':dataUrl,'_token': $('input[name=_token]').val()},
-                //             success:function (data) {
-                //                 // console.log(data);
-                //                 // alert(data);
-                //                 window.location.href=data;
-                //             }
-                //         });
-                //     });
-            });
         });
 
     </script>
