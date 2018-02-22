@@ -82,75 +82,6 @@
     </div>
     <div class="col-sm-12">
         <div class="box box-solid">
-            <div class="box-body" id="table-range-box-body">
-                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="todayRange" class="table-head" data-id="table-range">
-                    今日排班
-                </h4>
-                <div class="box">
-                    <div class="box-body table-item table-responsive table-bordered">
-                        <style type="text/css">
-                            /*table.table-arrangement td{border-color: #ccc !important;}*/
-                            table.table-arrangement tr,table.table-arrangement th,table.table-arrangement td{border: solid 1px #666;}
-                        </style>
-                        <table class="table table-hover text-center table-arrangement" id="table-range">
-                            <thead>
-                            <tr style="background: #66d7ea;">
-                                <th>项目</th>
-                                <th>班次</th>
-                                <th>咨询</th>
-                                <th>竞价</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @if(!empty($arrangements))
-                                @foreach($arrangements as $officesort)
-                                    @foreach($officesort['ranks'] as $ranksort)
-                                        <tr>
-                                            @if($loop->first)
-                                                <td rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$officesort['office']}}</td>
-                                            @endif
-                                            <td>{{$ranksort['rank']}}</td>
-                                            <td>
-                                                @if(!empty($ranksort['departments']))
-                                                    @foreach($ranksort['departments'] as $v)
-                                                        @if($v['department']=='zixun')
-                                                            @if(!empty($v['users']))
-                                                                @foreach($v['users'] as $user)
-                                                                    {{$user}}
-                                                                @endforeach
-                                                            @endif
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(!empty($ranksort['departments']))
-                                                    @foreach($ranksort['departments'] as $v)
-                                                        @if($v['department']=='jingjia')
-                                                            @if(!empty($v['users']))
-                                                                @foreach($v['users'] as $user)
-                                                                    {{$user}}
-                                                                @endforeach
-                                                            @endif
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /.box -->
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12">
-        <div class="box box-solid">
             <div class="box-body" id="month-data-box-body">
                 <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="month-data-head" class="table-head" data-id="month-data">
                     上月数据({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})
@@ -256,6 +187,75 @@
                                     <td>{{$v['zhuanhua_rate']}}</td>
                                 </tr>
                             @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="box box-solid">
+            <div class="box-body" id="table-range-box-body">
+                <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="todayRange" class="table-head" data-id="table-range">
+                    今日排班
+                </h4>
+                <div class="box">
+                    <div class="box-body table-item table-responsive table-bordered">
+                        <style type="text/css">
+                            /*table.table-arrangement td{border-color: #ccc !important;}*/
+                            table.table-arrangement tr,table.table-arrangement th,table.table-arrangement td{border: solid 1px #666;}
+                        </style>
+                        <table class="table table-hover text-center table-arrangement" id="table-range">
+                            <thead>
+                            <tr style="background: #66d7ea;">
+                                <th>项目</th>
+                                <th>班次</th>
+                                <th>咨询</th>
+                                <th>竞价</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if(!empty($arrangements))
+                                @foreach($arrangements as $officesort)
+                                    @foreach($officesort['ranks'] as $ranksort)
+                                        <tr>
+                                            @if($loop->first)
+                                                <td rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$officesort['office']}}</td>
+                                            @endif
+                                            <td>{{$ranksort['rank']}}</td>
+                                            <td>
+                                                @if(!empty($ranksort['departments']))
+                                                    @foreach($ranksort['departments'] as $v)
+                                                        @if($v['department']=='zixun')
+                                                            @if(!empty($v['users']))
+                                                                @foreach($v['users'] as $user)
+                                                                    {{$user}}
+                                                                @endforeach
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(!empty($ranksort['departments']))
+                                                    @foreach($ranksort['departments'] as $v)
+                                                        @if($v['department']=='jingjia')
+                                                            @if(!empty($v['users']))
+                                                                @foreach($v['users'] as $user)
+                                                                    {{$user}}
+                                                                @endforeach
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
