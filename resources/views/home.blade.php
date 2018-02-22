@@ -357,7 +357,7 @@
             // 1
             var nodeId1=$(".table-item").eq(1).children('table').attr('id');
             var node1 = document.getElementById(nodeId1);
-            domtoimage.toPng(node1,{bgcolor: '#fff'})
+            domtoimage.toSvg(node1,{bgcolor: '#fff'})
                 .then(function (dataUrl) {
                     // document.getElementById('btn').onclick = openPhotoSwipe;
                     var img = new Image();
@@ -369,7 +369,7 @@
             // 2
             var nodeId2=$(".table-item").eq(2).children('table').attr('id');
             var node2 = document.getElementById(nodeId2);
-            domtoimage.toPng(node2,{bgcolor: '#fff'})
+            domtoimage.toSvg(node2,{bgcolor: '#fff'})
                 .then(function (dataUrl) {
                     // document.getElementById('btn').onclick = openPhotoSwipe;
                     var img = new Image();
@@ -381,7 +381,7 @@
             // 3
             var nodeId3=$(".table-item").eq(3).children('table').attr('id');
             var node3 = document.getElementById(nodeId3);
-            domtoimage.toPng(node3,{bgcolor: '#fff'})
+            domtoimage.toSvg(node3,{bgcolor: '#fff'})
                 .then(function (dataUrl) {
                     // document.getElementById('btn').onclick = openPhotoSwipe;
                     var img = new Image();
