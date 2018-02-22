@@ -5,6 +5,11 @@
     <link href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js"></script>
     <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js"></script>
+    <style>
+        .box-body{padding: 0;padding-top: 5px;}
+        .content{padding-left: 0;padding-right: 0;}
+        .content>div.col-sm-12{padding-left: 5px;padding-right: 5px;}
+    </style>
     <div class="col-sm-12">
         <div class="box box-solid">
             <div class="box-header">
