@@ -28,9 +28,10 @@
         <form action="" method="post" class="zxoutputs-form">
         {{method_field('DELETE')}}
         {{csrf_field()}}
-        <div class="box-body table-responsive">
-            <h5 class="text-center"><strong></strong></h5>
-            <table class="table text-center table-bordered">
+        <div class="box-body" id="table-content">
+            <div class="table-item table-responsive">
+                <h5 class="text-center"><strong></strong></h5>
+                <table id="table-today" class="table text-center table-bordered">
                 <thead>
                     <tr>
                         <th colspan="2"></th>
@@ -119,9 +120,11 @@
                     @endisset
                 </tbody>
             </table>
+            </div>
             <hr>
-            <h5 class="text-center"><strong>上月({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})数据</strong></h5>
-            <table class="table text-center table-bordered">
+            <div class="table-item table-responsive">
+                <h5 class="text-center"><strong>上月({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})数据</strong></h5>
+                <table id="table-lastmonth" class="table text-center table-bordered">
                 <thead>
                 <tr>
                     <th colspan="2"></th>
@@ -210,9 +213,11 @@
                 @endisset
                 </tbody>
             </table>
+            </div>
             <hr>
-            <h5 class="text-center"><strong>{{\Carbon\Carbon::now()->year}}年数据</strong></h5>
-            <table class="table text-center table-bordered">
+            <div class="table-item table-responsive">
+                <h5 class="text-center"><strong>{{\Carbon\Carbon::now()->year}}年数据</strong></h5>
+                <table id="table-thisyear" class="table text-center table-bordered">
                 <thead>
                 <tr>
                     <th colspan="2"></th>
@@ -301,6 +306,7 @@
                 @endisset
                 </tbody>
             </table>
+            </div>
         </div>
         <!-- /.box-body -->
         </form>
@@ -340,6 +346,7 @@
 @endsection
 
 @section('javascript')
+    <script src="https://cdn.bootcss.com/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
@@ -351,6 +358,41 @@
                 type:'date'
                 // value: new Date()
             });
+        });
+        $(document).ready(function () {
+            // 0
+            var nodeId0=$(".table-item").eq(0).children('table').attr('id');
+            var node0 = document.getElementById(nodeId0);
+            domtoimage.toSvg(node0,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node0.remove();
+                    $(".table-item").eq(0).append(img);
+                });
+            // 1
+            var nodeId1=$(".table-item").eq(1).children('table').attr('id');
+            var node1 = document.getElementById(nodeId1);
+            domtoimage.toSvg(node1,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node1.remove();
+                    $(".table-item").eq(1).append(img);
+                });
+            // 2
+            var nodeId2=$(".table-item").eq(2).children('table').attr('id');
+            var node2 = document.getElementById(nodeId2);
+            domtoimage.toSvg(node2,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node2.remove();
+                    $(".table-item").eq(2).append(img);
+                });
         });
         {{--$(".delete-operation").on('click',function(){--}}
             {{--var id=$(this).attr('data-id');--}}
