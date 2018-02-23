@@ -231,6 +231,7 @@ class ZxCustomerController extends Controller
         $customerWechat=$request->input('searchCustomerWechat');
         $customerIdCard=$request->input('searchIdCard');
         $zxUser=$request->input('searchUserId');
+        $media=$request->input('searchMediaId');
         $officeId=$request->input('searchOfficeId');
         $diseaseId=$request->input('searchDiseaseId');
         $zx_start=$request->input('searchZxStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchZxStart'))->startOfDay():null;
@@ -276,7 +277,7 @@ class ZxCustomerController extends Controller
             }
 	    }else{
 		    //条件为空
-		    if (empty($customerName)&&empty($customerTel)&&empty($customerQQ)&&empty($customerWechat)&&empty($customerIdCard)&&empty($zxUser)&&empty($officeId)&&empty($zx_start)&&empty($yy_start)&&empty($arrive_start)&&empty($last_huifang_start)&&empty($next_huifang_start)){
+		    if (empty($customerName)&&empty($customerTel)&&empty($customerQQ)&&empty($customerWechat)&&empty($customerIdCard)&&empty($zxUser)&&empty($media)&&empty($officeId)&&empty($zx_start)&&empty($yy_start)&&empty($arrive_start)&&empty($last_huifang_start)&&empty($next_huifang_start)){
 			    $customers=ZxCustomer::getCustomers();
 		    }else{
 			    //按回访
@@ -300,6 +301,7 @@ class ZxCustomerController extends Controller
 			    if (!empty($customerWechat)){array_push($parms,['wechat','like','%'.$customerWechat.'%']);}
 			    if (!empty($customerIdCard)){array_push($parms,['idcard','like','%'.$customerIdCard.'%']);}
 			    if (!empty($zxUser)){array_push($parms,['user_id','=',$zxUser]);}
+			    if (!empty($media)){array_push($parms,['media_id','=',$media]);}
 			    if (!empty($officeId)){array_push($parms,['office_id','=',$officeId]);}
 			    if (!empty($diseaseId)){array_push($parms,['disease_id','=',$diseaseId]);}
 

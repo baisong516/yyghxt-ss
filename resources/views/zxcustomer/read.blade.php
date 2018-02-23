@@ -95,6 +95,15 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="searchUserId">媒体来源：</label>
+                    <select name="searchMediaId" id="searchMediaId" class="form-control">
+                        <option value="">--媒体来源--</option>
+                        @foreach($medias as $k=>$media)
+                            <option value="{{$k}}">{{$media}}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <button type="submit" class="btn btn-success">搜索</button>
             </form>
@@ -170,7 +179,7 @@
                     @foreach($customers as $customer)
                         <tr id="customer-{{$customer->id}}" class="{{isset($quicksearch)&&$quicksearch=='todayhuifang'&&$customer->huifangs->last()&&($customer->huifangs->last()->next_at>=\Carbon\Carbon::now()->endOfDay()||$customer->huifangs->last()->now_at>=\Carbon\Carbon::now()->startOfDay())?'bg-red':''}}">
                             <td style="display: none;">{{$customer->id}}</td>
-                            <td>{{$customer->name}}</td>
+                            <td><span data-toggle="tooltip" data-placement="right" title="{{$customer->name?$customer->name:''}}">{{str_limit($customer->name?$customer->name:'', $limit = 6, $end = '...')}}</span></td>
                             <td>{{$customer->age}}</td>
                             <td>
                                 @if(!empty($customer->sex))
@@ -258,6 +267,7 @@
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
+        $('[data-toggle="tooltip"]').tooltip();
         $(document).ready(function() {
             $('#zxcustomers-list-table').DataTable({
                 "order": [[ 0, "desc" ]],
