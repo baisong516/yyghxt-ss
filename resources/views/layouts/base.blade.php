@@ -22,7 +22,7 @@
     <style>
         .box-body{padding: 0;padding-top: 5px;}
         .content{padding-left: 0;padding-right: 0;}
-        .content>div.table-item,div.col-sm-12{padding-left: 5px;padding-right: 5px;}
+        .content>div.table-item{padding-left: 5px;padding-right: 5px;}
     </style>
 </head>
 {{--<!----}}
