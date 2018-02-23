@@ -19,6 +19,11 @@
     <script src="{{config('yyxt.res.html5shiv')}}"></script>
     <script src="{{config('yyxt.res.respond')}}"></script>
     <![endif]-->
+    <style>
+        .box-body{padding: 0;padding-top: 5px;}
+        .content{padding-left: 0;padding-right: 0;}
+        .content>div.table-item,div.col-sm-12{padding-left: 5px;padding-right: 5px;}
+    </style>
 </head>
 {{--<!----}}
 {{--BODY TAG OPTIONS:--}}
