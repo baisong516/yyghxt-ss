@@ -4798,5 +4798,51 @@
         ],
         "description": "Aliyun OSS SDK for PHP",
         "homepage": "http://www.aliyun.com/product/oss/"
+    },
+    {
+        "name": "jacobcyl/ali-oss-storage",
+        "version": "2.0.4",
+        "version_normalized": "2.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/jacobcyl/Aliyun-oss-storage.git",
+            "reference": "29553c1a0f8476a67c688ff1879acaa5fc372e82"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/jacobcyl/Aliyun-oss-storage/zipball/29553c1a0f8476a67c688ff1879acaa5fc372e82",
+            "reference": "29553c1a0f8476a67c688ff1879acaa5fc372e82",
+            "shasum": ""
+        },
+        "require": {
+            "aliyuncs/oss-sdk-php": "~2.0"
+        },
+        "time": "2017-04-25T08:48:39+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Jacobcyl\\AliOSS\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "jacobcyl",
+                "email": "cyl.jacob@gmail.com"
+            }
+        ],
+        "description": "aliyun oss filesystem storage for laravel 5+",
+        "homepage": "http://jacobcyl.github.io/Aliyun-oss-storage/",
+        "keywords": [
+            "aliyun",
+            "filesystems",
+            "laravel",
+            "oss",
+            "storage"
+        ]
     }
 ]

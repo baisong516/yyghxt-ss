@@ -88,6 +88,10 @@ class ComposerStaticInit18b7e7367790bc1d0b93832281e1a7be
             'Laravel\\Tinker\\' => 15,
             'Laratrust\\' => 10,
         ),
+        'J' => 
+        array (
+            'Jacobcyl\\AliOSS\\' => 16,
+        ),
         'I' => 
         array (
             'Illuminate\\' => 11,
@@ -269,6 +273,10 @@ class ComposerStaticInit18b7e7367790bc1d0b93832281e1a7be
         array (
             0 => __DIR__ . '/..' . '/santigarcor/laratrust/src',
         ),
+        'Jacobcyl\\AliOSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jacobcyl/ali-oss-storage/src',
+        ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
@@ -426,6 +434,7 @@ class ComposerStaticInit18b7e7367790bc1d0b93832281e1a7be
         'App\\Http\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionController.php',
         'App\\Http\\Controllers\\PlatFormController' => __DIR__ . '/../..' . '/app/Http/Controllers/PlatFormController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Controllers\\ResDesginController' => __DIR__ . '/../..' . '/app/Http/Controllers/ResDesginController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
         'App\\Http\\Controllers\\SpecialController' => __DIR__ . '/../..' . '/app/Http/Controllers/SpecialController.php',
         'App\\Http\\Controllers\\SpecialtranController' => __DIR__ . '/../..' . '/app/Http/Controllers/SpecialtranController.php',
@@ -472,6 +481,7 @@ class ComposerStaticInit18b7e7367790bc1d0b93832281e1a7be
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\ResDesign' => __DIR__ . '/../..' . '/app/ResDesign.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\Special' => __DIR__ . '/../..' . '/app/Special.php',
         'App\\Specialtran' => __DIR__ . '/../..' . '/app/Specialtran.php',
@@ -2018,6 +2028,10 @@ class ComposerStaticInit18b7e7367790bc1d0b93832281e1a7be
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'Jacobcyl\\AliOSS\\AliOssAdapter' => __DIR__ . '/..' . '/jacobcyl/ali-oss-storage/src/AliOssAdapter.php',
+        'Jacobcyl\\AliOSS\\AliOssServiceProvider' => __DIR__ . '/..' . '/jacobcyl/ali-oss-storage/src/AliOssServiceProvider.php',
+        'Jacobcyl\\AliOSS\\Plugins\\PutFile' => __DIR__ . '/..' . '/jacobcyl/ali-oss-storage/src/Plugins/PutFile.php',
+        'Jacobcyl\\AliOSS\\Plugins\\PutRemoteFile' => __DIR__ . '/..' . '/jacobcyl/ali-oss-storage/src/Plugins/PutRemoteFile.php',
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php',
