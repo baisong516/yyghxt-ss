@@ -39,7 +39,6 @@ class ResDesign extends Model
                 'max-keys' => $maxkeys,
                 'marker' => $nextMarker,
             );
-            var_dump($options);
             try {
                 $listObjectInfo = $ossClient->listObjects($bucket, $options);
             } catch (OssException $e) {

@@ -70,6 +70,15 @@
                     到
                     <input type="text" class="form-control date-item" name="searchNextHuifangEnd" id="searchNextHuifangEnd">
                 </div>
+                <div class="form-group">
+                    <label for="searchUserId">最近回访人：</label>
+                    <select name="searchLastHuifangUserId" id="searchLastHuifangUserId" class="form-control">
+                        <option value="">--回访人--</option>
+                        @foreach($zxusers as $k=>$user)
+                            <option value="{{$k}}">{{$user}}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <div class="form-group">
                     <label for="searchOfficeId">科室：</label>
