@@ -10,6 +10,6 @@ class ResDesginController extends Controller
 {
     public function index()
     {
-        dd(ResDesign::listAllObjects('ssyl'));
+        dd(ResDesign::listAllObjects('rsl'));
     }
 }
