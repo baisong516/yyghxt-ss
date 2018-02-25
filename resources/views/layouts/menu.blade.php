@@ -91,7 +91,7 @@
         <ul class="treeview-menu">
             @ability('superadministrator', 'read-zx_customers')
             <li class="{{Request::is('zx/zxcustomers*')?'active':''}}"><a href="{{route('zxcustomers.index')}}"><i class="fa fa-user-md"></i><span>咨询详情</span></a></li>
-            <li class="{{Request::is('zx/summaries*')?'active':''}}"><a href="{{route('summaries.index')}}"><i class="fa fa-list"></i><span>咨询员预约明细</span></a></li>
+            <li class="{{Request::is('zx/summaries*')?'active':''}}"><a href="{{route('summaries.index')}}"><i class="fa fa-list"></i><span>咨询详情列表</span></a></li>
             @endability
             @ability('superadministrator', 'create-zx_excels')
             <li class="{{Request::is('zx/exportexcel*')?'active':''}}"><a href="{{route('excel.create')}}"><i class="fa fa-file-excel-o"></i><span>导出患者信息</span></a></li>
@@ -119,7 +119,7 @@
         </ul>
     </li>
     @endrole
-    @role('superadministrator|administrator')
+    @role('superadministrator|administrator|qihua')
     <li class="treeview {{Request::is('qh/*')?'active':''}}">
         <a href="#"><i class="fa fa-database"></i> <span>企划</span>
             <span class="pull-right-container">

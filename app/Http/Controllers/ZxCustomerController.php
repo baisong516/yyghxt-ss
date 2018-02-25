@@ -349,8 +349,68 @@ class ZxCustomerController extends Controller
             'quicksearch'=>$quickSearch
         ]);
     }
+    //咨询列表（所有数据）
+    public function summary(Request $request)
+    {
+        if (Auth::user()->ability('superadministrator', 'read-zx_customers')){
+            //今日应到院
+            $todayArrive =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+                ['yuyue_at','>=',Carbon::now()->startOfDay()],
+                ['yuyue_at','<=',Carbon::now()->endOfDay()],
+            ])->count();
+            //今日应回访
+            $huifangCustomers=Huifang::select('zx_customer_id')->whereNotNull('next_at')->where([
+                ['next_at','>=',Carbon::now()->startOfDay()],
+                ['next_at','<=',Carbon::now()->endOfDay()],
+            ])->get();
+            $huifangCustomerIds=[];
+            foreach ($huifangCustomers as $huifangCustomer){
+                $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
+            }
+            $customerIdstemp = array_unique($huifangCustomerIds);//一次过滤
+            //今日应回访数量
+            $todayHuifang=count($customerIdstemp);
+            //今日已回访
+            $CustomerIds=[];
+            foreach ($customerIdstemp as $id){
+                $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
+                if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
+                    $CustomerIds[]=$huifang->zx_customer_id;
+                }
+            }
+            //今日已回访数量
+            $todayHuifangFinished=count($CustomerIds);
+            //今日应回访但未回访数量
+            $todayHuifangR=$todayHuifang-$todayHuifangFinished;
+
+            return view('zxcustomer.read',[
+                'pageheader'=>'患者',
+                'pagedescription'=>'列表',
+                'customers'=>ZxCustomer::getCustomers(),
+//                'customers'=>ZxCustomer::getTodayCustomers(),
+                'users'=>Aiden::getAllUserArray(),
+                'zxusers'=>Aiden::getAllZxUserArray(),
+                'offices'=>Aiden::getAllModelArray('offices'),
+                'diseases'=>Aiden::getAllModelArray('diseases'),
+                'webtypes'=>Aiden::getAllModelArray('web_types'),
+                'medias'=>Aiden::getAllModelArray('medias'),
+                'customertypes'=>Aiden::getAllModelArray('customer_types'),
+                'customerconditions'=>Aiden::getAllModelArray('customer_conditions'),
+
+                'enableRead'=>Auth::user()->hasPermission('read-zx_customers'),
+                'enableUpdate'=>Auth::user()->hasPermission('update-zx_customers'),
+                'enableDelete'=>Auth::user()->hasPermission('delete-zx_customers'),
+                'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
+
+                'todayArrive'=>$todayArrive,
+                'todayHuifang'=>$todayHuifang,
+                'todayHuifangFinished'=>$todayHuifangFinished,
+            ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
+    }
     //咨询明细
-	public function summary(Request $request) {
+	public function summaryDemo(Request $request) {
 		$user=Auth::user();
 		$data=[];
 		$total=[];

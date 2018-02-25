@@ -167,7 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Jacobcyl\AliOSS\AliOssServiceProvider::class,
         /*
          * Application Service Providers...
          */
