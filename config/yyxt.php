@@ -9,7 +9,7 @@ return [
         'bootstrap_css'=>'https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css',
         'bootstrap_js'=>'https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js',
         'jquery'=>'https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js',
-        'admin_css'=>'https://cdn.bootcss.com/admin-lte/2.4.2/css/AdminLTE.min.css',
+        'admin_css'=>'http://ssyl.oss-cn-shenzhen.aliyuncs.com/res/css/AdminLTE.min.css',
         'admin_js'=>'https://cdn.bootcss.com/admin-lte/2.4.2/js/adminlte.min.js',
         //主题皮肤
         'admin_skin'=>'https://cdn.bootcss.com/admin-lte/2.4.2/css/skins/skin-green.min.css',

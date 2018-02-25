@@ -166,7 +166,7 @@
                         <th>科室</th>
                         <th>病种</th>
                         <th>状态</th>
-                        <th>商务通转电话</th>
+                        <th>SWT转TEL</th>
                         <th>咨询员</th>
                         <th>当班竞价</th>
                         <th>咨询</th>
@@ -188,7 +188,9 @@
                     @foreach($customers as $customer)
                         <tr id="customer-{{$customer->id}}" class="{{isset($quicksearch)&&$quicksearch=='todayhuifang'&&$customer->huifangs->last()&&($customer->huifangs->last()->next_at>=\Carbon\Carbon::now()->endOfDay()||$customer->huifangs->last()->now_at>=\Carbon\Carbon::now()->startOfDay())?'bg-red':''}}">
                             <td style="display: none;">{{$customer->id}}</td>
-                            <td><span data-toggle="tooltip" data-placement="right" title="{{$customer->name?$customer->name:''}}">{{str_limit($customer->name?$customer->name:'', $limit = 6, $end = '...')}}</span></td>
+                            <td>
+                                <span data-toggle="tooltip" data-placement="right" title="{{$customer->name?$customer->name:''}}">{{str_limit($customer->name?$customer->name:'', $limit = 6, $end = '...')}}</span>
+                            </td>
                             <td>{{$customer->age}}</td>
                             <td>
                                 @if(!empty($customer->sex))
@@ -200,11 +202,25 @@
                                 @endif
                             </td>
                             <td><small>{{$customer->tel}}</small></td>
-                            <td><small>{{$customer->wechat}}</small></td>
-                            <td><small>{{$customer->qq}}</small></td>
+                            <td>
+                                <small>
+                                    {{$customer->wechat?$customer->wechat:''}}
+                                </small>
+                            </td>
+                            <td>
+                                <small>
+                                    {{$customer->qq?$customer->qq:''}}
+                                </small>
+                            </td>
                             <td style="display: none;"><small>{{$customer->idcard}}</small></td>
-                            <td>{{$customer->keywords}}</td>
-                            <td><small>{{$customer->city}}</small></td>
+                            <td>
+                                <span data-toggle="tooltip" data-placement="top" title="{{$customer->keywords?$customer->keywords:''}}">{{str_limit($customer->keywords?$customer->keywords:'', $limit = 12, $end = '...')}}</span>
+                            </td>
+                            <td>
+                                <small>
+                                    <span data-toggle="tooltip" data-placement="top" title="{{$customer->city?$customer->city:''}}">{{str_limit($customer->city?$customer->city:'', $limit = 4, $end = '...')}}</span>
+                                </small>
+                            </td>
                             {{--媒体来源--}}
                             <td><small>{{$customer->media_id?$medias[$customer->media_id]:''}}</small></td>
                             {{--网站类型--}}

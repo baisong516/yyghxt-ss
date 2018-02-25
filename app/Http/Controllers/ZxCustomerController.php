@@ -382,7 +382,6 @@ class ZxCustomerController extends Controller
             $todayHuifangFinished=count($CustomerIds);
             //今日应回访但未回访数量
             $todayHuifangR=$todayHuifang-$todayHuifangFinished;
-
             return view('zxcustomer.read',[
                 'pageheader'=>'患者',
                 'pagedescription'=>'列表',
@@ -398,8 +397,10 @@ class ZxCustomerController extends Controller
                 'customerconditions'=>Aiden::getAllModelArray('customer_conditions'),
 
                 'enableRead'=>Auth::user()->hasPermission('read-zx_customers'),
-                'enableUpdate'=>Auth::user()->hasPermission('update-zx_customers'),
-                'enableDelete'=>Auth::user()->hasPermission('delete-zx_customers'),
+                //'enableUpdate'=>Auth::user()->hasPermission('update-zx_customers'),
+                'enableUpdate'=>false,
+                //'enableDelete'=>Auth::user()->hasPermission('delete-zx_customers'),
+                'enableDelete'=>false,
                 'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
 
                 'todayArrive'=>$todayArrive,
