@@ -310,7 +310,7 @@ class ZxCustomerController extends Controller
 			    $parms=array();
 			    if (!empty($customerName)){array_push($parms,['name','like','%'.$customerName.'%']);}
 			    if (!empty($customerTel)){array_push($parms,['tel','like','%'.$customerTel.'%']);}
-			    if (!empty($customerQQ)){array_push($parms,['qq','like','%'.$customerTel.'%']);}
+			    if (!empty($customerQQ)){array_push($parms,['qq','like','%'.$customerQQ.'%']);}
 			    if (!empty($customerWechat)){array_push($parms,['wechat','like','%'.$customerWechat.'%']);}
 			    if (!empty($customerIdCard)){array_push($parms,['idcard','like','%'.$customerIdCard.'%']);}
 			    if (!empty($zxUser)){array_push($parms,['user_id','=',$zxUser]);}

@@ -150,9 +150,15 @@ class AuctionController extends Controller
     public function search(Request $request)
     {
         if (Auth::user()->ability('superadministrator', 'read-auctions')){
-            $start=$request->input('searchDateStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay():Carbon::now()->startOfDay();
-            $end=$request->input('searchDateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay():Carbon::now()->endOfDay();
-            $data=Auction::getAuctionData($start,$end);
+            $monthSub=$request->input('monthSub');
+            if ($monthSub==null){
+                $start=$request->input('searchDateStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay():Carbon::now()->startOfDay();
+                $end=$request->input('searchDateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay():Carbon::now()->endOfDay();
+            }else{
+                $start=Carbon::now()->subMonth($monthSub)->startOfMonth();
+                $end=Carbon::now()->subMonth($monthSub)->endOfMonth();
+            }
+//            $data=Auction::getAuctionData($start,$end);
 //            dd($data);
             return view('auction.read',[
                 'pageheader'=>'竞价部',

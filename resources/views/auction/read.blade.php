@@ -14,6 +14,11 @@
                     <input type="text" class="form-control date-item" name="searchDateEnd" id="searchDateEnd" required value="{{isset($end)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
                 </div>
                 <button type="submit" class="btn btn-success">搜索</button>
+                <hr>
+                <input type="hidden" id="monthSub" name="monthSub" value="">
+                @for ($i = 0; $i < 12; $i++)
+                <button type="button" class="btn btn-success month-sub-option" style="margin-bottom: 5px;" data-month="{{$i}}">{{\Carbon\Carbon::now()->subMonth($i)->year}}-{{\Carbon\Carbon::now()->subMonth($i)->month}}</button>
+                @endfor
             </form>
             <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 280px;">
@@ -42,7 +47,8 @@
                         @foreach($auctions as $k=>$v)
                             <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$k}}">
                                 @isset($v['platform'])
-                                <table class="table table-bordered">
+                                <div class="table-item table-responsive">
+                                <table class="table table-bordered" id="table-platform-{{$k}}">
                                     <thead class="text-center">
                                         <tr>
                                             <th width="9%"></th>
@@ -101,9 +107,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                </div>
                                 @endisset
                                 @isset($v['area'])
-                                <table class="table table-bordered">
+                                <div class="table-item table-responsive">
+                                <table class="table table-bordered" id="table-area-{{$k}}">
                                     <thead class="text-center">
                                         <tr>
                                             <th width="9%"></th>
@@ -162,9 +170,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                </div>
                                 @endisset
                                 @isset($v['disease'])
-                                <table class="table table-bordered">
+                                <div class="table-item table-responsive">
+                                <table class="table table-bordered" id="table-disease-{{$k}}">
                                     <thead class="text-center">
                                         <tr>
                                             <th width="9%"></th>
@@ -223,6 +233,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                </div>
                                 @endisset
                             </div>
                         @endforeach
@@ -269,6 +280,7 @@
 @endsection
 
 @section('javascript')
+    <script src="https://cdn.bootcss.com/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript">
@@ -301,7 +313,85 @@
                     }
                 });
             });
+            // 0
+            var nodeId0=$(".table-item").eq(0).children('table').attr('id');
+            var node0 = document.getElementById(nodeId0);
+            domtoimage.toSvg(node0,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node0.remove();
+                    $(".table-item").eq(0).append(img);
+                });
+            // 1
+            var nodeId1=$(".table-item").eq(1).children('table').attr('id');
+            var node1 = document.getElementById(nodeId1);
+            domtoimage.toSvg(node1,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node1.remove();
+                    $(".table-item").eq(1).append(img);
+                });
+            // 2
+            var nodeId2=$(".table-item").eq(2).children('table').attr('id');
+            var node2 = document.getElementById(nodeId2);
+            domtoimage.toSvg(node2,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node2.remove();
+                    $(".table-item").eq(2).append(img);
+                });
+            // 3
+            var nodeId3=$(".table-item").eq(3).children('table').attr('id');
+            console.log(nodeId3);
+            var node3 = document.getElementById(nodeId3);
+            console.log(node3);
+            domtoimage.toSvg(node3,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node3.remove();
+                    $(".table-item").eq(3).append(img);
+                });
+            // 4
+            var nodeId4=$(".table-item").eq(4).children('table').attr('id');
+            var node4 = document.getElementById(nodeId4);
+            domtoimage.toSvg(node4,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node4.remove();
+                    $(".table-item").eq(4).append(img);
+                });
+            // 0
+            var nodeId5=$(".table-item").eq(5).children('table').attr('id');
+            var node5 = document.getElementById(nodeId5);
+            domtoimage.toSvg(node5,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // document.getElementById('btn').onclick = openPhotoSwipe;
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node5.remove();
+                    $(".table-item").eq(5).append(img);
+                });
         });
-
+        $(".month-sub-option").click(function () {
+            var monthSub=$(this).data('month');
+            $("input:hidden[name=monthSub]").val(monthSub);
+            $("form#search-form").submit();
+        });
     </script>
 @endsection
