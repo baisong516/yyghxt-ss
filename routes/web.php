@@ -55,8 +55,9 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('zxcustomers','ZxCustomerController');
         Route::post('zxcustomersearch','ZxCustomerController@customerSearch')->name('zxcustomers.search');
         Route::resource('huifangs','HuifangController');
-	    Route::get('summaries','ZxCustomerController@summary')->name('summaries.index');
-	    Route::post('summaries','ZxCustomerController@summary')->name('summaries.search');
+	    Route::get('summaries','ZxCustomerController@summary')->name('summaries.all');
+	    Route::get('zxdetail','ZxCustomerController@detailZx')->name('summaries.zxdetail');
+	    Route::post('zxdetail','ZxCustomerController@detailZx')->name('summaries.search');
 	    Route::get('exportexcel','ExcelController@index')->name('excel.create');
 	    Route::post('exportexcel','ExcelController@exportExcel')->name('excel.export');
     });
@@ -77,7 +78,7 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
 
         Route::post('specialtransimport','SpecialtranController@import')->name('specialtrans.import');
         //素材
-        Route::get('res','ResDesginController@index')->name('res.read');
+        Route::get('resources','ResDesginController@index')->name('resources.index');
     });
     //产出
     Route::group(['prefix' => 'outputs'],function(){

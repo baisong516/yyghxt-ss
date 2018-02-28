@@ -91,7 +91,8 @@
         <ul class="treeview-menu">
             @ability('superadministrator', 'read-zx_customers')
             <li class="{{Request::is('zx/zxcustomers*')?'active':''}}"><a href="{{route('zxcustomers.index')}}"><i class="fa fa-user-md"></i><span>咨询详情</span></a></li>
-            <li class="{{Request::is('zx/summaries*')?'active':''}}"><a href="{{route('summaries.index')}}"><i class="fa fa-list"></i><span>咨询详情汇总</span></a></li>
+            <li class="{{Request::is('zx/zxdetail*')?'active':''}}"><a href="{{route('summaries.zxdetail')}}"><i class="fa fa-users"></i><span>咨询明细</span></a></li>
+            <li class="{{Request::is('zx/summaries*')?'active':''}}"><a href="{{route('summaries.all')}}"><i class="fa fa-list"></i><span>咨询详情汇总</span></a></li>
             @endability
             @ability('superadministrator', 'create-zx_excels')
             <li class="{{Request::is('zx/exportexcel*')?'active':''}}"><a href="{{route('excel.create')}}"><i class="fa fa-file-excel-o"></i><span>导出患者信息</span></a></li>
@@ -135,6 +136,9 @@
             @endability
             @ability('superadministrator', 'read-specials')
             <li class="{{Request::is('qh/specials*')?'active':''}}"><a href="{{route('specials.index')}}"><i class="fa fa-feed"></i><span>专题列表</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-resources')
+            <li class="{{Request::is('qh/resources*')?'active':''}}"><a href="{{route('resources.index')}}"><i class="fa fa-file"></i><span>素材库</span></a></li>
             @endability
         </ul>
     </li>

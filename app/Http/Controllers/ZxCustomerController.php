@@ -411,7 +411,7 @@ class ZxCustomerController extends Controller
         return abort(403,config('yyxt.permission_deny'));
     }
     //咨询明细
-	public function summaryDemo(Request $request) {
+	public function detailZx(Request $request) {
 		$user=Auth::user();
 		$data=[];
 		$total=[];

@@ -7,10 +7,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ResDesign extends Model
 {
-    //获取所有文件和目录的数组
-    public static function getListArray()
+    //获取指定目录下的子目录和文件
+    public static function getListArray($directory=null)
     {
-        $dirs=Storage::disk('oss')->allFiles();
-        return $dirs;
+        //文件
+        $files=Storage::disk('oss')->files($directory);
+        //目录
+        $dirs=Storage::disk('oss')->directories($directory);
+        return [
+            'dirs'=>$dirs,
+            'files'=>$files,
+        ];
     }
 }
