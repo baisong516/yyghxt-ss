@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{config('yyxt.web_name')}}</title>
     {{--Tell the browser to be responsive to screen width--}}
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes" name="viewport">
     <link href="{{config('yyxt.res.bootstrap_css')}}" rel="stylesheet">
     {{--Font Awesome--}}
     <link href="{{config('yyxt.res.font_awesome')}}" rel="stylesheet">
