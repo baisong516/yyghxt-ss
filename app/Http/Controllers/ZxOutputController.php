@@ -128,8 +128,14 @@ class ZxOutputController extends Controller
     public function search(Request $request)
     {
         if (Auth::user()->ability('superadministrator', 'read-zxoutputs')){
-            $start=empty($request->input('searchDateStart'))?Carbon::now()->startOfDay():Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay();
-            $end=empty($request->input('searchDateEnd'))?Carbon::now()->endOfDay():Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay();
+            $monthSub=$request->input('monthSub');
+            if ($monthSub==null){
+                $start=empty($request->input('searchDateStart'))?Carbon::now()->startOfDay():Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay();
+                $end=empty($request->input('searchDateEnd'))?Carbon::now()->endOfDay():Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay();
+            }else{
+                $start=Carbon::now()->subMonth($monthSub)->startOfMonth();
+                $end=Carbon::now()->subMonth($monthSub)->endOfMonth();
+            }
             $outputs=ZxOutput::getZxOutputs($start,$end);
             $lastMonthOutputs = ZxOutput::getZxOutputs(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
             //$monthOutputs = JjOutput::getJjOutputs(Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth());

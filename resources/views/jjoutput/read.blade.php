@@ -14,6 +14,11 @@
                     <input type="text" class="form-control date-item" name="searchDateEnd" id="searchDateEnd" required value="{{isset($end)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
                 </div>
                 <button type="submit" class="btn btn-success">搜索</button>
+                <hr>
+                <input type="hidden" id="monthSub" name="monthSub" value="">
+                @for ($i = 0; $i < 12; $i++)
+                    <button type="button" class="btn btn-success month-sub-option" style="margin-bottom: 5px;" data-month="{{$i}}">{{\Carbon\Carbon::now()->subMonth($i)->year}}-{{\Carbon\Carbon::now()->subMonth($i)->month}}</button>
+                @endfor
             </form>
             <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 280px;">
@@ -257,6 +262,11 @@
                     node2.remove();
                     $(".table-item").eq(2).append(img);
                 });
+        });
+        $(".month-sub-option").click(function () {
+            var monthSub=$(this).data('month');
+            $("input:hidden[name=monthSub]").val(monthSub);
+            $("form#search-form").submit();
         });
         {{--$(".delete-operation").on('click',function(){--}}
             {{--var id=$(this).attr('data-id');--}}

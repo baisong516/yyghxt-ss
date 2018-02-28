@@ -124,8 +124,16 @@ class SpecialtranController extends Controller
     public function search(Request $request)
     {
         if (Auth::user()->ability('superadministrator', 'read-specialtrans')){
-            $start=$request->input('dateStart')?Carbon::createFromFormat('Y-m-d',$request->input('dateStart'))->startOfDay():Carbon::now()->startOfDay();
-            $end=$request->input('dateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('dateEnd'))->endOfDay():Carbon::now()->endOfDay();
+            $monthSub=$request->input('monthSub');
+            if ($monthSub==null){
+                $start=empty($request->input('dateStart'))?Carbon::now()->startOfDay():Carbon::createFromFormat('Y-m-d',$request->input('dateStart'))->startOfDay();
+                $end=empty($request->input('dateEnd'))?Carbon::now()->endOfDay():Carbon::createFromFormat('Y-m-d',$request->input('dateEnd'))->endOfDay();
+            }else{
+                $start=Carbon::now()->subMonth($monthSub)->startOfMonth();
+                $end=Carbon::now()->subMonth($monthSub)->endOfMonth();
+            }
+//            $start=$request->input('dateStart')?Carbon::createFromFormat('Y-m-d',$request->input('dateStart'))->startOfDay():Carbon::now()->startOfDay();
+//            $end=$request->input('dateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('dateEnd'))->endOfDay():Carbon::now()->endOfDay();
             return view('specialtran.read',[
                 'pageheader'=>'专题统计',
                 'pagedescription'=>'查询',

@@ -38,7 +38,7 @@
                 <ul class="nav nav-tabs">
                     @if(!empty($auctions))
                         @foreach($auctions as $k=>$v)
-                            <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                            <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$k}}" id="tab-switch-{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
                         @endforeach
                     @endif
                 </ul>
@@ -313,80 +313,90 @@
                     }
                 });
             });
+            //todo 6张表 for循环参数覆盖未解 暂时单写
             // 0
-            // var nodeId0=$(".table-item").eq(0).children('table').attr('id');
-            // var node0 = document.getElementById(nodeId0);
-            // domtoimage.toSvg(node0,{bgcolor: '#fff'})
-            //     .then(function (dataUrl) {
-            //         // document.getElementById('btn').onclick = openPhotoSwipe;
-            //         var img = new Image();
-            //         img.src = dataUrl;
-            //         img.className= 'img-responsive';
-            //         node0.remove();
-            //         $(".table-item").eq(0).append(img);
-            //     });
+            var nodeId0=$(".table-item").eq(0).children('table').attr('id');
+            if (typeof(nodeId0)!='undefined'){
+                var node0 = document.getElementById(nodeId0);
+                domtoimage.toSvg(node0,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node0.remove();
+                        $(".table-item").eq(0).append(img);
+                    });
+            }
             // 1
-            // var nodeId1=$(".table-item").eq(1).children('table').attr('id');
-            // var node1 = document.getElementById(nodeId1);
-            // domtoimage.toSvg(node1,{bgcolor: '#fff'})
-            //     .then(function (dataUrl) {
-            //         // document.getElementById('btn').onclick = openPhotoSwipe;
-            //         var img = new Image();
-            //         img.src = dataUrl;
-            //         img.className= 'img-responsive';
-            //         node1.remove();
-            //         $(".table-item").eq(1).append(img);
-            //     });
+            var nodeId1=$(".table-item").eq(1).children('table').attr('id');
+            if (typeof(nodeId1)!='undefined'){
+                var node1 = document.getElementById(nodeId1);
+                domtoimage.toSvg(node1,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node1.remove();
+                        $(".table-item").eq(1).append(img);
+                    });
+            }
             // 2
-            // var nodeId2=$(".table-item").eq(2).children('table').attr('id');
-            // var node2 = document.getElementById(nodeId2);
-            // domtoimage.toSvg(node2,{bgcolor: '#fff'})
-            //     .then(function (dataUrl) {
-            //         // document.getElementById('btn').onclick = openPhotoSwipe;
-            //         var img = new Image();
-            //         img.src = dataUrl;
-            //         img.className= 'img-responsive';
-            //         node2.remove();
-            //         $(".table-item").eq(2).append(img);
-            //     });
+            var nodeId2=$(".table-item").eq(2).children('table').attr('id');
+            if (typeof(nodeId2)!='undefined'){
+                var node2 = document.getElementById(nodeId2);
+                domtoimage.toSvg(node2,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node2.remove();
+                        $(".table-item").eq(2).append(img);
+                    });
+            }
+        });
+        $("#tab-switch-2").click(function () {
             // 3
-            // var nodeId3=$(".table-item").eq(3).children('table').attr('id');
-            // console.log(nodeId3);
-            // var node3 = document.getElementById(nodeId3);
-            // console.log(node3);
-            // domtoimage.toSvg(node3,{bgcolor: '#fff'})
-            //     .then(function (dataUrl) {
-            //         // document.getElementById('btn').onclick = openPhotoSwipe;
-            //         var img = new Image();
-            //         img.src = dataUrl;
-            //         img.className= 'img-responsive';
-            //         node3.remove();
-            //         $(".table-item").eq(3).append(img);
-            //     });
+            var nodeId3=$(".table-item").eq(3).children('table').attr('id');
+            console.log(nodeId3);
+            if (typeof(nodeId3)!='undefined'){
+                var node3 = document.getElementById(nodeId3);
+                console.log(node3);
+                domtoimage.toSvg(node3,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        console.log(dataUrl)
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node3.remove();
+                        $(".table-item").eq(3).append(img);
+                    });
+            }
             // 4
-            // var nodeId4=$(".table-item").eq(4).children('table').attr('id');
-            // var node4 = document.getElementById(nodeId4);
-            // domtoimage.toSvg(node4,{bgcolor: '#fff'})
-            //     .then(function (dataUrl) {
-            //         // document.getElementById('btn').onclick = openPhotoSwipe;
-            //         var img = new Image();
-            //         img.src = dataUrl;
-            //         img.className= 'img-responsive';
-            //         node4.remove();
-            //         $(".table-item").eq(4).append(img);
-            //     });
+            var nodeId4=$(".table-item").eq(4).children('table').attr('id');
+            if (typeof(nodeId4)!='undefined'){
+                var node4 = document.getElementById(nodeId4);
+                domtoimage.toSvg(node4,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node4.remove();
+                        $(".table-item").eq(4).append(img);
+                    });
+            }
             // 5
-            // var nodeId5=$(".table-item").eq(5).children('table').attr('id');
-            // var node5 = document.getElementById(nodeId5);
-            // domtoimage.toSvg(node5,{bgcolor: '#fff'})
-            //     .then(function (dataUrl) {
-            //         // document.getElementById('btn').onclick = openPhotoSwipe;
-            //         var img = new Image();
-            //         img.src = dataUrl;
-            //         img.className= 'img-responsive';
-            //         node5.remove();
-            //         $(".table-item").eq(5).append(img);
-            //     });
+            var nodeId5=$(".table-item").eq(5).children('table').attr('id');
+            if (typeof(nodeId5)!='undefined'){
+                var node5 = document.getElementById(nodeId5);
+                domtoimage.toSvg(node5,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node5.remove();
+                        $(".table-item").eq(5).append(img);
+                    });
+            }
         });
         $(".month-sub-option").click(function () {
             var monthSub=$(this).data('month');

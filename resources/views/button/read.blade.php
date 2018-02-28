@@ -14,6 +14,11 @@
                     <input type="text" class="form-control date-item" name="dateEnd" id="dateEnd" value="{{isset($end)?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString():\Carbon\Carbon::now()->toDateString()}}">
                 </div>
                 <button type="submit" class="btn btn-success">搜索</button>
+                <hr>
+                <input type="hidden" id="monthSub" name="monthSub" value="">
+                @for ($i = 0; $i < 12; $i++)
+                    <button type="button" class="btn btn-success month-sub-option" style="margin-bottom: 5px;" data-month="{{$i}}">{{\Carbon\Carbon::now()->subMonth($i)->year}}-{{\Carbon\Carbon::now()->subMonth($i)->month}}</button>
+                @endfor
             </form>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -25,18 +30,18 @@
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
                 <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs switch-nav-tables">
                         @if(!empty($todayClick))
                             @foreach($todayClick as $k=>$d)
-                                <li class="{{$loop->first?'active':''}}"><a href="#today_tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                                <li class="{{$loop->first?'active':''}}"><a href="#today_tab_{{$k}}" data-id="today_tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
                             @endforeach
                         @endif
                     </ul>
                     <div class="tab-content">
                         @if(!empty($todayClick))
                             @foreach($todayClick as $k=>$d)
-                                <div class="tab-pane {{$loop->first?'active':''}}" id="today_tab_{{$k}}">
-                                    <table class="table table-bordered">
+                                <div class="tab-pane table-item table-responsive {{$loop->first?'active':''}}" id="today_tab_{{$k}}">
+                                    <table class="table table-bordered" id="table-today-tab-{{$k}}">
                                         <thead class="text-center">
                                         <tr>
                                             <th class="text-center">网站</th>
@@ -87,18 +92,18 @@
         <!-- /.box-header -->
         <div class="box-body table-responsive">
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs switch-nav-tables">
                     @if(!empty($monthClick))
                         @foreach($monthClick as $k=>$d)
-                            <li class="{{$loop->first?'active':''}}"><a href="#month_tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                            <li class="{{$loop->first?'active':''}}"><a href="#month_tab_{{$k}}" data-id="month_tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
                         @endforeach
                     @endif
                 </ul>
                 <div class="tab-content">
                     @if(!empty($monthClick))
                         @foreach($monthClick as $k=>$d)
-                            <div class="tab-pane {{$loop->first?'active':''}}" id="month_tab_{{$k}}">
-                                <table class="table table-bordered">
+                            <div class="tab-pane table-item table-responsive {{$loop->first?'active':''}}" id="month_tab_{{$k}}">
+                                <table class="table table-bordered" id="table-month-tab-{{$k}}">
                                     <thead class="text-center">
                                     <tr>
                                         <th class="text-center">网站</th>
@@ -147,18 +152,18 @@
         <!-- /.box-header -->
         <div class="box-body table-responsive">
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs switch-nav-tables">
                     @if(!empty($yearClick))
                         @foreach($yearClick as $k=>$d)
-                            <li class="{{$loop->first?'active':''}}"><a href="#year_tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                            <li class="{{$loop->first?'active':''}}"><a href="#year_tab_{{$k}}" data-id="year_tab_{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
                         @endforeach
                     @endif
                 </ul>
                 <div class="tab-content">
                     @if(!empty($yearClick))
                         @foreach($yearClick as $k=>$d)
-                            <div class="tab-pane {{$loop->first?'active':''}}" id="year_tab_{{$k}}">
-                                <table class="table table-bordered">
+                            <div class="tab-pane table-item table-responsive {{$loop->first?'active':''}}" id="year_tab_{{$k}}">
+                                <table class="table table-bordered" id="table-year-tab-{{$k}}">
                                     <thead class="text-center">
                                     <tr>
                                         <th class="text-center">网站</th>
@@ -199,6 +204,7 @@
 @endsection
 
 @section('javascript')
+    <script src="https://cdn.bootcss.com/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
@@ -216,6 +222,73 @@
                     elem: this
                     ,trigger: 'click'
                 });
+            });
+            $(".month-sub-option").click(function () {
+                var monthSub=$(this).data('month');
+                $("input:hidden[name=monthSub]").val(monthSub);
+                $("form#search-form").submit();
+            });
+
+            //todo 6张表 for循环参数覆盖未解 暂时单写
+            // 0
+            var cid0=$("ul.switch-nav-tables li.active a").eq(0).data('id');
+            console.log(cid0);
+            var nodeId0=$("#"+cid0).children('table').attr('id');
+            if (typeof(nodeId0)!='undefined'){
+                var node0 = document.getElementById(nodeId0);
+                domtoimage.toSvg(node0,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node0.remove();
+                        $("#"+cid0).append(img);
+                    });
+            }
+            // 1
+            var cid1=$("ul.switch-nav-tables li.active a").eq(1).data('id');
+            console.log(cid1);
+            var nodeId1=$("#"+cid1).children('table').attr('id');
+            if (typeof(nodeId1)!='undefined'){
+                var node1 = document.getElementById(nodeId1);
+                domtoimage.toSvg(node1,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node1.remove();
+                        $("#"+cid1).append(img);
+                    });
+            }
+            // 2
+            var cid2=$("ul.switch-nav-tables li.active a").eq(2).data('id');
+            console.log(cid2);
+            var nodeId2=$("#"+cid2).children('table').attr('id');
+            if (typeof(nodeId2)!='undefined'){
+                var node2 = document.getElementById(nodeId2);
+                domtoimage.toSvg(node2,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node2.remove();
+                        $("#"+cid2).append(img);
+                    });
+            }
+            $(".switch-nav-tables li a").click(function () {
+                var cid=$(this).data('id');
+                var nodeId=$("#"+cid).children('table').attr('id');
+                if (typeof(nodeId)!='undefined'){
+                    var node = document.getElementById(nodeId);
+                    domtoimage.toSvg(node,{bgcolor: '#fff'})
+                        .then(function (dataUrl) {
+                            var img = new Image();
+                            img.src = dataUrl;
+                            img.className= 'img-responsive';
+                            node.remove();
+                            $("#"+cid).append(img);
+                        });
+                }
             });
             {{--$(".delete-operation").on('click',function(){--}}
                 {{--var id=$(this).attr('data-id');--}}

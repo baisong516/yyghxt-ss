@@ -107,8 +107,16 @@ class StatisticController extends Controller
     {
         if (Auth::user()->ability('superadministrator', 'read-statistics')) {
             //点击量
-            $start=$request->input('dateStart')?Carbon::createFromFormat('Y-m-d',$request->input('dateStart'))->startOfDay():Carbon::now()->startOfDay();
-            $end=$request->input('dateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('dateEnd'))->endOfDay():Carbon::now()->endOfDay();
+            $monthSub=$request->input('monthSub');
+            if ($monthSub==null){
+                $start=empty($request->input('dateStart'))?Carbon::now()->startOfDay():Carbon::createFromFormat('Y-m-d',$request->input('dateStart'))->startOfDay();
+                $end=empty($request->input('dateEnd'))?Carbon::now()->endOfDay():Carbon::createFromFormat('Y-m-d',$request->input('dateEnd'))->endOfDay();
+            }else{
+                $start=Carbon::now()->subMonth($monthSub)->startOfMonth();
+                $end=Carbon::now()->subMonth($monthSub)->endOfMonth();
+            }
+//            $start=$request->input('dateStart')?Carbon::createFromFormat('Y-m-d',$request->input('dateStart'))->startOfDay():Carbon::now()->startOfDay();
+//            $end=$request->input('dateEnd')?Carbon::createFromFormat('Y-m-d',$request->input('dateEnd'))->endOfDay():Carbon::now()->endOfDay();
             $todayClick=$this->getClickData($start,$end);
             $lastMonthClick=$this->getClickData(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
             $yearClick=$this->getClickData(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
