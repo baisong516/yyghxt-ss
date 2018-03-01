@@ -36,7 +36,7 @@
         <div class="box-body">
             <div class="table-item table-responsive">
                 <table id="table-today" class="table text-center table-bordered">
-                <thead>
+                <thead class="bg-info">
                     <tr>
                         <th>项目</th>
                         <th>竞价员</th>
@@ -84,7 +84,7 @@
             <div class="table-item table-responsive">
                 <h5 class="text-center"><strong>上月产出</strong></h5>
                 <table id="table-lastmonth" class="table text-center table-bordered">
-                <thead>
+                <thead class="bg-info">
                 <tr>
                     <th>项目</th>
                     <th>竞价员</th>
@@ -132,7 +132,7 @@
             <div class="table-item table-responsive">
                 <h5 class="text-center"><strong>{{\Carbon\Carbon::now()->year}}产出</strong></h5>
                 <table id="table-thisyear" class="table text-center table-bordered">
-                <thead>
+                <thead class="bg-info">
                 <tr>
                     <th>项目</th>
                     <th>竞价员</th>

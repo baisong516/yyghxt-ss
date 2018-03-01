@@ -37,7 +37,7 @@
             <div class="table-item table-responsive">
                 <h5 class="text-center"><strong></strong></h5>
                 <table id="table-today" class="table text-center table-bordered">
-                <thead>
+                <thead class="bg-info">
                     <tr>
                         <th colspan="2"></th>
                         <th colspan="4">商务通</th>
@@ -130,7 +130,7 @@
             <div class="table-item table-responsive">
                 <h5 class="text-center"><strong>上月({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})数据</strong></h5>
                 <table id="table-lastmonth" class="table text-center table-bordered">
-                <thead>
+                <thead class="bg-info">
                 <tr>
                     <th colspan="2"></th>
                     <th colspan="4">商务通</th>
@@ -223,7 +223,7 @@
             <div class="table-item table-responsive">
                 <h5 class="text-center"><strong>{{\Carbon\Carbon::now()->year}}年数据</strong></h5>
                 <table id="table-thisyear" class="table text-center table-bordered">
-                <thead>
+                <thead class="bg-info">
                 <tr>
                     <th colspan="2"></th>
                     <th colspan="4">商务通</th>

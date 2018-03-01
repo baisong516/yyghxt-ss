@@ -12,8 +12,13 @@ class ResDesginController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->ability('superadministrator', 'read-specials')){
-
+        if (Auth::user()->ability('superadministrator', 'read-resources')){
+            return view('resource.read',[
+                'pageheader'=>'企划',
+                'pagedescription'=>'素材库',
+                'lists'=>ResDesign::getListArray(),
+            ]);
         }
+        return abort(403,config('yyxt.permission_deny'));
     }
 }
