@@ -295,6 +295,7 @@ class ZxCustomerController extends Controller
 					    $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
 				    }
                     $huifangCustomerIds = array_unique($huifangCustomerIds);
+                    $customerIds=$huifangCustomerIds;
 //                    dd($huifangCustomerIds);
 				    //多人回访剔除
 //				    foreach ($huifangCustomerIds as $huifangCustomerId){
@@ -305,7 +306,7 @@ class ZxCustomerController extends Controller
 //                    }
 
 			    }
-                $customerIds=$huifangCustomerIds;
+
 //			    dd($customerIds);
 			    //按患者搜索
 			    $parms=array();
