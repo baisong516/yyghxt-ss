@@ -5,45 +5,51 @@
     <link type="text/css" href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <div class="box box-info">
         <div class="box-header">
-
+            <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 280px;">
+                    {{--<a href="#" class="btn-sm btn-info" style="margin-right: 20px;">创建目录</a>--}}
+                    {{--<a href="#" class="btn-sm btn-success" style="margin-right: 20px;">上传</a>--}}
+                    {{--<a href="#" class="btn-sm btn-danger">模板</a>--}}
+                </div>
+            </div>
         </div>
         <div class="box-body table-responsive">
-            <form action="" method="post" class="resources-form">
-                {{method_field('DELETE')}}
+            <form action="{{route('resources.search')}}" method="post" id="resources-form">
                 {{csrf_field()}}
-                <table id="resources-list-table" class="table table-striped table-bordered table-hover">
-                    <thead>
+                <input type="hidden" name="searchdir" value="{{$upleveldir}}">
+            <table id="resources-list-table" class="table table-striped table-bordered table-hover">
+                <thead>
                     <tr>
                         <th>名称</th>
-                        <th>类型 / 大小</th>
+                        <th>类型/大小</th>
                         <th>最后修改时间</th>
                         <th>操作</th>
                     </tr>
+                    <tr>
+                        <td colspan="4"><a href="javascript:;" style="display: block;width: 100%;" id="to-up-level"><i class="fa fa-level-up" aria-hidden="true" style="margin-right: 1rem;"></i><span>返回上一级 {{$upleveldir}}</span></a></td>
+                    </tr>
                     </thead>
-                    <tbody>
-                    {{--@foreach($lists as $list)--}}
-                        {{--<tr>--}}
-                            {{--<td>{{$user->id}}</td>--}}
-                            {{--<td>{{$user->name}}</td>--}}
-                            {{--<td>{{$user->realname}}</td>--}}
-                            {{--<td>{{$user->department_id?$user->department->display_name:''}}</td>--}}
-                            {{--<td>--}}
-                                {{--@if($user->is_active==1)--}}
-                                    {{--<span class="label label-success">正常</span>--}}
-                                {{--@else--}}
-                                    {{--<span class="label label-danger">失效</span>--}}
-                                {{--@endif--}}
-                            {{--</td>--}}
-                            {{--<td>--}}
-                                {{--@if($enableUpdate)--}}
-                                    {{--<a href="{{route('users.edit',$user->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>--}}
-                                {{--@endif--}}
-                                {{--@if($enableDelete)--}}
-                                    {{--<a href="javascript:void(0);" data-id="{{$user->id}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>--}}
-                                {{--@endif--}}
-                            {{--</td>--}}
-                        {{--</tr>--}}
-                    {{--@endforeach--}}
+                <tbody id="resources-table-body">
+                    @if(!empty($lists['dirs']))
+                        @foreach($lists['dirs'] as $dir)
+                            <tr>
+                                <td><a href="javascript:;" class="dir-item" data-dir="{{$dir}}"><i class="fa fa-folder" style="margin-right: 1rem;color: #f39c12;"></i>{{$dir}}</a></td>
+                                <td>目录</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    @if(!empty($lists['files']))
+                        @foreach($lists['files'] as $file)
+                            <tr>
+                                <td><a href="javascript:;" data-url="{{$file['url']}}" data-toggle="modal" data-target="#previewModal" class="file-item"><i class="fa fa-file" style="margin-right: 1rem;"></i>{{$file['name']}}</a></td>
+                                <td>{{$file['size']>= 1048576?round($file['size']/1048576*100)/100 . 'M':round($file['size']/1024*100)/100 . 'K'}}</td>
+                                <td>{{$file['lastModified']}}</td>
+                                <td><a href="javascript:void(0);" class="download-btn" data-download="{{$file['url']}}">下载</a></td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
             </form>
@@ -51,7 +57,24 @@
         <!-- /.box-body -->
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="previewModalLabel">预览区</h4>
+                </div>
+                <div class="modal-body text-center" id="previewModalBody">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary download-btn" data-download="">下载</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
@@ -61,6 +84,40 @@
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
+            $("form#resources-form .dir-item").click(function () {
+                var searchdir=$(this).data('dir');
+                console.log(searchdir);
+                $("form#resources-form input:hidden[name='searchdir']").val(searchdir);
+                $("form#resources-form").submit();
+
+            });
+            $("#to-up-level").click(function () {
+                $("form#resources-form").submit();
+
+            });
+            $("#resources-table-body .file-item").click(function () {
+                var url=$(this).data('url');
+                var html='';
+                if (/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(url)) {
+                    html='<img src="'+url+'" class="img-responsive" style="margin: 0 auto;">';
+                }else{
+                    html='<p>此格式不支持预览</p>';
+                }
+                $("#previewModalBody").empty();
+                $("#previewModalBody").html(html);
+                $("#previewModal .download-btn").attr('data-download',url);
+            });
+            $(".download-btn").click(function () {
+                var url=$(this).data('download');
+                $.ajax({
+                    url: '{{route('resources.download')}}',
+                    type: "post",
+                    data: {'url':url,'_token': $('input[name=_token]').val()},
+                    success: function(data){
+                        // console.log(data);
+                    }
+                });
+            });
            // $('#buttons-list-table').DataTable({
            //     "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
            //     "language": {

@@ -288,7 +288,6 @@ class ZxCustomerController extends Controller
 				    if (!empty($last_huifang_start)){array_push($huifangParms,['now_at','>=',$last_huifang_start],['now_at','<=',$last_huifang_end]);}
 				    if (!empty($next_huifang_start)){array_push($huifangParms,['next_at','>=',$next_huifang_start],['next_at','<=',$next_huifang_end]);}
 				    if (!empty($last_huifang_user_id)){array_push($huifangParms,['now_user_id',$last_huifang_user_id]);}
-//				    dd($huifangParms);
 				    $huifangCustomers=Huifang::select('zx_customer_id','now_user_id')->where($huifangParms)->get();
 //				    dd($huifangCustomers);
 				    $huifangCustomerIds=[];
@@ -296,15 +295,17 @@ class ZxCustomerController extends Controller
 					    $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
 				    }
                     $huifangCustomerIds = array_unique($huifangCustomerIds);
+//                    dd($huifangCustomerIds);
 				    //多人回访剔除
-				    foreach ($huifangCustomerIds as $huifangCustomerId){
-				        $c=Huifang::where('zx_customer_id',$huifangCustomerId)->orderBy('created_at', 'desc')->get()->first();
-				        if ($c->now_user_id==$last_huifang_user_id){
-                            $customerIds[]=$c->zx_customer_id;
-                        }
-                    }
+//				    foreach ($huifangCustomerIds as $huifangCustomerId){
+//				        $c=Huifang::where('zx_customer_id',$huifangCustomerId)->orderBy('created_at', 'desc')->get()->first();
+//				        if ($c->now_user_id==$last_huifang_user_id){
+//                            $customerIds[]=$c->zx_customer_id;
+//                        }
+//                    }
 
 			    }
+                $customerIds=$huifangCustomerIds;
 //			    dd($customerIds);
 			    //按患者搜索
 			    $parms=array();

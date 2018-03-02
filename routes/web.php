@@ -79,6 +79,8 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::post('specialtransimport','SpecialtranController@import')->name('specialtrans.import');
         //素材
         Route::get('resources','ResDesginController@index')->name('resources.index');
+        Route::post('resources','ResDesginController@search')->name('resources.search');
+        Route::any('resource-download','ResDesginController@download')->name('resources.download');
     });
     //产出
     Route::group(['prefix' => 'outputs'],function(){
