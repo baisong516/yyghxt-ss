@@ -6,6 +6,8 @@ use App\ResDesign;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use OSS\Core\OssException;
+use OSS\OssClient;
 
 class ResDesginController extends Controller
 {
@@ -25,10 +27,10 @@ class ResDesginController extends Controller
 
     public function download(Request $request)
     {
-        $url=$request->input('url');
-        if (!empty($url)){
-            return response()->download($url,$url,['content-type'=>'image/jpeg']);
-        }
+        $object=$request->input('objname');
+        $ossClient=ResDesign::getOssClicent();
+        $content = $ossClient->getObject(env('BUCKET'), $object);
+        return "b.file is fetched, the content is: " . $content;
     }
 
     public function search(Request $request)

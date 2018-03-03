@@ -43,10 +43,10 @@
                     @if(!empty($lists['files']))
                         @foreach($lists['files'] as $file)
                             <tr>
-                                <td><a href="javascript:;" data-url="{{$file['url']}}" data-toggle="modal" data-target="#previewModal" class="file-item"><i class="fa fa-file" style="margin-right: 1rem;"></i>{{$file['name']}}</a></td>
+                                <td><a href="javascript:;" data-url="{{$file['url']}}" data-name="{{$file['name']}}" data-toggle="modal" data-target="#previewModal" class="file-item"><i class="fa fa-file" style="margin-right: 1rem;"></i>{{$file['name']}}</a></td>
                                 <td>{{$file['size']>= 1048576?round($file['size']/1048576*100)/100 . 'M':round($file['size']/1024*100)/100 . 'K'}}</td>
                                 <td>{{$file['lastModified']}}</td>
-                                <td><a href="javascript:void(0);" class="download-btn" data-download="{{$file['url']}}">下载</a></td>
+                                <td><a href="{{$file['url']}}" class="download-btn" download="{{$file['name']}}">下载</a></td>
                             </tr>
                         @endforeach
                     @endif
@@ -63,14 +63,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="previewModalLabel">预览区</h4>
+                    <h4 class="modal-title text-center" id="previewModalLabel">预览区</h4>
+                    <p class="text-center" id="previewTitle">title</p>
                 </div>
                 <div class="modal-body text-center" id="previewModalBody">
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary download-btn" data-download="">下载</button>
+                    <a type="button" class="btn btn-primary download-btn" href="" download="">下载</a>
                 </div>
             </div>
         </div>
@@ -97,6 +98,7 @@
             });
             $("#resources-table-body .file-item").click(function () {
                 var url=$(this).data('url');
+                var name=$(this).data('name');
                 var html='';
                 if (/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(url)) {
                     html='<img src="'+url+'" class="img-responsive" style="margin: 0 auto;">';
@@ -105,19 +107,21 @@
                 }
                 $("#previewModalBody").empty();
                 $("#previewModalBody").html(html);
-                $("#previewModal .download-btn").attr('data-download',url);
+                $("#previewTitle").html(name);
+                $("#previewModal .download-btn").attr('href',url);
+                $("#previewModal .download-btn").attr('download',name);
             });
-            $(".download-btn").click(function () {
-                var url=$(this).data('download');
-                $.ajax({
-                    url: '{{route('resources.download')}}',
-                    type: "post",
-                    data: {'url':url,'_token': $('input[name=_token]').val()},
-                    success: function(data){
-                        // console.log(data);
-                    }
-                });
-            });
+            {{--$(".download-btn").click(function () {--}}
+                {{--var objname=$(this).data('download');--}}
+                {{--$.ajax({--}}
+                    {{--url: '}}',--}}
+                    {{--type: "post",--}}
+                    {{--data: {'objname':objname,'_token': $('input[name=_token]').val()},--}}
+                    {{--success: function(data){--}}
+                        {{--console.log(data);--}}
+                    {{--}--}}
+                {{--});--}}
+            {{--});--}}
            // $('#buttons-list-table').DataTable({
            //     "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
            //     "language": {
