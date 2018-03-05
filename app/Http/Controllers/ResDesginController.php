@@ -27,10 +27,7 @@ class ResDesginController extends Controller
 
     public function download(Request $request)
     {
-        $object=$request->input('objname');
-        $ossClient=ResDesign::getOssClicent();
-        $content = $ossClient->getObject(env('BUCKET'), $object);
-        return "b.file is fetched, the content is: " . $content;
+
     }
 
     public function search(Request $request)

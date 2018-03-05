@@ -94,6 +94,7 @@ class ZxCustomerController extends Controller
     public function create()
     {
         if (Auth::user()->ability('superadministrator', 'create-zx_customers')){
+//            dd(Aiden::getAuthdDiseases());
             return view('zxcustomer.create', array(
                 'pageheader'=>'患者',
                 'pagedescription'=>'添加',

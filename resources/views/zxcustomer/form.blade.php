@@ -86,9 +86,11 @@
                 <option  selected value="">--选择--</option>
                 @foreach($diseases as $o=>$d)
                     <optgroup label="{{$d['name']}}">
+                        @if(isset($d['diseases'])&&!empty($d['diseases']))
                         @foreach($d['diseases'] as $k=>$v)
                         <option  value="{{$k}}" {{old('disease_id')==$k?'selected':''}} {{isset($customer)&&$customer->disease_id==$k?'selected':''}}>{{$v}}</option>
                         @endforeach
+                        @endif
                     </optgroup>
                 @endforeach
             </select>
