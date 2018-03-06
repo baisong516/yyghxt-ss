@@ -92,6 +92,7 @@ class ZxOutput extends Model
                 $outdata[$out->user_id]['total_arrive_count']=isset($outdata[$out->user_id]['total_arrive_count'])?$outdata[$out->user_id]['total_arrive_count']+$out->total_arrive_count:$out->total_arrive_count;
                 $outdata[$out->user_id]['total_jiuzhen_count']=isset($outdata[$out->user_id]['total_jiuzhen_count'])?$outdata[$out->user_id]['total_jiuzhen_count']+$out->total_jiuzhen_count:$out->total_jiuzhen_count;
 
+                $outdata[$out->user_id]['contact_rate']=isset($outdata[$out->user_id]['swt_zixun_count'])&&$outdata[$out->user_id]['swt_zixun_count']>0?sprintf('%.2f',$outdata[$out->user_id]['swt_contact_count']*100.00/$outdata[$out->user_id]['swt_zixun_count']).'%':'0.00%';
                 $outdata[$out->user_id]['yuyue_rate']=isset($outdata[$out->user_id]['total_zixun_count'])&&$outdata[$out->user_id]['total_zixun_count']>0?sprintf('%.2f',$outdata[$out->user_id]['total_yuyue_count']*100.00/$outdata[$out->user_id]['total_zixun_count']).'%':'0.00%';
                 $outdata[$out->user_id]['arrive_rate']=isset($outdata[$out->user_id]['total_yuyue_count'])&&$outdata[$out->user_id]['total_yuyue_count']>0?sprintf('%.2f',$outdata[$out->user_id]['total_arrive_count']*100.00/$outdata[$out->user_id]['total_yuyue_count']).'%':'0.00%';
                 $outdata[$out->user_id]['jiuzhen_rate']=isset($outdata[$out->user_id]['total_arrive_count'])&&$outdata[$out->user_id]['total_arrive_count']>0?sprintf('%.2f',$outdata[$out->user_id]['total_jiuzhen_count']*100.00/$outdata[$out->user_id]['total_arrive_count']).'%':'0.00%';
@@ -115,6 +116,7 @@ class ZxOutput extends Model
                 $totalu['total_arrive_count']=isset($totalu['total_arrive_count'])?$totalu['total_arrive_count']+$udata['total_arrive_count']:$udata['total_arrive_count'];
                 $totalu['total_jiuzhen_count']=isset($totalu['total_jiuzhen_count'])?$totalu['total_jiuzhen_count']+$udata['total_jiuzhen_count']:$udata['total_jiuzhen_count'];
 
+                $totalu['contact_rate']=isset($totalu['swt_zixun_count'])&&$totalu['swt_zixun_count']>0?sprintf('%.2f',$totalu['swt_contact_count']*100.00/$totalu['swt_zixun_count']).'%':'0.00%';
                 $totalu['yuyue_rate']=isset($totalu['total_zixun_count'])&&$totalu['total_zixun_count']>0?sprintf('%.2f',$totalu['total_yuyue_count']*100.00/$totalu['total_zixun_count']).'%':'0.00%';
                 $totalu['arrive_rate']=isset($totalu['total_yuyue_count'])&&$totalu['total_yuyue_count']>0?sprintf('%.2f',$totalu['total_arrive_count']*100.00/$totalu['total_yuyue_count']).'%':'0.00%';
                 $totalu['jiuzhen_rate']=isset($totalu['total_arrive_count'])&&$totalu['total_arrive_count']>0?sprintf('%.2f',$totalu['total_jiuzhen_count']*100.00/$totalu['total_arrive_count']).'%':'0.00%';

@@ -43,7 +43,7 @@
                         <th colspan="4">商务通</th>
                         <th colspan="3">电话</th>
                         <th colspan="3">回访</th>
-                        <th colspan="8">合计</th>
+                        <th colspan="9">合计</th>
                     </tr>
                     <tr>
                         <th>项目</th>
@@ -62,6 +62,7 @@
                         <th>预约量</th>
                         <th>到院量</th>
                         <th>就诊量</th>
+                        <th>留联率</th>
                         <th>预约率</th>
                         <th>到院率</th>
                         <th>就诊率</th>
@@ -91,6 +92,7 @@
                             <td>{{$output['total_yuyue_count']}}</td>
                             <td>{{$output['total_arrive_count']}}</td>
                             <td>{{$output['total_jiuzhen_count']}}</td>
+                            <td>{{$output['contact_rate']}}</td>
                             <td>{{$output['yuyue_rate']}}</td>
                             <td>{{$output['arrive_rate']}}</td>
                             <td>{{$output['jiuzhen_rate']}}</td>
@@ -116,6 +118,7 @@
                             <td>{{$outputs['total']['total_yuyue_count']}}</td>
                             <td>{{$outputs['total']['total_arrive_count']}}</td>
                             <td>{{$outputs['total']['total_jiuzhen_count']}}</td>
+                            <td>{{$outputs['total']['contact_rate']}}</td>
                             <td>{{$outputs['total']['yuyue_rate']}}</td>
                             <td>{{$outputs['total']['arrive_rate']}}</td>
                             <td>{{$outputs['total']['jiuzhen_rate']}}</td>
@@ -136,7 +139,7 @@
                     <th colspan="4">商务通</th>
                     <th colspan="3">电话</th>
                     <th colspan="3">回访</th>
-                    <th colspan="8">合计</th>
+                    <th colspan="9">合计</th>
                 </tr>
                 <tr>
                     <th>项目</th>
@@ -155,6 +158,7 @@
                     <th>预约量</th>
                     <th>到院量</th>
                     <th>就诊量</th>
+                    <th>留联率</th>
                     <th>预约率</th>
                     <th>到院率</th>
                     <th>就诊率</th>
@@ -184,6 +188,7 @@
                                 <td>{{$output['total_yuyue_count']}}</td>
                                 <td>{{$output['total_arrive_count']}}</td>
                                 <td>{{$output['total_jiuzhen_count']}}</td>
+                                <td>{{$output['contact_rate']}}</td>
                                 <td>{{$output['yuyue_rate']}}</td>
                                 <td>{{$output['arrive_rate']}}</td>
                                 <td>{{$output['jiuzhen_rate']}}</td>
@@ -209,6 +214,7 @@
                             <td>{{$lastMonthOutputs['total']['total_yuyue_count']}}</td>
                             <td>{{$lastMonthOutputs['total']['total_arrive_count']}}</td>
                             <td>{{$lastMonthOutputs['total']['total_jiuzhen_count']}}</td>
+                            <td>{{$lastMonthOutputs['total']['contact_rate']}}</td>
                             <td>{{$lastMonthOutputs['total']['yuyue_rate']}}</td>
                             <td>{{$lastMonthOutputs['total']['arrive_rate']}}</td>
                             <td>{{$lastMonthOutputs['total']['jiuzhen_rate']}}</td>
@@ -229,7 +235,7 @@
                     <th colspan="4">商务通</th>
                     <th colspan="3">电话</th>
                     <th colspan="3">回访</th>
-                    <th colspan="8">合计</th>
+                    <th colspan="9">合计</th>
                 </tr>
                 <tr>
                     <th>项目</th>
@@ -248,6 +254,7 @@
                     <th>预约量</th>
                     <th>到院量</th>
                     <th>就诊量</th>
+                    <th>留联率</th>
                     <th>预约率</th>
                     <th>到院率</th>
                     <th>就诊率</th>
@@ -277,6 +284,7 @@
                                 <td>{{$output['total_yuyue_count']}}</td>
                                 <td>{{$output['total_arrive_count']}}</td>
                                 <td>{{$output['total_jiuzhen_count']}}</td>
+                                <td>{{$output['contact_rate']}}</td>
                                 <td>{{$output['yuyue_rate']}}</td>
                                 <td>{{$output['arrive_rate']}}</td>
                                 <td>{{$output['jiuzhen_rate']}}</td>
@@ -302,6 +310,7 @@
                             <td>{{$yearOutputs['total']['total_yuyue_count']}}</td>
                             <td>{{$yearOutputs['total']['total_arrive_count']}}</td>
                             <td>{{$yearOutputs['total']['total_jiuzhen_count']}}</td>
+                            <td>{{$yearOutputs['total']['contact_rate']}}</td>
                             <td>{{$yearOutputs['total']['yuyue_rate']}}</td>
                             <td>{{$yearOutputs['total']['arrive_rate']}}</td>
                             <td>{{$yearOutputs['total']['jiuzhen_rate']}}</td>
