@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('customerconditions','CustomerConditionController');
         Route::resource('platforms','PlatFormController');
         Route::resource('areas','AreaController');
+        Route::resource('causes','CauseController');
     });
     //咨询
     Route::group(['prefix' => 'zx'],function(){

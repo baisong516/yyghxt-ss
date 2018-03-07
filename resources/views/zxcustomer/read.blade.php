@@ -166,7 +166,7 @@
                         <th>科室</th>
                         <th>病种</th>
                         <th>状态</th>
-                        <th>SWT转TEL</th>
+                        <th>未约原因</th>
                         <th>咨询员</th>
                         <th>当班竞价</th>
                         <th>咨询</th>
@@ -231,8 +231,12 @@
                             <td><small>{{$customer->disease_id?$diseases[$customer->disease_id]:''}}</small></td>
                             {{--状态--}}
                             <td><small>{{$customer->customer_condition_id?$customerconditions[$customer->customer_condition_id]:''}}</small></td>
-                            {{--商务通转电话--}}
-                            <td><small>{{$customer->trans_user_id?$users[$customer->trans_user_id]:''}}</small></td>
+                            {{--未预约原因--}}
+                            <td>
+                                <small>
+                                    {{$customer->cause_id?$causes[$customer->cause_id]:''}}
+                                </small>
+                            </td>
                             {{--咨询员--}}
                             <td><small>{{$customer->user_id?$users[$customer->user_id]:''}}</small></td>
                             {{--竞价员--}}

@@ -66,6 +66,9 @@
             @ability('superadministrator', 'read-areas')
             <li class="{{Request::is('sysconf/areas*')?'active':''}}"><a href="{{route('areas.index')}}"><i class="fa fa-location-arrow"></i><span>地域</span></a></li>
             @endability
+            @ability('superadministrator', 'read-areas')
+            <li class="{{Request::is('sysconf/causes*')?'active':''}}"><a href="{{route('causes.index')}}"><i class="fa fa-heartbeat"></i><span>未预约原因</span></a></li>
+            @endability
             {{--<li><a href="#"><i class="fa fa-internet-explorer"></i><span>搜索引擎设置</span></a></li>--}}
         </ul>
     </li>

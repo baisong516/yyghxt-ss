@@ -152,13 +152,13 @@
         </div>
     </div>
 
-    <div class="form-group {{empty($errors->first('media'))?'':'has-error'}}">
-        <label for="trans-user" class="col-sm-2 control-label">商务通转电话</label>
+    <div class="form-group {{empty($errors->first('cause_id'))?'':'has-error'}}">
+        <label for="trans-user" class="col-sm-2 control-label">未预约原因</label>
         <div class="col-sm-10">
-            <select name="trans_user_id" id="trans-user" class="form-control">
+            <select name="cause_id" id="cause_id" class="form-control">
                 <option value="" selected>--选择--</option>
-                @foreach($activeUsers as $k=>$v)
-                    <option value="{{$k}}" {{old('trans_user_id')==$k?'selected':''}} {{isset($customer)&&$customer->trans_user_id==$k?'selected':''}}>{{$v}}</option>
+                @foreach($causes as $k=>$v)
+                    <option value="{{$k}}" {{old('cause_id')==$k?'selected':''}} {{isset($customer)&&$customer->cause_id==$k?'selected':''}}>{{$v}}</option>
                 @endforeach
             </select>
         </div>
