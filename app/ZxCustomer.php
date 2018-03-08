@@ -30,7 +30,7 @@ class ZxCustomer extends Model
         $customer->media_id=$request->input('media_id');
         $customer->webtype_id=$request->input('webtype_id');
         $customer->trans_user_id=$request->input('trans_user_id');
-        $customer->cause_id=$request->input('cause_id');
+        $customer->cause_id=$request->input('cause_id')?$request->input('cause_id'):0;
         $customer->zixun_at=$request->input('zixun_at');
         $customer->yuyue_at=$request->input('yuyue_at');
         $customer->time_slot=$request->input('time_slot');

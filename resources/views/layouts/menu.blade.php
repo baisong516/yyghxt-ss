@@ -100,12 +100,6 @@
             @ability('superadministrator', 'create-zx_excels')
             <li class="{{Request::is('zx/exportexcel*')?'active':''}}"><a href="{{route('excel.create')}}"><i class="fa fa-file-excel-o"></i><span>导出患者信息</span></a></li>
             @endability
-            {{--<li><a href="#"><i class="fa fa-search"></i><span>病人预约搜索</span></a></li>--}}
-            {{--<li><a href="#"><i class="fa fa-search"></i><span>重复病人查询</span></a></li>--}}
-            {{--<li><a href="#"><i class="fa fa-list"></i><span>客服明细</span></a></li>--}}
-            {{--<li><a href="#"><i class="fa fa-list"></i><span>月趋势报表</span></a></li>--}}
-            {{--<li><a href="#"><i class="fa fa-list"></i><span>自定义趋势报表</span></a></li>--}}
-            {{--<li><a href="#"><i class="fa fa-save"></i><span>病人数据导出</span></a></li>--}}
         </ul>
     </li>
     @endrole
@@ -119,6 +113,9 @@
         <ul class="treeview-menu">
             @ability('superadministrator', 'read-auctions')
             <li class="{{Request::is('jingjia/auctions*')?'active':''}}"><a href="{{route('auctions.index')}}"><i class="fa fa-th"></i><span>竞价报表</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-reports')
+            <li class="{{Request::is('jingjia/reports*')?'active':''}}"><a href="{{route('reports.index')}}"><i class="fa fa-th"></i><span>竞价报表（新）</span></a></li>
             @endability
         </ul>
     </li>

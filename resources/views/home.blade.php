@@ -34,10 +34,10 @@
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
                                 <th>咨询量</th>
-                                <th>预约量</th>
                                 <th>留联系</th>
                                 <th>电话量</th>
                                 <th>总咨询量</th>
+                                <th>预约量</th>
                                 <th>应到院</th>
                                 <th>到院量</th>
                                 <th>就诊量</th>
@@ -53,10 +53,10 @@
                                 <tr>
                                     <td>{{$v['name']}}</td>
                                     <td>{{$v['zixun_count']}}</td>
-                                    <td>{{$v['yuyue_count']}}</td>
                                     <td>{{$v['contact_count']}}</td>
                                     <td>{{$v['tel_count']}}</td>
                                     <td>{{$v['total_count']}}</td>
+                                    <td>{{$v['yuyue_count']}}</td>
                                     <td>{{$v['should_count']}}</td>
                                     <td>{{$v['arrive_count']}}</td>
                                     <td>{{$v['jiuzhen_count']}}</td>
@@ -92,10 +92,10 @@
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
                                 <th>咨询量</th>
-                                <th>预约量</th>
                                 <th>留联系</th>
                                 <th>电话量</th>
                                 <th>总咨询量</th>
+                                <th>预约量</th>
                                 <th>应到院</th>
                                 <th>到院量</th>
                                 <th>就诊量</th>
@@ -111,10 +111,10 @@
                                 <tr>
                                     <td>{{$v['name']}}</td>
                                     <td>{{$v['zixun_count']}}</td>
-                                    <td>{{$v['yuyue_count']}}</td>
                                     <td>{{$v['contact_count']}}</td>
                                     <td>{{$v['tel_count']}}</td>
                                     <td>{{$v['total_count']}}</td>
+                                    <td>{{$v['yuyue_count']}}</td>
                                     <td>{{$v['should_count']}}</td>
                                     <td>{{$v['arrive_count']}}</td>
                                     <td>{{$v['jiuzhen_count']}}</td>
@@ -150,10 +150,10 @@
                             <tr style="background: #66d7ea;">
                                 <th>项目</th>
                                 <th>咨询量</th>
-                                <th>预约量</th>
                                 <th>留联系</th>
                                 <th>电话量</th>
                                 <th>总咨询量</th>
+                                <th>预约量</th>
                                 <th>应到院</th>
                                 <th>到院量</th>
                                 <th>就诊量</th>
@@ -169,10 +169,10 @@
                                 <tr>
                                     <td>{{$v['name']}}</td>
                                     <td>{{$v['zixun_count']}}</td>
-                                    <td>{{$v['yuyue_count']}}</td>
                                     <td>{{$v['contact_count']}}</td>
                                     <td>{{$v['tel_count']}}</td>
                                     <td>{{$v['total_count']}}</td>
+                                    <td>{{$v['yuyue_count']}}</td>
                                     <td>{{$v['should_count']}}</td>
                                     <td>{{$v['arrive_count']}}</td>
                                     <td>{{$v['jiuzhen_count']}}</td>

@@ -65,8 +65,10 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
     //竞价
     Route::group(['prefix' => 'jingjia'],function(){
         Route::resource('auctions','AuctionController');
+        Route::resource('reports','ReportController');
         Route::post('auctionsearch','AuctionController@search')->name('auctions.search');
         Route::post('auctionsimport','AuctionController@import')->name('auctions.import');
+        Route::post('reportsimport','ReportController@import')->name('reports.import');
     });
     //企划
     Route::group(['prefix' => 'qh'],function(){
