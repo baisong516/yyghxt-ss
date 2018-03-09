@@ -5,7 +5,7 @@
     {{--<link type="text/css" href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">--}}
     <div class="box box-info">
         <div class="box-header">
-            <form class="form-inline" action="{{route('auctions.search')}}"  id="search-form" name="search-form" method="POST">
+            <form class="form-inline" action="{{route('reports.search')}}"  id="search-form" name="search-form" method="POST">
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="searchDate">日期：</label>
@@ -16,14 +16,14 @@
                 <button type="submit" class="btn btn-success">搜索</button>
                 <hr>
                 <input type="hidden" id="monthSub" name="monthSub" value="">
-                @for ($i = 0; $i < 12; $i++)
+                @for ($i = 0; $i < 5; $i++)
                 <button type="button" class="btn btn-success month-sub-option" style="margin-bottom: 5px;" data-month="{{$i}}">{{\Carbon\Carbon::now()->subMonth($i)->year}}-{{\Carbon\Carbon::now()->subMonth($i)->month}}</button>
                 @endfor
             </form>
             <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 280px;">
                     @ability('superadministrator', 'create-auctions')
-                        <a href="{{route('auctions.create')}}" class="btn-sm btn-info" style="margin-right: 10px;">录入</a>
+                        {{--<a href="{{route('auctions.create')}}" class="btn-sm btn-info" style="margin-right: 10px;">录入</a>--}}
                         <a href="javascript:;" data-toggle="modal" data-target="#importModal" class="btn-sm btn-success" style="margin-right: 10px;">导入</a>
                         <a href="/template/reports.xlsx" class="btn-sm btn-danger">导入模板</a>
                     @endability
@@ -31,91 +31,72 @@
             </div>
         </div>
         <div class="box-body table-responsive">
-            <form action="" method="post" class="auctions-form">
-                {{method_field('DELETE')}}
-                {{csrf_field()}}
+            {{--当前数据/查询数据--}}
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     @if(!empty($reports))
                         @foreach($reports as $k=>$v)
-                            <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$k}}" id="tab-switch-{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                            <li class="{{$loop->first?'active':''}}"><a href="#tab_now_{{$k}}" class="tab-switch" data-id="tab_now_{{$k}}" id="tab-now-switch-{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
                         @endforeach
                     @endif
                 </ul>
                 <div class="tab-content">
                     @if(!empty($reports))
                         @foreach($reports as $k=>$v)
-                            <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$k}}">
-                                @isset($v['platform'])
+                            <div class="tab-pane {{$loop->first?'active':''}}" id="tab_now_{{$k}}">
                                 <div class="table-item table-responsive">
-                                <table class="table table-bordered" id="table-platform-{{$k}}">
-                                    <thead class="text-center">
+                                <table class="table table-bordered" id="table-{{$k}}">
+                                    <thead>
                                         <tr>
-                                            <th width="9%"></th>
-                                            <th width="9%" class="text-center">平台</th>
-                                            <th width="9%" class="text-center">预算</th>
-                                            <th width="9%" class="text-center">消费</th>
-                                            <th width="9%" class="text-center">点击</th>
-                                            <th width="9%" class="text-center">咨询量</th>
-                                            <th width="9%" class="text-center">预约量</th>
-                                            <th width="9%" class="text-center">总到院</th>
-                                            <th width="9%" class="text-center">咨询成本</th>
-                                            <th width="9%" class="text-center">到院成本</th>
-                                            @if(isset($start)&&isset($end)&&\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()==\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString())
-                                            <th width="9%" class="text-center">OP</th>
-                                            @endif
+                                            <th colspan="9" class="text-center">竞价</th>
+                                            <th class="text-center">策划转化率</th>
+                                            <th colspan="5" class="text-center">咨询目标</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($v['platform']['auctions'] as $typeId=>$auction)
-                                            <tr class="text-center">
-                                                @if($loop->first)
-                                                    <td rowspan="{{$loop->count}}" style="vertical-align: middle;" class="bg-tree"><strong>渠道</strong></td>
-                                                @endif
-                                                <td>{{$typeId?$platforms[$typeId]:''}}</td>
-                                                <td>{{$auction['budget']}}</td>
-                                                <td>{{sprintf('%.2f',$auction['cost'])}}</td>
-                                                <td>{{$auction['click']}}</td>
-                                                <td>{{$auction['zixun']}}</td>
-                                                <td>{{$auction['yuyue']}}</td>
-                                                <td>{{$auction['arrive']}}</td>
-                                                <td>{{$auction['zixun_cost']}}</td>
-                                                <td>{{$auction['arrive_cost']}}</td>
-                                                @if(isset($start)&&isset($end)&&\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()==\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString())
-                                                <td>
-                                                    @if($enableUpdate)
-                                                        <a href="{{route('auctions.edit',$auction['id'])}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
-                                                    @endif
-                                                    @if($enableDelete)
-                                                        <a href="javascript:void(0);" data-id="{{$auction['id']}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
-                                                    @endif
-                                                </td>
-                                                @endif
-                                            </tr>
-                                        @endforeach
                                         <tr class="text-center">
-                                            <td class="bg-tree"></td>
-                                            <td>合计汇总</td>
-                                            <td>{{$v['platform']['budget']}}</td>
-                                            <td>{{sprintf('%.2f',$v['platform']['cost'])}}</td>
-                                            <td>{{$v['platform']['click']}}</td>
-                                            <td>{{$v['platform']['zixun']}}</td>
-                                            <td>{{$v['platform']['yuyue']}}</td>
-                                            <td>{{$v['platform']['arrive']}}</td>
-                                            <td>{{$v['platform']['zixun_cost']}}</td>
-                                            <td>{{$v['platform']['arrive_cost']}}</td>
+                                            <td>展现量</td>
+                                            <td>点击</td>
+                                            <td>点击率</td>
+                                            <td>总对话</td>
+                                            <td>有效对话</td>
+                                            <td>总预约</td>
+                                            <td>总到院</td>
+                                            <td>咨询成本</td>
+                                            <td>到院成本</td>
+                                            <td>点效比</td>
+                                            <td>有效对话率</td>
+                                            <td>留联率</td>
+                                            <td>预约率</td>
+                                            <td>到院率</td>
+                                            <td>咨询转化率</td>
+                                        </tr>
+                                        <tr class="text-center">
+                                            <td>{{$v['show']}}</td>
+                                            <td>{{$v['click']}}</td>
+                                            <td>{{$v['click_rate']}}</td>
+                                            <td>{{$v['achat']}}</td>
+                                            <td>{{$v['chat']}}</td>
+                                            <td>{{$v['yuyue']}}</td>
+                                            <td>{{$v['arrive']}}</td>
+                                            <td>{{$v['zixun_cost']}}</td>
+                                            <td>{{$v['arrive_cost']}}</td>
+                                            <td>{{$v['active_rate']}}</td>
+                                            <td>{{$v['chat_rate']}}</td>
+                                            <td>{{$v['contact_rate']}}</td>
+                                            <td>{{$v['yuyue_rate']}}</td>
+                                            <td>{{$v['arrive_rate']}}</td>
+                                            <td>{{$v['trans_rate']}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 </div>
-                                @endisset
                             </div>
                         @endforeach
                     @endif
                 </div>
                 <!-- /.tab-content -->
             </div>
-            </form>
         </div>
         <!-- /.box-body -->
     </div>
@@ -202,75 +183,75 @@
                     });
             }
             // 1
-            var nodeId1=$(".table-item").eq(1).children('table').attr('id');
-            if (typeof(nodeId1)!='undefined'){
-                var node1 = document.getElementById(nodeId1);
-                domtoimage.toSvg(node1,{bgcolor: '#fff'})
-                    .then(function (dataUrl) {
-                        var img = new Image();
-                        img.src = dataUrl;
-                        img.className= 'img-responsive';
-                        node1.remove();
-                        $(".table-item").eq(1).append(img);
-                    });
-            }
+            // var nodeId1=$(".table-item").eq(1).children('table').attr('id');
+            // if (typeof(nodeId1)!='undefined'){
+            //     var node1 = document.getElementById(nodeId1);
+            //     domtoimage.toSvg(node1,{bgcolor: '#fff'})
+            //         .then(function (dataUrl) {
+            //             var img = new Image();
+            //             img.src = dataUrl;
+            //             img.className= 'img-responsive';
+            //             node1.remove();
+            //             $(".table-item").eq(1).append(img);
+            //         });
+            // }
             // 2
-            var nodeId2=$(".table-item").eq(2).children('table').attr('id');
-            if (typeof(nodeId2)!='undefined'){
-                var node2 = document.getElementById(nodeId2);
-                domtoimage.toSvg(node2,{bgcolor: '#fff'})
-                    .then(function (dataUrl) {
-                        var img = new Image();
-                        img.src = dataUrl;
-                        img.className= 'img-responsive';
-                        node2.remove();
-                        $(".table-item").eq(2).append(img);
-                    });
-            }
+            // var nodeId2=$(".table-item").eq(2).children('table').attr('id');
+            // if (typeof(nodeId2)!='undefined'){
+            //     var node2 = document.getElementById(nodeId2);
+            //     domtoimage.toSvg(node2,{bgcolor: '#fff'})
+            //         .then(function (dataUrl) {
+            //             var img = new Image();
+            //             img.src = dataUrl;
+            //             img.className= 'img-responsive';
+            //             node2.remove();
+            //             $(".table-item").eq(2).append(img);
+            //         });
+            // }
         });
-        $("#tab-switch-2").click(function () {
-            // 3
-            var nodeId3=$(".table-item").eq(3).children('table').attr('id');
-            console.log(nodeId3);
-            if (typeof(nodeId3)!='undefined'){
-                var node3 = document.getElementById(nodeId3);
-                console.log(node3);
-                domtoimage.toSvg(node3,{bgcolor: '#fff'})
-                    .then(function (dataUrl) {
-                        console.log(dataUrl)
-                        var img = new Image();
-                        img.src = dataUrl;
-                        img.className= 'img-responsive';
-                        node3.remove();
-                        $(".table-item").eq(3).append(img);
-                    });
-            }
+        $(".tab-switch").click(function () {
+            // 3 $(this).data('id')
+            var nodeId=$("#"+$(this).data('id')+" .table-item").eq(0).children('table').attr('id');
+            console.log(nodeId);
+            // if (typeof(nodeId)!='undefined'){
+            //     var node = document.getElementById(nodeId);
+            //     console.log(node3);
+            //     domtoimage.toSvg(node3,{bgcolor: '#fff'})
+            //         .then(function (dataUrl) {
+            //             console.log(dataUrl)
+            //             var img = new Image();
+            //             img.src = dataUrl;
+            //             img.className= 'img-responsive';
+            //             node3.remove();
+            //             $(".table-item").eq(3).append(img);
+            //         });
+            // }
             // 4
-            var nodeId4=$(".table-item").eq(4).children('table').attr('id');
-            if (typeof(nodeId4)!='undefined'){
-                var node4 = document.getElementById(nodeId4);
-                domtoimage.toSvg(node4,{bgcolor: '#fff'})
-                    .then(function (dataUrl) {
-                        var img = new Image();
-                        img.src = dataUrl;
-                        img.className= 'img-responsive';
-                        node4.remove();
-                        $(".table-item").eq(4).append(img);
-                    });
-            }
+            // var nodeId4=$(".table-item").eq(4).children('table').attr('id');
+            // if (typeof(nodeId4)!='undefined'){
+            //     var node4 = document.getElementById(nodeId4);
+            //     domtoimage.toSvg(node4,{bgcolor: '#fff'})
+            //         .then(function (dataUrl) {
+            //             var img = new Image();
+            //             img.src = dataUrl;
+            //             img.className= 'img-responsive';
+            //             node4.remove();
+            //             $(".table-item").eq(4).append(img);
+            //         });
+            // }
             // 5
-            var nodeId5=$(".table-item").eq(5).children('table').attr('id');
-            if (typeof(nodeId5)!='undefined'){
-                var node5 = document.getElementById(nodeId5);
-                domtoimage.toSvg(node5,{bgcolor: '#fff'})
-                    .then(function (dataUrl) {
-                        var img = new Image();
-                        img.src = dataUrl;
-                        img.className= 'img-responsive';
-                        node5.remove();
-                        $(".table-item").eq(5).append(img);
-                    });
-            }
+            // var nodeId5=$(".table-item").eq(5).children('table').attr('id');
+            // if (typeof(nodeId5)!='undefined'){
+            //     var node5 = document.getElementById(nodeId5);
+            //     domtoimage.toSvg(node5,{bgcolor: '#fff'})
+            //         .then(function (dataUrl) {
+            //             var img = new Image();
+            //             img.src = dataUrl;
+            //             img.className= 'img-responsive';
+            //             node5.remove();
+            //             $(".table-item").eq(5).append(img);
+            //         });
+            // }
         });
         $(".month-sub-option").click(function () {
             var monthSub=$(this).data('month');

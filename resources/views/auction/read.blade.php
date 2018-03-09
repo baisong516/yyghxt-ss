@@ -16,7 +16,7 @@
                 <button type="submit" class="btn btn-success">搜索</button>
                 <hr>
                 <input type="hidden" id="monthSub" name="monthSub" value="">
-                @for ($i = 0; $i < 12; $i++)
+                @for ($i = 0; $i < 5; $i++)
                 <button type="button" class="btn btn-success month-sub-option" style="margin-bottom: 5px;" data-month="{{$i}}">{{\Carbon\Carbon::now()->subMonth($i)->year}}-{{\Carbon\Carbon::now()->subMonth($i)->month}}</button>
                 @endfor
             </form>

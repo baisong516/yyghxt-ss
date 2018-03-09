@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('auctions','AuctionController');
         Route::resource('reports','ReportController');
         Route::post('auctionsearch','AuctionController@search')->name('auctions.search');
+        Route::post('reportsearch','ReportController@search')->name('reports.search');
         Route::post('auctionsimport','AuctionController@import')->name('auctions.import');
         Route::post('reportsimport','ReportController@import')->name('reports.import');
     });

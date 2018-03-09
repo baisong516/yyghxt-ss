@@ -27,6 +27,7 @@ class StoreZxCustomerRequest extends FormRequest
             'name'=>'required',
             'office_id'=>'required',
             'zixun_at'=>'required',
+            'cause_id'=>'required',
         ];
     }
     public function messages()
@@ -35,6 +36,7 @@ class StoreZxCustomerRequest extends FormRequest
             'name.required' => '标识必填',
             'office_id.required'  => '科室必填',
             'zixun_at.required'  => '咨询时间必填',
+            'cause_id.required'  => '原因必填',
         ];
     }
 }
