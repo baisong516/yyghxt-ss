@@ -103,7 +103,7 @@
     <div class="form-group {{empty($errors->first('arrive_at'))?'':'has-error'}}">
         <label for="arrivetime" class="col-sm-2 control-label">到院时间</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control item-date" name="arrive_at" id="arrivetime" value="{{isset($customer)?$customer->arrive_at:old('arrive_at')}}">
+            <input type="text" class="form-control item-date" name="arrive_at" id="arrivetime" value="{{isset($customer)?$customer->arrive_at:\Carbon\Carbon::now()->toDateString()}}">
         </div>
     </div>
 

@@ -120,6 +120,21 @@
         </ul>
     </li>
     @endrole
+    @role('superadministrator')
+    <li class="treeview {{Request::is('targets/*')?'active':''}}">
+        <a href="#"><i class="fa fa-signal" aria-hidden="true"></i> <span>项目进度</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            @ability('superadministrator', 'create-targets')
+            <li class="{{Request::is('targets/*')?'active':''}}"><a href="{{route('targets.index')}}"><i class="fa fa-gear"></i><span>目标设置</span></a></li>
+            @endability
+
+        </ul>
+    </li>
+    @endrole
     @role('superadministrator|administrator|qihua')
     <li class="treeview {{Request::is('qh/*')?'active':''}}">
         <a href="#"><i class="fa fa-database"></i> <span>企划</span>

@@ -15,12 +15,7 @@
             {{csrf_field()}}
             <div class="box-body">
                 @include('zxcustomer.form')
-                <div class="form-group {{empty($errors->first('next_at'))?'':'has-error'}}">
-                    <label for="next_at" class="col-sm-2 control-label">下次回访时间</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control item-date" name="next_at"  id="next_at" value="">
-                    </div>
-                </div>
+
             </div>
             <div class="box-footer">
                 <div class="form-group">

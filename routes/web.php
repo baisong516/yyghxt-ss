@@ -98,6 +98,11 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::post('zxoutputsearch','ZxOutputController@search')->name('zxoutputs.search');
         Route::post('jjoutputsearch','JjOutputController@search')->name('jjoutputs.search');
     });
+    //项目进度
+    Route::group(['prefix' => 'progress'],function(){
+        Route::resource('targets','TargetController');
+        Route::get('progress','TargetController@index');
+    });
     //门诊
     Route::group(['prefix' => 'mz'],function(){
         Route::resource('menzhens','MzCustomerController');

@@ -182,76 +182,25 @@
                         $(".table-item").eq(0).append(img);
                     });
             }
-            // 1
-            // var nodeId1=$(".table-item").eq(1).children('table').attr('id');
-            // if (typeof(nodeId1)!='undefined'){
-            //     var node1 = document.getElementById(nodeId1);
-            //     domtoimage.toSvg(node1,{bgcolor: '#fff'})
-            //         .then(function (dataUrl) {
-            //             var img = new Image();
-            //             img.src = dataUrl;
-            //             img.className= 'img-responsive';
-            //             node1.remove();
-            //             $(".table-item").eq(1).append(img);
-            //         });
-            // }
-            // 2
-            // var nodeId2=$(".table-item").eq(2).children('table').attr('id');
-            // if (typeof(nodeId2)!='undefined'){
-            //     var node2 = document.getElementById(nodeId2);
-            //     domtoimage.toSvg(node2,{bgcolor: '#fff'})
-            //         .then(function (dataUrl) {
-            //             var img = new Image();
-            //             img.src = dataUrl;
-            //             img.className= 'img-responsive';
-            //             node2.remove();
-            //             $(".table-item").eq(2).append(img);
-            //         });
-            // }
         });
         $(".tab-switch").click(function () {
             // 3 $(this).data('id')
+            var noded=$(this).data('id');
             var nodeId=$("#"+$(this).data('id')+" .table-item").eq(0).children('table').attr('id');
             console.log(nodeId);
-            // if (typeof(nodeId)!='undefined'){
-            //     var node = document.getElementById(nodeId);
-            //     console.log(node3);
-            //     domtoimage.toSvg(node3,{bgcolor: '#fff'})
-            //         .then(function (dataUrl) {
-            //             console.log(dataUrl)
-            //             var img = new Image();
-            //             img.src = dataUrl;
-            //             img.className= 'img-responsive';
-            //             node3.remove();
-            //             $(".table-item").eq(3).append(img);
-            //         });
-            // }
-            // 4
-            // var nodeId4=$(".table-item").eq(4).children('table').attr('id');
-            // if (typeof(nodeId4)!='undefined'){
-            //     var node4 = document.getElementById(nodeId4);
-            //     domtoimage.toSvg(node4,{bgcolor: '#fff'})
-            //         .then(function (dataUrl) {
-            //             var img = new Image();
-            //             img.src = dataUrl;
-            //             img.className= 'img-responsive';
-            //             node4.remove();
-            //             $(".table-item").eq(4).append(img);
-            //         });
-            // }
-            // 5
-            // var nodeId5=$(".table-item").eq(5).children('table').attr('id');
-            // if (typeof(nodeId5)!='undefined'){
-            //     var node5 = document.getElementById(nodeId5);
-            //     domtoimage.toSvg(node5,{bgcolor: '#fff'})
-            //         .then(function (dataUrl) {
-            //             var img = new Image();
-            //             img.src = dataUrl;
-            //             img.className= 'img-responsive';
-            //             node5.remove();
-            //             $(".table-item").eq(5).append(img);
-            //         });
-            // }
+            if (typeof(nodeId)!='undefined'){
+                var node = document.getElementById(nodeId);
+                // console.log(node);
+                domtoimage.toSvg(node,{bgcolor: '#fff'})
+                    .then(function (dataUrl) {
+                        console.log(dataUrl)
+                        var img = new Image();
+                        img.src = dataUrl;
+                        img.className= 'img-responsive';
+                        node.remove();
+                        $("#"+noded+" .table-item").eq(0).append(img);
+                    });
+            }
         });
         $(".month-sub-option").click(function () {
             var monthSub=$(this).data('month');
