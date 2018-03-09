@@ -28,6 +28,8 @@ class StoreZxCustomerRequest extends FormRequest
             'office_id'=>'required',
             'zixun_at'=>'required',
             'cause_id'=>'required',
+            'jingjia_user_id'=>'required',
+            'next_at'=>'required',
         ];
     }
     public function messages()
@@ -37,6 +39,8 @@ class StoreZxCustomerRequest extends FormRequest
             'office_id.required'  => '科室必填',
             'zixun_at.required'  => '咨询时间必填',
             'cause_id.required'  => '原因必填',
+            'jingjia_user_id.required'  => '当班竞价必填',
+            'next_at.required'  => '下次回访时间必填',
         ];
     }
 }
