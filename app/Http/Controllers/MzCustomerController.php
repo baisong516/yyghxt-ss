@@ -21,7 +21,7 @@ class MzCustomerController extends Controller
             return view('mzcustomer.read',[
                 'pageheader'=>'患者',
                 'pagedescription'=>'列表',
-                'customers'=>ZxCustomer::getCustomers(800),
+                'customers'=>ZxCustomer::getCustomers(500),
                 'users'=>Aiden::getAllUserArray(),
                 'offices'=>Aiden::getAllModelArray('offices'),
                 'diseases'=>Aiden::getAllModelArray('diseases'),
