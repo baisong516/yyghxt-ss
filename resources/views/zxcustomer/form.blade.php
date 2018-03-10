@@ -222,9 +222,4 @@
         </div>
     </div>
 
-    <div class="form-group {{empty($errors->first('next_at'))?'':'has-error'}}" style="display: none;">
-        <label for="next_at" class="col-sm-2 control-label">下次回访时间</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control item-date" name="next_at"  id="next_at" value="{{isset($customer)&&isset($customer->huifangs->last()->next_at)?$customer->huifangs->last()->next_at:\Carbon\Carbon::now()->toDateTimeString()}}">
-        </div>
-    </div>
+

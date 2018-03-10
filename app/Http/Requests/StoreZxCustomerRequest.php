@@ -26,6 +26,7 @@ class StoreZxCustomerRequest extends FormRequest
         return [
             'name'=>'required',
             'office_id'=>'required',
+            'disease_id'=>'required',
             'zixun_at'=>'required',
             'cause_id'=>'required',
             'jingjia_user_id'=>'required',
@@ -37,6 +38,7 @@ class StoreZxCustomerRequest extends FormRequest
         return [
             'name.required' => '标识必填',
             'office_id.required'  => '科室必填',
+            'disease_id.required'  => '病种必填',
             'zixun_at.required'  => '咨询时间必填',
             'cause_id.required'  => '原因必填',
             'jingjia_user_id.required'  => '当班竞价必填',

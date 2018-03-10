@@ -65,9 +65,11 @@
                 <option  selected value="">--选择--</option>
                 @foreach($diseases as $o=>$d)
                     <optgroup label="{{$d['name']}}">
+                        @if(isset($d['diseases'])&&!empty($d['diseases']))
                         @foreach($d['diseases'] as $k=>$v)
                         <option  value="{{$k}}" {{old('disease_id')==$k?'selected':''}} {{isset($customer)&&$customer->disease_id==$k?'selected':''}}>{{$v}}</option>
                         @endforeach
+                        @endif
                     </optgroup>
                 @endforeach
             </select>
@@ -103,7 +105,7 @@
     <div class="form-group {{empty($errors->first('arrive_at'))?'':'has-error'}}">
         <label for="arrivetime" class="col-sm-2 control-label">到院时间</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control item-date" name="arrive_at" id="arrivetime" value="{{isset($customer)?$customer->arrive_at:\Carbon\Carbon::now()->toDateString()}}">
+            <input type="text" class="form-control item-date" name="arrive_at" id="arrivetime" value="{{isset($customer)&&!empty($customer->arrive_at)?$customer->arrive_at:\Carbon\Carbon::now()->toDateTimeString()}}">
         </div>
     </div>
 
