@@ -130,7 +130,7 @@ class ZxCustomer extends Model
         if (empty($limit)){
             return static::whereIn('office_id',$offices)->with('huifangs')->get();
         }else{
-            return static::whereIn('office_id',$offices)->with('huifangs')->take($limit)->get();
+            return static::whereIn('office_id',$offices)->with('huifangs')->orderBy('created_at','desc')->take($limit)->get();
         }
 
     }
