@@ -25,7 +25,7 @@
             <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-info pull-right">提交</button>
+                        <button type="button" class="btn btn-info pull-right submit-operation">提交</button>
                     </div>
                 </div>
             </div>
@@ -36,6 +36,7 @@
 @section('javascript')
     <script src="/asset/ckeditor/ckeditor.js"></script>
     <script src="/asset/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         //data item
@@ -69,6 +70,39 @@
                     }
                 }
             });
+        });
+        //提交检测系统已有数据
+        $(".submit-operation").on('click',function(){
+            var wechat=$("form.zxcustomers-form input[name=wechat]").val();
+            var tel=$("form.zxcustomers-form input[name=tel]").val();
+            $.ajax({
+                url: '/api/check-exist-customer/',
+                type: "post",
+                data: {'wechat':wechat,'tel':tel,'_token': $('input[name=_token]').val()},
+                success: function(data){
+                    // console.log(data.num);
+                    if (data.num>0){
+                        layer.open({
+                            content: data.tip,
+                            btn: ['确定', '关闭'],
+                            yes: function(index, layero){
+                                $("form.zxcustomers-form").submit();
+                            },
+                            btn2: function(index, layero){
+                                //按钮【按钮二】的回调
+                                //return false 开启该代码可禁止点击该按钮关闭
+                            },
+                            cancel: function(){
+                                //右上角关闭回调
+                                //return false; 开启该代码可禁止点击该按钮关闭
+                            }
+                        });
+                    }else{
+                        $("form.zxcustomers-form").submit();
+                    }
+                }
+            });
+
         });
     </script>
 @endsection

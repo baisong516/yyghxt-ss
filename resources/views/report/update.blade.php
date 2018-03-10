@@ -6,17 +6,13 @@
         <div class="box-header">
             <h3 class="box-title">更新</h3>
             <div class="box-tools">
-                {{--<div class="input-group input-group-sm" style="width: 80px;">--}}
-                    {{--@ability('superadministrator', 'create-areas')--}}
-                        {{--<a href="{{route('areas.index')}}" class="btn-sm btn-info">返回</a>--}}
-                    {{--@endability--}}
-                {{--</div>--}}
+
             </div>
         </div>
-        <form action="{{route('auctions.update',$auction->id)}}" method="post" class="auction-form form-horizontal">
+        <form action="{{route('reports.update',$report->id)}}" method="post" class="reports-form form-horizontal">
             {{csrf_field()}}
             {{method_field('PUT')}}
-            @include('auction.form')
+            @include('report.form')
         </form>
     </div>
 @endsection
@@ -33,32 +29,7 @@
                 // value: new Date()
             });
         });
-        $("#type").on('change',function(){
-            var type=$(this).val();
-            $.ajax({
-                url: '/api/get-values-from-type',
-                type: "post",
-                data: {'type':type,'_token': $('input[name=_token]').val()},
-                success: function(data){
-                    $("#type_id").empty();
-                    var html='';
-                    if (data.type == 'disease'){
-                        for (var i in data.data){
-                            html += "<optgroup label=\""+data.data[i]['name']+"\">";
-                            for (var j in data.data[i]['diseases']){
-                                html += "<option value=\""+j+"\">"+data.data[i]['diseases'][j]+"</option>";
-                            }
-                            html += "</optgroup>";
-                        }
-                    }else{
-                        for (var i in data.data){
-                            html += "<option value=\""+i+"\">"+data.data[i]+"</option>";
-                        }
-                    }
-                    $("#type_id").html(html);
-                }
-            });
-        });
+
     </script>
 @endsection
 

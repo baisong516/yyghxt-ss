@@ -121,13 +121,18 @@ class ZxCustomer extends Model
         return $this->belongsTo('App\CustomerCondition');
     }
     //根据分配到的项目查询患者数据
-    public static function getCustomers(){
+    public static function getCustomers($limit=null){
         $offices=static::offices();
         if (empty($offices)){
             return null;
         }
 //        return static::whereIn('office_id',$offices)->with('office','disease','media','user','huifangs','customertype','customercondition','webtype','transuser')->get();
-        return static::whereIn('office_id',$offices)->with('huifangs')->get();
+        if (empty($limit)){
+            return static::whereIn('office_id',$offices)->with('huifangs')->get();
+        }else{
+            return static::whereIn('office_id',$offices)->with('huifangs')->take($limit)->get();
+        }
+
     }
     //根据分配到的项目查询患者数据
     public static function getTodayCustomers(){

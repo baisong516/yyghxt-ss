@@ -78,10 +78,10 @@
             <div class="box-tools">
             </div>
         </div>
+        <form action="" method="post" class="zxcustomers-form">
+            {{method_field('DELETE')}}
+            {{csrf_field()}}
         <div class="box-body table-responsive">
-            <form action="" method="post" class="zxcustomers-form">
-                {{method_field('DELETE')}}
-                {{csrf_field()}}
                 <table id="mzcustomers-list-table" class="table table-striped table-bordered text-center">
                     <thead>
                     <tr>
@@ -138,9 +138,9 @@
                     @endif
                     </tbody>
                 </table>
-            </form>
         </div>
         <!-- /.box-body -->
+    </form>
     </div>
 @endsection
 

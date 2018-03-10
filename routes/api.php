@@ -25,6 +25,7 @@ Route::group(['middleware'=>['api']],function(){
     Route::post('get-zxusers-from-office','ApiController@getZxUsersFromOffice');
     Route::post('get-jjusers-from-office','ApiController@getJjUsersFromOffice');
     Route::post('get-values-from-type','ApiController@getValuesFromType');
+    Route::post('check-exist-customer','ApiController@checkExistCustomer');
 
 //    Route::get('dumphe359484408','ApiController@dumpHe359484408');
 

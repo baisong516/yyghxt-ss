@@ -11,8 +11,10 @@
                     <h3 class="box-title">排班表</h3>
                     {{--区域右侧工具--}}
                     <div class="box-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <a href="{{route('arrangements.create')}}" class="btn-sm btn-info">排班</a>
+                        <div class="input-group input-group-sm" style="width: 280px;">
+                            <a href="{{route('arrangements.create')}}" class="btn-sm btn-info" style="margin-right: 20px;">排班</a>
+                            {{--<a href="" data-toggle="modal" data-target="#importModal" class="btn-sm btn-success" style="margin-right: 20px;">导入</a>--}}
+                            {{--<a href="/template/arrangements.xlsx" class="btn-sm btn-danger">模板</a>--}}
                         </div>
                     </div>
                 </div>

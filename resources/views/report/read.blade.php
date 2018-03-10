@@ -23,7 +23,7 @@
             <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 280px;">
                     @ability('superadministrator', 'create-auctions')
-                        {{--<a href="{{route('auctions.create')}}" class="btn-sm btn-info" style="margin-right: 10px;">录入</a>--}}
+                        <a href="{{route('reports.list')}}" class="btn-sm btn-info" style="margin-right: 10px;">列表</a>
                         <a href="javascript:;" data-toggle="modal" data-target="#importModal" class="btn-sm btn-success" style="margin-right: 10px;">导入</a>
                         <a href="/template/reports.xlsx" class="btn-sm btn-danger">导入模板</a>
                     @endability
@@ -48,13 +48,14 @@
                                 <table class="table table-bordered" id="table-{{$k}}">
                                     <thead>
                                         <tr>
-                                            <th colspan="9" class="text-center">竞价</th>
+                                            <th colspan="10" class="text-center">竞价</th>
                                             <th class="text-center">策划转化率</th>
                                             <th colspan="5" class="text-center">咨询目标</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="text-center">
+                                            <td>广告宣传</td>
                                             <td>展现量</td>
                                             <td>点击</td>
                                             <td>点击率</td>
@@ -72,6 +73,7 @@
                                             <td>咨询转化率</td>
                                         </tr>
                                         <tr class="text-center">
+                                            <td>{{$v['cost']}}</td>
                                             <td>{{$v['show']}}</td>
                                             <td>{{$v['click']}}</td>
                                             <td>{{$v['click_rate']}}</td>

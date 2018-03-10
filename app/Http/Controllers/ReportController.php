@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class ReportController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     *
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,6 +29,24 @@ class ReportController extends Controller
                 'offices'=>Aiden::getAllModelArray('offices'),
                 'start'=>$start,
                 'end'=>$end,
+                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-reports'),
+                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-reports'),
+            ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function list()
+    {
+        if (Auth::user()->ability('superadministrator', 'read-reports')){
+            return view('report.list',[
+                'pageheader'=>'竞价部',
+                'pagedescription'=>'报表列表',
+                'reports'=>Report::orderBy('date_tag','desc')->take(100)->get(),
+                'offices'=>Aiden::getAllModelArray('offices'),
                 'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-reports'),
                 'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-reports'),
             ]);
@@ -76,7 +94,15 @@ class ReportController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'update-diseases')){
+            return view('report.update',[
+                'pageheader'=>'报表',
+                'pagedescription'=>'更新',
+                'offices'=>Aiden::getAuthdOffices(),
+                'report'=>Report::findOrFail($id),
+            ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**
@@ -88,7 +114,26 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'update-reports')){
+            $report = Report::findOrFail($id);
+            $report->office_id=$request->input('office_id');
+            $report->cost=$request->input('cost');
+            $report->show=$request->input('show');
+            $report->click=$request->input('click');
+            $report->achat=$request->input('achat');
+            $report->chat=$request->input('chat');
+            $report->contact=$request->input('contact');
+            $report->yuyue=$request->input('yuyue');
+            $report->arrive=$request->input('arrive');
+            $report->date_tag=$request->input('date_tag');
+            $bool=$report->save();
+            if ($bool){
+                return redirect()->route('reports.list')->with('success','well done!');
+            }else{
+                return redirect()->back()->with('error','Something wrong!!!');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**
@@ -99,7 +144,16 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'delete-diseases')){
+            $report=Report::findOrFail($id);
+            $bool=$report->delete();
+            if ($bool){
+                return redirect()->route('reports.list')->with('success','well done!');
+            }else{
+                return redirect()->back()->with('error','Something wrong!!!');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     public function search(Request $request)

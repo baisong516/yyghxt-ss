@@ -19,6 +19,14 @@ use mysqli;
 
 class ApiController extends Controller
 {
+    public function checkExistCustomer(Request $request)
+    {
+        $tel=$request->input('tel');
+        $wechat=$request->input('wechat');
+        if (empty($tel)&&empty($wechat)){return response()->json(['num'=>0,'tip'=>'']);}
+        if (!empty($tel)){return response()->json(['num'=>ZxCustomer::where('tel',$tel)->count(),'tip'=>'此电话在系统中已存在，仍坚持录入吗？']);}
+        if (!empty($wechat)){return response()->json(['num'=>ZxCustomer::where('wechat',$wechat)->count(),'tip'=>'此微信号在系统中已存在，仍坚持录入吗？']);}
+    }
     public function drawTest(Request $request)
     {
         $imgData=$request->input('img');
