@@ -246,9 +246,9 @@ class ReportController extends Controller
                         if ($type=='disease'){
                             $type_id=array_search($d[2],$diseases);
                         }
-                        $cost=$d[3]?$d[3]:0;//消费
-                        $show=$d[4]?$d[4]:0;//展现
-                        $click=$d[5]?$d[5]:0;//点击
+                        $show=$d[3]?$d[3]:0;//展现
+                        $click=$d[4]?$d[4]:0;//点击
+                        $cost=$d[5]?$d[5]:0;//消费
                         $achat=$d[6]?$d[6]:0;//总对话
                         $chat=$d[7]?$d[7]:0;//有效对话
                         $contact=$d[8]?$d[8]:0;//留联系
