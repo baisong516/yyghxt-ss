@@ -11,6 +11,29 @@
             </select>
         </div>
     </div>
+    <div class="form-group {{empty($errors->first('type'))?'':'has-error'}}">
+        <label for="type" class="col-sm-2 control-label">类型</label>
+        <div class="col-sm-8">
+            <select name="type" id="type" class="form-control">
+                <option value="">--选择类型--</option>
+                <option value="platform" {{isset($report)&&$report->type=='platform'?'selected':''}}>渠道平台</option>
+                <option value="area" {{isset($report)&&$report->type=='area'?'selected':''}}>地域</option>
+                <option value="disease" {{isset($report)&&$report->type=='disease'?'selected':''}}>病种</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group {{empty($errors->first('type_id'))?'':'has-error'}}">
+        <label for="type_id" class="col-sm-2 control-label">类型值</label>
+        <div class="col-sm-8">
+            <select name="type_id" id="type_id" class="form-control">
+                @isset($report)
+                    @foreach($options as $k=>$v)
+                        <option value="{{$k}}" {{$k==$report->type_id?'selected':''}}>{{$v}}</option>
+                    @endforeach
+                @endisset
+            </select>
+        </div>
+    </div>
     <div class="form-group {{empty($errors->first('cost'))?'':'has-error'}}">
         <label for="cost" class="col-sm-2 control-label">消费</label>
         <div class="col-sm-8">

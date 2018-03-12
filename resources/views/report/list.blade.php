@@ -19,6 +19,8 @@
                 <tr>
                     <th>ID</th>
                     <th>科室</th>
+                    <th>类型</th>
+                    <th>类型值</th>
                     <th>消费</th>
                     <th>展现</th>
                     <th>点击</th>
@@ -36,6 +38,18 @@
                     <tr>
                         <td>{{$report->id}}</td>
                         <td>{{$report->office_id&&isset($offices[$report->office_id])?$offices[$report->office_id]:''}}</td>
+                        @if($report->type=='disease')
+                            <td>病种</td>
+                            <td>{{isset($diseases[$report->type_id])?$diseases[$report->type_id]:''}}</td>
+                        @endif
+                        @if($report->type=='platform')
+                            <td>平台</td>
+                            <td>{{isset($platforms[$report->type_id])?$platforms[$report->type_id]:''}}</td>
+                        @endif
+                        @if($report->type=='area')
+                            <td>地域</td>
+                            <td>{{isset($areas[$report->type_id])?$areas[$report->type_id]:''}}</td>
+                        @endif
                         <td>{{$report->cost}}</td>
                         <td>{{$report->show}}</td>
                         <td>{{$report->click}}</td>

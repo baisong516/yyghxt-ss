@@ -18,6 +18,8 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('office_id')->comment('科室');
+            $table->string('type')->comment('类型：按病种|按地域|按平台');
+            $table->unsignedInteger('type_id');
             $table->date('date_tag')->comment('日期');
             $table->string('cost')->comment('消费');
             $table->unsignedInteger('show')->default(0)->comment('展现');

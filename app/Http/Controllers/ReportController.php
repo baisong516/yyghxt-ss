@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Aiden;
+use App\Auction;
 use App\Report;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
@@ -22,15 +25,18 @@ class ReportController extends Controller
         if (Auth::user()->ability('superadministrator', 'read-reports')){
             $start=Carbon::now()->startOfDay();
             $end=Carbon::now()->endOfDay();
+//            dd(Report::getReportData($start,$end));
+//            dd(Auction::getAuctionData(Carbon::createFromFormat('Y-m-d','2018-01-01')->startOfDay(),$end));
             return view('report.read',[
                 'pageheader'=>'竞价部',
                 'pagedescription'=>'报表',
                 'reports'=>Report::getReportData($start,$end),
                 'offices'=>Aiden::getAllModelArray('offices'),
+                'platforms'=>Aiden::getAllModelArray('platforms'),
+                'areas'=>Aiden::getAllModelArray('areas'),
+                'diseases'=>Aiden::getAllModelArray('diseases'),
                 'start'=>$start,
                 'end'=>$end,
-                'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-reports'),
-                'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-reports'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -47,6 +53,9 @@ class ReportController extends Controller
                 'pagedescription'=>'报表列表',
                 'reports'=>Report::orderBy('date_tag','desc')->take(100)->get(),
                 'offices'=>Aiden::getAllModelArray('offices'),
+                'platforms'=>Aiden::getAllModelArray('platforms'),
+                'areas'=>Aiden::getAllModelArray('areas'),
+                'diseases'=>Aiden::getAllModelArray('diseases'),
                 'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-reports'),
                 'enableDelete'=>Auth::user()->ability('superadministrator', 'delete-reports'),
             ]);
@@ -61,7 +70,14 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'create-reports')){
+            return view('report.create',[
+                'pageheader'=>'竞价报表',
+                'pagedescription'=>'录入',
+                'offices'=>Aiden::getAllModelArray('offices'),
+            ]);
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**
@@ -72,7 +88,14 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Auth::user()->ability('superadministrator', 'create-reports')){
+            if (Report::createReport($request)){
+                return redirect()->route('reports.index')->with('success','Well Done!');
+            }else{
+                return redirect()->back()->with('error','Something Wrong!');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
     }
 
     /**
@@ -98,7 +121,8 @@ class ReportController extends Controller
             return view('report.update',[
                 'pageheader'=>'报表',
                 'pagedescription'=>'更新',
-                'offices'=>Aiden::getAuthdOffices(),
+                'offices'=>Aiden::getAllModelArray('offices'),
+                'options'=>Aiden::getAllModelArray(Report::findOrFail($id)->type.'s'),
                 'report'=>Report::findOrFail($id),
             ]);
         }
@@ -115,19 +139,7 @@ class ReportController extends Controller
     public function update(Request $request, $id)
     {
         if (Auth::user()->ability('superadministrator', 'update-reports')){
-            $report = Report::findOrFail($id);
-            $report->office_id=$request->input('office_id');
-            $report->cost=$request->input('cost');
-            $report->show=$request->input('show');
-            $report->click=$request->input('click');
-            $report->achat=$request->input('achat');
-            $report->chat=$request->input('chat');
-            $report->contact=$request->input('contact');
-            $report->yuyue=$request->input('yuyue');
-            $report->arrive=$request->input('arrive');
-            $report->date_tag=$request->input('date_tag');
-            $bool=$report->save();
-            if ($bool){
+            if (Report::updateReport($request,$id)){
                 return redirect()->route('reports.list')->with('success','well done!');
             }else{
                 return redirect()->back()->with('error','Something wrong!!!');
@@ -174,6 +186,9 @@ class ReportController extends Controller
                 'pagedescription'=>'报表',
                 'reports'=>Report::getReportData($start,$end),
                 'offices'=>Aiden::getAllModelArray('offices'),
+                'platforms'=>Aiden::getAllModelArray('platforms'),
+                'areas'=>Aiden::getAllModelArray('areas'),
+                'diseases'=>Aiden::getAllModelArray('diseases'),
                 'start'=>$start,
                 'end'=>$end,
                 'enableUpdate'=>Auth::user()->ability('superadministrator', 'update-reports'),
@@ -199,7 +214,7 @@ class ReportController extends Controller
                     ['date_tag','<=',$end],
                 ])->count();
                 if ($isExist>0){
-                    return redirect()->back()->with('error',$request->input('date_tag').'的数据已录过一次，为避免数据混乱，禁止二次录入！');
+                    return redirect()->back()->with('error',$request->input('date_tag').'的数据已录过一次，为避免数据混乱，不能二次录入！');
                 }
                 Excel::load($file, function($reader) use( &$res,$dateTag ) {
                     $reader = $reader->getSheet(0);
@@ -208,32 +223,59 @@ class ReportController extends Controller
                 $res=array_slice($res,1);
 //                dd($res);
                 $offices=Aiden::getAllModelArray('offices');
-                foreach ($res as $d){
-                    $office_id=array_search($d[0],$offices);//项目
-                    $cost=$d[1]?$d[1]:0;//预算
-                    $show=$d[2]?$d[2]:0;//展现
-                    $click=$d[3]?$d[3]:0;//点击
-                    $achat=$d[4]?$d[4]:0;//总对话
-                    $chat=$d[5]?$d[5]:0;//有效对话
-                    $contact=$d[6]?$d[6]:0;//留联系
-                    $yuyue=$d[7]?$d[7]:0;//预约
-                    $arrive=$d[8]?$d[8]:0;//到院
+                $types=[
+                    'platform'=>'渠道',
+                    'area'=>'地区',
+                    'disease'=>'病种',
+                ];
+                $platforms=Aiden::getAllModelArray('platforms');
+                $areas=Aiden::getAllModelArray('areas');
+                $diseases=Aiden::getAllModelArray('diseases');
+                DB::beginTransaction();
+                try{
+                    foreach ($res as $d){
+                        $office_id=array_search($d[0],$offices);//项目
+                        $type=array_search($d[1],$types);//类型
+                        $type_id=$d[2];
+                        if ($type=='platform'){
+                            $type_id=array_search($d[2],$platforms);
+                        }
+                        if ($type=='area'){
+                            $type_id=array_search($d[2],$areas);
+                        }
+                        if ($type=='disease'){
+                            $type_id=array_search($d[2],$diseases);
+                        }
+                        $cost=$d[3]?$d[3]:0;//消费
+                        $show=$d[4]?$d[4]:0;//展现
+                        $click=$d[5]?$d[5]:0;//点击
+                        $achat=$d[6]?$d[6]:0;//总对话
+                        $chat=$d[7]?$d[7]:0;//有效对话
+                        $contact=$d[8]?$d[8]:0;//留联系
+                        $yuyue=$d[9]?$d[9]:0;//预约
+                        $arrive=$d[10]?$d[10]:0;//到院
+                        $date_tag=$dateTag;//日期
 
-                    $date_tag=$dateTag;//日期
 
-
-                    $report=new Report();
-                    $report->office_id=$office_id;
-                    $report->cost=$cost;
-                    $report->show=$show;
-                    $report->click=$click;
-                    $report->achat=$achat;
-                    $report->chat=$chat;
-                    $report->contact=$contact;
-                    $report->yuyue=$yuyue;
-                    $report->arrive=$arrive;
-                    $report->date_tag=$date_tag;
-                    $bool=$report->save();
+                        $report=new Report();
+                        $report->office_id=$office_id;
+                        $report->type=$type;
+                        $report->type_id=$type_id;
+                        $report->cost=$cost;
+                        $report->show=$show;
+                        $report->click=$click;
+                        $report->achat=$achat;
+                        $report->chat=$chat;
+                        $report->contact=$contact;
+                        $report->yuyue=$yuyue;
+                        $report->arrive=$arrive;
+                        $report->date_tag=$date_tag;
+                        $bool=$report->save();
+                    }
+                    DB::commit();
+                }catch (QueryException $e){
+                    DB::rollback();
+                    return redirect()->route('reports.index')->with('error',$e->getMessage().' 请检查表格数据是否正确再次导入或截图联系管理员！');
                 }
                 return redirect()->route('reports.index')->with('success','导入完成!');
             }

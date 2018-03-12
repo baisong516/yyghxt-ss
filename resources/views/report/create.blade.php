@@ -13,9 +13,9 @@
                 {{--</div>--}}
             </div>
         </div>
-        <form action="{{route('auctions.store')}}" method="post" class="auction-form form-horizontal">
+        <form action="{{route('reports.store')}}" method="post" class="auction-form form-horizontal">
             {{csrf_field()}}
-            @include('auction.form')
+            @include('report.form')
         </form>
     </div>
 @endsection
