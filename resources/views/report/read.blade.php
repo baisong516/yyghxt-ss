@@ -71,7 +71,7 @@
                                                 <td rowspan="{{$loop->count}}" style="vertical-align: middle;" class="bg-tree"><strong>渠道</strong></td>
                                             @endif
                                             <td>{{$typeId?$platforms[$typeId]:''}}</td>
-                                            <td>{{$report['cost']}}</td>
+                                            <td>{{sprintf('%.2f',$report['cost'])}}</td>
                                             <td>{{$report['show']}}</td>
                                             <td>{{$report['click']}}</td>
                                             <td>{{$report['achat']}}</td>
@@ -86,7 +86,7 @@
                                     <tr class="text-center">
                                         <td class="bg-tree"></td>
                                         <td>合计汇总</td>
-                                        <td>{{$v['platform']['cost']}}</td>
+                                        <td>{{sprintf('%.2f', $v['platform']['cost'])}}</td>
                                         <td>{{$v['platform']['show']}}</td>
                                         <td>{{$v['platform']['click']}}</td>
                                         <td>{{$v['platform']['achat']}}</td>
@@ -127,7 +127,7 @@
                                                 <td rowspan="{{$loop->count}}" style="vertical-align: middle" class="bg-tree"><strong>地区</strong></td>
                                             @endif
                                             <td>{{$typeId?$areas[$typeId]:''}}</td>
-                                            <td>{{$report['cost']}}</td>
+                                            <td>{{sprintf('%.2f',$report['cost'])}}</td>
                                             <td>{{$report['show']}}</td>
                                             <td>{{$report['click']}}</td>
                                             <td>{{$report['achat']}}</td>
@@ -142,7 +142,7 @@
                                     <tr class="text-center">
                                         <td class="bg-tree"></td>
                                         <td>合计汇总</td>
-                                        <td>{{$v['area']['cost']}}</td>
+                                        <td>{{sprintf('%.2f', $v['area']['cost'])}}</td>
                                         <td>{{$v['area']['show']}}</td>
                                         <td>{{$v['area']['click']}}</td>
                                         <td>{{$v['area']['achat']}}</td>
@@ -183,7 +183,7 @@
                                                     <td  rowspan="{{$loop->count}}" style="vertical-align: middle" class="bg-tree"><strong>病种</strong></td>
                                                 @endif
                                                 <td>{{$typeId?$diseases[$typeId]:''}}</td>
-                                                <td>{{$report['cost']}}</td>
+                                                <td>{{sprintf('%.2f',$report['cost'])}}</td>
                                                 <td>{{$report['show']}}</td>
                                                 <td>{{$report['click']}}</td>
                                                 <td>{{$report['achat']}}</td>
@@ -198,7 +198,7 @@
                                         <tr class="text-center">
                                             <td  class="bg-tree"></td>
                                             <td>合计汇总</td>
-                                            <td>{{$v['disease']['cost']}}</td>
+                                            <td>{{sprintf('%.2f',$v['disease']['cost'])}}</td>
                                             <td>{{$v['disease']['show']}}</td>
                                             <td>{{$v['disease']['click']}}</td>
                                             <td>{{$v['disease']['achat']}}</td>
