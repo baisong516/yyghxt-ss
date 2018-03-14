@@ -32,22 +32,23 @@
             </div>
         </div>
         <div class="box-body table-responsive">
-            {{--当前数据/查询数据--}}
+            @foreach($reportdata as $source_id => $reports)
+            <h5 class="text-center text-primary" style="font-weight: bold;">{{isset($sources[$source_id])?$sources[$source_id]:''}}</h5>
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     @if(!empty($reports))
                         @foreach($reports as $k=>$v)
-                            <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$k}}" id="tab-switch-{{$k}}" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                            <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$source_id}}_{{$k}}" class="tab-switch" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
                         @endforeach
                     @endif
                 </ul>
                 <div class="tab-content">
                     @if(!empty($reports))
                     @foreach($reports as $k=>$v)
-                        <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$k}}">
+                        <div class="tab-pane {{$loop->first?'active':''}}" id="tab_{{$source_id}}_{{$k}}">
                             @isset($v['platform'])
                             <div class="table-item table-responsive">
-                                <table class="table table-bordered" id="table-platform-{{$k}}">
+                                <table class="table table-bordered" id="table-platform-{{$source_id}}-{{$k}}">
                                     <thead class="text-center">
                                     <tr>
                                         <th></th>
@@ -103,7 +104,7 @@
                             @endisset
                             @isset($v['area'])
                             <div class="table-item table-responsive">
-                                <table class="table table-bordered" id="table-area-{{$k}}">
+                                <table class="table table-bordered" id="table-area-{{$source_id}}-{{$k}}">
                                     <thead class="text-center">
                                     <tr>
                                         <th ></th>
@@ -159,7 +160,7 @@
                             @endisset
                             @isset($v['disease'])
                                 <div class="table-item table-responsive">
-                                    <table class="table table-bordered" id="table-disease-{{$k}}">
+                                    <table class="table table-bordered" id="table-disease-{{$source_id}}-{{$k}}">
                                         <thead class="text-center">
                                         <tr>
                                             <th></th>
@@ -219,6 +220,7 @@
                 </div>
                 <!-- /.tab-content -->
             </div>
+            @endforeach
         </div>
         <!-- /.box-body -->
     </div>
@@ -291,7 +293,7 @@
                 });
             });
         });
-        //todo 6张表 for循环参数覆盖未解 暂时单写
+        //todo 多表 for循环参数覆盖未解 暂时单写
         // 0
         var nodeId0=$(".table-item").eq(0).children('table').attr('id');
         if (typeof(nodeId0)!='undefined'){
@@ -331,25 +333,66 @@
                     $(".table-item").eq(2).append(img);
                 });
         }
-        $("#tab-switch-2").click(function () {
+        // 6
+        var nodeId6=$(".table-item").eq(6).children('table').attr('id');
+        // console.log(nodeId6);
+        if (typeof(nodeId6)!='undefined'){
+            var node6 = document.getElementById(nodeId6);
+            // console.log(node6);
+            domtoimage.toSvg(node6,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    // console.log(dataUrl);
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node6.remove();
+                    $(".table-item").eq(6).append(img);
+                });
+        }
+        // 7
+        var nodeId7=$(".table-item").eq(7).children('table').attr('id');
+        if (typeof(nodeId7)!='undefined'){
+            var node7 = document.getElementById(nodeId7);
+            domtoimage.toSvg(node7,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node7.remove();
+                    $(".table-item").eq(7).append(img);
+                });
+        }
+        // 8
+        var nodeId8=$(".table-item").eq(8).children('table').attr('id');
+        if (typeof(nodeId8)!='undefined'){
+            var node8 = document.getElementById(nodeId8);
+            domtoimage.toSvg(node8,{bgcolor: '#fff'})
+                .then(function (dataUrl) {
+                    var img = new Image();
+                    img.src = dataUrl;
+                    img.className= 'img-responsive';
+                    node8.remove();
+                    $(".table-item").eq(8).append(img);
+                });
+        }
+
+        $(".tab-switch").click(function () {
+            var container=$(this).attr('href');
             // 3
-            var nodeId3=$(".table-item").eq(3).children('table').attr('id');
-            // console.log(nodeId3);
+            var nodeId3=$(container+" .table-item").eq(0).children('table').attr('id');
             if (typeof(nodeId3)!='undefined'){
                 var node3 = document.getElementById(nodeId3);
-                // console.log(node3);
                 domtoimage.toSvg(node3,{bgcolor: '#fff'})
                     .then(function (dataUrl) {
-                        // console.log(dataUrl);
                         var img = new Image();
                         img.src = dataUrl;
                         img.className= 'img-responsive';
                         node3.remove();
-                        $(".table-item").eq(3).append(img);
+                        $(container+" .table-item").eq(0).append(img);
                     });
             }
             // 4
-            var nodeId4=$(".table-item").eq(4).children('table').attr('id');
+            var nodeId4=$(container+" .table-item").eq(1).children('table').attr('id');
             if (typeof(nodeId4)!='undefined'){
                 var node4 = document.getElementById(nodeId4);
                 domtoimage.toSvg(node4,{bgcolor: '#fff'})
@@ -358,11 +401,11 @@
                         img.src = dataUrl;
                         img.className= 'img-responsive';
                         node4.remove();
-                        $(".table-item").eq(4).append(img);
+                        $(container+" .table-item").eq(1).append(img);
                     });
             }
             // 5
-            var nodeId5=$(".table-item").eq(5).children('table').attr('id');
+            var nodeId5=$(container+" .table-item").eq(2).children('table').attr('id');
             if (typeof(nodeId5)!='undefined'){
                 var node5 = document.getElementById(nodeId5);
                 domtoimage.toSvg(node5,{bgcolor: '#fff'})
@@ -371,9 +414,10 @@
                         img.src = dataUrl;
                         img.className= 'img-responsive';
                         node5.remove();
-                        $(".table-item").eq(5).append(img);
+                        $(container+" .table-item").eq(2).append(img);
                     });
             }
+
         });
         $(".month-sub-option").click(function () {
             var monthSub=$(this).data('month');

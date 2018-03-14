@@ -11,6 +11,18 @@
             </select>
         </div>
     </div>
+    <div class="form-group {{empty($errors->first('source_id'))?'':'has-error'}}">
+        <label for="source_id" class="col-sm-2 control-label">网站来源</label>
+        <div class="col-sm-8">
+            <select name="source_id" id="source_id" class="form-control">
+                @isset($sources)
+                    @foreach($sources as $k=>$v)
+                        <option value="{{$k}}" {{isset($report)&&$report->source_id==$k?'selected':''}}>{{$v}}</option>
+                    @endforeach
+                @endisset
+            </select>
+        </div>
+    </div>
     <div class="form-group {{empty($errors->first('type'))?'':'has-error'}}">
         <label for="type" class="col-sm-2 control-label">类型</label>
         <div class="col-sm-8">

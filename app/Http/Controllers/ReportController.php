@@ -30,8 +30,9 @@ class ReportController extends Controller
             return view('report.read',[
                 'pageheader'=>'竞价部',
                 'pagedescription'=>'报表',
-                'reports'=>Report::getReportData($start,$end),
+                'reportdata'=>Report::getReportData($start,$end),
                 'offices'=>Aiden::getAllModelArray('offices'),
+                'sources'=>Aiden::getAllModelArray('sources'),
                 'platforms'=>Aiden::getAllModelArray('platforms'),
                 'areas'=>Aiden::getAllModelArray('areas'),
                 'diseases'=>Aiden::getAllModelArray('diseases'),
@@ -53,6 +54,7 @@ class ReportController extends Controller
                 'pagedescription'=>'报表列表',
                 'reports'=>Report::orderBy('date_tag','desc')->take(100)->get(),
                 'offices'=>Aiden::getAllModelArray('offices'),
+                'sources'=>Aiden::getAllModelArray('sources'),
                 'platforms'=>Aiden::getAllModelArray('platforms'),
                 'areas'=>Aiden::getAllModelArray('areas'),
                 'diseases'=>Aiden::getAllModelArray('diseases'),
@@ -75,6 +77,7 @@ class ReportController extends Controller
                 'pageheader'=>'竞价报表',
                 'pagedescription'=>'录入',
                 'offices'=>Aiden::getAllModelArray('offices'),
+                'sources'=>Aiden::getAllModelArray('sources'),
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -122,6 +125,7 @@ class ReportController extends Controller
                 'pageheader'=>'报表',
                 'pagedescription'=>'更新',
                 'offices'=>Aiden::getAllModelArray('offices'),
+                'sources'=>Aiden::getAllModelArray('sources'),
                 'options'=>Aiden::getAllModelArray(Report::findOrFail($id)->type.'s'),
                 'report'=>Report::findOrFail($id),
             ]);
@@ -186,6 +190,7 @@ class ReportController extends Controller
                 'pagedescription'=>'报表',
                 'reports'=>Report::getReportData($start,$end),
                 'offices'=>Aiden::getAllModelArray('offices'),
+                'sources'=>Aiden::getAllModelArray('sources'),
                 'platforms'=>Aiden::getAllModelArray('platforms'),
                 'areas'=>Aiden::getAllModelArray('areas'),
                 'diseases'=>Aiden::getAllModelArray('diseases'),
@@ -223,6 +228,7 @@ class ReportController extends Controller
                 $res=array_slice($res,1);
 //                dd($res);
                 $offices=Aiden::getAllModelArray('offices');
+                $sources=Aiden::getAllModelArray('sources');
                 $types=[
                     'platform'=>'渠道',
                     'area'=>'地区',
@@ -235,30 +241,32 @@ class ReportController extends Controller
                 try{
                     foreach ($res as $d){
                         $office_id=array_search($d[0],$offices);//项目
-                        $type=array_search($d[1],$types);//类型
-                        $type_id=$d[2];
+                        $source_id=array_search($d[1],$sources);//项目
+                        $type=array_search($d[2],$types);//类型
+                        $type_id=$d[3];
                         if ($type=='platform'){
-                            $type_id=array_search($d[2],$platforms);
+                            $type_id=array_search($d[3],$platforms);
                         }
                         if ($type=='area'){
-                            $type_id=array_search($d[2],$areas);
+                            $type_id=array_search($d[3],$areas);
                         }
                         if ($type=='disease'){
-                            $type_id=array_search($d[2],$diseases);
+                            $type_id=array_search($d[3],$diseases);
                         }
-                        $show=$d[3]?$d[3]:0;//展现
-                        $click=$d[4]?$d[4]:0;//点击
-                        $cost=$d[5]?$d[5]:0;//消费
-                        $achat=$d[6]?$d[6]:0;//总对话
-                        $chat=$d[7]?$d[7]:0;//有效对话
-                        $contact=$d[8]?$d[8]:0;//留联系
-                        $yuyue=$d[9]?$d[9]:0;//预约
-                        $arrive=$d[10]?$d[10]:0;//到院
+                        $show=$d[4]?$d[4]:0;//展现
+                        $click=$d[5]?$d[5]:0;//点击
+                        $cost=$d[6]?$d[6]:0;//消费
+                        $achat=$d[7]?$d[7]:0;//总对话
+                        $chat=$d[8]?$d[8]:0;//有效对话
+                        $contact=$d[9]?$d[9]:0;//留联系
+                        $yuyue=$d[10]?$d[10]:0;//预约
+                        $arrive=$d[11]?$d[11]:0;//到院
                         $date_tag=$dateTag;//日期
 
 
                         $report=new Report();
                         $report->office_id=$office_id;
+                        $report->source_id=$source_id;
                         $report->type=$type;
                         $report->type_id=$type_id;
                         $report->cost=$cost;

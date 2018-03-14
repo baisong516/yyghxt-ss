@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::resource('platforms','PlatFormController');
         Route::resource('areas','AreaController');
         Route::resource('causes','CauseController');
+        Route::resource('sources','SourceController');
     });
     //咨询
     Route::group(['prefix' => 'zx'],function(){

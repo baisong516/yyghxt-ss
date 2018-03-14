@@ -19,6 +19,7 @@
                 <tr>
                     <th>ID</th>
                     <th>科室</th>
+                    <th>网站来源</th>
                     <th>类型</th>
                     <th>类型值</th>
                     <th>消费</th>
@@ -38,6 +39,7 @@
                     <tr>
                         <td>{{$report->id}}</td>
                         <td>{{$report->office_id&&isset($offices[$report->office_id])?$offices[$report->office_id]:''}}</td>
+                        <td>{{$report->source_id&&isset($sources[$report->source_id])?$sources[$report->source_id]:''}}</td>
                         @if($report->type=='disease')
                             <td>病种</td>
                             <td>{{isset($diseases[$report->type_id])?$diseases[$report->type_id]:''}}</td>
