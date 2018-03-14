@@ -184,11 +184,11 @@ class ReportController extends Controller
                 $end=Carbon::now()->subMonth($monthSub)->endOfMonth();
             }
 //            $data=Auction::getAuctionData($start,$end);
-//            dd($data);
+//            dd(Report::getReportData($start->toDateString(),$end->toDateString()));
             return view('report.read',[
                 'pageheader'=>'竞价部',
                 'pagedescription'=>'报表',
-                'reports'=>Report::getReportData($start,$end),
+                'reportdata'=>Report::getReportData($start->toDateString(),$end->toDateString()),
                 'offices'=>Aiden::getAllModelArray('offices'),
                 'sources'=>Aiden::getAllModelArray('sources'),
                 'platforms'=>Aiden::getAllModelArray('platforms'),
@@ -234,6 +234,9 @@ class ReportController extends Controller
                 DB::beginTransaction();
                 try{
                     foreach ($res as $d){
+                        if (is_null($d[0])||is_null($d[1])||is_null($d[2])||is_null($d[3])||is_null($d[4])||is_null($d[5])||is_null($d[6])||is_null($d[7])||is_null($d[8])||is_null($d[9])||is_null($d[10])||is_null($d[11])){
+                            continue;
+                        }
                         $office_id=array_search($d[0],$offices);//项目
                         $source_id=array_search($d[1],$sources);//项目
                         $type=array_search($d[2],$types);//类型
@@ -263,7 +266,7 @@ class ReportController extends Controller
                             'type'=>$type,
                             'type_id'=>$type_id,
                         ])->count();
-                        if ($existReport>0){
+                        if ($existReport>0&&$date_tag&&$office_id&&$source_id&&$type&&$type_id){
                             DB::rollback();
                             return redirect()->back()->with('error', '日期：'.$date_tag->toDateString().' 来源网站：'.$sources[$source_id].' 科室：'.$offices[$office_id].' '.$type.' '.$type_id.' 数据已存在，请修改表后再试！');
                         }else{
