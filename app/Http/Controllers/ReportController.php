@@ -214,13 +214,7 @@ class ReportController extends Controller
                 $dateTag=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag')):Carbon::now();
                 $start=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag'))->startOfDay():Carbon::now()->startOfDay();
                 $end=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag'))->endOfDay():Carbon::now()->endOfDay();
-                $isExist=Report::where([
-                    ['date_tag','>=',$start],
-                    ['date_tag','<=',$end],
-                ])->count();
-                if ($isExist>0){
-                    return redirect()->back()->with('error',$request->input('date_tag').'的数据已录过一次，为避免数据混乱，不能二次录入！');
-                }
+
                 Excel::load($file, function($reader) use( &$res,$dateTag ) {
                     $reader = $reader->getSheet(0);
                     $res = $reader->toArray();
@@ -262,23 +256,34 @@ class ReportController extends Controller
                         $yuyue=$d[10]?$d[10]:0;//预约
                         $arrive=$d[11]?$d[11]:0;//到院
                         $date_tag=$dateTag;//日期
+                        $existReport=Report::where([
+                            'date_tag'=>$date_tag->toDateString(),
+                            'office_id'=>$office_id,
+                            'source_id'=>$source_id,
+                            'type'=>$type,
+                            'type_id'=>$type_id,
+                        ])->count();
+                        if ($existReport>0){
+                            DB::rollback();
+                            return redirect()->back()->with('error', '日期：'.$date_tag->toDateString().' 来源网站：'.$sources[$source_id].' 科室：'.$offices[$office_id].' '.$type.' '.$type_id.' 数据已存在，请修改表后再试！');
+                        }else{
+                            $report=new Report();
+                            $report->office_id=$office_id;
+                            $report->source_id=$source_id;
+                            $report->type=$type;
+                            $report->type_id=$type_id;
+                            $report->cost=$cost;
+                            $report->show=$show;
+                            $report->click=$click;
+                            $report->achat=$achat;
+                            $report->chat=$chat;
+                            $report->contact=$contact;
+                            $report->yuyue=$yuyue;
+                            $report->arrive=$arrive;
+                            $report->date_tag=$date_tag;
+                            $bool=$report->save();
+                        }
 
-
-                        $report=new Report();
-                        $report->office_id=$office_id;
-                        $report->source_id=$source_id;
-                        $report->type=$type;
-                        $report->type_id=$type_id;
-                        $report->cost=$cost;
-                        $report->show=$show;
-                        $report->click=$click;
-                        $report->achat=$achat;
-                        $report->chat=$chat;
-                        $report->contact=$contact;
-                        $report->yuyue=$yuyue;
-                        $report->arrive=$arrive;
-                        $report->date_tag=$date_tag;
-                        $bool=$report->save();
                     }
                     DB::commit();
                 }catch (QueryException $e){
