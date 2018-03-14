@@ -32,6 +32,7 @@
             </div>
         </div>
         <div class="box-body table-responsive">
+            @if(isset($reportdata)&&!empty($reportdata))
             @foreach($reportdata as $source_id => $reports)
             <h5 class="text-center text-primary" style="font-weight: bold;">{{isset($sources[$source_id])?$sources[$source_id]:''}}</h5>
             <div class="nav-tabs-custom">
@@ -221,6 +222,7 @@
                 <!-- /.tab-content -->
             </div>
             @endforeach
+            @endif
         </div>
         <!-- /.box-body -->
     </div>
