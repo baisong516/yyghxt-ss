@@ -295,131 +295,42 @@
                 });
             });
         });
-        //todo 多表 for循环参数覆盖未解 暂时单写
-        // 0
-        var nodeId0=$(".table-item").eq(0).children('table').attr('id');
-        if (typeof(nodeId0)!='undefined'){
-            var node0 = document.getElementById(nodeId0);
-            domtoimage.toSvg(node0,{bgcolor: '#fff'})
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.className= 'img-responsive';
-                    node0.remove();
-                    $(".table-item").eq(0).append(img);
-                });
-        }
-        // 1
-        var nodeId1=$(".table-item").eq(1).children('table').attr('id');
-        if (typeof(nodeId1)!='undefined'){
-            var node1 = document.getElementById(nodeId1);
-            domtoimage.toSvg(node1,{bgcolor: '#fff'})
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.className= 'img-responsive';
-                    node1.remove();
-                    $(".table-item").eq(1).append(img);
-                });
-        }
-        // 2
-        var nodeId2=$(".table-item").eq(2).children('table').attr('id');
-        if (typeof(nodeId2)!='undefined'){
-            var node2 = document.getElementById(nodeId2);
-            domtoimage.toSvg(node2,{bgcolor: '#fff'})
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.className= 'img-responsive';
-                    node2.remove();
-                    $(".table-item").eq(2).append(img);
-                });
-        }
-        // 6
-        var nodeId6=$(".table-item").eq(6).children('table').attr('id');
-        // console.log(nodeId6);
-        if (typeof(nodeId6)!='undefined'){
-            var node6 = document.getElementById(nodeId6);
-            // console.log(node6);
-            domtoimage.toSvg(node6,{bgcolor: '#fff'})
-                .then(function (dataUrl) {
-                    // console.log(dataUrl);
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.className= 'img-responsive';
-                    node6.remove();
-                    $(".table-item").eq(6).append(img);
-                });
-        }
-        // 7
-        var nodeId7=$(".table-item").eq(7).children('table').attr('id');
-        if (typeof(nodeId7)!='undefined'){
-            var node7 = document.getElementById(nodeId7);
-            domtoimage.toSvg(node7,{bgcolor: '#fff'})
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.className= 'img-responsive';
-                    node7.remove();
-                    $(".table-item").eq(7).append(img);
-                });
-        }
-        // 8
-        var nodeId8=$(".table-item").eq(8).children('table').attr('id');
-        if (typeof(nodeId8)!='undefined'){
-            var node8 = document.getElementById(nodeId8);
-            domtoimage.toSvg(node8,{bgcolor: '#fff'})
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.className= 'img-responsive';
-                    node8.remove();
-                    $(".table-item").eq(8).append(img);
-                });
-        }
-
-        $(".tab-switch").click(function () {
-            var container=$(this).attr('href');
-            // 3
-            var nodeId3=$(container+" .table-item").eq(0).children('table').attr('id');
-            if (typeof(nodeId3)!='undefined'){
-                var node3 = document.getElementById(nodeId3);
-                domtoimage.toSvg(node3,{bgcolor: '#fff'})
-                    .then(function (dataUrl) {
-                        var img = new Image();
-                        img.src = dataUrl;
-                        img.className= 'img-responsive';
-                        node3.remove();
-                        $(container+" .table-item").eq(0).append(img);
-                    });
-            }
-            // 4
-            var nodeId4=$(container+" .table-item").eq(1).children('table').attr('id');
-            if (typeof(nodeId4)!='undefined'){
-                var node4 = document.getElementById(nodeId4);
-                domtoimage.toSvg(node4,{bgcolor: '#fff'})
-                    .then(function (dataUrl) {
-                        var img = new Image();
-                        img.src = dataUrl;
-                        img.className= 'img-responsive';
-                        node4.remove();
-                        $(container+" .table-item").eq(1).append(img);
-                    });
-            }
-            // 5
-            var nodeId5=$(container+" .table-item").eq(2).children('table').attr('id');
-            if (typeof(nodeId5)!='undefined'){
-                var node5 = document.getElementById(nodeId5);
-                domtoimage.toSvg(node5,{bgcolor: '#fff'})
-                    .then(function (dataUrl) {
-                        var img = new Image();
-                        img.src = dataUrl;
-                        img.className= 'img-responsive';
-                        node5.remove();
-                        $(container+" .table-item").eq(2).append(img);
-                    });
-            }
-
+        //
+        $(".box-body li.active a").each(function () {
+            var tabId=$(this).attr('href');
+            $(tabId+" .table-item").each(function () {
+                var nodeId=$(this).children('table').attr('id');
+                if (typeof(nodeId)!='undefined'){
+                    var node = document.getElementById(nodeId);
+                    var that=this;
+                    domtoimage.toSvg(node,{bgcolor: '#fff'},that)
+                        .then(function (dataUrl) {
+                            var img = new Image();
+                            img.src = dataUrl;
+                            img.className= 'img-responsive';
+                            node.remove();
+                            $(that).append(img);
+                        });
+                }
+            });
+        });
+        $(".box-body li a").click(function () {
+            var tabId=$(this).attr('href');
+            $(tabId+" .table-item").each(function () {
+                var nodeId=$(this).children('table').attr('id');
+                if (typeof(nodeId)!='undefined'){
+                    var node = document.getElementById(nodeId);
+                    var that=this;
+                    domtoimage.toSvg(node,{bgcolor: '#fff'},that)
+                        .then(function (dataUrl) {
+                            var img = new Image();
+                            img.src = dataUrl;
+                            img.className= 'img-responsive';
+                            node.remove();
+                            $(that).append(img);
+                        });
+                }
+            });
         });
         $(".month-sub-option").click(function () {
             var monthSub=$(this).data('month');

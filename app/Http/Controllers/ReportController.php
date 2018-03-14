@@ -233,8 +233,10 @@ class ReportController extends Controller
                 $diseases=Aiden::getAllModelArray('diseases');
                 DB::beginTransaction();
                 try{
+                    $emptyData=0;
                     foreach ($res as $d){
                         if (is_null($d[0])||is_null($d[1])||is_null($d[2])||is_null($d[3])||is_null($d[4])||is_null($d[5])||is_null($d[6])||is_null($d[7])||is_null($d[8])||is_null($d[9])||is_null($d[10])||is_null($d[11])){
+                            $emptyData++;
                             continue;
                         }
                         $office_id=array_search($d[0],$offices);//项目
@@ -293,7 +295,7 @@ class ReportController extends Controller
                     DB::rollback();
                     return redirect()->route('reports.index')->with('error',$e->getMessage().' 请检查表格数据是否正确再次导入或截图联系管理员！');
                 }
-                return redirect()->route('reports.index')->with('success','导入完成!');
+                return redirect()->route('reports.index')->with('success','导入完成! 空数据行'.$emptyData.'行');
             }
         }
         return abort(403,config('yyxt.permission_deny'));
