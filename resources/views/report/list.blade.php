@@ -86,6 +86,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#user-list-table').DataTable({
+                "order": [[ 0, "desc" ]],
                 "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
                 "language": {
                     "url": "/datables-language-zh-CN.json"
