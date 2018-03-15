@@ -22,7 +22,7 @@ class CreateReportsTable extends Migration
             $table->string('type')->comment('类型：按病种|按地域|按平台');
             $table->unsignedInteger('type_id');
             $table->date('date_tag')->comment('日期');
-            $table->string('cost')->comment('消费');
+            $table->decimal('cost')->comment('消费');
             $table->unsignedInteger('show')->default(0)->comment('展现');
             $table->unsignedInteger('click')->default(0)->comment('点击');
             $table->unsignedInteger('achat')->default(0)->comment('总对话');

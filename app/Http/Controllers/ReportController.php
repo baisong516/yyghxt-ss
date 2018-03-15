@@ -273,18 +273,18 @@ class ReportController extends Controller
                             return redirect()->back()->with('error', '日期：'.$date_tag->toDateString().' 来源网站：'.$sources[$source_id].' 科室：'.$offices[$office_id].' '.$type.' '.$type_id.' 数据已存在，请修改表后再试！');
                         }else{
                             $report=new Report();
-                            $report->office_id=$office_id;
-                            $report->source_id=$source_id;
-                            $report->type=$type;
-                            $report->type_id=$type_id;
-                            $report->cost=$cost;
-                            $report->show=$show;
-                            $report->click=$click;
-                            $report->achat=$achat;
-                            $report->chat=$chat;
-                            $report->contact=$contact;
-                            $report->yuyue=$yuyue;
-                            $report->arrive=$arrive;
+                            $report->office_id=intval($office_id);
+                            $report->source_id=intval(source_id);
+                            $report->type=intval($type);
+                            $report->type_id=intval($type_id);
+                            $report->cost=(float)$cost;
+                            $report->show=intval($show);
+                            $report->click=intval($click);
+                            $report->achat=intval($achat);
+                            $report->chat=intval($chat);
+                            $report->contact=intval($contact);
+                            $report->yuyue=intval($yuyue);
+                            $report->arrive=intval($arrive);
                             $report->date_tag=$date_tag;
                             $bool=$report->save();
                         }
