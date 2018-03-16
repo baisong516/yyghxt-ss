@@ -275,7 +275,7 @@ class ReportController extends Controller
                             $report=new Report();
                             $report->office_id=intval($office_id);
                             $report->source_id=intval($source_id);
-                            $report->type=intval($type);
+                            $report->type=$type;
                             $report->type_id=intval($type_id);
                             $report->cost=(float)$cost;
                             $report->show=intval($show);
