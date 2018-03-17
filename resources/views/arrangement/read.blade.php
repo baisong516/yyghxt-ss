@@ -84,6 +84,7 @@
                                 <input type="text" class="form-control date-item" name="date_tag" id="dateTag" value="{{\Carbon\Carbon::now()->toDateString()}}">
                             </div>
                         </div>
+                        <p class="text-danger">导入表格中的姓名与系统中的姓名要一致，不然无法导入</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

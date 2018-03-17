@@ -85,7 +85,7 @@ class ProfileController extends Controller
                 if (!empty($request->input('password'))){//修改个人密码
                     $user->password=bcrypt($request->input('password'));
                 }
-                $user->realname=$request->input('realname');
+//                $user->realname=$request->input('realname');
                 $bool=$user->save();
                 if ($bool){
                     return redirect()->route('profiles.edit',$id)->with('success','Well Done！');
