@@ -13,8 +13,8 @@
                     <div class="box-tools">
                         <div class="input-group input-group-sm" style="width: 280px;">
                             <a href="{{route('arrangements.create')}}" class="btn-sm btn-info" style="margin-right: 20px;">排班</a>
-                            {{--<a href="" data-toggle="modal" data-target="#importModal" class="btn-sm btn-success" style="margin-right: 20px;">导入</a>--}}
-                            {{--<a href="/template/arrangements.xlsx" class="btn-sm btn-danger">模板</a>--}}
+                            <a href="javascript:;" data-toggle="modal" data-target="#importModal" class="btn-sm btn-success" style="margin-right: 20px;">导入</a>
+                            <a href="/template/arrangements.xlsx" class="btn-sm btn-danger">模板</a>
                         </div>
                     </div>
                 </div>
@@ -61,14 +61,56 @@
             <!-- /.box -->
         </div>
     </div>
+    <!-- importModal -->
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel">
+        <div class="modal-dialog" role="document">
+            <form method="post" class="form-horizontal" action="{{route('arrangements.import')}}" enctype="multipart/form-data">
+                {{csrf_field()}}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center" id="importModalLabel">文件选择</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="inInputFile" class="col-sm-2 control-label">文件</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="file" id="inInputFile" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateTag" class="col-sm-2 control-label">日期</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control date-item" name="date_tag" id="dateTag" value="{{\Carbon\Carbon::now()->toDateString()}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">开始导入</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
     <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            //data item
+            lay('.date-item').each(function(){
+                laydate.render({
+                    elem: this,
+                    trigger: 'click',
+                    type:'date'
+                    // value: new Date()
+                });
+            });
             $('#arrangements-list-table').DataTable({
                 "order": [[ 1, "desc" ]],
                 "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],

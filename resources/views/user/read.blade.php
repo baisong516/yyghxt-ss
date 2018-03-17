@@ -14,10 +14,10 @@
                 </div>
             </div>
         </div>
+        <form action="" method="post" class="users-form">
+            {{method_field('DELETE')}}
+            {{csrf_field()}}
         <div class="box-body table-responsive">
-            <form action="" method="post" class="users-form">
-                {{method_field('DELETE')}}
-                {{csrf_field()}}
             <table id="user-list-table" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
@@ -55,9 +55,9 @@
                 @endforeach
                 </tbody>
             </table>
-            </form>
         </div>
         <!-- /.box-body -->
+    </form>
     </div>
 @endsection
 

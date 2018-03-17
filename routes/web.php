@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
     Route::post('/home/uploadimage', 'HomeController@uploadImage')->name('home.uploadImage');
     //排班
     Route::resource('arrangements', 'ArrangementController');
+    Route::post('arrangementsimport', 'ArrangementController@import')->name('arrangements.import');
     //用户菜单
     Route::group(['prefix' => 'sys','middleware'=>['role:administrator|superadministrator']],function(){
         Route::resource('users','UserController');

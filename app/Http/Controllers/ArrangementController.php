@@ -7,9 +7,12 @@ use App\Department;
 use App\Http\Requests\StoreArrangementRequest;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ArrangementController extends Controller
 {
@@ -164,6 +167,80 @@ class ArrangementController extends Controller
 	    return abort(403,config('yyxt.permission_deny'));
     }
 
+    public function import(Request $request)
+    {
+        if (Auth::user()->ability('superadministrator', 'create-arrangements')){
+            $file = $request->file('file');
+            if (empty($file)){
+                return redirect()->back()->with('error','没有选择文件');
+            }else{
+                $res=[];
+                $dateTag=$request->input('date_tag')?Carbon::createFromFormat('Y-m-d',$request->input('date_tag')):Carbon::now();
+
+                Excel::load($file, function($reader) use( &$res,$dateTag ) {
+                    $reader = $reader->getSheet(0);
+                    $res = $reader->toArray();
+                });
+                $res=array_slice($res,1);
+//                dd($res);
+                $users = $this->getArrangeUserArray();
+                $ranks = [
+                    '0'=>'白班',
+                    '1'=>'晚班',
+                ];
+                DB::beginTransaction();
+                try{
+                    $emptyData=0;
+                    foreach ($res as $d){
+                        if (is_null($d[0])||is_null($d[1])){
+                            $emptyData++;
+                            continue;
+                        }
+                        $user_id=array_search($d[0],$users);//
+                        $rank=array_search($d[1],$ranks);//
+                        if ($user_id===false||$rank===false){
+                            DB::rollback();
+                            return redirect()->route('arrangements.index')->with('error','请检查姓名和班次是否存在！');
+                        }else{
+                            if (empty(User::findOrFail($user_id)->department)){//没有分配部门
+                                DB::rollback();
+                                return redirect()->route('arrangements.index')->with('error',$d[0].' 没有分配部门，不可排班！');
+                            }
+                            if (empty(User::findOrFail($user_id)->offices)){//没有分配项目的用户
+                                DB::rollback();
+                                return redirect()->route('arrangements.index')->with('error',$d[0].' 没有分配项目，不可排班！');
+                            }
+                            //检查此人当天是否排班过
+                            $todayArrangements=Arrangement::select('user_id')->where([
+                                ['rank_date','>=',$dateTag->startOfDay()],
+                                ['rank_date','<=',$dateTag->endOfDay()],
+                            ])->get();
+                            $todayUserList=[];
+                            foreach ($todayArrangements as $todayArrangement){
+                                $todayUserList[]=$todayArrangement->user_id;
+                            }
+                            if (in_array($user_id,$todayUserList)){
+                                DB::rollback();
+                                return redirect()->route('arrangements.index')->with('error',$d['0'].' 当天已经排班！');
+                            }
+                            $arrange=new Arrangement();
+                            $arrange->user_id=$user_id;
+                            $arrange->rank=$rank;
+                            $arrange->rank_date=$dateTag;
+                            $arrange->save();
+                        }
+                    }
+                    DB::commit();
+                }catch (QueryException $e){
+                    DB::rollback();
+                    return redirect()->route('arrangements.index')->with('error',$e->getMessage().' 请检查格式！');
+                }
+                return redirect()->route('arrangements.index')->with('success','导入完成! 空数据行'.$emptyData.'行');
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
+    }
+
     //获取用于排班的人
 	private function getArrangeUsers() {
 		$users=null;
@@ -186,4 +263,14 @@ class ArrangementController extends Controller
 		}
 		return $users;
 	}
+
+    private function getArrangeUserArray()
+    {
+        $obj=User::select('id','realname')->whereIn('department_id',[1,2])->where('is_active',1)->get();
+        $users=[];
+        foreach ($obj as $user){
+            $users[$user->id]=$user->realname;
+        }
+        return $users;
+    }
 }
