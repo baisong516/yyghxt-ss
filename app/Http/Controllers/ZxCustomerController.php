@@ -506,11 +506,14 @@ class ZxCustomerController extends Controller
 					$data[$user->id]['data'][$office->id]['arrive_rate']=$data[$user->id]['data'][$office->id]['should_count']>0?sprintf("%.2f",$data[$user->id]['data'][$office->id]['arrive_count']*100.00/$data[$user->id]['data'][$office->id]['should_count'])."%":'0.00%';
 					//就诊率
 					$data[$user->id]['data'][$office->id]['jiuzhen_rate']=$data[$user->id]['data'][$office->id]['arrive_count']>0?sprintf("%.2f",$data[$user->id]['data'][$office->id]['jiuzhen_count']*100.00/$data[$user->id]['data'][$office->id]['arrive_count'])."%":'0.00%';
-				}
+				    //咨询转化率
+                    $data[$user->id]['data'][$office->id]['zx_trans_rate']=$data[$user->id]['data'][$office->id]['zixun_count']>0?sprintf("%.2f",$data[$user->id]['data'][$office->id]['arrive_count']*100.00/$data[$user->id]['data'][$office->id]['zixun_count'])."%":'0.00%';
+                }
                 $total[$office->id]['data']['yuyue_rate']=$total[$office->id]['data']['zixun_count']>0?sprintf('%.2f',$total[$office->id]['data']['yuyue_count']*100.00/$total[$office->id]['data']['zixun_count']).'%':'0.00%';
                 $total[$office->id]['data']['contact_rate']=$total[$office->id]['data']['zixun_count']>0?sprintf('%.2f',$total[$office->id]['data']['contact_count']*100.00/$total[$office->id]['data']['zixun_count']).'%':'0.00%';
                 $total[$office->id]['data']['arrive_rate']=$total[$office->id]['data']['should_count']>0?sprintf('%.2f',$total[$office->id]['data']['arrive_count']*100.00/$total[$office->id]['data']['should_count']).'%':'0.00%';
                 $total[$office->id]['data']['jiuzhen_rate']=$total[$office->id]['data']['arrive_count']>0?sprintf('%.2f',$total[$office->id]['data']['jiuzhen_count']*100.00/$total[$office->id]['data']['arrive_count']).'%':'0.00%';
+                $total[$office->id]['data']['zx_trans_rate']=$total[$office->id]['data']['zixun_count']>0?sprintf('%.2f',$total[$office->id]['data']['arrive_count']*100.00/$total[$office->id]['data']['zixun_count']).'%':'0.00%';
 			}
 		}
 		//项目合计
@@ -534,6 +537,7 @@ class ZxCustomerController extends Controller
         $datatotal['contact_rate']=$datatotal['zixun_count']>0?sprintf('%.2f',$datatotal['contact_count']*100.00/$datatotal['zixun_count']).'%':'0.00%';
         $datatotal['arrive_rate']=$datatotal['should_count']>0?sprintf('%.2f',$datatotal['arrive_count']*100.00/$datatotal['should_count']).'%':'0.00%';
         $datatotal['jiuzhen_rate']=$datatotal['arrive_count']>0?sprintf('%.2f',$datatotal['jiuzhen_count']*100.00/$datatotal['arrive_count']).'%':'0.00%';
+        $datatotal['zx_trans_rate']=$datatotal['zixun_count']>0?sprintf('%.2f',$datatotal['arrive_count']*100.00/$datatotal['zixun_count']).'%':'0.00%';
 //        dd($datatotal);
 		//同咨询员项目合并
 		foreach ($data as $k=>$d){
@@ -555,6 +559,7 @@ class ZxCustomerController extends Controller
 			$data[$k]['summary']['contact_rate']=$data[$k]['summary']['zixun_count']>0?sprintf('%.2f',$data[$k]['summary']['contact_count']*100.00/$data[$k]['summary']['zixun_count']).'%':'0.00%';
 			$data[$k]['summary']['arrive_rate']=$data[$k]['summary']['should_count']>0?sprintf('%.2f',$data[$k]['summary']['arrive_count']*100.00/$data[$k]['summary']['should_count']).'%':'0.00%';
 			$data[$k]['summary']['jiuzhen_rate']=$data[$k]['summary']['arrive_count']>0?sprintf('%.2f',$data[$k]['summary']['jiuzhen_count']*100.00/$data[$k]['summary']['arrive_count']).'%':'0.00%';
+			$data[$k]['summary']['zx_trans_rate']=$data[$k]['summary']['zixun_count']>0?sprintf('%.2f',$data[$k]['summary']['arrive_count']*100.00/$data[$k]['summary']['zixun_count']).'%':'0.00%';
 		}
 		return view('zxcustomer.summary',[
 			'pageheader'=>'预约明细',

@@ -45,6 +45,7 @@
                         <th>留联率</th>
                         <th>到院率</th>
                         <th>就诊率</th>
+                        <th>咨询转化率</th>
                     </tr>
                     @foreach($data as $k=>$v)
                     <tr>
@@ -63,9 +64,10 @@
                         <td>{{$v['summary']['contact_rate']}}</td>
                         <td>{{$v['summary']['arrive_rate']}}</td>
                         <td>{{$v['summary']['jiuzhen_rate']}}</td>
+                        <td>{{$v['summary']['zx_trans_rate']}}</td>
                     </tr>
                     <tr>
-                        <td colspan="11" style="padding:0 !important; border:0px;">
+                        <td colspan="12" style="padding:0 !important; border:0px;">
                             <div id="grid-collapse-{{$k}}" class="collapse" aria-expanded="false" style="height: 0px;">
                                 <table class="table">
                                     <tr>
@@ -81,6 +83,7 @@
                                         <th>留联率</th>
                                         <th>到院率</th>
                                         <th>就诊率</th>
+                                        <th>咨询转化率</th>
                                     </tr>
                                     <tbody>
                                         @foreach($v['data'] as $d)
@@ -97,6 +100,7 @@
                                             <td>{{$d['contact_rate']}}</td>
                                             <td>{{$d['arrive_rate']}}</td>
                                             <td>{{$d['jiuzhen_rate']}}</td>
+                                            <td>{{$d['zx_trans_rate']}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -121,6 +125,7 @@
                         <td>{{$datatotal['contact_rate']}}</td>
                         <td>{{$datatotal['arrive_rate']}}</td>
                         <td>{{$datatotal['jiuzhen_rate']}}</td>
+                        <td>{{$datatotal['zx_trans_rate']}}</td>
                     </tr>
                     <tr>
                         <td colspan="11" style="padding:0 !important; border:0px;">
@@ -139,6 +144,7 @@
                                         <th>留联率</th>
                                         <th>到院率</th>
                                         <th>就诊率</th>
+                                        <th>咨询转化率</th>
                                     </tr>
                                     <tbody>
                                     @foreach($datatotal['items'] as $d)
@@ -155,6 +161,7 @@
                                             <td>{{$d['data']['contact_rate']}}</td>
                                             <td>{{$d['data']['arrive_rate']}}</td>
                                             <td>{{$d['data']['jiuzhen_rate']}}</td>
+                                            <td>{{$d['data']['zx_trans_rate']}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
