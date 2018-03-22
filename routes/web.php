@@ -104,6 +104,9 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
     //项目进度
     Route::group(['prefix' => 'progress'],function(){
         Route::resource('targets','TargetController');
+        Route::post('targetsearch','TargetController@search')->name('targets.search');
+        Route::get('targetlist','TargetController@list')->name('targets.list');
+        Route::post('targetimport','TargetController@import')->name('targets.import');
         Route::get('progress','TargetController@index');
     });
     //门诊
