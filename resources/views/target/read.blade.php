@@ -27,23 +27,60 @@
             </div>
         </div>
         <div class="box-body table-responsive">
+            <h3 class="text-center">{{isset($year)?$year:\Carbon\Carbon::now()->year}}年度经营计划表</h3>
             @if(isset($targetdata)&&!empty($targetdata))
-            @foreach($targetdata as $source_id => $targets)
-            <h5 class="text-center text-primary" style="font-weight: bold;">{{isset($sources[$source_id])?$sources[$source_id]:''}}</h5>
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    @if(!empty($targets))
-                        @foreach($targets as $k=>$v)
-                            <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$source_id}}_{{$k}}" class="tab-switch" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$k]}}</a></li>
+                    @if(!empty($targetdata))
+                        @foreach($targetdata as $office_id=>$v)
+                            <li class="{{$loop->first?'active':''}}"><a href="#tab_{{$office_id}}" class="tab-switch" data-toggle="tab" aria-expanded="{{$loop->first?'true':'false'}}">{{$offices[$office_id]}}</a></li>
                         @endforeach
                     @endif
                 </ul>
                 <div class="tab-content">
-
+                    @if(!empty($targetdata))
+                    @foreach($targetdata as $office_id=>$targets)
+                    <div class="tab-pane table-item table-responsive {{$loop->first?'active':''}}" id="tab_{{$office_id}}">
+                        <table class="table table-bordered" id="table-{{$office_id}}">
+                            <thead class="text-center">
+                            <tr>
+                                <th colspan="3" class="text-center">总目标</th>
+                                <th colspan="6" class="text-center">竞价</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">月份</th>
+                                <th class="text-center">广告宣传</th>
+                                <th class="text-center">到院量</th>
+                                <th class="text-center">展现</th>
+                                <th class="text-center">点击</th>
+                                <th class="text-center">总对话</th>
+                                <th class="text-center">有效对话</th>
+                                <th class="text-center">总预约</th>
+                                <th class="text-center">总到院</th>
+                            </tr>
+                            </thead>
+                            <tbody style="text-align: center">
+                            @foreach($targets as $target)
+                            <tr>
+                                <td class="text-center">{{$target->month}}</td>
+                                <td class="text-center">{{$target->cost}}</td>
+                                <td class="text-center">{{$target->arrive}}</td>
+                                <td class="text-center">{{$target->show}}</td>
+                                <td class="text-center">{{$target->click}}</td>
+                                <td class="text-center">{{$target->achat}}</td>
+                                <td class="text-center">{{$target->chat}}</td>
+                                <td class="text-center">{{$target->yuyue}}</td>
+                                <td class="text-center">{{$target->arrive}}</td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    @endforeach
+                    @endif
                 </div>
                 <!-- /.tab-content -->
             </div>
-            @endforeach
             @endif
         </div>
         <!-- /.box-body -->
@@ -56,7 +93,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title text-center" id="importModalLabel">文件选择</h4>
+                     <h4 class="modal-title text-center" id="importModalLabel">文件选择</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">

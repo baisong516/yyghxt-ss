@@ -65,6 +65,17 @@ class Aiden extends Model
         return $offices;
     }
     /*
+     * return 当前用户权限对应的科室id
+     */
+    public static function getAuthdOfficesId()
+    {
+        $offices=[];
+        foreach (Auth::user()->offices as $office){
+            $offices[]=$office->id;
+        }
+        return $offices;
+    }
+    /*
      * return 当前用户权限对应的病种id和名称的二维数组(以科室分组)
      */
     public static function getAuthdDiseases()

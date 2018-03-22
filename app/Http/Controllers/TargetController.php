@@ -23,11 +23,11 @@ class TargetController extends Controller
     {
         if (Auth::user()->ability('superadministrator', 'read-targets')){
             $year=Carbon::now()->year;
-//            dd(Report::getReportData($start,$end));
+//            dd(Target::getTargetData($year));
             return view('target.read',[
                 'pageheader'=>'年度计划',
                 'pagedescription'=>'报表',
-                'reportdata'=>Target::getReportData($year),
+                'targetdata'=>Target::getTargetData($year),
                 'offices'=>Aiden::getAllModelArray('offices'),
                 'year'=>$year,
             ]);
@@ -118,29 +118,73 @@ class TargetController extends Controller
             if (empty($file)){
                 return redirect()->back()->with('error','没有选择文件');
             }else{
-                $res=[];
-                Excel::load($file, function($reader) use( &$res ) {
-                    $reader = $reader->getSheet(0);
-                    $res = $reader->toArray();
-                });
-                $res=array_slice($res,1);
-                dd($res);
-                $offices=Aiden::getAllModelArray('offices');
-                DB::beginTransaction();
-                try{
-                    $emptyData=0;
-                    foreach ($res as $d){
-                        if (is_null($d[0])||is_null($d[1])||is_null($d[2])||is_null($d[3])||is_null($d[4])||is_null($d[5])||is_null($d[6])||is_null($d[7])||is_null($d[8])||is_null($d[9])||is_null($d[10])||is_null($d[11])){
-                            $emptyData++;
-                            continue;
-                        }
+//                $res=[];
+//                Excel::load($file, function($reader) use( &$res ) {
+//                    $reader = $reader->getSheet(0);
+//                    $res = $reader->toArray();
+//                });
+//                $res=array_slice($res,2);
+                $ress=[];
+                Excel::load($file, function($reader) use( &$ress ) {
+                    $sheets = $reader->get();
+                    foreach ($sheets as $key=>$sheet){
+                        $ress[$key]=[
+                            'title'=>$sheet->getTitle(),
+                            'data'=>$reader->getSheet($key)->toArray(),
+                        ];
                     }
-                    DB::commit();
-                }catch (QueryException $e){
-                    DB::rollback();
-                    return redirect()->route('reports.index')->with('error',$e->getMessage().' 请检查表格数据是否正确再次导入或截图联系管理员！');
+                });
+                $offices=Aiden::getAllModelArray('offices');
+                $datacount=0;
+                $tips='';
+                foreach ($ress as $res){
+                    $title=$res['title'];
+                    if (!isset($res['data'][2][0])){continue;}
+                    $year=intval($res['data'][2][0]);
+                    $res=array_slice($res['data'],3, 12);
+                    DB::beginTransaction();
+                    try{
+                        foreach ($res as $d){
+                            if (is_null($d[0])||is_null($d[1])||is_null($d[2])||is_null($d[3])||is_null($d[4])||is_null($d[5])||is_null($d[6])||is_null($d[7])){
+                                continue;
+                            }
+                            $office_id=array_search($title,$offices);
+                            if ($office_id<1){continue;}
+                            $month=intval($d[0]);
+                            $cost=(float)($d[1]);
+                            $arrive=intval($d[2]);
+                            $show=intval($d[3]);
+                            $click=intval($d[4]);
+                            $achat=intval($d[5]);
+                            $chat=intval($d[6]);
+                            $yuyue=intval($d[7]);
+                            $et=Target::where('office_id',$office_id)->where('month',$month)->count();
+                            if ($et>0){
+                                $tips.=' '.$title.$year.'年'.$month.'月'.'数据已存在';
+                                continue;
+                            }
+                            $target=new Target();
+                            $target->office_id=$office_id;
+                            $target->year=$year;
+                            $target->month=$month;
+                            $target->cost=$cost;
+                            $target->arrive=$arrive;
+                            $target->show=$show;
+                            $target->click=$click;
+                            $target->achat=$achat;
+                            $target->chat=$chat;
+                            $target->yuyue=$yuyue;
+                            $target->save();
+                            $datacount++;
+                        }
+                        DB::commit();
+                    }catch (QueryException $e){
+                        DB::rollback();
+                        return redirect()->route('targets.index')->with('error',$e->getMessage().' 请检查表格数据是否正确再次导入！');
+                    }
                 }
-                return redirect()->route('reports.index')->with('success','导入完成! 空数据行'.$emptyData.'行');
+
+                return redirect()->route('targets.index')->with('success','导入完成!共导入数据 '.$datacount.'条！'.$tips);
             }
         }
         return abort(403,config('yyxt.permission_deny'));

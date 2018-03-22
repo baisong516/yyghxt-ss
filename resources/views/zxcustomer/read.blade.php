@@ -214,7 +214,8 @@
                             </td>
                             <td style="display: none;"><small>{{$customer->idcard}}</small></td>
                             <td>
-                                <span data-toggle="tooltip" data-placement="top" title="{{$customer->keywords?$customer->keywords:''}}">{{str_limit($customer->keywords?$customer->keywords:'', $limit = 12, $end = '...')}}</span>
+                                {{--<span data-toggle="tooltip" data-placement="top" title="{{$customer->keywords?$customer->keywords:''}}">{{str_limit($customer->keywords?$customer->keywords:'', $limit = 12, $end = '...')}}</span>--}}
+                                <span >{{$customer->keywords?$customer->keywords:''}}</span>
                             </td>
                             <td>
                                 <small>
