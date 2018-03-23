@@ -39,13 +39,14 @@
                 </ul>
                 <div class="tab-content">
                     @if(!empty($targetdata))
-                    @foreach($targetdata as $office_id=>$targets)
-                    <div class="tab-pane table-item table-responsive {{$loop->first?'active':''}}" id="tab_{{$office_id}}">
-                        <table class="table table-bordered" id="table-{{$office_id}}">
+                    @foreach($targetdata as $office_id=>$v)
+                    <div class="tab-pane table-responsive {{$loop->first?'active':''}}" id="tab_{{$office_id}}">
+                        <div class="table-item">
+                            <table class="table table-bordered" id="table-{{$office_id}}">
                             <thead class="text-center">
                             <tr>
                                 <th colspan="3" class="text-center">总目标</th>
-                                <th colspan="6" class="text-center">竞价</th>
+                                <th colspan="7" class="text-center">竞价</th>
                             </tr>
                             <tr>
                                 <th class="text-center">月份</th>
@@ -55,12 +56,14 @@
                                 <th class="text-center">点击</th>
                                 <th class="text-center">总对话</th>
                                 <th class="text-center">有效对话</th>
+                                <th class="text-center">留联量</th>
                                 <th class="text-center">总预约</th>
                                 <th class="text-center">总到院</th>
                             </tr>
                             </thead>
                             <tbody style="text-align: center">
-                            @foreach($targets as $target)
+                            @isset($v['targets'])
+                            @foreach($v['targets'] as $target)
                             <tr>
                                 <td class="text-center">{{$target->month}}</td>
                                 <td class="text-center">{{$target->cost}}</td>
@@ -69,12 +72,29 @@
                                 <td class="text-center">{{$target->click}}</td>
                                 <td class="text-center">{{$target->achat}}</td>
                                 <td class="text-center">{{$target->chat}}</td>
+                                <td class="text-center">{{$target->contact}}</td>
                                 <td class="text-center">{{$target->yuyue}}</td>
                                 <td class="text-center">{{$target->arrive}}</td>
                             </tr>
                             @endforeach
+                            @endisset
+                            @isset($v['total'])
+                            <tr>
+                                <td class="text-center">合计</td>
+                                <td class="text-center">{{$v['total']['cost']}}</td>
+                                <td class="text-center">{{$v['total']['arrive']}}</td>
+                                <td class="text-center">{{$v['total']['show']}}</td>
+                                <td class="text-center">{{$v['total']['click']}}</td>
+                                <td class="text-center">{{$v['total']['achat']}}</td>
+                                <td class="text-center">{{$v['total']['chat']}}</td>
+                                <td class="text-center">{{$v['total']['contact']}}</td>
+                                <td class="text-center">{{$v['total']['yuyue']}}</td>
+                                <td class="text-center">{{$v['total']['arrive']}}</td>
+                            </tr>
+                            @endisset
                             </tbody>
                         </table>
+                        </div>
                     </div>
                     @endforeach
                     @endif
@@ -151,6 +171,7 @@
         //
         $(".box-body li.active a").each(function () {
             var tabId=$(this).attr('href');
+            console.log(tabId);
             $(tabId+" .table-item").each(function () {
                 var nodeId=$(this).children('table').attr('id');
                 if (typeof(nodeId)!='undefined'){

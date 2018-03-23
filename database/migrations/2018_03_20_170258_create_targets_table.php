@@ -24,6 +24,7 @@ class CreateTargetsTable extends Migration
             $table->unsignedInteger('click')->default(0)->comment('点击');
             $table->unsignedInteger('achat')->default(0)->comment('总对话');
             $table->unsignedInteger('chat')->default(0)->comment('有效对话');
+            $table->unsignedInteger('contact')->default(0)->comment('留联量');
             $table->unsignedInteger('yuyue')->default(0)->comment('总预约');
             $table->unsignedInteger('arrive')->default(0)->comment('总到院');
             $table->timestamps();

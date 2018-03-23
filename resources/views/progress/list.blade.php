@@ -10,47 +10,63 @@
 
             </div>
         </div>
-        <form action="" method="post" class="targets-form">
+        <form action="" method="post" class="reports-form">
             {{method_field('DELETE')}}
             {{csrf_field()}}
         <div class="box-body table-responsive">
             <table id="user-list-table" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>科室</th>
-                    <th>年度</th>
-                    <th>月份</th>
-                    <th>广告宣传</th>
+                    <th>网站来源</th>
+                    <th>类型</th>
+                    <th>类型值</th>
+                    <th>消费</th>
                     <th>展现</th>
                     <th>点击</th>
                     <th>总对话</th>
                     <th>有效对话</th>
-                    <th>留联量</th>
+                    <th>留联系</th>
                     <th>总预约</th>
                     <th>总到院</th>
+                    <th>日期</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($targets as $target)
+                @foreach($reports as $report)
                     <tr>
-                        <td>{{$target->office_id&&isset($offices[$target->office_id])?$offices[$target->office_id]:''}}</td>
-                        <td>{{$target->year}}</td>
-                        <td>{{$target->month}}</td>
-                        <td>{{$target->cost}}</td>
-                        <td>{{$target->show}}</td>
-                        <td>{{$target->click}}</td>
-                        <td>{{$target->achat}}</td>
-                        <td>{{$target->chat}}</td>
-                        <td>{{$target->contact}}</td>
-                        <td>{{$target->yuyue}}</td>
-                        <td>{{$target->arrive}}</td>
+                        <td>{{$report->id}}</td>
+                        <td>{{$report->office_id&&isset($offices[$report->office_id])?$offices[$report->office_id]:''}}</td>
+                        <td>{{$report->source_id&&isset($sources[$report->source_id])?$sources[$report->source_id]:''}}</td>
+                        @if($report->type=='disease')
+                            <td>病种</td>
+                            <td>{{isset($diseases[$report->type_id])?$diseases[$report->type_id]:''}}</td>
+                        @endif
+                        @if($report->type=='platform')
+                            <td>平台</td>
+                            <td>{{isset($platforms[$report->type_id])?$platforms[$report->type_id]:''}}</td>
+                        @endif
+                        @if($report->type=='area')
+                            <td>地域</td>
+                            <td>{{isset($areas[$report->type_id])?$areas[$report->type_id]:''}}</td>
+                        @endif
+                        <td>{{$report->cost}}</td>
+                        <td>{{$report->show}}</td>
+                        <td>{{$report->click}}</td>
+                        <td>{{$report->achat}}</td>
+                        <td>{{$report->chat}}</td>
+                        <td>{{$report->contact}}</td>
+                        <td>{{$report->yuyue}}</td>
+                        <td>{{$report->arrive}}</td>
+                        <td>{{$report->date_tag}}</td>
                         <td>
                             @if($enableUpdate)
-                                <a href="{{route('targets.edit',$target->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
+                                <a href="{{route('reports.edit',$report->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
                             @endif
                             @if($enableDelete)
-                                <a href="javascript:void(0);" data-id="{{$target->id}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
+                                <a href="javascript:void(0);" data-id="{{$report->id}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
                             @endif
                         </td>
                     </tr>
@@ -82,8 +98,8 @@
                     content: '你确定要删除吗？',
                     btn: ['确定', '关闭'],
                     yes: function(index, layero){
-                        $('form.targets-form').attr('action',"{{route('targets.index')}}/"+id);
-                        $('form.targets-form').submit();
+                        $('form.reports-form').attr('action',"{{route('reports.index')}}/"+id);
+                        $('form.reports-form').submit();
                     },
                     btn2: function(index, layero){
                         //按钮【按钮二】的回调

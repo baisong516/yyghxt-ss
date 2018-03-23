@@ -107,7 +107,9 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
         Route::post('targetsearch','TargetController@search')->name('targets.search');
         Route::get('targetlist','TargetController@list')->name('targets.list');
         Route::post('targetimport','TargetController@import')->name('targets.import');
-        Route::get('progress','TargetController@index');
+
+        Route::get('progress','ProgressController@index')->name('progress.index');
+        Route::post('progress-search','ProgressController@search')->name('progress.search');
     });
     //门诊
     Route::group(['prefix' => 'mz'],function(){

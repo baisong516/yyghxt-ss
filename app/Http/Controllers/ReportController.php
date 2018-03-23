@@ -160,7 +160,7 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        if (Auth::user()->ability('superadministrator', 'delete-diseases')){
+        if (Auth::user()->ability('superadministrator', 'delete-reports')){
             $report=Report::findOrFail($id);
             $bool=$report->delete();
             if ($bool){

@@ -131,8 +131,11 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            @ability('superadministrator', 'create-targets')
-            <li class="{{Request::is('progress/targets*')?'active':''}}"><a href="{{route('targets.index')}}"><i class="fa fa-gear"></i><span>经营计划</span></a></li>
+            @ability('superadministrator', 'read-targets')
+            <li class="{{Request::is('progress/target*')?'active':''}}"><a href="{{route('targets.index')}}"><i class="fa fa-gear"></i><span>经营计划</span></a></li>
+            @endability
+            @ability('superadministrator', 'read-progress')
+            <li class="{{Request::is('progress/progress*')?'active':''}}"><a href="{{route('progress.index')}}"><i class="fa fa-expand"></i><span>完成进度</span></a></li>
             @endability
 
         </ul>
