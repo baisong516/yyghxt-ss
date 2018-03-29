@@ -124,7 +124,7 @@
 
 
                             <td class="huifang-cloumn">
-                                @if($enableHuifang)
+                                @if($enableViewHuifang)
                                     @if($customer->huifangs->count()<1)
                                         <a href="javascript:void(0);" data-id="{{$customer->id}}" data-toggle="modal" data-target="#huifangModal"  class="hf-btn text-red" >未回访</a>
                                     @else
@@ -253,7 +253,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    @if($enableHuifang)
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="hf_submit">提交回访</button>
+                    @endif
                 </div>
             </div>
             <script type="text/javascript">

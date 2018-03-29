@@ -29,6 +29,7 @@ class GhCustomerController extends Controller
                 'users'=>Aiden::getAllUserArray(),
                 'zxusers'=>Aiden::getAllZxUserArray(),
                 'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
+                'enableViewHuifang'=>Auth::user()->hasPermission('read-huifangs'),
                 'enableUpdate'=>Auth::user()->hasPermission('update-gh_customers'),
                 'enableDelete'=>Auth::user()->hasPermission('delete-gh_customers'),
             ]);
@@ -166,6 +167,7 @@ class GhCustomerController extends Controller
             'users'=>Aiden::getAllUserArray(),
             'zxusers'=>Aiden::getAllZxUserArray(),
             'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
+            'enableViewHuifang'=>Auth::user()->hasPermission('read-huifangs'),
             'enableUpdate'=>Auth::user()->hasPermission('update-gh_customers'),
             'enableDelete'=>Auth::user()->hasPermission('delete-gh_customers'),
         ]);
