@@ -78,6 +78,7 @@ class ZxCustomerController extends Controller
                 'enableUpdate'=>Auth::user()->hasPermission('update-zx_customers'),
                 'enableDelete'=>Auth::user()->hasPermission('delete-zx_customers'),
                 'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
+                'enableViewHuifang'=>Auth::user()->hasPermission('read-huifangs'),
 
                 'todayArrive'=>$todayArrive,
                 'todayHuifang'=>$todayHuifang,
