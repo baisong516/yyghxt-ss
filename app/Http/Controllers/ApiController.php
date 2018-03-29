@@ -118,7 +118,7 @@ class ApiController extends Controller
         $data['city']=$customer->city?$customer->city:'';
         $data['doctor']=$customer->doctor_id?$doctors[$customer->doctor_id]:'';
         $data['wechat']=$customer->wechat?$customer->wechat:'';
-        $data['idcard']=$customer->idcard?$customer->idcard:$customer->idcard;
+        $data['idcard']=$customer->idcard?$customer->idcard:'';
         $data['keywords']=$customer->keywords?$customer->keywords:'';
         $data['media']=$customer->media_id?$medias[$customer->media_id]:'';
         $data['webtype']=$customer->webtype_id?$webtypes[$customer->webtype_id]:'';
