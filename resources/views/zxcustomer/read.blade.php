@@ -269,9 +269,9 @@
                                     @endif
                                 @endif
                             </td>
-                            <td>
+                            <td class="opreation-cloumn">
                                 @if($enableRead)
-                                <a href="{{route('zxcustomers.show',$customer->id)}}"  alt="查看" title="查看"><i class="fa fa-eye"></i></a>
+                                <a href="javascript:void(0);" data-id="{{$customer->id}}" class="detail-btn" data-toggle="modal" data-target="#detailModal" title="查看"><i class="fa fa-eye"></i></a>
                                 @endif
                                 @if($enableUpdate)
                                     <a href="{{route('zxcustomers.edit',$customer->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
@@ -487,6 +487,142 @@
                     laydate.render({
                         elem: this
                         ,trigger: 'click'
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <!-- 详情modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="detailModalLabel">患者详情</h4>
+                </div>
+                <div class="modal-body" id="detailContent">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(".opreation-cloumn").delegate('.detail-btn','click',function () {
+                 var customer_id =$(this).attr('data-id');
+                    console.log(customer_id);
+                    $.ajax({
+                        url: '/api/get-detail-from-customer',
+                        type: "post",
+                        data: {'zx_customer_id':customer_id,'_token': $('input[name=_token]').val()},
+                        success: function(data){
+                            console.log(data);
+                            $("#detailModalLabel").html(data.data.name);
+                            var html="";
+                            if(data.status){
+                                html += "<table class=\"table table-bordered\">";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>姓名</b></td>";
+                                html += "<td  style=\"width: 90%;\">"+data.data.name+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>性别</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.sex+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>年龄</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.age+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>电话</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.tel+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>QQ</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.qq+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>微信</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.wechat+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>商务通ID</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.idcard+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>搜索关键词</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.keywords+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>所在城市</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.city+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>媒体来源</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.media+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>网站类型</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.webtype+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>咨询员</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.user+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>当班竞价</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.jingjia_user+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>未预约原因</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.cause+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>咨询病种</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.disease+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>预约医生</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.doctor+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>咨询时间</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.zixun_at+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>预约时间</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.yuyue_at+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>时段</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.time_slot+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>到院时间</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.arrive_at+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>客户类型</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.customer_type+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>状态</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.customer_condition+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>备注</b><d>";
+                                html += "<td style=\"width: 90%;\">"+data.data.addons+"</td>";
+                                html += "</tr>";
+                                html += "<tr>";
+                                html += "<td style=\"width: 10%;\"><b>咨询内容</b></td>";
+                                html += "<td style=\"width: 90%;\">"+data.data.description+"</td>";
+                                html += "</tr>";
+                                html += "</table>";
+                                $("#detailContent").html(html);
+                            }else{
+                                $("#detailContent").html("<p class='text-center'>无</p>");
+                            }
+                        }
                     });
                 });
             </script>

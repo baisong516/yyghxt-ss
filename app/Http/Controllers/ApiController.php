@@ -93,6 +93,53 @@ class ApiController extends Controller
         ]);
     }
 
+    public function getDetailFromCustomer(Request $request)
+    {
+        $customerId=$request->input('zx_customer_id');
+        $status=0;
+        $customer=ZxCustomer::findOrFail($customerId);
+        if ($customer){$status=1;}
+        $sex=['male'=>'男','female'=>'女'];
+        $doctors=Aiden::getAllModelArray('doctors');
+        $medias=Aiden::getAllModelArray('medias');
+        $webtypes=Aiden::getAllModelArray('web_types');
+        $users=Aiden::getAllUserArray();
+        $causes=Aiden::getAllModelArray('causes');
+        $customerconditions=Aiden::getAllModelArray('customer_conditions');
+        $offices=Aiden::getAllModelArray('offices');
+        $diseases=Aiden::getAllModelArray('diseases');
+        $customertypes=Aiden::getAllModelArray('customer_types');
+
+        $data['name']=$customer->name?$customer->name:'';
+        $data['age']=$customer->age?$customer->age:'';
+        $data['sex']=$customer->sex?$sex[$customer->sex]:'';
+        $data['tel']=$customer->tel?$customer->tel:'';
+        $data['qq']=$customer->qq?$customer->qq:'';
+        $data['city']=$customer->city?$customer->city:'';
+        $data['doctor']=$customer->doctor_id?$doctors[$customer->doctor_id]:'';
+        $data['wechat']=$customer->wechat?$customer->wechat:'';
+        $data['idcard']=$customer->idcard?$customer->idcard:$customer->idcard;
+        $data['keywords']=$customer->keywords?$customer->keywords:'';
+        $data['media']=$customer->media_id?$medias[$customer->media_id]:'';
+        $data['webtype']=$customer->webtype_id?$webtypes[$customer->webtype_id]:'';
+        $data['user']=$customer->user_id?$users[$customer->user_id]:'';
+        $data['jingjia_user']=$customer->jingjia_user_id?$users[$customer->jingjia_user_id]:'';
+        $data['cause']=$customer->cause_id?$causes[$customer->cause_id]:'';
+        $data['customer_condition']=$customer->customer_condition_id?$customerconditions[$customer->customer_condition_id]:'';
+        $data['description']=$customer->description?$customer->description:'';
+        $data['zixun_at']=$customer->zixun_at?$customer->zixun_at:'';
+        $data['yuyue_at']=$customer->yuyue_at?$customer->yuyue_at:'';
+        $data['time_slot']=$customer->time_slot?$customer->time_slot:'';
+        $data['arrive_at']=$customer->arrive_at?$customer->arrive_at:'';
+        $data['office']=$customer->office_id?$offices[$customer->office_id]:'';
+        $data['disease']=$customer->disease_id?$diseases[$customer->disease_id]:'';
+        $data['customer_type']=$customer->customer_type_id?$customertypes[$customer->customer_type_id]:'';
+        $data['addons']=$customer->addons?$customer->addons:'';
+        return response()->json([
+            'status'=>$status,
+            'data'=>$data,
+        ]);
+    }
     public function getHuifangsFromGhCustomer(Request $request)
     {
         $customerId=$request->input('gh_customer_id');
