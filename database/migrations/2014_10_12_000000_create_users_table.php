@@ -66,6 +66,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('display_name');
             $table->text('description')->nullable();
+            $table->string('tel')->nullable();
             $table->index('hospital_id');
             $table->timestamps();
         });

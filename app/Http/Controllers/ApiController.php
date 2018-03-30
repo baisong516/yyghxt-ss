@@ -294,16 +294,23 @@ class ApiController extends Controller
     //输出挂号js文件
     public function guaHaoJs(Request $request)
     {
-        $flag=$request->input('flag');
-        $type=$request->input('type');
-        if (empty($flag)){return $this->errorResponse();}
-        $hospital=Hospital::where('name',$flag)->first();
+        $hospitalName=$request->input('flag');
+        $officeName=$request->input('office');
+        $type=$request->input('type');//pc or mobile
+        if (empty($hospitalName)){return $this->errorResponse();}
+        $hospital=Hospital::where('name',$hospitalName)->first();
         if (empty($hospital)){return $this->errorResponse();}
         $ghjs=file_get_contents('template/gh.js');
         $dataToReplace=['hospitalTel','hospitalId','officeId','diseaseOptions','layPath'];
-        $hospitalTel=$hospital->tel;
+        if (empty($officeName)){
+            $hospitalTel=$hospital->tel;
+            $officeId=$hospital->offices()->first()->id;
+        }else{
+            $office=Office::where('name',$officeName)->first();
+            $hospitalTel=$office->tel;
+            $officeId=$office->id;
+        }
         $hospitalId=$hospital->id;
-        $officeId=$hospital->offices()->first()->id;
         $layPath=$type=='p'?'/layer/':'/layer_mobile/';
         $diseaseOptions='';
         foreach ($hospital->diseases as $disease){
