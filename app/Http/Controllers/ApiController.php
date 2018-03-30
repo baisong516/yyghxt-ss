@@ -312,8 +312,9 @@ class ApiController extends Controller
         }
         $hospitalId=$hospital->id;
         $layPath=$type=='p'?'/layer/':'/layer_mobile/';
+        $office=Office::findOrFail($officeId);
         $diseaseOptions='';
-        foreach ($hospital->diseases as $disease){
+        foreach ($office->diseases as $disease){
             $diseaseOptions.='<option value="'.$disease->id.'">'.$disease->display_name.'</option>';
         }
         foreach ($dataToReplace as $v){
