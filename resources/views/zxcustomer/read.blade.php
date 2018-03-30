@@ -186,7 +186,7 @@
                     <tbody>
                     @if(!empty($customers))
                     @foreach($customers as $customer)
-                        <tr id="customer-{{$customer->id}}" class="{{isset($quicksearch)&&$quicksearch=='todayhuifang'&&$customer->huifangs->last()&&($customer->huifangs->last()->next_at>=\Carbon\Carbon::now()->endOfDay()||$customer->huifangs->last()->now_at>=\Carbon\Carbon::now()->startOfDay())?'bg-red':''}}">
+                        <tr id="customer-{{$customer->id}}" class="{{isset($quicksearch)&&$quicksearch=='todayhuifang'&&$customer->huifangs->last()&&($customer->huifangs->last()->next_at>=\Carbon\Carbon::now()->endOfDay()||$customer->huifangs->last()->now_at>=\Carbon\Carbon::now()->startOfDay())?'bg-red':''}}" style="{{($customer->customer_condition_id==1||$customer->customer_condition==2)?'color:red;':''}}">
                             <td style="display: none;">{{$customer->id}}</td>
                             <td>
                                 <span data-toggle="tooltip" data-placement="right" title="{{$customer->name?$customer->name:''}}">{{str_limit($customer->name?$customer->name:'', $limit = 6, $end = '...')}}</span>
