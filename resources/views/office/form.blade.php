@@ -28,6 +28,12 @@
             <textarea id="description" name="description" class="form-control" rows="3">{{isset($department)?$department->description:old('description')}}</textarea>
         </div>
     </div>
+    <div class="form-group {{empty($errors->first('tel'))?'':'has-error'}}">
+        <label for="tel" class="col-sm-2 control-label">电话</label>
+        <div class="col-sm-8">
+            <input type="text" id="tel" name="tel" class="form-control" placeholder="{{empty($errors->first('tel'))?'电话':$errors->first('tel')}}" value="{{isset($office)?$office->tel:old('tel')}}">
+        </div>
+    </div>
 </div>
 <div class="box-footer">
     <div class="form-group">

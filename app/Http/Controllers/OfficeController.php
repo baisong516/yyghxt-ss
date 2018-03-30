@@ -62,6 +62,7 @@ class OfficeController extends Controller
             $office->display_name=$request->input('display_name');
             $office->hospital_id=$request->input('hospital_id');
             $office->description=$request->input('description');
+            $office->tel=$request->input('tel');
             $bool=$office->save();
             if ($bool){
                 return redirect()->route('offices.index')->with('success','well done!');
@@ -116,6 +117,7 @@ class OfficeController extends Controller
             $office->display_name=$request->input('display_name');
             $office->hospital_id=$request->input('hospital_id');
             $office->description=$request->input('description');
+            $office->tel=$request->input('tel');
             $bool=$office->save();
             if ($bool){
                 return redirect()->route('offices.index')->with('success','well done!');
