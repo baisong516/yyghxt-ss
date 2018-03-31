@@ -81,8 +81,14 @@
         <div class="col-sm-10">
             <select name="doctor_id" id="doctor" disabled class="form-control select2" style="width:100%;">
                 <option selected="selected" value="">--选择医生--</option>
-                @foreach($doctors as $doctor)
-                    <option value="{{$doctor->id}}" {{old('doctor_id')==$doctor->id?'selected':''}} {{isset($customer)&&$customer->doctor_id==$doctor->id?'selected':''}}>{{$doctor->display_name}}</option>
+                @foreach($doctors as $o=>$d)
+                    <optgroup label="{{$offices[$o]}}">
+                        @if(!empty($d))
+                            @foreach($d as $k=>$v)
+                                <option  value="{{$k}}" {{old('doctor_id')==$k?'selected':''}} {{isset($customer)&&$customer->doctor_id==$k?'selected':''}}>{{$v}}</option>
+                            @endforeach
+                        @endif
+                    </optgroup>
                 @endforeach
             </select>
         </div>
