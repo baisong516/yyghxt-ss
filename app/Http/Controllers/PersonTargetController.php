@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Aiden;
 use App\PersonTarget;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,16 +17,14 @@ class PersonTargetController extends Controller
      */
     public function index()
     {
-        dd(Aiden::getAuthdDoctors());
         if (Auth::user()->ability('superadmstrator', 'read-persontargets')){
             $year=Carbon::now()->year;
 //            dd(Target::getTargetData($year));
             return view('persontarget.read',[
                 'pageheader'=>'个人计划',
-                'pagedescn'=>'报表',
+                'pagedescription'=>'报表',
                 'targetdata'=>PersonTarget::getTargetData($year),
                 'offices'=>Aiden::getAllModelArray('offices'),
-                'users'=>Aiden::getAllUserArray(),
                 'year'=>$year,
             ]);
         }
