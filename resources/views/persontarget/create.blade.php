@@ -13,9 +13,9 @@
                 {{--</div>--}}
             </div>
         </div>
-        <form action="{{route('targets.store')}}" method="post" class="auction-form form-horizontal">
+        <form action="{{route('persontargets.store')}}" method="post" class="auction-form form-horizontal">
             {{csrf_field()}}
-            @include('target.form')
+            @include('persontarget.form')
         </form>
     </div>
 @endsection

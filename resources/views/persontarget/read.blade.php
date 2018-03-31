@@ -18,10 +18,10 @@
             <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 360px;">
                     @ability('superadministrator', 'create-auctions')
-                        <a href="{{route('targets.create')}}" class="btn-sm btn-info" style="margin-right: 10px;">添加</a>
-                        <a href="{{route('targets.list')}}" class="btn-sm btn-info" style="margin-right: 10px;">列表</a>
+                        <a href="{{route('persontargets.create')}}" class="btn-sm btn-info" style="margin-right: 10px;">添加</a>
+                        <a href="{{route('persontargets.list')}}" class="btn-sm btn-info" style="margin-right: 10px;">列表</a>
                         <a href="javascript:;" data-toggle="modal" data-target="#importModal" class="btn-sm btn-success" style="margin-right: 10px;">导入</a>
-                        <a href="/template/targets.xlsx" class="btn-sm btn-danger">导入模板</a>
+                        <a href="/template/persontargets.xlsx" class="btn-sm btn-danger">导入模板</a>
                     @endability
                 </div>
             </div>
@@ -45,16 +45,8 @@
                             <table class="table table-bordered" id="table-{{$office_id}}">
                             <thead class="text-center">
                             <tr>
-                                <th colspan="3" class="text-center">总目标</th>
-                                <th colspan="7" class="text-center">竞价</th>
-                            </tr>
-                            <tr>
                                 <th class="text-center">月份</th>
-                                <th class="text-center">广告宣传</th>
-                                <th class="text-center">到院量</th>
-                                <th class="text-center">展现</th>
-                                <th class="text-center">点击</th>
-                                <th class="text-center">总对话</th>
+                                <th class="text-center">咨询员</th>
                                 <th class="text-center">有效对话</th>
                                 <th class="text-center">留联量</th>
                                 <th class="text-center">总预约</th>
@@ -63,29 +55,25 @@
                             </thead>
                             <tbody style="text-align: center">
                             @isset($v['targets'])
-                            @foreach($v['targets'] as $target)
-                            <tr>
-                                <td class="text-center">{{$target->month}}</td>
-                                <td class="text-center">{{$target->cost}}</td>
-                                <td class="text-center">{{$target->arrive}}</td>
-                                <td class="text-center">{{$target->show}}</td>
-                                <td class="text-center">{{$target->click}}</td>
-                                <td class="text-center">{{$target->achat}}</td>
-                                <td class="text-center">{{$target->chat}}</td>
-                                <td class="text-center">{{$target->contact}}</td>
-                                <td class="text-center">{{$target->yuyue}}</td>
-                                <td class="text-center">{{$target->arrive}}</td>
-                            </tr>
+                            @foreach($v['targets'] as $targets)
+                                @foreach($targets as $target)
+                                <tr>
+                                    @if($loop->first)
+                                    <td class="text-center" rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$target->month}}</td>
+                                    @endif
+                                    <td class="text-center">{{isset($users[$target->user_id])?$users[$target->user_id]:''}}</td>
+                                    <td class="text-center">{{$target->chat}}</td>
+                                    <td class="text-center">{{$target->contact}}</td>
+                                    <td class="text-center">{{$target->yuyue}}</td>
+                                    <td class="text-center">{{$target->arrive}}</td>
+                                </tr>
+                                @endforeach
                             @endforeach
                             @endisset
                             @isset($v['total'])
                             <tr>
                                 <td class="text-center">合计</td>
-                                <td class="text-center">{{$v['total']['cost']}}</td>
-                                <td class="text-center">{{$v['total']['arrive']}}</td>
-                                <td class="text-center">{{$v['total']['show']}}</td>
-                                <td class="text-center">{{$v['total']['click']}}</td>
-                                <td class="text-center">{{$v['total']['achat']}}</td>
+                                <td class="text-center"></td>
                                 <td class="text-center">{{$v['total']['chat']}}</td>
                                 <td class="text-center">{{$v['total']['contact']}}</td>
                                 <td class="text-center">{{$v['total']['yuyue']}}</td>
@@ -108,7 +96,7 @@
     <!-- importModal -->
     <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel">
         <div class="modal-dialog" role="document">
-            <form method="post" class="form-horizontal" action="{{route('targets.import')}}" enctype="multipart/form-data">
+            <form method="post" class="form-horizontal" action="{{route('persontargets.import')}}" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div class="modal-content">
                     <div class="modal-header">
@@ -147,27 +135,7 @@
                 // value: new Date()
             });
         });
-        $(document).ready(function() {
-            $(".delete-operation").on('click',function(){
-                var id=$(this).attr('data-id');
-                layer.open({
-                    content: '你确定要删除吗？',
-                    btn: ['确定', '关闭'],
-                    yes: function(index, layero){
-                        $('form.auctions-form').attr('action',"{{route('auctions.index')}}/"+id);
-                        $('form.auctions-form').submit();
-                    },
-                    btn2: function(index, layero){
-                        //按钮【按钮二】的回调
-                        //return false 开启该代码可禁止点击该按钮关闭
-                    },
-                    cancel: function(){
-                        //右上角关闭回调
-                        //return false; 开启该代码可禁止点击该按钮关闭
-                    }
-                });
-            });
-        });
+
         //
         $(".box-body li.active a").each(function () {
             var tabId=$(this).attr('href');

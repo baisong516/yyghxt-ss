@@ -9,10 +9,10 @@
 
             </div>
         </div>
-        <form action="{{route('targets.update',$target->id)}}" method="post" class="targets-form form-horizontal">
+        <form action="{{route('persontargets.update',$target->id)}}" method="post" class="targets-form form-horizontal">
             {{csrf_field()}}
             {{method_field('PUT')}}
-            @include('target.form')
+            @include('persontarget.form')
         </form>
     </div>
 @endsection
