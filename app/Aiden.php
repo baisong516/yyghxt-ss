@@ -106,8 +106,8 @@ class Aiden extends Model
      * return 当前用户权限对应的科室下的医生id和姓名的一维数组
      */
     public static function getAuthdDoctors()
-    {;
-        return Doctor::whereIn('office_id',array_keys(static::getAuthdOffices()));
+    {
+        return Doctor::whereIn('office_id',array_keys(static::getAuthdOffices()))->get();
 
     }
 

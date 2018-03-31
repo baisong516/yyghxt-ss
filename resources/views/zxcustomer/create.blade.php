@@ -74,7 +74,9 @@
         //提交检测系统已有数据
         $(".submit-operation").on('click',function(){
             var wechat=$("form.zxcustomers-form input[name=wechat]").val();
+            console.log(wechat);
             var tel=$("form.zxcustomers-form input[name=tel]").val();
+            console.log(tel);
             $.ajax({
                 url: '/api/check-exist-customer/',
                 type: "post",

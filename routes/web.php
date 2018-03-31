@@ -104,9 +104,13 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
     //项目进度
     Route::group(['prefix' => 'progress'],function(){
         Route::resource('targets','TargetController');
+        Route::resource('persontargets','PersonTargetController');
         Route::post('targetsearch','TargetController@search')->name('targets.search');
+        Route::post('persontargetsearch','PersonTargetController@search')->name('persontargets.search');
         Route::get('targetlist','TargetController@list')->name('targets.list');
+        Route::get('persontargetlist','PersonTargetController@list')->name('persontargets.list');
         Route::post('targetimport','TargetController@import')->name('targets.import');
+        Route::post('persontargetimport','PersonTargetController@import')->name('persontargets.import');
 
         Route::get('progress','ProgressController@index')->name('progress.index');
         Route::post('progress-search','ProgressController@search')->name('progress.search');

@@ -25,7 +25,7 @@ class ZxOutputController extends Controller
             $end=Carbon::now()->endOfDay();
             $outputs=ZxOutput::getZxOutputs($start,$end);
             $lastMonthOutputs = ZxOutput::getZxOutputs(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
-            //$monthOutputs = JjOutput::getJjOutputs(Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth());
+//            $monthOutputs = JjOutput::getJjOutputs(Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth());
             //$lastYearOutputs=JjOutput::getJjOutputs(Carbon::now()->subYear()->startOfYear(),Carbon::now()->subYear()->endOfYear());
             $yearOutputs=ZxOutput::getZxOutputs(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
 //            dd($outputs);

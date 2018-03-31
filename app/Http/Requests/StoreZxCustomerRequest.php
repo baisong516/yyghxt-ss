@@ -32,6 +32,7 @@ class StoreZxCustomerRequest extends FormRequest
             'jingjia_user_id'=>'required',
             'next_at'=>'required',
             'description'=>'required',
+            'customer_condition_id'=>'required',
         ];
     }
     public function messages()
@@ -45,6 +46,7 @@ class StoreZxCustomerRequest extends FormRequest
             'jingjia_user_id.required'  => '当班竞价必填',
             'next_at.required'  => '下次回访时间必填',
             'description.required'  => '咨询内容必填',
+            'customer_condition_id.required'  => '状态必填',
         ];
     }
 }
