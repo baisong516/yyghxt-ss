@@ -18,6 +18,7 @@ class PersonTargetController extends Controller
      */
     public function index()
     {
+        dd(Aiden::getAuthdDoctors());
         if (Auth::user()->ability('superadmstrator', 'read-persontargets')){
             $year=Carbon::now()->year;
 //            dd(Target::getTargetData($year));

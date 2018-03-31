@@ -103,11 +103,16 @@ class Aiden extends Model
         return $diseases;
     }
     /*
-     * return 当前用户权限对应的科室下的医生id和姓名的一维数组
+     * return 当前用户权限对应的科室下的医生
      */
     public static function getAuthdDoctors()
     {
-        return Doctor::whereIn('office_id',array_keys(static::getAuthdOffices()))->get();
+        $doctors=Doctor::whereIn('office_id',array_keys(static::getAuthdOffices()))->get();
+        $data=[];
+        foreach ($doctors as $doctor){
+            $data[$doctor->office_id][$doctor->id]=$doctor->display_name;
+        }
+        return $data;
 
     }
 

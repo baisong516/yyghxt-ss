@@ -68,6 +68,7 @@ class ZxCustomerController extends Controller
                 'zxusers'=>Aiden::getAllZxUserArray(),
                 'offices'=>Aiden::getAllModelArray('offices'),
                 'diseases'=>Aiden::getAllModelArray('diseases'),
+                'doctors'=>Aiden::getAllModelArray('doctors'),
                 'webtypes'=>Aiden::getAllModelArray('web_types'),
                 'medias'=>Aiden::getAllModelArray('medias'),
                 'customertypes'=>Aiden::getAllModelArray('customer_types'),
