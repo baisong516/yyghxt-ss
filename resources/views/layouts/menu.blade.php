@@ -178,7 +178,7 @@
             <li class="{{Request::is('outputs/zxoutputs*')?'active':''}}"><a href="{{route('zxoutputs.index')}}"><i class="fa fa-sign-out"></i><span>咨询产出</span></a></li>
             @endability
             @ability('superadministrator', 'read-zxoutputs')
-            <li class="{{Request::is('outputs/outputszx*')?'active':''}}"><a href="{{route('outputszx.index')}}"><i class="fa fa-sign-out"></i><span>咨询产出(新)</span></a></li>
+            <li class="{{Request::is('outputs/outputs-zx*')?'active':''}}"><a href="{{route('outputszx.index')}}"><i class="fa fa-sign-out"></i><span>咨询产出(新)</span></a></li>
             @endability
             @ability('superadministrator', 'read-jjoutputs')
             <li class="{{Request::is('outputs/jjoutputs*')?'active':''}}"><a href="{{route('jjoutputs.index')}}"><i class="fa fa-sign-out"></i><span>竞价产出</span></a></li>
