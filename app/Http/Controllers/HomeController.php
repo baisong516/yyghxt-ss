@@ -175,7 +175,7 @@ class HomeController extends Controller
                 $data[$office->id]['arrive_count'] = ZxCustomer::where('office_id', $office->id)->where([
                     ['arrive_at', '>=', $start],
                     ['arrive_at', '<=', $end],
-                ])->count();
+                ])->whereIn('customer_condition_id',[1,2])->count();
                 //应到院量
                 $data[$office->id]['should_count'] = ZxCustomer::where('office_id', $office->id)->where([
                     ['yuyue_at', '>=', $start],
