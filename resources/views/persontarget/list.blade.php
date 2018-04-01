@@ -18,12 +18,9 @@
                 <thead>
                 <tr>
                     <th>科室</th>
+                    <th>咨询员</th>
                     <th>年度</th>
                     <th>月份</th>
-                    <th>广告宣传</th>
-                    <th>展现</th>
-                    <th>点击</th>
-                    <th>总对话</th>
                     <th>有效对话</th>
                     <th>留联量</th>
                     <th>总预约</th>
@@ -35,19 +32,16 @@
                 @foreach($targets as $target)
                     <tr>
                         <td>{{$target->office_id&&isset($offices[$target->office_id])?$offices[$target->office_id]:''}}</td>
+                        <td>{{$target->user_id&&isset($users[$target->user_id])?$users[$target->user_id]:''}}</td>
                         <td>{{$target->year}}</td>
                         <td>{{$target->month}}</td>
-                        <td>{{$target->cost}}</td>
-                        <td>{{$target->show}}</td>
-                        <td>{{$target->click}}</td>
-                        <td>{{$target->achat}}</td>
                         <td>{{$target->chat}}</td>
                         <td>{{$target->contact}}</td>
                         <td>{{$target->yuyue}}</td>
                         <td>{{$target->arrive}}</td>
                         <td>
                             @if($enableUpdate)
-                                <a href="{{route('targets.edit',$target->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
+                                <a href="{{route('persontargets.edit',$target->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
                             @endif
                             @if($enableDelete)
                                 <a href="javascript:void(0);" data-id="{{$target->id}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>

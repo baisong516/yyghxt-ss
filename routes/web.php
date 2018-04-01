@@ -92,6 +92,8 @@ Route::group(['middleware' => ['auth','operationlog']], function() {
     //产出
     Route::group(['prefix' => 'outputs'],function(){
         Route::get('outputs','OutputController@index')->name('outputs.index');
+        Route::get('outputs-zx','OutputZxController@index')->name('outputszx.index');
+        Route::post('outputs-zx-search','OutputZxController@search')->name('outputszx.search');
         Route::post('outputsearch','OutputController@search')->name('outputs.search');
         Route::resource('zxoutputs','ZxOutputController');
         Route::post('zxoutputsimport','ZxOutputController@import')->name('zxoutputs.import');

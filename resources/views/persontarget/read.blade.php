@@ -45,8 +45,8 @@
                             <table class="table table-bordered" id="table-{{$office_id}}">
                             <thead class="text-center">
                             <tr>
-                                <th class="text-center">月份</th>
                                 <th class="text-center">咨询员</th>
+                                <th class="text-center">月份</th>
                                 <th class="text-center">有效对话</th>
                                 <th class="text-center">留联量</th>
                                 <th class="text-center">总预约</th>
@@ -55,25 +55,55 @@
                             </thead>
                             <tbody style="text-align: center">
                             @isset($v['targets'])
-                            @foreach($v['targets'] as $targets)
-                                @foreach($targets as $target)
+                            @foreach($v['targets'] as $user_id=>$tar)
                                 <tr>
-                                    @if($loop->first)
-                                    <td class="text-center" rowspan="{{$loop->count}}" style="vertical-align: middle;">{{$target->month}}</td>
-                                    @endif
-                                    <td class="text-center">{{isset($users[$target->user_id])?$users[$target->user_id]:''}}</td>
-                                    <td class="text-center">{{$target->chat}}</td>
-                                    <td class="text-center">{{$target->contact}}</td>
-                                    <td class="text-center">{{$target->yuyue}}</td>
-                                    <td class="text-center">{{$target->arrive}}</td>
+                                    <td>
+                                        <a class="btn btn-xs btn-default collapsed" data-toggle="collapse" data-target="#grid-collapse-{{$user_id}}" aria-expanded="false">
+                                            <i class="fa fa-caret-right"></i> {{$users[$user_id]}}
+                                        </a>
+                                    </td>
+                                    @isset($tar[\Carbon\Carbon::now()->month])
+                                    <td>{{\Carbon\Carbon::now()->month}}</td>
+                                    <td>{{$tar[\Carbon\Carbon::now()->month]->chat}}</td>
+                                    <td>{{$tar[\Carbon\Carbon::now()->month]->contact}}</td>
+                                    <td>{{$tar[\Carbon\Carbon::now()->month]->yuyue}}</td>
+                                    <td>{{$tar[\Carbon\Carbon::now()->month]->arrive}}</td>
+                                    @endisset
                                 </tr>
-                                @endforeach
+                                <tr>
+                                    <td colspan="12" style="padding:0 !important; border:0px;">
+                                        <div id="grid-collapse-{{$user_id}}" class="collapse" aria-expanded="false" style="height: 0px;">
+                                            <table class="table">
+                                                <tr>
+                                                    <th></th>
+                                                    <th class="text-center">月份</th>
+                                                    <th class="text-center">有效对话</th>
+                                                    <th class="text-center">留联量</th>
+                                                    <th class="text-center">总预约</th>
+                                                    <th class="text-center">总到院</th>
+                                                </tr>
+                                                <tbody>
+                                                @foreach($tar as $month=>$target)
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>{{$month}}</td>
+                                                        <td>{{$target->chat}}</td>
+                                                        <td>{{$target->contact}}</td>
+                                                        <td>{{$target->yuyue}}</td>
+                                                        <td>{{$target->arrive}}</td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                             @endisset
                             @isset($v['total'])
                             <tr>
                                 <td class="text-center">合计</td>
-                                <td class="text-center"></td>
+                                <td class="text-center">{{isset($year)?$year:\Carbon\Carbon::now()->year}}年</td>
                                 <td class="text-center">{{$v['total']['chat']}}</td>
                                 <td class="text-center">{{$v['total']['contact']}}</td>
                                 <td class="text-center">{{$v['total']['yuyue']}}</td>
@@ -137,43 +167,43 @@
         });
 
         //
-        $(".box-body li.active a").each(function () {
-            var tabId=$(this).attr('href');
-            console.log(tabId);
-            $(tabId+" .table-item").each(function () {
-                var nodeId=$(this).children('table').attr('id');
-                if (typeof(nodeId)!='undefined'){
-                    var node = document.getElementById(nodeId);
-                    var that=this;
-                    domtoimage.toSvg(node,{bgcolor: '#fff'},that)
-                        .then(function (dataUrl) {
-                            var img = new Image();
-                            img.src = dataUrl;
-                            img.className= 'img-responsive';
-                            node.remove();
-                            $(that).append(img);
-                        });
-                }
-            });
-        });
-        $(".box-body li a").click(function () {
-            var tabId=$(this).attr('href');
-            $(tabId+" .table-item").each(function () {
-                var nodeId=$(this).children('table').attr('id');
-                if (typeof(nodeId)!='undefined'){
-                    var node = document.getElementById(nodeId);
-                    var that=this;
-                    domtoimage.toSvg(node,{bgcolor: '#fff'},that)
-                        .then(function (dataUrl) {
-                            var img = new Image();
-                            img.src = dataUrl;
-                            img.className= 'img-responsive';
-                            node.remove();
-                            $(that).append(img);
-                        });
-                }
-            });
-        });
+        // $(".box-body li.active a").each(function () {
+        //     var tabId=$(this).attr('href');
+        //     console.log(tabId);
+        //     $(tabId+" .table-item").each(function () {
+        //         var nodeId=$(this).children('table').attr('id');
+        //         if (typeof(nodeId)!='undefined'){
+        //             var node = document.getElementById(nodeId);
+        //             var that=this;
+        //             domtoimage.toSvg(node,{bgcolor: '#fff'},that)
+        //                 .then(function (dataUrl) {
+        //                     var img = new Image();
+        //                     img.src = dataUrl;
+        //                     img.className= 'img-responsive';
+        //                     node.remove();
+        //                     $(that).append(img);
+        //                 });
+        //         }
+        //     });
+        // });
+        // $(".box-body li a").click(function () {
+        //     var tabId=$(this).attr('href');
+        //     $(tabId+" .table-item").each(function () {
+        //         var nodeId=$(this).children('table').attr('id');
+        //         if (typeof(nodeId)!='undefined'){
+        //             var node = document.getElementById(nodeId);
+        //             var that=this;
+        //             domtoimage.toSvg(node,{bgcolor: '#fff'},that)
+        //                 .then(function (dataUrl) {
+        //                     var img = new Image();
+        //                     img.src = dataUrl;
+        //                     img.className= 'img-responsive';
+        //                     node.remove();
+        //                     $(that).append(img);
+        //                 });
+        //         }
+        //     });
+        // });
         $(".month-sub-option").click(function () {
             var monthSub=$(this).data('month');
             $("input:hidden[name=monthSub]").val(monthSub);
