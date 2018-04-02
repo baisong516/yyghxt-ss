@@ -22,7 +22,7 @@ class ZxCustomer extends Model
         $customer->idcard=$request->input('idcard');
         $customer->keywords=$request->input('keywords');
         $customer->description=$request->input('description');
-        $customer->user_id=Auth::user()->id;
+        $customer->user_id=$request->input('user_id')?$request->user_id:Auth::user()->id;
         $customer->office_id=$request->input('office_id');
         $customer->disease_id=$request->input('disease_id');
         $customer->doctor_id=$request->input('doctor_id');
@@ -47,7 +47,7 @@ class ZxCustomer extends Model
                 'zx_customer_id'=>$customer->id,
                 'next_at'=>$next_at,
                 'description'=>'数据录入',
-                'next_user_id'=>Auth::user()->id,
+                'next_user_id'=>$request->input('user_id')?$request->user_id:Auth::user()->id,
             ];
             Huifang::createHuifang($data);
         }
@@ -67,6 +67,9 @@ class ZxCustomer extends Model
         $customer->keywords=$request->input('keywords');
         $customer->description=$request->input('description');
         $customer->office_id=$request->input('office_id');
+        if (!empty($request->input('user_id'))){
+            $customer->user_id=$request->input('user_id');
+        }
         $customer->disease_id=$request->input('disease_id');
         $customer->doctor_id=$request->input('doctor_id');
         $customer->city=$request->input('city');

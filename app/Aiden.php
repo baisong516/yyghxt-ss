@@ -147,4 +147,15 @@ class Aiden extends Model
         }
         return $data;
     }
+
+    public static function getAllActiveZiXunUserArray()
+    {
+        $users=[];
+        foreach (Auth::user()->offices as $office){
+            foreach ($office->users()->where('users.department_id',2)->where('users.is_active',1)->get() as $user){
+                $users[$user->id]=$user->realname;
+            }
+        }
+        return $users;
+    }
 }

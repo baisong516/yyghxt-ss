@@ -59,7 +59,19 @@
             <input type="text" name="keywords" class="form-control" id="keywords" value="{{isset($customer)?$customer->keywords:old('keywords')}}" placeholder="{{empty($errors->first('keywords'))?'搜索关键词':$errors->first('keywords')}}">
         </div>
     </div>
-
+    @ability('superadministrator', 'change-user')
+    <div class="form-group {{empty($errors->first('user_id'))?'':'has-error'}}">
+        <label for="user" class="col-sm-2 control-label">咨询员</label>
+        <div class="col-sm-10">
+            <select name="user_id" id="zx-user" class="form-control">
+                <option value="" selected>--选择--</option>
+                @foreach($activeZxUsers as $k=>$v)
+                    <option value="{{$k}}" {{old('user_id')==$k?'selected':''}} {{isset($customer)&&$customer->user_id==$k?'selected':''}}>{{$v}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    @endability
     <div class="form-group {{empty($errors->first('description'))?'':'has-error'}}">
         <label for="description" class="col-sm-2 control-label">咨询内容</label>
         <div class="col-sm-10">
@@ -122,7 +134,7 @@
         </div>
     </div>
 
-    <div class="form-group {{empty($errors->first('media'))?'':'has-error'}}">
+    <div class="form-group {{empty($errors->first('media_id'))?'':'has-error'}}">
         <label for="media" class="col-sm-2 control-label">媒体来源</label>
         <div class="col-sm-10">
             <select name="media_id" id="media" class="form-control">
