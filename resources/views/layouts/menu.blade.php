@@ -114,11 +114,11 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            @ability('superadministrator', 'read-auctions')
-            <li class="{{Request::is('jingjia/auctions*')?'active':''}}"><a href="{{route('auctions.index')}}"><i class="fa fa-th"></i><span>竞价报表</span></a></li>
-            @endability
+            {{--@ability('superadministrator', 'read-auctions')--}}
+            {{--<li class="{{Request::is('jingjia/auctions*')?'active':''}}"><a href="{{route('auctions.index')}}"><i class="fa fa-th"></i><span>竞价报表</span></a></li>--}}
+            {{--@endability--}}
             @ability('superadministrator', 'read-reports')
-            <li class="{{Request::is('jingjia/reports*')?'active':''}}"><a href="{{route('reports.index')}}"><i class="fa fa-th"></i><span>竞价报表（新）</span></a></li>
+            <li class="{{Request::is('jingjia/reports*')?'active':''}}"><a href="{{route('reports.index')}}"><i class="fa fa-th"></i><span>竞价报表</span></a></li>
             @endability
         </ul>
     </li>
