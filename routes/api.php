@@ -28,6 +28,8 @@ Route::group(['middleware'=>['api']],function(){
     Route::post('get-values-from-type','ApiController@getValuesFromType');
     Route::post('check-exist-customer','ApiController@checkExistCustomer');
 
+    Route::post('get-zx-user-progress','ApiController@getZxUserProgress');
+
 //    Route::get('dumphe359484408','ApiController@dumpHe359484408');
 
     Route::get('diseases','ApiController@getDisease');

@@ -64,7 +64,7 @@
         <label for="user" class="col-sm-2 control-label">咨询员</label>
         <div class="col-sm-10">
             <select name="user_id" id="zx-user" class="form-control">
-                <option value="" selected>--选择--</option>
+                <option value="" selected>--选择(默认本人)--</option>
                 @foreach($activeZxUsers as $k=>$v)
                     <option value="{{$k}}" {{old('user_id')==$k?'selected':''}} {{isset($customer)&&$customer->user_id==$k?'selected':''}}>{{$v}}</option>
                 @endforeach

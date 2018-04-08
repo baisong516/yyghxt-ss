@@ -8,6 +8,7 @@ use App\GhHuifang;
 use App\Hospital;
 use App\Huifang;
 use App\Office;
+use App\PersonTarget;
 use App\Statistic;
 use App\User;
 use App\ZxCustomer;
@@ -434,5 +435,21 @@ class ApiController extends Controller
             }
         }
         return $diseases;
+    }
+
+    public function getZxUserProgress(Request $request)
+    {
+        $data=[];
+        $office_id=$request->input('office_id');
+        $year=$request->input('year');
+        $month=$request->input('month');
+        $user_id=$request->input('user_id');
+        if (empty($month)||$month=='fullyear'){//年度数据
+            $targets=PersonTarget::getTargetData($year);
+        }else{//月数据
+            //todo
+            $targets=PersonTarget::getTargetData($month);
+        }
+        return $data;
     }
 }

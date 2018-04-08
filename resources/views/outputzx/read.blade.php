@@ -28,7 +28,7 @@
         <div class="box-body" id="table-content">
             <div class="table-item table-responsive">
                 <h5 class="text-center"><strong>本月数据({{(isset($year)?$year:'') . '年'.(isset($month)?$month:'') . '月'}})</strong></h5>
-                <table id="table-month" class="table text-center table-bordered">
+                <table id="table-month" class="table text-center table-bordered" style="background: #C7EDCC;">
                 <thead>
                     <tr>
                         <th colspan="2"></th>
@@ -83,7 +83,7 @@
                         @if($loop->first)
                         <td rowspan="{{$loop->count+1}}" style="vertical-align: middle;">{{isset($offices[$office_id])?$offices[$office_id]:''}}</td>
                         @endif
-                        <td>{{isset($users[$user_id])?$users[$user_id]:''}}</td>
+                        <td class="progress-btn" style="cursor: pointer;" data-office="{{$office_id}}" data-toggle="modal" data-target="#progressModel" data-month="{{isset($month)?$month:\Carbon\Carbon::now()->month}}" data-year="{{isset($year)?$year:\Carbon\Carbon::now()->year}}" data-user="{{$user_id}}">{{isset($users[$user_id])?$users[$user_id]:''}}</td>
                         <td>{{isset($output['swt']['zixun'])?$output['swt']['zixun']:0}}</td>
                         <td>{{isset($output['swt']['contact'])?$output['swt']['contact']:0}}</td>
                         <td>{{isset($output['swt']['yuyue'])?$output['swt']['yuyue']:0}}</td>
@@ -118,7 +118,7 @@
                     </tr>
                     @endforeach
                     <tr class="text-red" style="font-weight: bold;">
-                        <td>合计</td>
+                        <td class="progress-btn" style="cursor: pointer;" data-office="{{$office_id}}" data-toggle="modal" data-target="#progressModel" data-month="{{isset($month)?$month:\Carbon\Carbon::now()->month}}" data-year="{{isset($year)?$year:\Carbon\Carbon::now()->year}}">合计</td>
                         <td>{{isset($monthOutputs['totaloutputs'][$office_id]['swt']['zixun'])?$monthOutputs['totaloutputs'][$office_id]['swt']['zixun']:0}}</td>
                         <td>{{isset($monthOutputs['totaloutputs'][$office_id]['swt']['contact'])?$monthOutputs['totaloutputs'][$office_id]['swt']['contact']:0}}</td>
                         <td>{{isset($monthOutputs['totaloutputs'][$office_id]['swt']['yuyue'])?$monthOutputs['totaloutputs'][$office_id]['swt']['yuyue']:0}}</td>
@@ -153,8 +153,8 @@
                 </table>
             </div>
             <div class="table-item table-responsive">
-                <h5 class="text-center"><strong>上月数据({{(isset($year)?$year:'') . '年'.(isset($month)?$month-1:'') . '月'}})</strong></h5>
-                <table id="table-lastmonth" class="table text-center table-bordered">
+                <h5 class="text-center"><strong>上月数据({{((isset($year)&&isset($month))?\Carbon\Carbon::createFromFormat('Y-m',$year.'-'.$month)->subMonth(1)->year:'') . '年'.((isset($year)&&isset($month))?\Carbon\Carbon::createFromFormat('Y-m',$year.'-'.$month)->subMonth(1)->month:'') . '月'}})</strong></h5>
+                <table id="table-lastmonth" class="table text-center table-bordered" style="background: #C7EDCC;">
                     <thead>
                     <tr>
                         <th colspan="2"></th>
@@ -209,7 +209,7 @@
                                     @if($loop->first)
                                         <td rowspan="{{$loop->count+1}}" style="vertical-align: middle;">{{isset($offices[$office_id])?$offices[$office_id]:''}}</td>
                                     @endif
-                                    <td>{{isset($users[$user_id])?$users[$user_id]:''}}</td>
+                                    <td class="progress-btn" style="cursor: pointer;" data-toggle="modal" data-office="{{$office_id}}" data-target="#progressModel" data-toggle="modal" data-target="#progressModel" data-month="{{(isset($month)&&isset($year))?\Carbon\Carbon::createFromFormat('Y-m',$year.'-'.$month)->subMonth(1)->month:\Carbon\Carbon::now()->month}}" data-year="{{(isset($year)&&isset($month))?\Carbon\Carbon::createFromFormat('Y-m',$year.'-'.$month)->subMonth(1)->year:\Carbon\Carbon::now()->year}}" data-user="{{$user_id}}">{{isset($users[$user_id])?$users[$user_id]:''}}</td>
                                     <td>{{isset($output['swt']['zixun'])?$output['swt']['zixun']:0}}</td>
                                     <td>{{isset($output['swt']['contact'])?$output['swt']['contact']:0}}</td>
                                     <td>{{isset($output['swt']['yuyue'])?$output['swt']['yuyue']:0}}</td>
@@ -244,7 +244,7 @@
                                 </tr>
                             @endforeach
                             <tr class="text-red" style="font-weight: bold;">
-                                <td>合计</td>
+                                <td class="progress-btn" style="cursor: pointer;" data-office="{{$office_id}}" data-toggle="modal" data-target="#progressModel" data-month="{{(isset($month)&&isset($year))?\Carbon\Carbon::createFromFormat('Y-m',$year.'-'.$month)->subMonth(1)->month:\Carbon\Carbon::now()->month}}" data-year="{{(isset($year)&&isset($month))?\Carbon\Carbon::createFromFormat('Y-m',$year.'-'.$month)->subMonth(1)->year:\Carbon\Carbon::now()->year}}">合计</td>
                                 <td>{{isset($lastMonthOutputs['totaloutputs'][$office_id]['swt']['zixun'])?$lastMonthOutputs['totaloutputs'][$office_id]['swt']['zixun']:0}}</td>
                                 <td>{{isset($lastMonthOutputs['totaloutputs'][$office_id]['swt']['contact'])?$lastMonthOutputs['totaloutputs'][$office_id]['swt']['contact']:0}}</td>
                                 <td>{{isset($lastMonthOutputs['totaloutputs'][$office_id]['swt']['yuyue'])?$lastMonthOutputs['totaloutputs'][$office_id]['swt']['yuyue']:0}}</td>
@@ -280,7 +280,7 @@
             </div>
             <div class="table-item table-responsive">
                 <h5 class="text-center"><strong>本年数据({{(isset($year)?$year:'') . '年'}})</strong></h5>
-                <table id="table-year" class="table text-center table-bordered">
+                <table id="table-year" class="table text-center table-bordered" style="background: #C7EDCC;">
                     <thead>
                     <tr>
                         <th colspan="2"></th>
@@ -335,7 +335,7 @@
                                     @if($loop->first)
                                         <td rowspan="{{$loop->count+1}}" style="vertical-align: middle;">{{isset($offices[$office_id])?$offices[$office_id]:''}}</td>
                                     @endif
-                                    <td>{{isset($users[$user_id])?$users[$user_id]:''}}</td>
+                                    <td class="progress-btn" style="cursor: pointer;" data-month="fullyear" data-year="{{isset($year)?$year:\Carbon\Carbon::now()->year}}" data-user="{{$user_id}}" data-office="{{$office_id}}">{{isset($users[$user_id])?$users[$user_id]:''}}</td>
                                     <td>{{isset($output['swt']['zixun'])?$output['swt']['zixun']:0}}</td>
                                     <td>{{isset($output['swt']['contact'])?$output['swt']['contact']:0}}</td>
                                     <td>{{isset($output['swt']['yuyue'])?$output['swt']['yuyue']:0}}</td>
@@ -370,7 +370,7 @@
                                 </tr>
                             @endforeach
                             <tr class="text-red" style="font-weight: bold;">
-                                <td>合计</td>
+                                <td class="progress-btn" style="cursor: pointer;" data-month="fullyear" data-year="{{isset($year)?$year:\Carbon\Carbon::now()->year}}" data-office="{{$office_id}}">合计</td>
                                 <td>{{isset($yearOutputs['totaloutputs'][$office_id]['swt']['zixun'])?$yearOutputs['totaloutputs'][$office_id]['swt']['zixun']:0}}</td>
                                 <td>{{isset($yearOutputs['totaloutputs'][$office_id]['swt']['contact'])?$yearOutputs['totaloutputs'][$office_id]['swt']['contact']:0}}</td>
                                 <td>{{isset($yearOutputs['totaloutputs'][$office_id]['swt']['yuyue'])?$yearOutputs['totaloutputs'][$office_id]['swt']['yuyue']:0}}</td>
@@ -408,7 +408,22 @@
         <!-- /.box-body -->
         </form>
     </div>
-
+    <div class="modal fade" id="progressModel" tabindex="-1" role="dialog" aria-labelledby="myProgressModelLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
@@ -416,7 +431,6 @@
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
-        //data item
         lay('.date-item').each(function(){
             laydate.render({
                 elem: this,
@@ -425,64 +439,28 @@
                 // value: new Date()
             });
         });
-        $(document).ready(function () {
-            // 0
-            var nodeId0=$(".table-item").eq(0).children('table').attr('id');
-            var node0 = document.getElementById(nodeId0);
-            domtoimage.toSvg(node0,{bgcolor: '#C7EDCC'})
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.className= 'img-responsive';
-                    node0.remove();
-                    $(".table-item").eq(0).append(img);
-                });
-            // 1
-            var nodeId1=$(".table-item").eq(1).children('table').attr('id');
-            var node1 = document.getElementById(nodeId1);
-            domtoimage.toSvg(node1,{bgcolor: '#C7EDCC'})
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.className= 'img-responsive';
-                    node1.remove();
-                    $(".table-item").eq(1).append(img);
-                });
-            // 2
-            var nodeId2=$(".table-item").eq(2).children('table').attr('id');
-            var node2 = document.getElementById(nodeId2);
-            domtoimage.toSvg(node2,{bgcolor: '#C7EDCC'})
-                .then(function (dataUrl) {
-                    var img = new Image();
-                    img.src = dataUrl;
-                    img.className= 'img-responsive';
-                    node2.remove();
-                    $(".table-item").eq(2).append(img);
-                });
+        //progress-btn
+        $(".progress-btn").click(function () {
+            var year=$(this).data('year');
+            var month=$(this).data('month');
+            var office_id=$(this).data('office');
+            var user_id=$(this).data('user');
+            if (typeof(user_id) == "undefined"){
+                user_id='';
+            }
+            $.ajax({
+                url: '/api/get-zx-user-progress',
+                type: "post",
+                data: {'office_id':office_id,'year':year,'month':month,'user_id':user_id,'_token': $('input[name=_token]').val()},
+                success: function(data){
+                    console.log(data);
+                }
+            });
         });
         $(".month-sub-option").click(function () {
             var monthSub=$(this).data('month');
             $("input:hidden[name=monthSub]").val(monthSub);
             $("form#search-form").submit();
         });
-        {{--$(".delete-operation").on('click',function(){--}}
-            {{--var id=$(this).attr('data-id');--}}
-            {{--layer.open({--}}
-                {{--content: '你确定要删除吗？',--}}
-                {{--btn: ['确定', '关闭'],--}}
-                {{--yes: function(index, layero){--}}
-                    {{--$('form.zxoutputs-form').attr('action',"{{route('zxoutputs.index')}}/"+id);--}}
-                    {{--$('form.zxoutputs-form').submit();--}}
-                {{--},--}}
-                {{--btn2: function(index, layero){--}}
-                    {{--//按钮【按钮二】的回调--}}
-                    {{--//return false 开启该代码可禁止点击该按钮关闭--}}
-                {{--},--}}
-                {{--cancel: function(){--}}
-                    {{--//右上角关闭回调--}}
-                    {{--//return false; 开启该代码可禁止点击该按钮关闭--}}
-                {{--}--}}
-            {{--});--}}
-        {{--});--}}
     </script>
 @endsection
