@@ -5,7 +5,7 @@ return [
     'version'=>'V1.0',
     'res'=>[
         //cdn资源
-        'font_awesome'=>'/css/font-awesome.min.css',
+        'font_awesome'=>'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css',
         'bootstrap_css'=>'/css/bootstrap.min.css',
         'bootstrap_js'=>'/js/bootstrap.min.js',
         'jquery'=>'/js/jquery.min.js',
