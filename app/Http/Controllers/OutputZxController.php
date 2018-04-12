@@ -18,9 +18,7 @@ class OutputZxController extends Controller
             $year=Carbon::now()->year;
             $month=Carbon::now()->month;
             //目标
-//            $targets=PersonTarget::getTargetDataArray($year);
-//            $monthtargets=PersonTarget::getTargetDataArray(1,$year,$month);
-//            dd($monthtargets);
+//            $yeartargets=PersonTarget::getTargetDataArray($year);
             //本月
             $monthOutputs=OutputZx::getZxOutputs(Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth());
             //上月

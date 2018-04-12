@@ -6,7 +6,7 @@ return [
     'res'=>[
         //cdn资源
         'font_awesome'=>'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css',
-        'bootstrap_css'=>'https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css',
+        'bootstrap_css'=>'/css/bootstrap.min.css',
         'bootstrap_js'=>'https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js',
         'jquery'=>'https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js',
         'admin_css'=>'https://ssyl.oss-cn-shenzhen.aliyuncs.com/res/css/AdminLTE.min.css',
