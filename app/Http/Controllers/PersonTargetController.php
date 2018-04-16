@@ -64,7 +64,7 @@ class PersonTargetController extends Controller
      */
     public function store(StorePersonTargetRequest $request)
     {
-     if (Auth::user()->ability('superadministrator', 'create-targets')){
+     if (Auth::user()->ability('superadministrator', 'create-persontargets')){
             $count=PersonTarget::where([
                 ['office_id',$request->input('office_id')],
                 ['year',$request->input('year')],
@@ -102,7 +102,7 @@ class PersonTargetController extends Controller
      */
     public function edit($id)
     {
-        if (Auth::user()->ability('superadministrator', 'update-targets')){
+        if (Auth::user()->ability('superadministrator', 'update-persontargets')){
             return view('persontarget.update',[
                 'pageheader'=>'经营计划',
                 'pagedescription'=>'更新',
@@ -122,7 +122,7 @@ class PersonTargetController extends Controller
      */
     public function update(StorePersonTargetRequest $request, $id)
     {
-        if (Auth::user()->ability('superadministrator', 'update-targets')){
+        if (Auth::user()->ability('superadministrator', 'update-persontargets')){
             if (PersonTarget::updatetarget($request,$id)){
                 return redirect()->route('persontargets.list')->with('success','well done!');
             }else{
@@ -140,7 +140,7 @@ class PersonTargetController extends Controller
      */
     public function destroy($id)
     {
-        if (Auth::user()->ability('superadministrator', 'delete-targets')){
+        if (Auth::user()->ability('superadministrator', 'delete-persontargets')){
             $target=PersonTarget::findOrFail($id);
             $bool=$target->delete();
             if ($bool){
@@ -154,7 +154,7 @@ class PersonTargetController extends Controller
 
     public function list()
     {
-        if (Auth::user()->ability('superadministrator', 'read-targets')){
+        if (Auth::user()->ability('superadministrator', 'read-persontargets')){
             return view('persontarget.list',[
                 'pageheader'=>'个人计划',
                 'pagedescription'=>'列表',

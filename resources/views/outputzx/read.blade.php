@@ -324,7 +324,7 @@
                     $("#target-jiuzhen-rate").html(targetJiuzhenRate);
                     $("#target-trans-rate").html(targetTransRate);
                     //进度
-                    var progressZixun=targetZixun>0?((zixun/targetZixun)*100).toFixed(2)+'%':0;
+                    var progressZixun=targetZixun>0?((zixun/targetZn)*100).toFixed(2)+'%':0;
                     var progressContact=targetContact>0?((contact/targetContact)*100).toFixed(2)+'%':0;
                     var progressYuyue=targetYuyue>0?((yuyue/targetYuyue)*100).toFixed(2)+'%':0;
                     var progressArrive=targetArrive>0?((arrive/targetArrive)*100).toFixed(2)+'%':0;
@@ -334,7 +334,7 @@
                     var progressArriveRate=yuyue>0&&targetYuyue>0?(((arrive/yuyue)/(targetArrive/targetYuyue))*100).toFixed(2)+'%':0;
                     var progressJiuzhenRate=arrive>0&&targetArrive>0?(((jiuzhen/arrive)/(targetJiuzhen/targetArrive))*100).toFixed(2)+'%':0;
                     var progressTransRate=zixun>0&&targetZixun>0?(((arrive/zixun)/(targetArrive/targetZixun))*100).toFixed(2)+'%':0;
-                    $("#progress-type").html('进度');
+                    $("#progress-type").html('完成进度');
                     $("#progress-zixun").html(progressZixun);
                     $("#progress-contact").html(progressContact);
                     $("#progress-yuyue").html(progressYuyue);
