@@ -168,7 +168,8 @@ class PersonTargetController extends Controller
         return abort(403,config('yyxt.permission_deny'));
     }
 
-    public function import(Request $request)
+    //全年导入
+    public function imports(Request $request)
     {
         if (Auth::user()->ability('superadministrator', 'create-persontargets')){
             $file = $request->file('file');
@@ -238,6 +239,73 @@ class PersonTargetController extends Controller
                         DB::rollback();
                         return redirect()->route('persontargets.index')->with('error',$e->getMessage().' 请检查表格数据是否正确再次导入！');
                     }
+                }
+
+                return redirect()->route('persontargets.index')->with('success','导入完成!共导入数据 '.$datacount.'条！'.$tips);
+            }
+        }
+        return abort(403,config('yyxt.permission_deny'));
+    }
+    //按月导入
+    public function import(Request $request)
+    {
+        if (Auth::user()->ability('superadministrator', 'create-persontargets')){
+            $file = $request->file('file');
+            if (empty($file)){
+                return redirect()->back()->with('error','没有选择文件');
+            }else{
+                $res=[];
+                Excel::load($file, function($reader) use( &$res ) {
+                    $reader = $reader->getSheet(0);
+                    $res = $reader->toArray();
+                });
+                $year=intval($res[0][0]);
+                $res=array_slice($res,2);
+//                dd($res);
+                $offices=Aiden::getAllModelArray('offices');
+                $users=Aiden::getAllUserArray();
+                $datacount=0;
+                $tips='';
+                DB::beginTransaction();
+                try{
+                    $user='';
+                    $office='';
+                    foreach ($res as $d){
+                        if (is_null($d[1])||is_null($d[2])||is_null($d[3])||is_null($d[4])||is_null($d[5])||is_null($d[6])){
+                            continue;
+                        }
+                        $office=empty($d[0])?$office:$d[0];
+                        $office_id=array_search($office,$offices);
+                        $user=empty($d[1])?$user:$d[1];
+                        $user_id=array_search($user,$users);
+                        if ($office_id<1){continue;}
+                        if ($user_id<1){continue;}
+                        $month=intval($d[2]);
+                        $chat=intval($d[3]);
+                        $contact=intval($d[4]);
+                        $yuyue=intval($d[5]);
+                        $arrive=intval($d[6]);
+                        $et=PersonTarget::where('office_id',$office_id)->where('month',$month)->where('user_id',$user_id)->count();
+                        if ($et>0){
+                            $tips.=' '.$office.$year.'年'.$month.'月'.$user.'数据已存在';
+                            continue;
+                        }
+                        $target=new PersonTarget();
+                        $target->office_id=$office_id;
+                        $target->user_id=$user_id;
+                        $target->year=$year;
+                        $target->month=$month;
+                        $target->arrive=$arrive;
+                        $target->chat=$chat;
+                        $target->contact=$contact;
+                        $target->yuyue=$yuyue;
+                        $target->save();
+                        $datacount++;
+                    }
+                    DB::commit();
+                }catch (QueryException $e){
+                    DB::rollback();
+                    return redirect()->route('persontargets.index')->with('error',$e->getMessage().' 请检查表格数据是否正确再次导入！');
                 }
 
                 return redirect()->route('persontargets.index')->with('success','导入完成!共导入数据 '.$datacount.'条！'.$tips);

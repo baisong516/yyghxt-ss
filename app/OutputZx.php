@@ -51,6 +51,9 @@ class OutputZx extends Model
                     isset($outputs[$out->office_id][$out->user_id]['total']['zixun'])?$outputs[$out->office_id][$out->user_id]['total']['zixun']++:$outputs[$out->office_id][$out->user_id]['total']['zixun']=1;
                     isset($totalputs[$out->office_id]['catch']['zixun'])?$totalputs[$out->office_id]['catch']['zixun']++:$totalputs[$out->office_id]['catch']['zixun']=1;
                 }
+                isset($outputs[$out->office_id][$out->user_id]['total']['contact'])?$outputs[$out->office_id][$out->user_id]['total']['contact']++:$outputs[$out->office_id][$out->user_id]['total']['contact']=1;
+                isset($totalputs[$out->office_id]['total']['contact'])?$totalputs[$out->office_id]['total']['contact']++:$totalputs[$out->office_id]['total']['contact']=1;
+
             }else if ($out->media_id==2){//电话
                 if ($out->customer_condition_id==1){//就诊
                     isset($outputs[$out->office_id][$out->user_id]['tel']['zixun'])?$outputs[$out->office_id][$out->user_id]['tel']['zixun']++:$outputs[$out->office_id][$out->user_id]['tel']['zixun']=1;
@@ -71,6 +74,8 @@ class OutputZx extends Model
                     isset($outputs[$out->office_id][$out->user_id]['total']['zixun'])?$outputs[$out->office_id][$out->user_id]['total']['zixun']++:$outputs[$out->office_id][$out->user_id]['total']['zixun']=1;
                     isset($totalputs[$out->office_id]['tel']['zixun'])?$totalputs[$out->office_id]['tel']['zixun']++:$totalputs[$out->office_id]['tel']['zixun']=1;
                 }
+                isset($outputs[$out->office_id][$out->user_id]['total']['contact'])?$outputs[$out->office_id][$out->user_id]['total']['contact']++:$outputs[$out->office_id][$out->user_id]['total']['contact']=1;
+                isset($totalputs[$out->office_id]['total']['contact'])?$totalputs[$out->office_id]['total']['contact']++:$totalputs[$out->office_id]['total']['contact']=1;
             }else if ($out->media_id==12){//自媒体
                 if ($out->customer_condition_id==1){//就诊
                     isset($outputs[$out->office_id][$out->user_id]['zmt']['zixun'])?$outputs[$out->office_id][$out->user_id]['zmt']['zixun']++:$outputs[$out->office_id][$out->user_id]['zmt']['zixun']=1;
@@ -92,6 +97,8 @@ class OutputZx extends Model
                     isset($outputs[$out->office_id][$out->user_id]['total']['zixun'])?$outputs[$out->office_id][$out->user_id]['total']['zixun']++:$outputs[$out->office_id][$out->user_id]['total']['zixun']=1;
                     isset($totalputs[$out->office_id]['zmt']['zixun'])?$totalputs[$out->office_id]['zmt']['zixun']++:$totalputs[$out->office_id]['zmt']['zixun']=1;
                 }
+                isset($outputs[$out->office_id][$out->user_id]['total']['contact'])?$outputs[$out->office_id][$out->user_id]['total']['contact']++:$outputs[$out->office_id][$out->user_id]['total']['contact']=1;
+                isset($totalputs[$out->office_id]['total']['contact'])?$totalputs[$out->office_id]['total']['contact']++:$totalputs[$out->office_id]['total']['contact']=1;
             }else{//商务通
                 if ($out->customer_condition_id==1){//就诊
                     isset($outputs[$out->office_id][$out->user_id]['swt']['zixun'])?$outputs[$out->office_id][$out->user_id]['swt']['zixun']++:$outputs[$out->office_id][$out->user_id]['swt']['zixun']=1;
@@ -128,6 +135,10 @@ class OutputZx extends Model
                         isset($outputs[$out->office_id][$out->user_id]['swt']['contact'])?$outputs[$out->office_id][$out->user_id]['swt']['contact']++:$outputs[$out->office_id][$out->user_id]['swt']['contact']=1;
                         isset($totalputs[$out->office_id]['swt']['contact'])?$totalputs[$out->office_id]['swt']['contact']++:$totalputs[$out->office_id]['swt']['contact']=1;
                     }
+                }
+                if(!empty($out->tel)||!empty($out->wechat)||!empty($out->qq)){
+                    isset($outputs[$out->office_id][$out->user_id]['total']['contact'])?$outputs[$out->office_id][$out->user_id]['total']['contact']++:$outputs[$out->office_id][$out->user_id]['total']['contact']=1;
+                    isset($totalputs[$out->office_id]['total']['contact'])?$totalputs[$out->office_id]['total']['contact']++:$totalputs[$out->office_id]['total']['contact']=1;
                 }
             }
         }

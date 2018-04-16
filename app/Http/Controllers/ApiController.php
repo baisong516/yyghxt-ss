@@ -10,6 +10,7 @@ use App\Huifang;
 use App\Office;
 use App\PersonTarget;
 use App\Statistic;
+use App\Target;
 use App\User;
 use App\ZxCustomer;
 use Carbon\Carbon;
@@ -444,12 +445,31 @@ class ApiController extends Controller
         $year=$request->input('year');
         $month=$request->input('month');
         $user_id=$request->input('user_id');
-        if (empty($month)||$month=='fullyear'){//年度数据
-            $targets=PersonTarget::getTargetData($year);
-        }else{//月数据
-            //todo
-            $targets=PersonTarget::getTargetData($month);
+        if (empty($user_id)){//总进度
+            if (empty($month)||$month=='fullyear'){//年度
+                $targets=Target::getOfficeTargetData($year,$office_id);
+            }else{//月度
+                //月度数据来源有2个表，且相互独立
+//                $ptargets=PersonTarget::getOfficeMonthTargetData($year,$month,$office_id);
+                $targets=Target::getOfficeMonthTargetData($year,$office_id,$month);
+//                $targets=empty($ptargets)?$ttargets:$ptargets;
+            }
+        }else{//咨询员进度
+            if (empty($month)||$month=='fullyear'){//年度
+                $targets=PersonTarget::getYearTarget($user_id,$year,$office_id);
+            }else{//月度
+                $targets=PersonTarget::getMonthTarget($user_id,$year,$office_id,$month);
+            }
         }
+        $users=Aiden::getAllUserArray();
+        $offices=Aiden::getAllModelArray('offices');
+        $data=[
+            'year'=>$year,
+            'month'=>$month,
+            'office'=>empty($office_id)?'':$offices[$office_id],
+            'user'=>empty($user_id)?'':$users[$user_id],
+            'targets'=>$targets
+        ];
         return $data;
     }
 }

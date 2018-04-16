@@ -8,6 +8,7 @@ class Target extends Model
 {
     protected $table = 'targets';
 
+    //年度所有月份目标
     public static function getTargetData($year)
     {
         $targets=Target::whereIn('office_id',Aiden::getAuthdOfficesId())->where('year',$year)->get();
@@ -22,6 +23,19 @@ class Target extends Model
             $targetData[$target->office_id]['total']['contact']=isset($targetData[$target->office_id]['total']['contact'])?$targetData[$target->office_id]['total']['contact']+=$target->contact:$target->contact;
             $targetData[$target->office_id]['total']['yuyue']=isset($targetData[$target->office_id]['total']['yuyue'])?$targetData[$target->office_id]['total']['yuyue']+=$target->yuyue:$target->yuyue;
             $targetData[$target->office_id]['total']['arrive']=isset($targetData[$target->office_id]['total']['arrive'])?$targetData[$target->office_id]['total']['arrive']+=$target->arrive:$target->arrive;
+        }
+        return $targetData;
+    }
+    //年度所有月份目标
+    public static function getOfficeTargetData($year,$office_id)
+    {
+        $targets=Target::where('office_id',$office_id)->where('year',$year)->get();
+        $targetData=[];
+        foreach ($targets as $target){
+            $targetData['chat']=isset($targetData['chat'])?$targetData['chat']+=$target->chat:$target->chat;
+            $targetData['contact']=isset($targetData['contact'])?$targetData['contact']+=$target->contact:$target->contact;
+            $targetData['yuyue']=isset($targetData['yuyue'])?$targetData['yuyue']+=$target->yuyue:$target->yuyue;
+            $targetData['arrive']=isset($targetData['arrive'])?$targetData['arrive']+=$target->arrive:$target->arrive;
         }
         return $targetData;
     }
@@ -60,5 +74,18 @@ class Target extends Model
         $target->arrive=intval($request->input('arrive'));
         $bool=$target->save();
         return $bool;
+    }
+
+    public static function getOfficeMonthTargetData($year, $office_id,$month)
+    {
+        $targets=Target::where('office_id',$office_id)->where('year',$year)->where('month',$month)->get();
+        $targetData=[];
+        foreach ($targets as $target){
+            $targetData['chat']=isset($targetData['chat'])?$targetData['chat']+=$target->chat:$target->chat;
+            $targetData['contact']=isset($targetData['contact'])?$targetData['contact']+=$target->contact:$target->contact;
+            $targetData['yuyue']=isset($targetData['yuyue'])?$targetData['yuyue']+=$target->yuyue:$target->yuyue;
+            $targetData['arrive']=isset($targetData['arrive'])?$targetData['arrive']+=$target->arrive:$target->arrive;
+        }
+        return $targetData;
     }
 }

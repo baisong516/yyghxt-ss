@@ -93,4 +93,43 @@ class PersonTarget extends Model
         $bool=$target->save();
         return $bool;
     }
+
+    public static function getOfficeMonthTargetData($year, $month,$office)
+    {
+        $targets=PersonTarget::where('office_id',$office)->where('year',$year)->where('month',$month)->get();
+        $targetData=[];
+        foreach ($targets as $target){
+            $targetData['chat']=isset($targetData['chat'])?$targetData['chat']+=$target->chat:$target->chat;
+            $targetData['contact']=isset($targetData['contact'])?$targetData['contact']+=$target->contact:$target->contact;
+            $targetData['yuyue']=isset($targetData['yuyue'])?$targetData['yuyue']+=$target->yuyue:$target->yuyue;
+            $targetData['arrive']=isset($targetData['arrive'])?$targetData['arrive']+=$target->arrive:$target->arrive;
+        }
+        return $targetData;
+    }
+
+    public static function getYearTarget($user_id, $year, $office_id)
+    {
+        $targets=static::where('office_id',$office_id)->where('year',$year)->where('user_id',$user_id)->get();
+        $targetData=[];
+        foreach ($targets as $target){
+            $targetData['chat']=isset($targetData['chat'])?$targetData['chat']+=$target->chat:$target->chat;
+            $targetData['contact']=isset($targetData['contact'])?$targetData['contact']+=$target->contact:$target->contact;
+            $targetData['yuyue']=isset($targetData['yuyue'])?$targetData['yuyue']+=$target->yuyue:$target->yuyue;
+            $targetData['arrive']=isset($targetData['arrive'])?$targetData['arrive']+=$target->arrive:$target->arrive;
+        }
+        return $targetData;
+    }
+
+    public static function getMonthTarget($user_id, $year, $office_id, $month)
+    {
+        $targets=static::where('office_id',$office_id)->where('year',$year)->where('user_id',$user_id)->where('month',$month)->get();
+        $targetData=[];
+        foreach ($targets as $target){
+            $targetData['chat']=isset($targetData['chat'])?$targetData['chat']+=$target->chat:$target->chat;
+            $targetData['contact']=isset($targetData['contact'])?$targetData['contact']+=$target->contact:$target->contact;
+            $targetData['yuyue']=isset($targetData['yuyue'])?$targetData['yuyue']+=$target->yuyue:$target->yuyue;
+            $targetData['arrive']=isset($targetData['arrive'])?$targetData['arrive']+=$target->arrive:$target->arrive;
+        }
+        return $targetData;
+    }
 }

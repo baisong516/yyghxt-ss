@@ -17,15 +17,8 @@ class OutputZxController extends Controller
         if (Auth::user()->ability('superadministrator', 'read-zxoutputs')){
             $year=Carbon::now()->year;
             $month=Carbon::now()->month;
-            //目标
-//            $yeartargets=PersonTarget::getTargetDataArray($year);
-            //本月
-            $monthOutputs=OutputZx::getZxOutputs(Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth());
-            //上月
-            $lastMonthOutputs = OutputZx::getZxOutputs(Carbon::now()->subMonth(1)->startOfMonth(),Carbon::now()->subMonth(1)->endOfMonth());
-//            dd($lastMonthOutputs);
-            //本年度
-            $yearOutputs=OutputZx::getZxOutputs(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
+            $toutputs=OutputZx::getZxOutputs(Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth());
+
             return view('outputzx.read',[
                 'pageheader'=>'产出',
                 'pagedescription'=>'咨询产出',
@@ -33,9 +26,7 @@ class OutputZxController extends Controller
                 'year'=>$year,
                 'month'=>$month,
 //                'targets'=>$targets,
-                'monthOutputs'=>$monthOutputs,
-                'lastMonthOutputs'=>$lastMonthOutputs,
-                'yearOutputs'=>$yearOutputs,
+                'toutputs'=>$toutputs,
                 'offices'=>Aiden::getAllModelArray('offices'),
             ]);
         }
@@ -45,21 +36,31 @@ class OutputZxController extends Controller
     public function search(Request $request)
     {
         if (Auth::user()->ability('superadministrator', 'read-zxoutputs')){
-            if (empty($request->input('searchMonth'))){return redirect()->back()->with('error','没有选择日期！');}
-            $date=$request->input('searchMonth');
-            $year=Carbon::createFromFormat('Y-m',$date)->year;
-            $month=Carbon::createFromFormat('Y-m',$date)->month;
-            //目标
-//            $targets=PersonTarget::getTargetData($year);
-//            dd($targets);
-            //本月
-//            dd($date->startOfMonth());
-            $monthOutputs=OutputZx::getZxOutputs(Carbon::createFromFormat('Y-m',$date)->startOfMonth(),Carbon::createFromFormat('Y-m',$date)->endOfMonth());
-            //上月
-            $lastMonthOutputs = OutputZx::getZxOutputs(Carbon::createFromFormat('Y-m',$date)->subMonth(1)->startOfMonth(),Carbon::createFromFormat('Y-m',$date)->subMonth(1)->endOfMonth());
-//            dd($lastMonthOutputs);
-            //本年度
-            $yearOutputs=OutputZx::getZxOutputs(Carbon::createFromFormat('Y-m',$date)->startOfYear(),Carbon::createFromFormat('Y-m',$date)->endOfYear());
+            $yearSearch=false;
+            $quickSearch=$request->input('quickSearch');
+            if (!empty($quickSearch)){//快捷搜索
+                if($quickSearch=='thisMonth'){
+                    $year=Carbon::now()->year;
+                    $month=Carbon::now()->month;
+                }elseif ($quickSearch=='lastMonth'){
+                    $year=Carbon::now()->subMonth(1)->year;
+                    $month=Carbon::now()->subMonth(1)->month;
+                }elseif ($quickSearch=='thisYear'){
+                    $yearSearch=true;
+                    $year=Carbon::now()->year;
+                    $month='fullyear';
+                }
+            }else{//按月搜索
+                if (empty($request->input('searchMonth'))){return redirect()->back()->with('error','没有选择日期！');}
+                $date=$request->input('searchMonth');
+                $year=Carbon::createFromFormat('Y-m',$date)->year;
+                $month=Carbon::createFromFormat('Y-m',$date)->month;
+            }
+            if ($yearSearch){
+                $outputs=OutputZx::getZxOutputs(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
+            }else{
+                $outputs=OutputZx::getZxOutputs(Carbon::createFromFormat('Y-m',$year.'-'.$month)->startOfMonth(),Carbon::createFromFormat('Y-m',$year.'-'.$month)->endOfMonth());
+            }
             return view('outputzx.read',[
                 'pageheader'=>'产出',
                 'pagedescription'=>'咨询产出',
@@ -67,9 +68,7 @@ class OutputZxController extends Controller
                 'year'=>$year,
                 'month'=>$month,
 //                'targets'=>$targets,
-                'monthOutputs'=>$monthOutputs,
-                'lastMonthOutputs'=>$lastMonthOutputs,
-                'yearOutputs'=>$yearOutputs,
+                'toutputs'=>$outputs,
                 'offices'=>Aiden::getAllModelArray('offices'),
             ]);
         }
