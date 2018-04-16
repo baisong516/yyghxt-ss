@@ -166,8 +166,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-center" id="myModalLabel">项目完成进度</h4>
                 </div>
-                <div class="modal-body" id="target-and-progress-table">
-                    <table class="table table-responsive table-bordered">
+                <div class="modal-body table-responsive" id="target-and-progress-table">
+                    <table class="table table-bordered">
                         <thead>
                             <tr class="text-center">
                                 <th class="text-center"></th>
@@ -184,7 +184,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-center">
+                            <tr class="text-center bg-success">
                                 <td id="result-type"></td>
                                 <td id="result-zixun"></td>
                                 <td id="result-contact"></td>
@@ -197,7 +197,7 @@
                                 <td id="result-jiuzhen-rate"></td>
                                 <td id="result-trans-rate"></td>
                             </tr>
-                            <tr class="text-center">
+                            <tr class="text-center bg-info">
                                 <td id="target-type"></td>
                                 <td id="target-zixun"></td>
                                 <td id="target-contact"></td>
@@ -210,7 +210,7 @@
                                 <td id="target-jiuzhen-rate"></td>
                                 <td id="target-trans-rate"></td>
                             </tr>
-                            <tr class="text-center">
+                            <tr class="text-center bg-warning">
                                 <td id="progress-type"></td>
                                 <td id="progress-zixun"></td>
                                 <td id="progress-contact"></td>
