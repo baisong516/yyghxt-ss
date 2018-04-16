@@ -324,7 +324,7 @@
                     $("#target-jiuzhen-rate").html(targetJiuzhenRate);
                     $("#target-trans-rate").html(targetTransRate);
                     //进度
-                    var progressZixun=targetZixun>0?((zixun/targetZn)*100).toFixed(2)+'%':0;
+                    var progressZixun=targetZixun>0?((zixun/targetZixun)*100).toFixed(2)+'%':0;
                     var progressContact=targetContact>0?((contact/targetContact)*100).toFixed(2)+'%':0;
                     var progressYuyue=targetYuyue>0?((yuyue/targetYuyue)*100).toFixed(2)+'%':0;
                     var progressArrive=targetArrive>0?((arrive/targetArrive)*100).toFixed(2)+'%':0;
