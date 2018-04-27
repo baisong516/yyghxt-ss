@@ -21,6 +21,11 @@ use mysqli;
 
 class ApiController extends Controller
 {
+    /**
+     * 检测用户在系统中是否存在 避免重复录入
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function checkExistCustomer(Request $request)
     {
         $tel=$request->input('tel');
@@ -34,6 +39,12 @@ class ApiController extends Controller
         $imgData=$request->input('img');
         $url=Storage::disk('local')->put('img.txt', $imgData);
     }
+
+    /**
+     * 根据医院id获取其对应的科室数组
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getOfficesFromHospital(Request $request){
         $hospital_id=$request->input('hospital_id');
         $offices = Office::where('hospital_id',$hospital_id)->get();
@@ -51,6 +62,12 @@ class ApiController extends Controller
             'data'=>$data,
         ]);
     }
+
+    /**
+     * 根据医院数组获取对应的科室数组
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getOfficesFromHospitals(Request $request){
         $hospitals=$request->input('hospitals');
         $data=array();
@@ -72,6 +89,11 @@ class ApiController extends Controller
         ]);
     }
 
+    /**
+     * 根据患者的id获取患者的回访记录
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getHuifangsFromCustomer(Request $request)
     {
         $customerId=$request->input('zx_customer_id');
@@ -95,6 +117,10 @@ class ApiController extends Controller
         ]);
     }
 
+    /**根据患者id获取患者的详细信息
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getDetailFromCustomer(Request $request)
     {
         $customerId=$request->input('zx_customer_id');
@@ -142,6 +168,12 @@ class ApiController extends Controller
             'data'=>$data,
         ]);
     }
+
+    /**
+     * 根据挂号患者的id获取挂号患者的回访记录
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getHuifangsFromGhCustomer(Request $request)
     {
         $customerId=$request->input('gh_customer_id');
@@ -165,6 +197,10 @@ class ApiController extends Controller
         ]);
     }
 
+    /**根据科室获取病种
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getDiseasesFromOffice(Request $request)
     {
         $officeId=$request->input('office_id');
@@ -185,6 +221,10 @@ class ApiController extends Controller
         ]);
     }
 
+    /**获取对应科室的有效咨询员
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public static function getZxUsersFromOffice(Request $request)
     {
         $officeId=$request->input('office_id');
@@ -204,6 +244,10 @@ class ApiController extends Controller
         ]);
     }
 
+    /**获取对应科室的有效竞价员
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public static function getJjUsersFromOffice(Request $request)
     {
         $officeId=$request->input('office_id');
@@ -438,6 +482,11 @@ class ApiController extends Controller
         return $diseases;
     }
 
+    /**
+     * 咨询员任务完成进度
+     * @param Request $request
+     * @return array
+     */
     public function getZxUserProgress(Request $request)
     {
         $data=[];

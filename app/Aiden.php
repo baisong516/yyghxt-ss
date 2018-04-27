@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Aiden extends Model
 {
-    /*
+    /**
      * return 所有用户id和名字组成的一维数组
      */
     public static function getAllUserArray()
@@ -20,7 +20,11 @@ class Aiden extends Model
         }
         return $users;
     }
-    //所有有效用户
+
+    /**
+     * 所有有效用户(仅咨询员和竞价员)
+     * @return array
+     */
     public static function getAllActiveUserArray()
     {
         $obj=User::select('id','realname')->whereIn('department_id',[1,2])->where('is_active',1)->get();
@@ -30,7 +34,11 @@ class Aiden extends Model
         }
         return $users;
     }
-    //所有有有效竞价用户
+
+    /**
+     * 所有有有效竞价用户
+     * @return array
+     */
     public static function getAllActiveJingjiaUserArray()
     {
         $obj=User::select('id','realname')->whereIn('department_id',[1])->where('is_active',1)->get();
@@ -40,7 +48,7 @@ class Aiden extends Model
         }
         return $users;
     }
-    /*
+    /**
      * return 对应表的id和名称组成的一维数组
      */
     public static function getAllModelArray($table)
@@ -53,7 +61,7 @@ class Aiden extends Model
         return $data;
     }
 
-    /*
+    /**
      * return 当前用户权限对应的科室id和科室名称的一维数组
      */
     public static function getAuthdOffices()
@@ -64,7 +72,7 @@ class Aiden extends Model
         }
         return $offices;
     }
-    /*
+    /**
      * return 当前用户权限对应的科室id
      */
     public static function getAuthdOfficesId()
@@ -75,7 +83,7 @@ class Aiden extends Model
         }
         return $offices;
     }
-    /*
+    /**
      * return 当前用户权限对应的病种id和名称的二维数组(以科室分组)
      */
     public static function getAuthdDiseases()
@@ -89,7 +97,7 @@ class Aiden extends Model
         }
         return $diseases;
     }
-    /*
+    /**
      * return 当前用户权限对应的病种id
      */
     public static function getAuthdDiseasesId()
@@ -102,7 +110,7 @@ class Aiden extends Model
         }
         return $diseases;
     }
-    /*
+    /**
      * return 当前用户权限对应的科室下的医生
      */
     public static function getAuthdDoctors()
@@ -116,6 +124,10 @@ class Aiden extends Model
 
     }
 
+    /**
+     * 系统中所有有效咨询员
+     * @return array
+     */
     public static function getAllZxUserArray()
     {
         $users=[];
@@ -126,6 +138,11 @@ class Aiden extends Model
         }
         return $users;
     }
+
+    /**
+     * 系统中所有有效竞价员
+     * @return array
+     */
     public static function getAllJjUserArray()
     {
         $users=[];
@@ -148,6 +165,10 @@ class Aiden extends Model
         return $data;
     }
 
+    /**
+     * 系统中所有有效咨询员数组
+     * @return array
+     */
     public static function getAllActiveZiXunUserArray()
     {
         $users=[];
