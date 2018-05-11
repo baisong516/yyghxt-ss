@@ -12,6 +12,14 @@ class ZxCustomer extends Model
 
     public static function createCustomer($request)
     {
+        $tel=$request->input('tel');
+        $wechat=$request->input('wechat');
+        if (!empty($tel)&&ZxCustomer::where('tel',$tel)->count()>0){
+            return redirect()->route('zxcustomers.index')->with('error','电话为：'.$tel.'的数据已存在！');
+        }
+        if (!empty($wechat)&&ZxCustomer::where('wechat',$wechat)->count()>0){
+            return redirect()->route('zxcustomers.index')->with('error','微信为：'.$wechat.'的数据已存在！');
+        }
         $customer=new ZxCustomer();
         $customer->name=$request->input('name');
         $customer->age=$request->input('age');
@@ -46,7 +54,7 @@ class ZxCustomer extends Model
             $data=[
                 'zx_customer_id'=>$customer->id,
                 'next_at'=>$next_at,
-                'description'=>'数据录入',
+                'description'=>'',
                 'next_user_id'=>$request->input('user_id')?$request->user_id:Auth::user()->id,
             ];
             Huifang::createHuifang($data);

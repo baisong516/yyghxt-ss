@@ -262,7 +262,7 @@
                             <td style="display: none;">{{$customer->addons?$customer->addons:''}}</td>
                             <td class="huifang-cloumn">
                                 @if($enableViewHuifang)
-                                    @if($customer->huifangs->count()<1)
+                                    @if($customer->huifangs->count()<2||\Carbon\Carbon::now()>\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->huifangs->last()->created_at)->addDays(4))
                                         <a href="javascript:void(0);" data-id="{{$customer->id}}" data-toggle="modal" data-target="#huifangModal"  class="hf-btn text-red" ><small>未回访</small></a>
                                     @else
                                         <a href="javascript:void(0);" data-id="{{$customer->id}}" data-toggle="modal" data-target="#huifangModal" class="hf-btn text-blue"><small>已回访</small></a>

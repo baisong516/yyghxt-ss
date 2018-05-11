@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class Aiden extends Model
 {
+    public function isSuperAdmin()
+    {
+//        Auth::user()->id;
+    }
     /**
      * return 所有用户id和名字组成的一维数组
      */

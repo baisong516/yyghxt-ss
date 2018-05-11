@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Aiden;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreZxCustomerRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreZxCustomerRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::user()->id==1?true:false;
     }
 
     /**
