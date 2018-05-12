@@ -17,8 +17,13 @@ class StoreZxCustomerRequest extends FormRequest
     public function authorize()
     {
         $customer_id=$this->route('zxcustomer');
-        $user_id=ZxCustomer::findOrFail($customer_id)->user_id;
-        return ((Auth::user()->id==1)||(Auth::user()->id==$user_id))?true:false;
+        if (empty($customer_id)){
+            return true;
+        }else{
+            $user_id=ZxCustomer::findOrFail($customer_id)->user_id;
+            return ((Auth::user()->id==1)||(Auth::user()->id==$user_id))?true:false;
+        }
+
     }
 
     /**
