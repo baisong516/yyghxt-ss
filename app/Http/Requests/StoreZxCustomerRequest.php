@@ -21,7 +21,7 @@ class StoreZxCustomerRequest extends FormRequest
             return true;
         }else{
             $user_id=ZxCustomer::findOrFail($customer_id)->user_id;
-            return ((Auth::user()->id==1)||(Auth::user()->id==$user_id))?true:false;
+            return ((Auth::user()->id==1)||(Auth::user()->id==$user_id)||(Auth::user()->hasRole('zx-mast')))?true:false;
         }
 
     }
