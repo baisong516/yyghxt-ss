@@ -98,6 +98,14 @@ class ZxCustomerController extends Controller
     {
         if (Auth::user()->ability('superadministrator', 'create-zx_customers')){
 //            dd(Aiden::getAuthdDiseases());
+            if (Auth::user()->hasRole('superadministrator|administrator|menzhen|zx-mast')){
+                $customerconditions=Aiden::getAllModelArray('customer_conditions');
+            }else{
+                $customerconditions=[
+                  3 => "预约",
+                  4 => "咨询",
+                ];
+            }
             return view('zxcustomer.create', array(
                 'pageheader'=>'患者',
                 'pagedescription'=>'添加',
@@ -112,7 +120,7 @@ class ZxCustomerController extends Controller
                 'webtypes'=>Aiden::getAllModelArray('web_types'),
                 'medias'=>Aiden::getAllModelArray('medias'),
                 'customertypes'=>Aiden::getAllModelArray('customer_types'),
-                'customerconditions'=>Aiden::getAllModelArray('customer_conditions'),
+                'customerconditions'=>$customerconditions,
             ));
         }
         return abort(403,config('yyxt.permission_deny'));
