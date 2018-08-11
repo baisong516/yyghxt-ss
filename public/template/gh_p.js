@@ -247,7 +247,7 @@
     that.StrMsg_SendLoadingSmaill = "\u63d0\u4ea4\u4e2d";
     that.StrMsg_SendNetError = "\u7f51\u7edc\u53d1\u751f\u9519\u8bef\uff0c\u8bf7\u7a0d\u540e\u518d\u8bd5\uff01";
     that.StrMsg_CactapError = "\u9a8c\u8bc1\u9519\u8bef\uff0c\u8bf7\u91cd\u8bd5\uff01";
-    that.Config_Domain = "//www.yyyygh.com/";
+    that.Config_Domain = "//gh.gzjs1111.com/";
     that.Config_DateScriptURL = that.Config_Domain + "js/laydate/laydate.js";
     that.Config_LayPath = "//yygh.oss-cn-shenzhen.aliyuncs.com/layer/";
     that.Config_LayScriptURL = that.Config_LayPath + "layer.js";
