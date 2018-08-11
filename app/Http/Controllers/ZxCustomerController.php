@@ -171,6 +171,14 @@ class ZxCustomerController extends Controller
     public function edit($id)
     {
         if (Auth::user()->ability('superadministrator', 'update-zx_customers')){
+            if (Auth::user()->hasRole('superadministrator|administrator|menzhen|zx-mast')){
+                $customerconditions=Aiden::getAllModelArray('customer_conditions');
+            }else{
+                $customerconditions=[
+                    3 => "预约",
+                    4 => "咨询",
+                ];
+            }
             return view('zxcustomer.update', array(
                 'pageheader'=>'患者',
                 'pagedescription'=>'更新',
@@ -185,7 +193,7 @@ class ZxCustomerController extends Controller
                 'medias'=>Aiden::getAllModelArray('medias'),
                 'causes'=>Aiden::getAllModelArray('causes'),
                 'customertypes'=>Aiden::getAllModelArray('customer_types'),
-                'customerconditions'=>Aiden::getAllModelArray('customer_conditions'),
+                'customerconditions'=>$customerconditions,
                 'customer'=>ZxCustomer::findOrFail($id),
             ));
         }
