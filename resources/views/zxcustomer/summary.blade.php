@@ -23,7 +23,7 @@
                     <select name="searchUserId" id="searchUserId" class="form-control">
                         <option value="">--咨询员--</option>
                         @foreach($zxUsers as $user)
-                            <option value="{{$user->id}}" {{$cuser==$user->id?'selected':''}}>{{$user->realname}}</option>
+                            <option value="{{$user['id']}}" {{$cuser==$user['id']?'selected':''}}>{{$user['realname']}}</option>
                         @endforeach
                     </select>
                 </div>

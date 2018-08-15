@@ -596,7 +596,11 @@ class ZxCustomerController extends Controller
     }
 
     //所有咨询员
-	private function getAllZxUser(){
-    	return User::where('department_id',2)->where('is_active',1)->get();
+	public function getAllZxUser(){
+        $users=[];
+        foreach (Auth::user()->offices as $office){
+            $users=array_merge($users, $office->users->where('department_id',2)->where('is_active',1)->toArray());
+        }
+    	return $users;
 	}
 }
