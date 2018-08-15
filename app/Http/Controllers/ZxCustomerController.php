@@ -97,7 +97,6 @@ class ZxCustomerController extends Controller
     public function create()
     {
         if (Auth::user()->ability('superadministrator', 'create-zx_customers')){
-//            dd(Aiden::getAuthdDiseases());
             if (Auth::user()->hasRole('superadministrator|administrator|menzhen|zx-mast')){
                 $customerconditions=Aiden::getAllModelArray('customer_conditions');
             }else{

@@ -45,10 +45,14 @@ class Aiden extends Model
      */
     public static function getAllActiveJingjiaUserArray()
     {
-        $obj=User::select('id','realname')->whereIn('department_id',[1])->where('is_active',1)->get();
+        $usero=[];
+        foreach (Auth::user()->offices as $office){
+            $usero=array_merge($usero,$office->users->whereIn('department_id',[1])->where('is_active',1)->toArray());
+        }
+//        $obj=User::select('id','realname')->whereIn('department_id',[1])->where('is_active',1)->get();
         $users=[];
-        foreach ($obj as $user){
-            $users[$user->id]=$user->realname;
+        foreach ($usero as $user){
+            $users[$user['id']]=$user['realname'];
         }
         return $users;
     }
