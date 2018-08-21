@@ -30,6 +30,7 @@ Route::group(['middleware'=>['api']],function(){
 
     Route::post('get-zx-user-progress','ApiController@getZxUserProgress');
 
+    Route::post('send-notice-to-customer','ApiController@SendPhoneMessage');
 //    Route::get('dumphe359484408','ApiController@dumpHe359484408');
 
     Route::get('diseases','ApiController@getDisease');

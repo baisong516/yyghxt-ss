@@ -18,7 +18,7 @@
             {{method_field('DELETE')}}
             {{csrf_field()}}
         <div class="box-body table-responsive">
-            <table id="user-list-table" class="table table-striped table-bordered table-hover">
+            <table id="user-list-table" class="table table-striped table-bordered table-hover text-center">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -34,7 +34,8 @@
                     <tr>
                         <td>{{$user->id}}</td>
                         <td>{{$user->name}}</td>
-                        <td>{{$user->realname}}</td>
+                        {{--<td data-toggle="tooltip" data-placement="top" title="@foreach($user->hospitals as $hospital){{$hospital->display_name}} @endforeach">{{$user->realname}}</td>--}}
+                        <td title="@foreach($user->hospitals as $hospital){{$hospital->display_name}} @endforeach">{{$user->realname}}</td>
                         <td>{{$user->department_id?$user->department->display_name:''}}</td>
                         <td>
                             @if($user->is_active==1)
@@ -48,7 +49,7 @@
                                 <a href="{{route('users.edit',$user->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
                             @endif
                             @if($enableDelete)
-                                <a href="javascript:void(0);" data-id="{{$user->id}}"  alt="删除" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
+                                <a href="javascript:void(0);" data-id="{{$user->id}}"  alt="删除" title="删除" class="delete-operation" style="margin-left: 10px;"><i class="fa fa-trash"></i></a>
                             @endif
                         </td>
                     </tr>
@@ -66,6 +67,7 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript">
+        $('[data-toggle="tooltip"]').tooltip();
         $(document).ready(function() {
             $('#user-list-table').DataTable({
                 "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],

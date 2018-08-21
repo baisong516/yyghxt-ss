@@ -201,7 +201,7 @@
                                     @endif
                                 @endif
                             </td>
-                            <td><a href="javascript:;" data-toggle="modal" data-target="#sendMsg" class="text-black"><small class="{{$customer->msg?'text-blue':'text-black'}}">{{$customer->tel}}</small></a></td>
+                            <td><a href="javascript:void(0);" data-toggle="modal" data-customer="{{$customer->id}}" data-name="{{$customer->name}}" data-tel="{{$customer->tel}}" data-office="{{$customer->office_id}}" class="text-black sendMsg"><small class="{{$customer->msg?'text-blue':'text-black'}}">{{$customer->tel}}</small></a></td>
                             <td>
                                 <small>
                                     {{$customer->wechat?$customer->wechat:''}}
@@ -214,8 +214,8 @@
                             </td>
                             <td style="display: none;"><small>{{$customer->idcard}}</small></td>
                             <td>
-                                {{--<span data-toggle="tooltip" data-placement="top" title="{{$customer->keywords?$customer->keywords:''}}">{{str_limit($customer->keywords?$customer->keywords:'', $limit = 12, $end = '...')}}</span>--}}
-                                <span >{{$customer->keywords?$customer->keywords:''}}</span>
+                                <span data-toggle="modal" data-placement="top" data-target="#keywordsContent" title="{{$customer->keywords?$customer->keywords:''}}" class="keywordsContent">{{str_limit($customer->keywords?$customer->keywords:'', $limit = 12, $end = '...')}}</span>
+                                {{--<span >{{$customer->keywords?$customer->keywords:''}}</span>--}}
                             </td>
                             <td>
                                 <small>
@@ -355,6 +355,12 @@
                 $("#search-form").submit();
             });
         } );
+        //
+        $(".keywordsContent").on('click',function () {
+            var content=$(this).attr('title');
+            $("#keywordsContentContent").html(content);
+        });
+
         //
         @isset($todayHuifang)
         layer.msg(
@@ -637,6 +643,76 @@
                     <h4 class="modal-title text-center" id="msgModalLabel">发送短信</h4>
                 </div>
                 <div class="modal-body" id="msgContent">
+                    <p class="text-center" id="msgTel"></p>
+                    <form class="form-inline msgForm">
+                        <div class="form-group">
+                            <input type="hidden" name="customer"  class="form-control-plaintext"  id="msgCustomer" value="">
+                            <input type="hidden" name="office"  class="form-control-plaintext"  id="msgOffice" value="">
+                            <input type="text" name="name"  class="form-control-plaintext" style="margin-bottom: 1rem;" id="msgName" value="" placeholder="王先生">，您好，您已成功预约
+                            <input type="text" name="doctor" class="form-control-pintext" style="margin-bottom: 1rem;" id="msgDoctor" valu="" placeholder="张教授">诊号：
+                            <input type="text" name="number" class="form-control-pintext" style="margin-bottom: 1rem;" id="msgNumber" value="" placeholder="A001">，预约时间
+                            <input type="text" name="date" class="form-control-pintext" style="margin-bottom: 1rem;" id="msgDate" value="" placeholder="2018年10月8日 上午10点">，请准时就诊。就诊流程：在一楼挂号处核对信息取号,按导医指导就诊即可。遇特殊情况请您提前电话告知我们！电话：0731-84146677，地址：湖南省长沙市芙蓉区东二环一段1178号。
+                        </div>
+                        <button type="button" class="btn btn-primary" id="msgSubmit" style="margin-top: 2rem;">发送</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".sendMsg").on('click',function () {
+            var office=$(this).data('office');
+            if (office==5||office=='5'){
+                $("#msgTel").html($(this).data('tel'));
+                $("#sendMsg input[name=name]").val($(this).data('name'));
+                $("#sendMsg input[name=customer]").val($(this).data('customer'));
+                $("#sendMsg input[name=office]").val(office);
+                $('#sendMsg').modal('show');
+            }
+        });
+        $("#msgSubmit").click(function () {
+            var name=$("#sendMsg input[name=name]").val();
+            var tel=$("#msgTel").html();
+            var doctor=$("#sendMsg input[name=doctor]").val();
+            var number=$("#sendMsg input[name=number]").val();
+            var date=$("#sendMsg input[name=date]").val();
+            var office=$("#sendMsg input[name=office]").val();
+            var customer=$("#sendMsg input[name=customer]").val();
+            if (name&&tel&&doctor&&number&&date){
+                $.ajax({
+                    url: '/api/send-notice-to-customer',
+                    type: "post",
+                    data: {'name':name,'tel':tel,'doctor':doctor,'number':number,'date':date,'office':office,'customer':customer, '_token': $('input[name=_token]').val()},
+                    success: function(data){
+                        if(data.Code.toUpperCase()=='OK'){
+                            $('#sendMsg').modal('hide');
+                            layer.msg(
+                                'success！'+data.Message,
+                                { offset:'auto',time: 5000}
+                            )
+                        }else{
+                            $('#sendMsg').modal('hide');
+                            layer.msg(
+                                'error！'+data.Message,
+                                { offset:'auto',time: 5000}
+                            )
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    <div class="modal fade" id="keywordsContent" tabindex="-1" role="dialog" aria-labelledby="keywordsContentModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="keywordsContentModalLabel">关键字</h4>
+                </div>
+                <div class="modal-body" id="keywordsContentContent">
 
                 </div>
                 <div class="modal-footer">

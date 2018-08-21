@@ -44,6 +44,7 @@ class StoreZxCustomerRequest extends FormRequest
             'description'=>'required',
             'customer_condition_id'=>'required',
             'media_id'=>'required',
+            'city'=>'required',
         ];
     }
     public function messages()
@@ -59,6 +60,7 @@ class StoreZxCustomerRequest extends FormRequest
             'description.required'  => '咨询内容必填',
             'customer_condition_id.required'  => '状态必填',
             'media_id.required'  => '媒体必填',
+            'city.required'  => '地区必填',
         ];
     }
 }

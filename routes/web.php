@@ -21,7 +21,8 @@ Auth::routes();
 Route::any('wechat','WechatController@index');
 
 
-Route::group(['middleware' => ['auth','operationlog']], function() {
+//Route::group(['middleware' => ['auth','operationlog']], function() {
+Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::post('/home', 'HomeController@index')->name('home.search');
     Route::post('/home/uploadimage', 'HomeController@uploadImage')->name('home.uploadImage');

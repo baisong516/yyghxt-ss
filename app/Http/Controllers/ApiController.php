@@ -9,6 +9,7 @@ use App\Hospital;
 use App\Huifang;
 use App\Office;
 use App\PersonTarget;
+use App\SendMsg;
 use App\Statistic;
 use App\Target;
 use App\User;
@@ -21,6 +22,57 @@ use mysqli;
 
 class ApiController extends Controller
 {
+    public function SendPhoneMessage(Request $request)
+    {
+//        dd(SendMsg::sendSms('Master', '13163733746', 'Doctor Zhang', 'A0001', '2018-08-30')->Code);
+//        var_dump(SendMsg::sendSms('Master', '13163733746', 'Doctor Zhang', 'A0001', '2018-08-30'));
+        $office=$request->input('office');
+        $name=$request->input('name');
+        $tel=$request->input('tel');
+        $doctor=$request->input('doctor');
+        $number=$request->input('number');
+        $date=$request->input('date');
+        $customerid=$request->input('customer');
+        $data=[
+            'Code'=>'ERR',
+            'Message'=>''
+        ];
+        if ($office!='5'){
+            $data['Message']='此项目没的开通短信！';
+            return $data;
+        }
+        if (preg_match("/^1[345678]{1}\d{9}$/",$tel)){
+            if (!$name){
+                $data['Message']='姓名不能为空';
+                return $data;
+            }
+            if (!$doctor){
+                $data['Message']='预约医生不能为空';
+                return $data;
+            }
+            if (!$number){
+                $data['Message']='预约号不能为空';
+                return $data;
+            }
+            if (!$date){
+                $data['Message']='日期不能为空';
+                return $data;
+            }
+            $res=SendMsg::sendSms($name, $tel, $doctor, $number, $date);
+            $data['Code']=$res->Code;
+            $data['Message']=$res->Message;
+            if (strtolower($data['Code'])=='ok'){
+                $customer=ZxCustomer::findOrFail($customerid);
+                $customer->msg=($customer->msg)+1;
+                $customer->save();
+            }
+            return $data;
+        }else{
+            $data['Message']='电话号码格式错误';
+            return $data;
+        }
+
+    }
     /**
      * 检测用户在系统中是否存在 避免重复录入
      * @param Request $request

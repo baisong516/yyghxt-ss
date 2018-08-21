@@ -9,6 +9,7 @@ use App\Http\Requests\StoreZxCustomerRequest;
 use App\Huifang;
 use App\Media;
 use App\Office;
+use App\SendMsg;
 use App\User;
 use App\WebType;
 use App\ZxCustomer;
@@ -28,6 +29,7 @@ class ZxCustomerController extends Controller
      */
     public function index()
     {
+
         if (Auth::user()->ability('superadministrator', 'read-zx_customers')){
             //今日应到院
             $todayArrive =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([

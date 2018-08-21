@@ -24,8 +24,8 @@ class CreateCustomersTable extends Migration
             $table->string('qq')->nullable();
             $table->string('wechat')->nullable();
             $table->string('idcard')->nullable()->comment('商务通身份id');
-            $table->string('keywords')->nullable()->comment('搜索关键词');
-            $table->string('city')->nullable()->comment('地区');
+            $table->text('keywords')->nullable()->comment('搜索关键词');
+            $table->string('city')->comment('地区');
             $table->unsignedInteger('media_id')->nullable()->comment('媒体来源');
             $table->unsignedInteger('webtype_id')->nullable()->comment('网站类型');//
             $table->unsignedInteger('user_id')->nullable()->comment('咨询员');

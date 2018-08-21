@@ -54,64 +54,63 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $todayArrangements=null;
-        $theDay=false;
+//        $todayArrangements=null;
+//        $theDay=false;
         //今日排班
         $start=Carbon::now()->startOfDay();
         $end=Carbon::now()->endOfDay();
-        if ($start>$end){
-            return redirect()->back()->with('error','时间起始不合法！');
-        }
-        if ($request->method()=='POST'){
-            $start=Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay();
-            $end=Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay();
-        }
-        if ($start->toDateString()==$end->toDateString()){
-            $theDay=true;
-            $todayArrangements=Arrangement::where([
-                ['rank_date','>=',$start],
-                ['rank_date','<=',$end],
-            ])->get()->toArray();
-        }else{
-            $todayArrangements=Arrangement::where([
-                ['rank_date','>=',Carbon::now()->startOfDay()],
-                ['rank_date','<=',Carbon::now()->endOfDay()],
-            ])->get()->toArray();
-        }
+//        if ($start>$end){
+//            return redirect()->back()->with('error','时间起始不合法！');
+//        }
+//        if ($request->method()=='POST'){
+//            $start=Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay();
+//            $end=Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay();
+//        }
+//        if ($start->toDateString()==$end->toDateString()){
+//            $theDay=true;
+//            $todayArrangements=Arrangement::where([
+//                ['rank_date','>=',$start],
+//                ['rank_date','<=',$end],
+//            ])->get()->toArray();
+//        }else{
+//            $todayArrangements=Arrangement::where([
+//                ['rank_date','>=',Carbon::now()->startOfDay()],
+//                ['rank_date','<=',Carbon::now()->endOfDay()],
+//            ])->get()->toArray();
+//        }
 
 //	    dd($todayArrangements);
 	    //分组
-	    $departments=Department::all();
-	    $arrangements=[];
-	    $arrangeUsers=[];
-	    foreach (User::all() as $u){
-		    $arrangeUsers[$u->id]=$u;
-	    }
-	    foreach (Office::all() as $office){
-		    $arrangements[$office->id]['office']=$office->display_name;
-		    $arrangements[$office->id]['ranks']=[];
-		    foreach ($todayArrangements as $v){
-//		    	$user=User::findOrFail($v['user_id']);
-			    $user=$arrangeUsers[$v['user_id']];
-			    if ($user->hasOffice($office->id)){
-				    $arrangements[$office->id]['ranks'][0]['rank']='早班';
-				    $arrangements[$office->id]['ranks'][1]['rank']='晚班';
-				    foreach ($departments as $department){
-					    if ($v['rank']=='0'){
-						    $arrangements[$office->id]['ranks'][0]['departments'][$department->id]['department']=$department->name;
-						    if ($user->department_id==$department->id){
-							    $arrangements[$office->id]['ranks'][0]['departments'][$department->id]['users'][]=$user->realname;
-						    }
-					    }elseif($v['rank']=='1'){
-						    $arrangements[$office->id]['ranks'][1]['departments'][$department->id]['department']=$department->name;
-						    if ($user->department_id==$department->id) {
-							    $arrangements[ $office->id ]['ranks'][1]['departments'][ $department->id ]['users'][]= $user->realname;
-						    }
-					    }
-				    }
-			    }
-		    }
-	    }
+//	    $departments=Department::all();
+//	    $arrangements=[];
+//	    $arrangeUsers=[];
+//	    foreach (User::all() as $u){
+//		    $arrangeUsers[$u->id]=$u;
+//	    }
+//	    foreach (Office::all() as $office){
+//		    $arrangements[$office->id]['office']=$office->display_name;
+//		    $arrangements[$office->id]['ranks']=[];
+//		    foreach ($todayArrangements as $v){
+//			    $user=$arrangeUsers[$v['user_id']];
+//			    if ($user->hasOffice($office->id)){
+//				    $arrangements[$office->id]['ranks'][0]['rank']='早班';
+//				    $arrangements[$office->id]['ranks'][1]['rank']='晚班';
+//				    foreach ($departments as $department){
+//					    if ($v['rank']=='0'){
+//						    $arrangements[$office->id]['ranks'][0]['departments'][$department->id]['department']=$department->name;
+//						    if ($user->department_id==$department->id){
+//							    $arrangements[$office->id]['ranks'][0]['departments'][$department->id]['users'][]=$user->realname;
+//						    }
+//					    }elseif($v['rank']=='1'){
+//						    $arrangements[$office->id]['ranks'][1]['departments'][$department->id]['department']=$department->name;
+//						    if ($user->department_id==$department->id) {
+//							    $arrangements[ $office->id ]['ranks'][1]['departments'][ $department->id ]['users'][]= $user->realname;
+//						    }
+//					    }
+//				    }
+//			    }
+//		    }
+//	    }
 	    ////////////////////////////////////////////////////////////////////////
 	    //项目情况
         $data = $this->getData($start, $end);
@@ -122,7 +121,7 @@ class HomeController extends Controller
 	    return view('home',[
 		    'pageheader'=>'首页',
 		    'pagedescription'=>'home',
-		    'arrangements'=>$arrangements,
+//		    'arrangements'=>$arrangements,
 		    'data'=>$data,
 		    'monthData'=>$monthData,
 		    'yearData'=>$yearData,
