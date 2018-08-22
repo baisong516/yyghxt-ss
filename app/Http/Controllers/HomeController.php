@@ -149,15 +149,14 @@ class HomeController extends Controller
                 $data[$office->id]['arrive_count']=0;
                 $data[$office->id]['jiuzhen_count']=0;
                 $data[$office->id]['should_count']=0;
-                $resultFetch=ZxCustomer::select('id')->where('office_id', $office->id);
+                $resultFetch=ZxCustomer::select('zixun_at','created_at','tel','qq','wechat','yuyue_at','arrive_at','customer_condition_id','media_id')->where('office_id', $office->id);
                 /////////////////
                 $results=$resultFetch->get();
                 foreach ($results as $result){
-//                    dd($result);
-                    if ($result->zixun_at>=$start&&$result->zixun_at>=$end){
+                    if ($result->zixun_at>=$start&&$result->zixun_at<=$end){
                         //总咨询量
                         $data[$office->id]['total_count']++;
-                        if ($results->media_id==2){
+                        if ($result->media_id==2){
                             //电话量
                             $data[$office->id]['tel_count']++;
                         }
