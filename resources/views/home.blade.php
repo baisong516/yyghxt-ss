@@ -262,76 +262,12 @@
 
     {{--<button id="btn">Open PhotoSwipe</button>--}}
 
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
-    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-        <!-- Background of PhotoSwipe.
-             It's a separate element, as animating opacity is faster than rgba(). -->
-        <div class="pswp__bg"></div>
-
-        <!-- Slides wrapper with overflow:hidden. -->
-        <div class="pswp__scroll-wrap">
-
-            <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
-            <div class="pswp__container">
-                <!-- don't modify these 3 pswp__item elements, data is added later on -->
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-                <div class="pswp__item"></div>
-            </div>
-
-            <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-            <div class="pswp__ui pswp__ui--hidden">
-
-                <div class="pswp__top-bar">
-
-                    <!--  Controls are self-explanatory. Order can be changed. -->
-
-                    <div class="pswp__counter"></div>
-
-                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                    <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                    <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
-                    <!-- element will get class pswp__preloader--active when preloader is running -->
-                    <div class="pswp__preloader">
-                        <div class="pswp__preloader__icn">
-                            <div class="pswp__preloader__cut">
-                                <div class="pswp__preloader__donut"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                    <div class="pswp__share-tooltip"></div>
-                </div>
-
-                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-                </button>
-
-                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-                </button>
-
-                <div class="pswp__caption">
-                    <div class="pswp__caption__center"></div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
 @endsection
 
 @section('javascript')
     <script src="https://cdn.bootcss.com/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/js/current-device.min.js"></script>
     <script type="text/javascript">
         lay('.date-item').each(function(){
             laydate.render({
@@ -339,73 +275,24 @@
                 ,trigger: 'click'
             });
         });
+        if (device.mobile()){
+            $(".table-item").each(function () {
+                var nodeId=$(this).children('table').attr('id');
+                if (typeof(nodeId)!='undefined'){
+                    var node = document.getElementById(nodeId);
+                    var that=this;
+                    domtoimage.toSvg(node,{bgcolor: '#fff'},that)
+                        .then(function (dataUrl) {
+                            var img = new Image();
+                            img.src = dataUrl;
+                            img.className= 'img-responsive';
+                            node.remove();
+                            $(that).append(img);
+                        });
+                }
+            });
+        }
 
-        // $(document).ready(function () {
-        //     // 0
-        //     var nodeId0=$(".table-item").eq(0).children('table').attr('id');
-        //     var node0 = document.getElementById(nodeId0);
-        //     domtoimage.toSvg(node0,{bgcolor: '#fff'})
-        //         .then(function (dataUrl) {
-        //             // document.getElementById('btn').onclick = openPhotoSwipe;
-        //             var img = new Image();
-        //             img.src = dataUrl;
-        //             img.className= 'img-responsive';
-        //             node0.remove();
-        //             $(".table-item").eq(0).append(img);
-        //         });
-        //     // 1
-        //     var nodeId1=$(".table-item").eq(1).children('table').attr('id');
-        //     var node1 = document.getElementById(nodeId1);
-        //     domtoimage.toSvg(node1,{bgcolor: '#fff'})
-        //         .then(function (dataUrl) {
-        //             // document.getElementById('btn').onclick = openPhotoSwipe;
-        //             var img = new Image();
-        //             img.src = dataUrl;
-        //             img.className= 'img-responsive';
-        //             node1.remove();
-        //             $(".table-item").eq(1).append(img);
-        //         });
-        //     // 2
-        //     var nodeId2=$(".table-item").eq(2).children('table').attr('id');
-        //     var node2 = document.getElementById(nodeId2);
-        //     domtoimage.toSvg(node2,{bgcolor: '#fff'})
-        //         .then(function (dataUrl) {
-        //             // document.getElementById('btn').onclick = openPhotoSwipe;
-        //             var img = new Image();
-        //             img.src = dataUrl;
-        //             img.className= 'img-responsive';
-        //             node2.remove();
-        //             $(".table-item").eq(2).append(img);
-        //         });
-        //     // 3
-        //     var nodeId3=$(".table-item").eq(3).children('table').attr('id');
-        //     var node3 = document.getElementById(nodeId3);
-        //     domtoimage.toSvg(node3,{bgcolor: '#fff'})
-        //         .then(function (dataUrl) {
-        //             // document.getElementById('btn').onclick = openPhotoSwipe;
-        //             var img = new Image();
-        //             img.src = dataUrl;
-        //             img.className= 'img-responsive';
-        //             node3.remove();
-        //             $(".table-item").eq(3).append(img);
-        //         });
-        //
-        // });
-        $(".table-item").each(function () {
-            var nodeId=$(this).children('table').attr('id');
-            if (typeof(nodeId)!='undefined'){
-                var node = document.getElementById(nodeId);
-                var that=this;
-                domtoimage.toSvg(node,{bgcolor: '#fff'},that)
-                    .then(function (dataUrl) {
-                        var img = new Image();
-                        img.src = dataUrl;
-                        img.className= 'img-responsive';
-                        node.remove();
-                        $(that).append(img);
-                    });
-            }
-        });
 
     </script>
 @endsection

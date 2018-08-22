@@ -142,51 +142,101 @@ class HomeController extends Controller
         if (!empty($user->offices)) {
             foreach ($user->offices as $office) {
                 $data[$office->id]['name'] = $office->display_name;
+                $data[$office->id]['total_count']=0;
+                $data[$office->id]['tel_count']=0;
+                $data[$office->id]['contact_count']=0;
+                $data[$office->id]['yuyue_count']=0;
+                $data[$office->id]['arrive_count']=0;
+                $data[$office->id]['jiuzhen_count']=0;
+                $data[$office->id]['should_count']=0;
+                $resultFetch=ZxCustomer::select('id')->where('office_id', $office->id);
+                /////////////////
+                $results=$resultFetch->get();
+                foreach ($results as $result){
+//                    dd($result);
+                    if ($result->zixun_at>=$start&&$result->zixun_at>=$end){
+                        //总咨询量
+                        $data[$office->id]['total_count']++;
+                        if ($results->media_id==2){
+                            //电话量
+                            $data[$office->id]['tel_count']++;
+                        }
+                        if (!empty($result->tel)||!empty($result->qq)||!empty($result->wechat)){
+                            //留联系量
+                            $data[$office->id]['contact_count']++;
+                        }
+                    }
+
+                    if ($result->created_at>=$start&&$result->created_at<=$end&&!empty($result->yuyue_at)){
+                        //预约量
+                        $data[$office->id]['yuyue_count']++;
+                    }
+
+                    if ($result->arrive_at>=$start&&$result->arrive_at<=$end){
+                        if ($result->customer_condition_id==1){
+                            //就诊量
+                            $data[$office->id]['jiuzhen_count']++;
+                        }
+                        if (in_array($result->customer_condition_id,[1,2])){
+                            //到院量
+                            $data[$office->id]['arrive_count']++;
+                        }
+                    }
+
+                    if ($result->yuyue_at>=$start&&$result->yuyue_at<=$end){
+                        //应到院量
+                        $data[$office->id]['should_count']++;
+                    }
+
+                }
+                /////////////////咨询量
                 //总咨询量
-                $data[$office->id]['total_count'] = ZxCustomer::where('office_id', $office->id)->where([
-                    ['zixun_at', '>=', $start],
-                    ['zixun_at', '<=', $end],
-                ])->count();
+//                $data[$office->id]['total_count'] = $resultFetch->where([
+//                    ['zixun_at', '>=', $start],
+//                    ['zixun_at', '<=', $end],
+//                ])->count();
                 //电话量
-                $data[$office->id]['tel_count'] = ZxCustomer::where('office_id', $office->id)->where([
-                    ['zixun_at', '>=', $start],
-                    ['zixun_at', '<=', $end],
-                ])->where('media_id', 2)->count();
+//                $data[$office->id]['tel_count'] = $resultFetch->where([
+//                    ['zixun_at', '>=', $start],
+//                    ['zixun_at', '<=', $end],
+//                ])->where('media_id', 2)->count();
                 //网络咨询量
                 $data[$office->id]['zixun_count'] = $data[$office->id]['total_count'] - $data[$office->id]['tel_count'];
+
+
                 //预约量
-                $data[$office->id]['yuyue_count'] = ZxCustomer::where('office_id', $office->id)->where([
-                    ['zixun_at', '>=', $start],
-                    ['zixun_at', '<=', $end],
-                    ['created_at', '>=', $start],
-                    ['created_at', '<=', $end],
-                ])->whereNotNull('yuyue_at')->count();
+//                $data[$office->id]['yuyue_count'] = $resultFetch->where([
+////                    ['zixun_at', '>=', $start],
+////                    ['zixun_at', '<=', $end],
+//                    ['created_at', '>=', $start],
+//                    ['created_at', '<=', $end],
+//                ])->whereNotNull('yuyue_at')->count();
                 //留联系量
-                $data[$office->id]['contact_count'] = ZxCustomer::where('office_id', $office->id)->where([
-                    ['zixun_at', '>=', $start],
-                    ['zixun_at', '<=', $end],
-                ])->Where(function ($query) {
-                    $query->where('tel', '<>', '')
-                        ->orWhere('qq', '<>', '')
-                        ->orWhere('wechat', '<>', '');
-                })->count();
+//                $data[$office->id]['contact_count'] = $resultFetch->where([
+//                    ['zixun_at', '>=', $start],
+//                    ['zixun_at', '<=', $end],
+//                ])->Where(function ($query) {
+//                    $query->where('tel', '<>', '')
+//                        ->orWhere('qq', '<>', '')
+//                        ->orWhere('wechat', '<>', '');
+//                })->count();
                 //到院量
-                $data[$office->id]['arrive_count'] = ZxCustomer::where('office_id', $office->id)->where([
-                    ['arrive_at', '>=', $start],
-                    ['arrive_at', '<=', $end],
-                ])->whereIn('customer_condition_id',[1,2])->count();
+//                $data[$office->id]['arrive_count'] = $resultFetch->where([
+//                    ['arrive_at', '>=', $start],
+//                    ['arrive_at', '<=', $end],
+//                ])->whereIn('customer_condition_id',[1,2])->count();
                 //应到院量
-                $data[$office->id]['should_count'] = ZxCustomer::where('office_id', $office->id)->where([
-                    ['yuyue_at', '>=', $start],
-                    ['yuyue_at', '<=', $end],
-                ])->count();
+//                $data[$office->id]['should_count'] = $resultFetch->where([
+//                    ['yuyue_at', '>=', $start],
+//                    ['yuyue_at', '<=', $end],
+//                ])->count();
                 //就诊量
                 // customer_condition_id
-                //1 就诊 2，预约 3，到院 4，
-                $data[$office->id]['jiuzhen_count'] = ZxCustomer::where('office_id', $office->id)->where([
-                    ['arrive_at', '>=', $start],
-                    ['arrive_at', '<=', $end],
-                ])->where('customer_condition_id', 1)->count();
+                //1 就诊 2，到院 3，预约 4，
+//                $data[$office->id]['jiuzhen_count'] = $resultFetch->where([
+//                    ['arrive_at', '>=', $start],
+//                    ['arrive_at', '<=', $end],
+//                ])->where('customer_condition_id', 1)->count();
                 //预约率
                 $data[$office->id]['yuyue_rate'] = $data[$office->id]['zixun_count'] > 0 ? sprintf("%.2f", $data[$office->id]['yuyue_count'] * 100.00 / $data[$office->id]['total_count']) . "%" : '0.00%';
                 //留联率
