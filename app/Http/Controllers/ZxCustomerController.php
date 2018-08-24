@@ -260,7 +260,7 @@ class ZxCustomerController extends Controller
                 'office'=>$office,
             ];
             //zixun contact tel total  yuyue should arrive jiuzhen
-            if ($q=='total'){//咨询量
+            if ($q=='total'||$q=='a'){//咨询量
                 $customers =ZxCustomer::where('office_id',$office)->where([
                     ['zixun_at','>=',$start],
                     ['zixun_at','<=',$end],
