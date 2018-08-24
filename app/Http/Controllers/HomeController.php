@@ -166,7 +166,7 @@ class HomeController extends Controller
                         }
                     }
 
-                    if ($result->created_at>=$start&&$result->created_at<=$end&&!empty($result->yuyue_at)){
+                    if ($result->zixun_at>=$start&&$result->zixun_at<=$end&&!empty($result->yuyue_at)){
                         //预约量
                         $data[$office->id]['yuyue_count']++;
                     }
