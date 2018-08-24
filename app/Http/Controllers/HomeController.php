@@ -62,10 +62,10 @@ class HomeController extends Controller
 //        if ($start>$end){
 //            return redirect()->back()->with('error','时间起始不合法！');
 //        }
-//        if ($request->method()=='POST'){
-//            $start=Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay();
-//            $end=Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay();
-//        }
+        if ($request->method()=='POST'){
+            $start=Carbon::createFromFormat('Y-m-d',$request->input('searchDateStart'))->startOfDay();
+            $end=Carbon::createFromFormat('Y-m-d',$request->input('searchDateEnd'))->endOfDay();
+        }
 //        if ($start->toDateString()==$end->toDateString()){
 //            $theDay=true;
 //            $todayArrangements=Arrangement::where([

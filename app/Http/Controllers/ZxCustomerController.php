@@ -247,44 +247,115 @@ class ZxCustomerController extends Controller
     //咨询患者搜索
     public function customerSearch(Request $request)
     {
-        //快捷查询  今日应回访
-	    $quickSearch=$request->input('quickSearch');
+        $quickSearch=$request->input('quickSearch');
+        if ($request->method()=='GET'){
+            $start=urldecode($request->input('start'));
+            $end=urldecode($request->input('end'));
+            $office=$request->input('office');
+            $q=$request->input('q');
+            $conditions=[
+                'start'=>$start,
+                'end'=>$end,
+                'office'=>$office,
+            ];
+            //zixun contact tel total  yuyue should arrive jiuzhen
+            if ($q=='total'){//咨询量
+                $customers =ZxCustomer::where('office_id',$office)->where([
+                    ['zixun_at','>=',$start],
+                    ['zixun_at','<=',$end],
+                ])->with('huifangs')->get();
+            }elseif ($q=='zixun'){
+                $customers =ZxCustomer::where('office_id',$office)->where([
+                    ['zixun_at','>=',$start],
+                    ['zixun_at','<=',$end],
+                    ['media_id','<>',2],
+                ])->with('huifangs')->get();
+            }elseif ($q=='tel'){
+                $customers =ZxCustomer::where('office_id',$office)->where([
+                    ['zixun_at','>=',$start],
+                    ['zixun_at','<=',$end],
+                    ['media_id','=',2],
+                ])->with('huifangs')->get();
+                $conditions['media_id']=2;
+            }elseif ($q=='contact'){
+                $customers =ZxCustomer::where('office_id',$office)->where([
+                    ['zixun_at','>=',$start],
+                    ['zixun_at','<=',$end],
+                ])->where(function ($query) {
+                    $query->where('tel', '<>', null)
+                        ->orWhere('qq', '<>', null)
+                        ->orWhere('wechat', '<>', null);
+                })->with('huifangs')->get();
+            }elseif ($q=='yuyue'){
+                $customers =ZxCustomer::where('office_id',$office)->where([
+                    ['created_at','>=',$start],
+                    ['created_at','<=',$end],
+                    ['yuyue_at','>=',$start],
+                ])->with('huifangs')->get();
+                $conditions['yuyue_start']=$start;
+            }elseif ($q=='should'){
+                $customers =ZxCustomer::where('office_id',$office)->where([
+                    ['yuyue_at','>=',$start],
+                    ['yuyue_at','<=',$end],
+                ])->with('huifangs')->get();
+                $conditions['yuyue_start']=$start;
+                $conditions['yuyue_end']=$end;
+            }elseif ($q=='arrive'){
+                $customers =ZxCustomer::where('office_id',$office)->where([
+                    ['arrive_at','>=',$start],
+                    ['arrive_at','<=',$end],
+                ])->with('huifangs')->get();
+                $conditions['arrive_start']=$start;
+                $conditions['arrive_end']=$end;
+            }elseif ($q=='jiuzhen'){
+                $customers =ZxCustomer::where('office_id',$office)->where([
+                    ['arrive_at','>=',$start],
+                    ['arrive_at','<=',$end],
+                ])->where('customer_condition_id',1)->with('huifangs')->get();
+                $conditions['arrive_start']=$start;
+                $conditions['arrive_end']=$end;
+                $conditions['customer_condition_id']=1;
+            }
+//            $customers =ZxCustomer::where($parms)->where('office_id',$office)->with('huifangs')->get();
+        }else{
+            //快捷查询  今日应回访
 
-        $customerName=$request->input('searchCustomerName');
-        $customerTel=$request->input('searchCustomerTel');
-        $customerQQ=$request->input('searchCustomerQQ');
-        $customerWechat=$request->input('searchCustomerWechat');
-        $customerIdCard=$request->input('searchIdCard');
-        $zxUser=$request->input('searchUserId');
-        $media=$request->input('searchMediaId');
-        $last_huifang_user_id=$request->input('searchLastHuifangUserId');//最近回访人
-        $officeId=$request->input('searchOfficeId');
-        $diseaseId=$request->input('searchDiseaseId');
-        $zx_start=$request->input('searchZxStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchZxStart'))->startOfDay():null;
-        $zx_end=$request->input('searchZxEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchZxEnd'))->endOfDay():Carbon::now()->endOfDay();
-        $yy_start=$request->input('searchYuyueStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchYuyueStart'))->startOfDay():null;
-        $yy_end=$request->input('searchYuyueEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchYuyueEnd'))->endOfDay():Carbon::now()->endOfDay();
-        $arrive_start=$request->input('searchArriveStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchArriveStart'))->startOfDay():null;
-        $arrive_end=$request->input('searchArriveEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchArriveEnd'))->endOfDay():Carbon::now()->endOfDay();
-		$last_huifang_start=$request->input('searchLastHuifangStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchLastHuifangStart'))->startOfDay():null;
-        $last_huifang_end=$request->input('searchLastHuifangEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchLastHuifangEnd'))->endOfDay():Carbon::now()->endOfDay();
-        $next_huifang_start=$request->input('searchNextHuifangStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchNextHuifangStart'))->startOfDay():null;
-        $next_huifang_end=$request->input('searchNextHuifangEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchNextHuifangEnd'))->endOfDay():Carbon::now()->endOfDay();
-        $customers=null;
-	    if (!empty($quickSearch)){
-	    	if ($quickSearch=='todayhuifang'){
-			    //今日应回访
-			    $huifangCustomers=Huifang::select('zx_customer_id')->whereNotNull('next_at')->where([
-				    ['next_at','>=',Carbon::now()->startOfDay()],
-				    ['next_at','<=',Carbon::now()->endOfDay()],
-			    ])->get();
 
-			    $huifangCustomerIds=[];
-			    foreach ($huifangCustomers as $huifangCustomer){
-				    $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
-			    }
-			    $customerIdstemp = array_unique($huifangCustomerIds);//一次过滤
-			    //去除没有下次回访时间，和下次回访时间在今天之后的
+            $customerName=$request->input('searchCustomerName');
+            $customerTel=$request->input('searchCustomerTel');
+            $customerQQ=$request->input('searchCustomerQQ');
+            $customerWechat=$request->input('searchCustomerWechat');
+            $customerIdCard=$request->input('searchIdCard');
+            $zxUser=$request->input('searchUserId');
+            $media=$request->input('searchMediaId');
+            $last_huifang_user_id=$request->input('searchLastHuifangUserId');//最近回访人
+            $officeId=$request->input('searchOfficeId');
+            $diseaseId=$request->input('searchDiseaseId');
+            $zx_start=$request->input('searchZxStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchZxStart'))->startOfDay():null;
+            $zx_end=$request->input('searchZxEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchZxEnd'))->endOfDay():Carbon::now()->endOfDay();
+            $yy_start=$request->input('searchYuyueStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchYuyueStart'))->startOfDay():null;
+            $yy_end=$request->input('searchYuyueEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchYuyueEnd'))->endOfDay():Carbon::now()->endOfDay();
+            $arrive_start=$request->input('searchArriveStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchArriveStart'))->startOfDay():null;
+            $arrive_end=$request->input('searchArriveEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchArriveEnd'))->endOfDay():Carbon::now()->endOfDay();
+            $last_huifang_start=$request->input('searchLastHuifangStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchLastHuifangStart'))->startOfDay():null;
+            $last_huifang_end=$request->input('searchLastHuifangEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchLastHuifangEnd'))->endOfDay():Carbon::now()->endOfDay();
+            $next_huifang_start=$request->input('searchNextHuifangStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchNextHuifangStart'))->startOfDay():null;
+            $next_huifang_end=$request->input('searchNextHuifangEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchNextHuifangEnd'))->endOfDay():Carbon::now()->endOfDay();
+            $customers=null;
+            if (!empty($quickSearch)){
+                if ($quickSearch=='todayhuifang'){
+                    //今日应回访
+                    $huifangCustomers=Huifang::select('zx_customer_id')->whereNotNull('next_at')->where([
+                        ['next_at','>=',Carbon::now()->startOfDay()],
+                        ['next_at','<=',Carbon::now()->endOfDay()],
+                    ])->get();
+
+                    $huifangCustomerIds=[];
+                    foreach ($huifangCustomers as $huifangCustomer){
+                        $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
+                    }
+                    $customerIdstemp = array_unique($huifangCustomerIds);//一次过滤
+                    //去除没有下次回访时间，和下次回访时间在今天之后的
 //			    $CustomerIds=[];
 //			    foreach ($customerIdstemp as $id){
 //					$huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
@@ -292,37 +363,37 @@ class ZxCustomerController extends Controller
 //						$CustomerIds[]=$huifang->zx_customer_id;
 //					}
 //			    }
-			    $customers =ZxCustomer::whereIn('id',$customerIdstemp)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->get();
-			}
-			if ($quickSearch=='todayarrive'){
-	    	    //今日应到院
-                $customers =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
-                    ['yuyue_at','>=',Carbon::now()->startOfDay()],
-                    ['yuyue_at','<=',Carbon::now()->endOfDay()],
-                ])->with('huifangs')->get();
-            }
-	    }else{
-		    //条件为空
-		    if (empty($customerName)&&empty($customerTel)&&empty($customerQQ)&&empty($customerWechat)&&empty($customerIdCard)&&empty($zxUser)&&empty($media)&&empty($officeId)&&empty($zx_start)&&empty($yy_start)&&empty($arrive_start)&&empty($last_huifang_start)&&empty($next_huifang_start)&&empty($last_huifang_user_id)){
-			    $customers=ZxCustomer::getCustomers();
-		    }else{
-			    //按回访
-			    $customerIds=[];
-			    if (!empty($last_huifang_start)||!empty($next_huifang_start)||!empty($last_huifang_user_id)){
-				    $huifangParms=array();
-				    if (!empty($last_huifang_start)){array_push($huifangParms,['now_at','>=',$last_huifang_start],['now_at','<=',$last_huifang_end]);}
-				    if (!empty($next_huifang_start)){array_push($huifangParms,['next_at','>=',$next_huifang_start],['next_at','<=',$next_huifang_end]);}
-				    if (!empty($last_huifang_user_id)){array_push($huifangParms,['now_user_id',$last_huifang_user_id]);}
-				    $huifangCustomers=Huifang::select('zx_customer_id','now_user_id')->where($huifangParms)->get();
+                    $customers =ZxCustomer::whereIn('id',$customerIdstemp)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->get();
+                }
+                if ($quickSearch=='todayarrive'){
+                    //今日应到院
+                    $customers =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+                        ['yuyue_at','>=',Carbon::now()->startOfDay()],
+                        ['yuyue_at','<=',Carbon::now()->endOfDay()],
+                    ])->with('huifangs')->get();
+                }
+            }else{
+                //条件为空
+                if (empty($customerName)&&empty($customerTel)&&empty($customerQQ)&&empty($customerWechat)&&empty($customerIdCard)&&empty($zxUser)&&empty($media)&&empty($officeId)&&empty($zx_start)&&empty($yy_start)&&empty($arrive_start)&&empty($last_huifang_start)&&empty($next_huifang_start)&&empty($last_huifang_user_id)){
+                    $customers=ZxCustomer::getCustomers();
+                }else{
+                    //按回访
+                    $customerIds=[];
+                    if (!empty($last_huifang_start)||!empty($next_huifang_start)||!empty($last_huifang_user_id)){
+                        $huifangParms=array();
+                        if (!empty($last_huifang_start)){array_push($huifangParms,['now_at','>=',$last_huifang_start],['now_at','<=',$last_huifang_end]);}
+                        if (!empty($next_huifang_start)){array_push($huifangParms,['next_at','>=',$next_huifang_start],['next_at','<=',$next_huifang_end]);}
+                        if (!empty($last_huifang_user_id)){array_push($huifangParms,['now_user_id',$last_huifang_user_id]);}
+                        $huifangCustomers=Huifang::select('zx_customer_id','now_user_id')->where($huifangParms)->get();
 //				    dd($huifangCustomers);
-				    $huifangCustomerIds=[];
-				    foreach ($huifangCustomers as $huifangCustomer){
-					    $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
-				    }
-                    $huifangCustomerIds = array_unique($huifangCustomerIds);
-                    $customerIds=$huifangCustomerIds;
+                        $huifangCustomerIds=[];
+                        foreach ($huifangCustomers as $huifangCustomer){
+                            $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
+                        }
+                        $huifangCustomerIds = array_unique($huifangCustomerIds);
+                        $customerIds=$huifangCustomerIds;
 //                    dd($huifangCustomerIds);
-				    //多人回访剔除
+                        //多人回访剔除
 //				    foreach ($huifangCustomerIds as $huifangCustomerId){
 //				        $c=Huifang::where('zx_customer_id',$huifangCustomerId)->orderBy('created_at', 'desc')->get()->first();
 //				        if ($c->now_user_id==$last_huifang_user_id){
@@ -330,32 +401,34 @@ class ZxCustomerController extends Controller
 //                        }
 //                    }
 
-			    }
+                    }
 
 //			    dd($customerIds);
-			    //按患者搜索
-			    $parms=array();
-			    if (!empty($customerName)){array_push($parms,['name','like','%'.$customerName.'%']);}
-			    if (!empty($customerTel)){array_push($parms,['tel','like','%'.$customerTel.'%']);}
-			    if (!empty($customerQQ)){array_push($parms,['qq','like','%'.$customerQQ.'%']);}
-			    if (!empty($customerWechat)){array_push($parms,['wechat','like','%'.$customerWechat.'%']);}
-			    if (!empty($customerIdCard)){array_push($parms,['idcard','like','%'.$customerIdCard.'%']);}
-			    if (!empty($zxUser)){array_push($parms,['user_id','=',$zxUser]);}
-			    if (!empty($media)){array_push($parms,['media_id','=',$media]);}
-			    if (!empty($officeId)){array_push($parms,['office_id','=',$officeId]);}
-			    if (!empty($diseaseId)){array_push($parms,['disease_id','=',$diseaseId]);}
+                    //按患者搜索
+                    $parms=array();
+                    if (!empty($customerName)){array_push($parms,['name','like','%'.$customerName.'%']);}
+                    if (!empty($customerTel)){array_push($parms,['tel','like','%'.$customerTel.'%']);}
+                    if (!empty($customerQQ)){array_push($parms,['qq','like','%'.$customerQQ.'%']);}
+                    if (!empty($customerWechat)){array_push($parms,['wechat','like','%'.$customerWechat.'%']);}
+                    if (!empty($customerIdCard)){array_push($parms,['idcard','like','%'.$customerIdCard.'%']);}
+                    if (!empty($zxUser)){array_push($parms,['user_id','=',$zxUser]);}
+                    if (!empty($media)){array_push($parms,['media_id','=',$media]);}
+                    if (!empty($officeId)){array_push($parms,['office_id','=',$officeId]);}
+                    if (!empty($diseaseId)){array_push($parms,['disease_id','=',$diseaseId]);}
 
-			    if (!empty($zx_start)){array_push($parms,['zixun_at','>=',$zx_start],['zixun_at','<=',$zx_end]);}
-			    if (!empty($yy_start)){array_push($parms,['yuyue_at','>=',$yy_start],['yuyue_at','<=',$yy_end]);}
-			    if (!empty($arrive_start)){array_push($parms,['arrive_at','>=',$arrive_start],['arrive_at','<=',$arrive_end]);}
+                    if (!empty($zx_start)){array_push($parms,['zixun_at','>=',$zx_start],['zixun_at','<=',$zx_end]);}
+                    if (!empty($yy_start)){array_push($parms,['yuyue_at','>=',$yy_start],['yuyue_at','<=',$yy_end]);}
+                    if (!empty($arrive_start)){array_push($parms,['arrive_at','>=',$arrive_start],['arrive_at','<=',$arrive_end]);}
 //			    dd($parms);
-			    if (!empty($customerIds)){
-				    $customers =ZxCustomer::whereIn('id',$customerIds)->whereIn('office_id',ZxCustomer::offices())->where($parms)->with('huifangs')->get();
-			    }else{
-				    $customers =ZxCustomer::where($parms)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->get();
-			    }
-		    }
-	    }
+                    if (!empty($customerIds)){
+                        $customers =ZxCustomer::whereIn('id',$customerIds)->whereIn('office_id',ZxCustomer::offices())->where($parms)->with('huifangs')->get();
+                    }else{
+                        $customers =ZxCustomer::where($parms)->whereIn('office_id',ZxCustomer::offices())->with('huifangs')->get();
+                    }
+                }
+            }
+        }
+
 
         return view('zxcustomer.read',[
             'pageheader'=>'患者',

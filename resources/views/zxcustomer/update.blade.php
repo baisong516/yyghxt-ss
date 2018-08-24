@@ -11,10 +11,11 @@
                 </div>
             </div>
         </div>
-        <form action="{{route('zxcustomers.update',$customer->id)}}" method="post" class="zxcustomers-form form-horizontal">
-            {{csrf_field()}}
-            {{method_field('PUT')}}
+
             <div class="box-body">
+                <form action="{{route('zxcustomers.update',$customer->id)}}" method="post" class="zxcustomers-form form-inline">
+                    {{csrf_field()}}
+                    {{method_field('PUT')}}
                 @include('zxcustomer.form')
                 <div class="form-group {{empty($errors->first('next_at'))?'':'has-error'}}" style="display: none;">
                     <label for="next_at" class="col-sm-2 control-label">下次回访时间</label>
@@ -22,15 +23,15 @@
                         <input type="text" class="form-control item-date" name="next_at"  id="next_at" value="{{isset($customer)&&isset($customer->huifangs->last()->next_at)?$customer->huifangs->last()->next_at:\Carbon\Carbon::now()->toDateTimeString()}}">
                     </div>
                 </div>
+                </form>
             </div>
             <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-info pull-right">提交</button>
+                        <button type="button" class="btn btn-info pull-right submit-operation">提交</button>
                     </div>
                 </div>
             </div>
-        </form>
     </div>
 @endsection
 
@@ -39,6 +40,9 @@
     <script src="/asset/ckfinder/ckfinder.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
+        $(".submit-operation").click(function () {
+            $("form.zxcustomers-form").submit();
+        });
         //data item
         lay('.item-date').each(function(){
             laydate.render({

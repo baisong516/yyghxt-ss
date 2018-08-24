@@ -11,16 +11,33 @@
                 </div>
             </div>
         </div>
-        <form action="{{route('zxcustomers.store')}}" method="post" class="zxcustomers-form form-horizontal">
-            {{csrf_field()}}
+        {{--<form class="form-inline">--}}
+            {{--<div class="form-group">--}}
+                {{--<label for="exampleInputName2">Name</label>--}}
+                {{--<input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">--}}
+            {{--</div>--}}
+            {{--<div class="form-group">--}}
+                {{--<label for="exampleInputEmail2">Email</label>--}}
+                {{--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">--}}
+            {{--</div>--}}
+            {{--<button type="submit" class="btn btn-default">Send invitation</button>--}}
+        {{--</form>--}}
+
+
             <div class="box-body">
+                <style>
+                    form.zxcustomers-form input,form.zxcustomers-form select{margin-bottom: 10px;margin-top: 10px;}
+                </style>
+                <form action="{{route('zxcustomers.store')}}" method="post" class="zxcustomers-form form-inline">
+                    {{csrf_field()}}
                 @include('zxcustomer.form')
-                <div class="form-group {{empty($errors->first('next_at'))?'':'has-error'}}" >
-                    <label for="next_at" class="col-sm-2 control-label">下次回访时间</label>
+                <div class="row {{empty($errors->first('next_at'))?'':'has-error'}}" >
+                    <label for="next_at" class="col-sm-2 control-label text-right">下次回访时间</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control item-date" name="next_at"  id="next_at" value="{{isset($customer)&&isset($customer->huifangs->last()->next_at)?$customer->huifangs->last()->next_at:\Carbon\Carbon::now()->toDateTimeString()}}">
+                        <input type="text" class="form-control item-date" name="next_at" style="width: 100%;"  id="next_at" value="{{isset($customer)&&isset($customer->huifangs->last()->next_at)?$customer->huifangs->last()->next_at:\Carbon\Carbon::now()->toDateTimeString()}}">
                     </div>
                 </div>
+                </form>
             </div>
             <div class="box-footer">
                 <div class="form-group">
@@ -29,7 +46,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+
     </div>
 @endsection
 

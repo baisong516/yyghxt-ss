@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth']], function() {
     //咨询
     Route::group(['prefix' => 'zx'],function(){
         Route::resource('zxcustomers','ZxCustomerController');
-        Route::post('zxcustomersearch','ZxCustomerController@customerSearch')->name('zxcustomers.search');
+        Route::any('zxcustomersearch','ZxCustomerController@customerSearch')->name('zxcustomers.search');
         Route::resource('huifangs','HuifangController');
 	    Route::get('summaries','ZxCustomerController@summary')->name('summaries.all');
 	    Route::get('zxdetail','ZxCustomerController@detailZx')->name('summaries.zxdetail');
