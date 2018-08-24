@@ -38,10 +38,6 @@
         <input type="text" name="idcard" class="form-control" id="idcard" value="{{isset($customer)?$customer->idcard:old('idcard')}}" placeholder="{{empty($errors->first('idcard'))?'商务通身份id':$errors->first('idcard')}}">
     </div>
 
-    <div class="form-group {{empty($errors->first('keywords'))?'':'has-error'}}">
-        <label for="keywords" class="control-label">搜索关键词：</label>
-        <input type="text" name="keywords" class="form-control" id="keywords" value="{{isset($customer)?$customer->keywords:old('keywords')}}" placeholder="{{empty($errors->first('keywords'))?'搜索关键词':$errors->first('keywords')}}">
-    </div>
     @ability('superadministrator', 'change-user')
     <div class="form-group {{empty($errors->first('user_id'))?'':'has-error'}}">
         <label for="user" class="control-label">咨询员：</label>
@@ -180,9 +176,14 @@
             @endforeach
         </select>
     </div>
-    <hr>
+    <div class="row {{empty($errors->first('keywords'))?'':'has-error'}}">
+        <label for="keywords" class="col-sm-2 control-label text-right" style="margin-top: 20px;">搜索关键词：</label>
+        <div class="col-sm-10">
+            <input style="width: 100%;" type="text" name="keywords" class="form-control" id="keywords" value="{{isset($customer)?$customer->keywords:old('keywords')}}" placeholder="{{empty($errors->first('keywords'))?'搜索关键词':$errors->first('keywords')}}">
+        </div>
+    </div>
     <div class="row {{empty($errors->first('addons'))?'':'has-error'}}">
-        <label for="addons" class="col-sm-2 control-label text-right">备注：</label>
+        <label for="addons" class="col-sm-2 control-label text-right" style="margin-top: 10px;">备注：</label>
         <div class="col-sm-10">
             <textarea name="addons" id="addons" class="form-control"  rows="1" style="width: 100%;">{{isset($customer)?$customer->addons:old('addons')}}</textarea>
         </div>
