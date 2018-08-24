@@ -248,6 +248,7 @@ class ZxCustomerController extends Controller
     public function customerSearch(Request $request)
     {
         $quickSearch=$request->input('quickSearch');
+        $customers=null;
         if ($request->method()=='GET'){
             $start=urldecode($request->input('start'));
             $end=urldecode($request->input('end'));
@@ -319,8 +320,6 @@ class ZxCustomerController extends Controller
 //            $customers =ZxCustomer::where($parms)->where('office_id',$office)->with('huifangs')->get();
         }else{
             //快捷查询  今日应回访
-
-
             $customerName=$request->input('searchCustomerName');
             $customerTel=$request->input('searchCustomerTel');
             $customerQQ=$request->input('searchCustomerQQ');
@@ -341,7 +340,7 @@ class ZxCustomerController extends Controller
             $last_huifang_end=$request->input('searchLastHuifangEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchLastHuifangEnd'))->endOfDay():Carbon::now()->endOfDay();
             $next_huifang_start=$request->input('searchNextHuifangStart')?Carbon::createFromFormat('Y-m-d',$request->input('searchNextHuifangStart'))->startOfDay():null;
             $next_huifang_end=$request->input('searchNextHuifangEnd')?Carbon::createFromFormat('Y-m-d',$request->input('searchNextHuifangEnd'))->endOfDay():Carbon::now()->endOfDay();
-            $customers=null;
+
             if (!empty($quickSearch)){
                 if ($quickSearch=='todayhuifang'){
                     //今日应回访
