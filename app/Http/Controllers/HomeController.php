@@ -55,15 +55,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $key='key';
-        $time=3;
-        $values = Cache::remember($key,$time,function () {
-            return 5;
-        });
-        dd($values);
-        $redis = app('redis.connection');
-        $redis->setex('library', 7200, 'predis');// 存储 有效时长为 7200 秒
-        dd($redis->get('library'));
+
+//        $redis = app('redis.connection');
+//        $redis->setex('library', 7200, 'predis');// 存储 有效时长为 7200 秒
+//        dd($redis->get('library'));
 //        $todayArrangements=null;
 //        $theDay=false;
         //今日排班
@@ -124,10 +119,21 @@ class HomeController extends Controller
 	    ////////////////////////////////////////////////////////////////////////
 	    //项目情况
         $data = $this->getData($start, $end);
+
+        $mData='month';
+        $yData='year';
+        $time=7200;
+//        $values = Cache::remember($key,$time,function () {
+//            return 5;
+//        });
 	    //上月数据
-        $monthData=$this->getData(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
+        $monthData=Cache::remember($mData,$time,function () {
+            return $this->getData(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
+        });
         //年汇总数据
-        $yearData=$this->getData(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
+        $yearData=Cache::remember($yData,$time,function () {
+            return $this->getData(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
+        });
 	    return view('home',[
 		    'pageheader'=>'首页',
 		    'pagedescription'=>'home',
