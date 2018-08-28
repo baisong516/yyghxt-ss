@@ -118,7 +118,10 @@ class HomeController extends Controller
 //	    }
 	    ////////////////////////////////////////////////////////////////////////
 	    //项目情况
-        $data = $this->getData($start, $end);
+
+        $data =Cache::remember('today',60,function ($start,$end) {
+            return $this->getData($start, $end);
+        });
 
         $mData='month';
         $yData='year';
