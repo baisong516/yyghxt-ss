@@ -10,7 +10,7 @@ use App\ZxCustomer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Imagick;
 use Psy\Exception\Exception;
@@ -55,8 +55,14 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        $key='key';
+        $time=3;
+        $values = Cache::remember($key,$time,function () {
+            return 5;
+        });
+        dd($values);
         $redis = app('redis.connection');
-        $redis->setex('library', 10, 'predis');
+        $redis->setex('library', 7200, 'predis');// 存储 有效时长为 7200 秒
         dd($redis->get('library'));
 //        $todayArrangements=null;
 //        $theDay=false;
