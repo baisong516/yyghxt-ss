@@ -10,6 +10,7 @@ use App\ZxCustomer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use Imagick;
 use Psy\Exception\Exception;
@@ -54,6 +55,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        $redis = app('redis.connection');
+        $redis->setex('library', 10, 'predis');
+        dd($redis->get('library'));
 //        $todayArrangements=null;
 //        $theDay=false;
         //今日排班
