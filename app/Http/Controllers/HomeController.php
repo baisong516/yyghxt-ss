@@ -117,12 +117,19 @@ class HomeController extends Controller
 //		    }
 //	    }
 	    ////////////////////////////////////////////////////////////////////////
+        $flag=$request->input('flag');
 	    //项目情况
         $tData='today-data-' . (Auth::user()->id);
         $stime=60;
-        $data =Cache::remember($tData,$stime,function () use($start,$end) {
-            return $this->getData($start, $end);
-        });
+        if ($flag=='t'){
+            $data=$this->getData($start, $end);
+            Cache::put($tData,$data,$stime);
+        }else{
+            $data =Cache::remember($tData,$stime,function () use($start,$end) {
+                return $this->getData($start, $end);
+            });
+        }
+
 
         $mData='month-data-' . (Auth::user()->id);
         $yData='year-data-' . (Auth::user()->id);
@@ -131,13 +138,25 @@ class HomeController extends Controller
 //            return 5;
 //        });
 	    //上月数据
-        $monthData=Cache::remember($mData,$time,function () {
-            return $this->getData(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
-        });
+        if ($flag=='m'){
+            $monthData=$this->getData(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
+            Cache::put($mData,$monthData,$time);
+        }else{
+            $monthData=Cache::remember($mData,$time,function () {
+                return $this->getData(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
+            });
+        }
+
         //年汇总数据
-        $yearData=Cache::remember($yData,$time,function () {
-            return $this->getData(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
-        });
+        if ($flag=='y'){
+            $yearData=$this->getData(Carbon::now()->subMonth()->startOfMonth(),Carbon::now()->subMonth()->endOfMonth());
+            Cache::put($yData,$yearData,$time);
+        }else{
+            $yearData=Cache::remember($yData,$time,function () {
+                return $this->getData(Carbon::now()->startOfYear(),Carbon::now()->endOfYear());
+            });
+        }
+
 	    return view('home',[
 		    'pageheader'=>'首页',
 		    'pagedescription'=>'home',
@@ -270,5 +289,6 @@ class HomeController extends Controller
         }
         return $data;
     }
+
 
 }

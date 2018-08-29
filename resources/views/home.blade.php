@@ -16,13 +16,14 @@
                         <input type="text" class="form-control date-item" name="searchDateStart" id="searchDateStart" required value="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$start)->toDateString()}}">
                         到
                         <input type="text" class="form-control date-item" name="searchDateEnd" id="searchDateEnd" required value="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$end)->toDateString()}}">
+                        <input type="hidden" name="flag" value="">
                     </div>
                     <button type="submit" class="btn btn-success">搜索</button>
                 </form>
             </div>
             <div class="box-body" id="table-sum-box-body">
                 <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="today-pro" class="img-dom table-head"  data-id="tab-sum">
-                    项目情况表
+                    项目情况表(<a href="javascript:;" data-flag="t" class="data-flush">刷新</a>)
                 </h4>
                 <div class="box">
                     <div class="box-body table-item table-responsive table-bordered">
@@ -80,7 +81,7 @@
         <div class="box box-solid">
             <div class="box-body" id="month-data-box-body">
                 <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" id="month-data-head" class="table-head" data-id="month-data">
-                    上月数据({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})
+                    上月数据({{\Carbon\Carbon::now()->subMonth()->year}}-{{\Carbon\Carbon::now()->subMonth()->month}})(<a href="javascript:;" data-flag="m" class="data-flush">刷新</a>)
                 </h4>
                 <div class="box">
                     <div class="box-body table-item table-responsive table-bordered">
@@ -138,7 +139,7 @@
         <div class="box box-solid">
             <div class="box-body" id="year-data-box-body">
                 <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;" class="table-head" data-id="year-data">
-                    {{\Carbon\Carbon::now()->year}}年汇总数据
+                    {{\Carbon\Carbon::now()->year}}年汇总数据(<a href="javascript:;" data-flag="y" class="data-flush">刷新</a>)
                 </h4>
                 <div class="box">
                     <div class="box-body table-item table-responsive table-bordered">
@@ -292,5 +293,9 @@
                 }
             });
         }
+        $(".data-flush").click(function () {
+            $('input[name=flag]').val($(this).data('flag'));
+            $('#search-form').submit();
+        });
     </script>
 @endsection
