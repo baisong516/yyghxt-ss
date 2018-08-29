@@ -118,14 +118,14 @@ class HomeController extends Controller
 //	    }
 	    ////////////////////////////////////////////////////////////////////////
 	    //项目情况
-        $tData='today-data';
+        $tData='today-data-' . (Auth::user()->id);
         $stime=60;
         $data =Cache::remember($tData,$stime,function () use($start,$end) {
             return $this->getData($start, $end);
         });
 
-        $mData='month-data';
-        $yData='year-data';
+        $mData='month-data-' . (Auth::user()->id);
+        $yData='year-data-' . (Auth::user()->id);
         $time=7200;
 //        $values = Cache::remember($key,$time,function () {
 //            return 5;
