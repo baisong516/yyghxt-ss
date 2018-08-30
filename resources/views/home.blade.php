@@ -52,15 +52,15 @@
                             <tbody>
                             @foreach($data as $office_id=>$v)
                                 <tr id="todayListData">
-                                <td><a href="{{route('zxcustomers.search',['office'=>$office_id,'q'=>'a','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['name']}}</a></td>
-                                    <td><a href="{{route('zxcustomers.search',['office'=>$office_id,'q'=>'zixun','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['zixun_count']}}</a></td>
-                                    <td><a href="{{route('zxcustomers.search',['office'=>$office_id,'q'=>'contact','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['contact_count']}}</a></td>
-                                    <td><a href="{{route('zxcustomers.search',['office'=>$office_id,'q'=>'tel','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['tel_count']}}</a></td>
-                                    <td><a href="{{route('zxcustomers.search',['office'=>$office_id,'q'=>'total','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['total_count']}}</a></td>
-                                    <td><a href="{{route('zxcustomers.search',['office'=>$office_id,'q'=>'yuyue','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['yuyue_count']}}</a></td>
-                                    <td><a href="{{route('zxcustomers.search',['office'=>$office_id,'q'=>'should','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['should_count']}}</a></td>
-                                    <td><a href="{{route('zxcustomers.search',['office'=>$office_id,'q'=>'arrive','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['arrive_count']}}</a></td>
-                                    <td><a href="{{route('zxcustomers.search',['office'=>$office_id,'q'=>'jiuzhen','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['jiuzhen_count']}}</a></td>
+                                <td><a href="{{route('zxcustomers.search',['ref'=>'index','office'=>$office_id,'q'=>'a','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['name']}}</a></td>
+                                    <td><a href="{{route('zxcustomers.search',['ref'=>'index','office'=>$office_id,'q'=>'zixun','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['zixun_count']}}</a></td>
+                                    <td><a href="{{route('zxcustomers.search',['ref'=>'index','office'=>$office_id,'q'=>'contact','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['contact_count']}}</a></td>
+                                    <td><a href="{{route('zxcustomers.search',['ref'=>'index','office'=>$office_id,'q'=>'tel','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['tel_count']}}</a></td>
+                                    <td><a href="{{route('zxcustomers.search',['ref'=>'index','office'=>$office_id,'q'=>'total','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['total_count']}}</a></td>
+                                    <td><a href="{{route('zxcustomers.search',['ref'=>'index','office'=>$office_id,'q'=>'yuyue','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['yuyue_count']}}</a></td>
+                                    <td><a href="{{route('zxcustomers.search',['ref'=>'index','office'=>$office_id,'q'=>'should','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['should_count']}}</a></td>
+                                    <td><a href="{{route('zxcustomers.search',['ref'=>'index','office'=>$office_id,'q'=>'arrive','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['arrive_count']}}</a></td>
+                                    <td><a href="{{route('zxcustomers.search',['ref'=>'index','office'=>$office_id,'q'=>'jiuzhen','start'=>urlencode($start),'end'=>urlencode($end)])}}" class="text-black">{{$v['jiuzhen_count']}}</a></td>
                                     <td>{{$v['yuyue_rate']}}</td>
                                     <td>{{$v['contact_rate']}}</td>
                                     <td>{{$v['arrive_rate']}}</td>

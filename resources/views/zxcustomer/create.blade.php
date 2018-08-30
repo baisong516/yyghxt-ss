@@ -45,6 +45,7 @@
                         <button type="button" class="btn btn-info pull-right submit-operation">提交</button>
                     </div>
                 </div>
+                <button type="button" class="btn btn-info submit-operation" style="position: fixed;left: 155px;bottom: 5px;">提交</button>
             </div>
 
     </div>

@@ -17,65 +17,66 @@
             <form class="form-inline" action="{{route('zxcustomers.search')}}"  id="search-form" name="search-form" method="POST">
                 {{csrf_field()}}
                 <input type="hidden" name="quickSearch" value="">
+                <input type="hidden" name="parameters" value="{{isset($parameters)?json_encode($parameters):''}}">
                 <div class="form-group">
                     <label for="searchCustomerName">姓名：</label>
-                    <input type="text" class="form-control" name="searchCustomerName" id="searchCustomerName" placeholder="姓名">
+                    <input type="text" class="form-control" name="searchCustomerName" id="searchCustomerName" placeholder="姓名" value="{{isset($parameters['name'])?$parameters['name']:''}}">
                 </div>
                 <div class="form-group">
                     <label for="searchCustomerTel">电话：</label>
-                    <input type="text" class="form-control" name="searchCustomerTel" id="searchCustomerTel" placeholder="电话">
+                    <input type="text" class="form-control" name="searchCustomerTel" id="searchCustomerTel" placeholder="电话" value="{{isset($parameters['tel'])?$parameters['tel']:''}}">
                 </div>
                 <div class="form-group">
                     <label for="searchCustomerQQ">QQ：</label>
-                    <input type="text" class="form-control" name="searchCustomerQQ" id="searchCustomerQQ" placeholder="QQ">
+                    <input type="text" class="form-control" name="searchCustomerQQ" id="searchCustomerQQ" placeholder="QQ" value="{{isset($parameters['qq'])?$parameters['qq']:''}}">
                 </div>
                 <div class="form-group">
                     <label for="searchCustomerWechat">微信：</label>
-                    <input type="text" class="form-control" name="searchCustomerWechat" id="searchCustomerWechat" placeholder="微信">
+                    <input type="text" class="form-control" name="searchCustomerWechat" id="searchCustomerWechat" placeholder="微信" value="{{isset($parameters['wechat'])?$parameters['wechat']:''}}">
                 </div>
                 <div class="form-group">
                     <label for="searchIdCard">商务通ID：</label>
-                    <input type="text" class="form-control" name="searchIdCard" id="searchIdCard" placeholder="商务通ID">
+                    <input type="text" class="form-control" name="searchIdCard" id="searchIdCard" placeholder="商务通ID" value="{{isset($parameters['swt'])?$parameters['swt']:''}}">
                 </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <div class="form-group">
                     <label for="searchZx">咨询时间：</label>
-                    <input type="text" class="form-control date-item" name="searchZxStart" id="searchZxStart">
+                    <input type="text" class="form-control date-item" name="searchZxStart" id="searchZxStart" value="{{isset($parameters['zixun_at_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['zixun_at_start'])->toDateString():''}}">
                     到
-                    <input type="text" class="form-control date-item" name="searchZxEnd" id="searchZxEnd">
+                    <input type="text" class="form-control date-item" name="searchZxEnd" id="searchZxEnd" value="{{isset($parameters['zixun_at_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['zixun_at_end'])->toDateString():''}}">
                 </div>
                 <div class="form-group">
                     <label for="searchYuyue">预约时间：</label>
-                    <input type="text" class="form-control date-item" name="searchYuyueStart" id="searchYuyueStart">
+                    <input type="text" class="form-control date-item" name="searchYuyueStart" id="searchYuyueStart" value="{{isset($parameters['yuyue_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['yuyue_start'])->toDateString():''}}">
                     到
-                    <input type="text" class="form-control date-item" name="searchYuyueEnd" id="searchYuyueEnd">
+                    <input type="text" class="form-control date-item" name="searchYuyueEnd" id="searchYuyueEnd" value="{{isset($parameters['yuyue_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['yuyue_end'])->toDateString():''}}">
                 </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <div class="form-group">
                     <label for="searchArrive">到院时间：</label>
-                    <input type="text" class="form-control date-item" name="searchArriveStart" id="searchArriveStart">
+                    <input type="text" class="form-control date-item" name="searchArriveStart" id="searchArriveStart" value="{{isset($parameters['arrive_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['arrive_start'])->toDateString():''}}">
                     到
-                    <input type="text" class="form-control date-item" name="searchArriveEnd" id="searchArriveEnd">
+                    <input type="text" class="form-control date-item" name="searchArriveEnd" id="searchArriveEnd" value="{{isset($parameters['arrive_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['arrive_end'])->toDateString():''}}">
                 </div>
                 <div class="form-group">
                     <label for="searchLastHuifang">最近回访时间：</label>
-                    <input type="text" class="form-control date-item" name="searchLastHuifangStart" id="searchLastHuifangStart">
+                    <input type="text" class="form-control date-item" name="searchLastHuifangStart" id="searchLastHuifangStart" value="{{isset($parameters['last_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['last_start'])->toDateString():''}}">
                     到
-                    <input type="text" class="form-control date-item" name="searchLastHuifangEnd" id="searchLastHuifangEnd">
+                    <input type="text" class="form-control date-item" name="searchLastHuifangEnd" id="searchLastHuifangEnd" value="{{isset($parameters['last_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['last_end'])->toDateString():''}}">
                 </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <div class="form-group">
                     <label for="searchNextHuifang">下次回访时间：</label>
-                    <input type="text" class="form-control date-item" name="searchNextHuifangStart" id="searchNextHuifangStart">
+                    <input type="text" class="form-control date-item" name="searchNextHuifangStart" id="searchNextHuifangStart" value="{{isset($parameters['next_at_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['next_at_start'])->toDateString():''}}">
                     到
-                    <input type="text" class="form-control date-item" name="searchNextHuifangEnd" id="searchNextHuifangEnd">
+                    <input type="text" class="form-control date-item" name="searchNextHuifangEnd" id="searchNextHuifangEnd" value="{{isset($parameters['next_at_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['next_at_end'])->toDateString():''}}">
                 </div>
                 <div class="form-group">
                     <label for="searchUserId">最近回访人：</label>
                     <select name="searchLastHuifangUserId" id="searchLastHuifangUserId" class="form-control">
                         <option value="">--回访人--</option>
                         @foreach($zxusers as $k=>$user)
-                            <option value="{{$k}}">{{$user}}</option>
+                            <option value="{{$k}}" {{isset($parameters['last_user_id'])&&$parameters['last_user_id']==$k?'selected':''}}>{{$user}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -85,7 +86,7 @@
                     <select name="searchOfficeId" id="searchOfficeId" class="form-control">
                         <option value="">--科室--</option>
                         @foreach(Auth::user()->offices as $office)
-                            <option value="{{$office->id}}">{{$office->display_name}}</option>
+                            <option value="{{$office->id}}" {{isset($parameters['office_id'])&&$parameters['office_id']==$office->id?'selected':''}}>{{$office->display_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -100,7 +101,7 @@
                     <select name="searchUserId" id="searchUserId" class="form-control">
                         <option value="">--咨询员--</option>
                         @foreach($zxusers as $k=>$user)
-                            <option value="{{$k}}">{{$user}}</option>
+                            <option value="{{$k}}" {{isset($parameters['zx_user_id'])&&$parameters['zx_user_id']==$k?'selected':''}}>{{$user}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -109,12 +110,22 @@
                     <select name="searchMediaId" id="searchMediaId" class="form-control">
                         <option value="">--媒体来源--</option>
                         @foreach($medias as $k=>$media)
-                            <option value="{{$k}}">{{$media}}</option>
+                            <option value="{{$k}}" {{isset($parameters['media_id'])&&$parameters['media_id']==$k?'selected':''}}>{{$media}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="searchCustomerCondition">患者状态：</label>
+                    <select name="searchCustomerCondition" id="searchCustomerCondition" class="form-control">
+                        <option value="">--患者状态--</option>
+                        @foreach($customerconditions as $k=>$customercondition)
+                            <option value="{{$k}}" {{isset($parameters['customer_condition_id'])&&$parameters['customer_condition_id']==$k?'selected':''}}>{{$customercondition}}</option>
                         @endforeach
                     </select>
                 </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <button type="submit" class="btn btn-success">搜索</button>
+                {{--<button type="reset" class="btn btn-danger form-reset">重置</button>--}}
             </form>
         </div>
         <!-- /.box-body -->
@@ -274,7 +285,7 @@
                                 <a href="javascript:void(0);" data-id="{{$customer->id}}" class="detail-btn" data-toggle="modal" data-target="#detailModal" title="查看"><i class="fa fa-eye"></i></a>
                                 @endif
                                 @if($enableUpdate)
-                                    <a href="{{route('zxcustomers.edit',$customer->id)}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
+                                 <a href="{{route('zxcustomers.edit',$customer->id)}}?parameters={{isset($parameters)?json_encode($parameters):''}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
                                 @endif
                                 @if($enableDelete)
                                     <a href="javascript:void(0);"  alt="删除" data-id="{{$customer->id}}" title="删除" class="delete-operation"><i class="fa fa-trash"></i></a>
@@ -298,7 +309,13 @@
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         $('[data-toggle="tooltip"]').tooltip();
+
         $(document).ready(function() {
+            $(".form-reset").click(function () {
+                console.log('1');
+                document.getElementById("search-form").reset();
+                console.log('2');
+            });
             $('#zxcustomers-list-table').DataTable({
                 "order": [[ 0, "desc" ]],
                 "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],

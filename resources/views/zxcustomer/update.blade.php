@@ -16,6 +16,7 @@
                 <form action="{{route('zxcustomers.update',$customer->id)}}" method="post" class="zxcustomers-form form-inline">
                     {{csrf_field()}}
                     {{method_field('PUT')}}
+                    <input type="hidden" name="parameters" value="{{$parameters}}">
                 @include('zxcustomer.form')
                 <div class="form-group {{empty($errors->first('next_at'))?'':'has-error'}}" style="display: none;">
                     <label for="next_at" class="col-sm-2 control-label">下次回访时间</label>
@@ -31,6 +32,7 @@
                         <button type="button" class="btn btn-info pull-right submit-operation">提交</button>
                     </div>
                 </div>
+                <button type="button" class="btn btn-info submit-operation" style="position: fixed;left: 155px;bottom: 5px;">提交</button>
             </div>
     </div>
 @endsection
@@ -41,6 +43,16 @@
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
         $(".submit-operation").click(function () {
+            var customer_condition_id=$("select[name=customer_condition_id]").val();
+            if (customer_condition_id==1||customer_condition_id==2){
+                var arrive_at=$("form input[name=arrive_at]").val();
+                if (arrive_at==''||typeof(arrive_at)=='undefined'){
+                    $("#arrivetime").parent('div').addClass('has-error');
+                    return false;
+                }else{
+                    $("#arrivetime").parent('div').removeClass('has-error');
+                }
+            }
             $("form.zxcustomers-form").submit();
         });
         //data item

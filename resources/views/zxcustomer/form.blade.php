@@ -42,7 +42,7 @@
     <div class="form-group {{empty($errors->first('user_id'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="user" class="control-label">咨询员：</label>
         <select name="user_id" id="zx-user" class="form-control">
-            <option value="" selected>--选择(默认本人)--</option>
+            <option value="">--选择(默认本人)--</option>
             @foreach($activeZxUsers as $k=>$v)
                 <option value="{{$k}}" {{old('user_id')==$k?'selected':''}} {{isset($customer)&&$customer->user_id==$k?'selected':''}}>{{$v}}</option>
             @endforeach
@@ -54,7 +54,7 @@
     <div class="form-group {{empty($errors->first('office_id'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="office" class="control-label">科室：</label>
         <select name="office_id" id="office" class="form-control select2" style="">
-            <option value="" selected>--选择科室--</option>
+            <option value="">--选择科室--</option>
                 @foreach($offices as $k=>$v)
                     <option value="{{$k}}" {{old('office_id')==$k?'selected':''}} {{isset($customer)&&$customer->office_id==$k?'selected':''}}>{{$v}}</option>
                 @endforeach
@@ -64,7 +64,7 @@
     <div class="form-group {{empty($errors->first('disease_id'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="disease" class="control-label">病种：</label>
         <select name="disease_id" id="disease" class="form-control select2" style="">
-            <option  selected value="">--选择--</option>
+            <option value="">--选择--</option>
             @foreach($diseases as $o=>$d)
                 <optgroup label="{{$d['name']}}">
                     @if(isset($d['diseases'])&&!empty($d['diseases']))
@@ -80,7 +80,7 @@
     <div class="form-group" style="margin-left: 20px;">
         <label for="doctor" class="control-label">预约医生：</label>
         <select name="doctor_id" id="doctor" class="form-control select2">
-            <option selected="selected" value="">--选择医生--</option>
+            <option value="">--选择医生--</option>
             @foreach($doctors as $o=>$d)
                 <optgroup label="{{$offices[$o]}}">
                     @if(!empty($d))
@@ -101,7 +101,7 @@
     <div class="form-group {{empty($errors->first('media_id'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="media" class="control-label">媒体来源：</label>
         <select name="media_id" id="media" class="form-control">
-            <option value=""  selected>--选择媒体--</option>
+            <option value="" >--选择媒体--</option>
             @foreach($medias as $k=>$v)
                 <option value="{{$k}}" {{old('media_id')==$k?'selected':''}} {{isset($customer)&&$customer->media_id==$k?'selected':''}}>{{$v}}</option>
             @endforeach
@@ -111,7 +111,7 @@
     <div class="form-group {{empty($errors->first('media'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="webtype" class="control-label">网站类型：</label>
         <select name="webtype_id" id="webtype" class="form-control">
-            <option selected value="">--选择网站类型--</option>
+            <option value="">--选择网站类型--</option>
             @foreach($webtypes as $k=>$v)
                 <option value="{{$k}}" {{old('webtype_id')==$k?'selected':''}} {{isset($customer)&&$customer->webtype_id==$k?'selected':''}}>{{$v}}</option>
             @endforeach
@@ -121,7 +121,7 @@
     <div class="form-group {{empty($errors->first('jingjia_user_id'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="trans-user" class="control-label">当班竞价员：</label>
         <select name="jingjia_user_id" id="jingjia-user" class="form-control">
-            <option value="" selected>--选择--</option>
+            <option value="">--选择--</option>
             @foreach($activeJingjiaUsers as $k=>$v)
                 <option value="{{$k}}" {{old('jingjia_user_id')==$k?'selected':''}} {{isset($customer)&&$customer->jingjia_user_id==$k?'selected':''}}>{{$v}}</option>
             @endforeach
@@ -131,7 +131,7 @@
     <div class="form-group {{empty($errors->first('cause_id'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="trans-user" class="control-label">未预约原因：</label>
         <select name="cause_id" id="cause_id" class="form-control">
-            <option value="" selected>--选择--</option>
+            <option value="">--选择--</option>
             @foreach($causes as $k=>$v)
                 <option value="{{$k}}" {{old('cause_id')==$k?'selected':''}} {{isset($customer)&&$customer->cause_id==$k?'selected':''}}>{{$v}}</option>
             @endforeach
@@ -160,7 +160,7 @@
     <div class="form-group {{empty($errors->first('customer_type_id'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="customertype" class="control-label">患者类型：</label>
         <select name="customer_type_id" id="customertype" class="form-control"style="margin-left: 20px;">
-            <option value="" selected>--选择患者类型--</option>
+            <option value="">--选择患者类型--</option>
             @foreach($customertypes as $k=>$v)
                 <option value="{{$k}}" {{old('customer_type_id')==$k?'selected':''}} {{isset($customer)&&$customer->customer_type_id==$k?'selected':''}}>{{$v}}</option>
             @endforeach
@@ -170,7 +170,7 @@
     <div class="form-group {{empty($errors->first('customer_condition_id'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="customercondition" class="control-label">状态：</label>
         <select name="customer_condition_id" id="customercondition" class="form-control">
-            <option value="" selected>--选择患者状态--</option>
+            <option value="">--选择患者状态--</option>
             @foreach($customerconditions as $k=>$v)
                 <option value="{{$k}}" {{old('customer_condition_id')==$k?'selected':''}} {{isset($customer)&&$customer->customer_condition_id==$k?'selected':''}}>{{$v}}</option>
             @endforeach
