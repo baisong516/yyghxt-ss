@@ -591,8 +591,8 @@ class ZxCustomerController extends Controller
                     }
                     if (!empty($yy_start)){
                         array_push($parms,['yuyue_at','>=',$yy_start],['yuyue_at','<=',$yy_end]);
-                        $parameters['yuyue_start']=$yy_start;
-                        $parameters['yuyue_end']=$yy_end;
+                        $parameters['yuyue_at_start']=$yy_start;
+                        $parameters['yuyue_at_end']=$yy_end;
                     }
                     if (!empty($arrive_start)){
                         array_push($parms,['arrive_at','>=',$arrive_start],['arrive_at','<=',$arrive_end]);
