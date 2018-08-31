@@ -180,7 +180,6 @@ class ZxCustomerController extends Controller
                     4 => "咨询",
                 ];
             }
-            dd($request->input('parameters'));
             return view('zxcustomer.update', array(
                 'pageheader'=>'患者',
                 'pagedescription'=>'更新',
@@ -214,6 +213,7 @@ class ZxCustomerController extends Controller
     {
         if (Auth::user()->ability('superadministrator', 'create-zx_customers')){
             if (ZxCustomer::updateCustomer($request,$id)){
+                dd($request->input('parameters'));
                 return redirect()->route('zxcustomers.search')->with([
                     'success'=>'Well Done!',
                     'parameters'=>$request->input('parameters')
