@@ -213,7 +213,6 @@ class ZxCustomerController extends Controller
     {
         if (Auth::user()->ability('superadministrator', 'create-zx_customers')){
             if (ZxCustomer::updateCustomer($request,$id)){
-                dd($request->input('parameters'));
                 return redirect()->route('zxcustomers.search')->with([
                     'success'=>'Well Done!',
                     'parameters'=>$request->input('parameters')
@@ -331,6 +330,7 @@ class ZxCustomerController extends Controller
                 }
             }else{//更新时返回
                 $sess=session('parameters');
+                dd($sess);
                 if (!empty($sess)){
                     $sess=json_decode($sess,true);
                     if (isset($sess['name'])){$parameters['name']=$sess['name'];$customerName=$sess['name'];}
