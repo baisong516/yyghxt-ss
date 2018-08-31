@@ -304,14 +304,14 @@ class ZxCustomerController extends Controller
                         ['created_at','<=',$end],
                         ['yuyue_at','>=',$start],
                     ])->with('huifangs')->get();
-                    $parameters['yuyue_start']=$start;
+                    $parameters['yuyue_at_start']=$start;
                 }elseif ($q=='should'){
                     $customers =ZxCustomer::where('office_id',$office)->where([
                         ['yuyue_at','>=',$start],
                         ['yuyue_at','<=',$end],
                     ])->with('huifangs')->get();
-                    $parameters['yuyue_start']=$start;
-                    $parameters['yuyue_end']=$end;
+                    $parameters['yuyue_at_start']=$start;
+                    $parameters['yuyue_at_end']=$end;
                 }elseif ($q=='arrive'){
                     $customers =ZxCustomer::where('office_id',$office)->where([
                         ['arrive_at','>=',$start],
