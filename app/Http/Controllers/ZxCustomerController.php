@@ -343,16 +343,17 @@ class ZxCustomerController extends Controller
                     if (isset($sess['disease_id'])){$parameters['disease_id']=$sess['disease_id'];$diseaseId=$sess['disease_id'];}
                     if (isset($sess['customer_condition_id'])){$parameters['customer_condition_id']=$sess['customer_condition_id'];$customerConditionId=$sess['customer_condition_id'];}
                     if (isset($sess['last_user_id'])){$parameters['last_user_id']=$sess['last_user_id'];$last_huifang_user_id=$sess['last_user_id'];}
-                    if (isset($sess['zixun_at_start'])){$zx_start=$parameters['zixun_at_start']=Carbon::parse($sess['zixun_at_start']['date'])->toDateTimeString();}
-                    if (isset($sess['zixun_at_end'])){$zx_end=$parameters['zixun_at_end']=Carbon::parse($sess['zixun_at_end']['date'])->toDateTimeString();}
-                    if (isset($sess['yuyue_at_start'])){$yy_start=$parameters['yuyue_at_start']=Carbon::parse($sess['yuyue_at_start']['date'])->toDateTimeString();}
-                    if (isset($sess['yuyue_at_end'])){$yy_end=$parameters['yuyue_at_end']=Carbon::parse($sess['yuyue_at_end']['date'])->toDateTimeString();}
-                    if (isset($sess['arrive_start'])){$arrive_start=$parameters['arrive_start']=Carbon::parse($sess['arrive_start']['date'])->toDateTimeString();}
-                    if (isset($sess['arrive_end'])){$arrive_end=$parameters['arrive_end']=Carbon::parse($sess['arrive_end']['date'])->toDateTimeString();}
-                    if (isset($sess['last_start'])){$last_huifang_start=$parameters['last_start']=Carbon::parse($sess['last_start']['date'])->toDateTimeString();}
-                    if (isset($sess['last_end'])){$last_huifang_end=$parameters['last_end']=Carbon::parse($sess['last_end']['date'])->toDateTimeString();}
-                    if (isset($sess['next_at_start'])){$next_huifang_start=$parameters['next_at_start']=Carbon::parse($sess['next_at_start']['date'])->toDateTimeString();}
-                    if (isset($sess['next_at_end'])){$next_huifang_end=$parameters['next_at_end']=Carbon::parse($sess['next_at_end']['date'])->toDateTimeString();}
+
+                    if (isset($sess['zixun_at_start'])){$zx_start=$parameters['zixun_at_start']=Carbon::parse($sess['zixun_at_start']['date']);}
+                    if (isset($sess['zixun_at_end'])){$zx_end=$parameters['zixun_at_end']=Carbon::parse($sess['zixun_at_end']['date']);}
+                    if (isset($sess['yuyue_at_start'])){$yy_start=$parameters['yuyue_at_start']=Carbon::parse($sess['yuyue_at_start']['date']);}
+                    if (isset($sess['yuyue_at_end'])){$yy_end=$parameters['yuyue_at_end']=Carbon::parse($sess['yuyue_at_end']['date']);}
+                    if (isset($sess['arrive_start'])){$arrive_start=$parameters['arrive_start']=Carbon::parse($sess['arrive_start']['date']);}
+                    if (isset($sess['arrive_end'])){$arrive_end=$parameters['arrive_end']=Carbon::parse($sess['arrive_end']['date']);}
+                    if (isset($sess['last_start'])){$last_huifang_start=$parameters['last_start']=Carbon::parse($sess['last_start']['date']);}
+                    if (isset($sess['last_end'])){$last_huifang_end=$parameters['last_end']=Carbon::parse($sess['last_end']['date']);}
+                    if (isset($sess['next_at_start'])){$next_huifang_start=$parameters['next_at_start']=Carbon::parse($sess['next_at_start']['date']);}
+                    if (isset($sess['next_at_end'])){$next_huifang_end=$parameters['next_at_end']=Carbon::parse($sess['next_at_end']['date']);}
                     //条件为空
                     if (empty($customerName)&&empty($customerTel)&&empty($customerQQ)&&empty($customerWechat)&&empty($customerIdCard)&&empty($zxUser)&&empty($media)&&empty($officeId)&&empty($zx_start)&&empty($yy_start)&&empty($arrive_start)&&empty($last_huifang_start)&&empty($next_huifang_start)&&empty($last_huifang_user_id)&&empty($customerConditionId)){
                         $customers=ZxCustomer::getTodayCustomers();
