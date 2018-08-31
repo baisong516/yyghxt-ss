@@ -262,8 +262,8 @@ class ZxCustomerController extends Controller
             $ref=$request->input('ref');
             if ($ref=='index'){
                 //从首页进入
-                $start=urldecode($request->input('start'));
-                $end=urldecode($request->input('end'));
+                $start=Carbon::createFromFormat('Y-m-d H:i:s',urldecode($request->input('start')));
+                $end=Carbon::createFromFormat('Y-m-d H:i:s',urldecode($request->input('end')));
                 $office=$request->input('office');
                 $q=$request->input('q');
 
