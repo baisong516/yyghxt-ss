@@ -180,6 +180,7 @@ class ZxCustomerController extends Controller
                     4 => "咨询",
                 ];
             }
+            dd($request->input('parameters'));
             return view('zxcustomer.update', array(
                 'pageheader'=>'患者',
                 'pagedescription'=>'更新',
