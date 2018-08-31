@@ -330,7 +330,7 @@ class ZxCustomerController extends Controller
                 }
             }else{//更新时返回
                 $sess=session('parameters');
-                dd($sess);
+//                dd($sess);
                 if (!empty($sess)){
                     $sess=json_decode($sess,true);
                     if (isset($sess['name'])){$parameters['name']=$sess['name'];$customerName=$sess['name'];}
