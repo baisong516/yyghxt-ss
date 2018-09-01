@@ -137,6 +137,7 @@
     <div class="box box-info">
         <div class="box-header">
             <h3 class="box-title">列表</h3>
+            <a href="javascript:;" class="btn-sm btn-info" id="strlimit">展开</a>
             <div class="box-tools">
                 <div class="input-group input-group-sm pull-right" style="">
                     @ability('superadministrator', 'create-zx_customers')
@@ -200,7 +201,7 @@
                         <tr id="customer-{{$customer->id}}" class="{{isset($quicksearch)&&$quicksearch=='todayhuifang'&&$customer->huifangs->last()&&($customer->huifangs->last()->next_at>=\Carbon\Carbon::now()->endOfDay()||$customer->huifangs->last()->now_at>=\Carbon\Carbon::now()->startOfDay())?'bg-red':''}}" style="{{($customer->customer_condition_id==1||$customer->customer_condition==2)?'color:red;':''}}">
                             <td style="display: none;">{{$customer->id}}</td>
                             <td>
-                                <span data-toggle="tooltip" data-placement="right" title="{{$customer->name?$customer->name:''}}">{{str_limit($customer->name?$customer->name:'', $limit = 6, $end = '...')}}</span>
+                                <span data-toggle="tooltip" data-placement="right" title="{{$customer->name?$customer->name:''}}" data-title="{{$customer->name?$customer->name:''}}" data-limit="{{str_limit($customer->name?$customer->name:'', $limit = 6, $end = '...')}}" class="strlimit">{{str_limit($customer->name?$customer->name:'', $limit = 6, $end = '...')}}</span>
                             </td>
                             <td>{{$customer->age}}</td>
                             <td>
@@ -225,12 +226,12 @@
                             </td>
                             <td style="display: none;"><small>{{$customer->idcard}}</small></td>
                             <td>
-                                <span data-toggle="modal" data-placement="top" data-target="#keywordsContent" title="{{$customer->keywords?$customer->keywords:''}}" class="keywordsContent">{{str_limit($customer->keywords?$customer->keywords:'', $limit = 12, $end = '...')}}</span>
+                                <span data-toggle="modal" data-placement="top" data-target="#keywordsContent" title="{{$customer->keywords?$customer->keywords:''}}" title="{{$customer->keywords?$customer->keywords:''}}" data-title="{{$customer->keywords?$customer->keywords:''}}" data-limit="{{str_limit($customer->keywords?$customer->keywords:'', $limit = 12, $end = '...')}}" class="keywordsContent strlimit">{{str_limit($customer->keywords?$customer->keywords:'', $limit = 12, $end = '...')}}</span>
                                 {{--<span >{{$customer->keywords?$customer->keywords:''}}</span>--}}
                             </td>
                             <td>
                                 <small>
-                                    <span data-toggle="tooltip" data-placement="top" title="{{$customer->city?$customer->city:''}}">{{str_limit($customer->city?$customer->city:'', $limit = 4, $end = '...')}}</span>
+                                    <span data-toggle="tooltip" data-placement="top" title="{{$customer->city?$customer->city:''}}" data-title="{{$customer->city?$customer->city:''}}" data-limit="{{str_limit($customer->city?$customer->city:'', $limit = 4, $end = '...')}}" class="strlimit">{{str_limit($customer->city?$customer->city:'', $limit = 4, $end = '...')}}</span>
                                 </small>
                             </td>
                             {{--媒体来源--}}
@@ -312,9 +313,13 @@
 
         $(document).ready(function() {
             $(".form-reset").click(function () {
-                console.log('1');
                 document.getElementById("search-form").reset();
-                console.log('2');
+            });
+            $("#strlimit").click(function () {
+                var elementsitems=$(".strlimit");
+                for (var i=0;i<elementsitems.length;i++){
+                    $(".strlimit").eq(i).html($(".strlimit").eq(i).data('title'));
+                }
             });
             $('#zxcustomers-list-table').DataTable({
                 "order": [[ 0, "desc" ]],
