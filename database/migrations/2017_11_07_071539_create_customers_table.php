@@ -21,6 +21,7 @@ class CreateCustomersTable extends Migration
             $table->string('sex')->nullable();
             $table->string('tel')->nullable();
             $table->unsignedInteger('msg')->default(0);
+            $table->integer('fuzhen')->default(0);
             $table->string('qq')->nullable();
             $table->string('wechat')->nullable();
             $table->string('idcard')->nullable()->comment('商务通身份id');

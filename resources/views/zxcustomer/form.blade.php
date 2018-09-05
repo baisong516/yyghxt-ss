@@ -176,6 +176,13 @@
             @endforeach
         </select>
     </div>
+    <div class="form-group {{empty($errors->first('fuzhen'))?'':'has-error'}}" style="margin-left: 20px;">
+        <label for="fuzhen" class="control-label">状态：</label>
+        <select name="fuzhen" id="fuzhen" class="form-control">
+            <option value="0" {{old('fuzhen')==0?'selected':''}} {{isset($customer)&&$customer->fuzhen==0?'selected':''}}>初诊</option>
+            <option value="1" {{old('fuzhen')==1?'selected':''}} {{isset($customer)&&$customer->fuzhen==1?'selected':''}}>复诊</option>
+        </select>
+    </div>
     <div class="row {{empty($errors->first('keywords'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="keywords" class="col-sm-1 control-label" style="margin-top: 20px;">搜索关键词：</label>
         <div class="col-sm-11">

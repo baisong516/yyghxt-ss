@@ -125,7 +125,8 @@
                 </div>
                 <hr style="margin-top: 5px;margin-bottom: 5px;"/>
                 <button type="submit" class="btn btn-success">搜索</button>
-                {{--<button type="reset" class="btn btn-danger form-reset">重置</button>--}}
+                <button type="reset" class="btn btn-warning form-reset">重置</button>
+                <button type="button" class="btn btn-danger form-empty">清空</button>
             </form>
         </div>
         <!-- /.box-body -->
@@ -178,6 +179,7 @@
                         <th>科室</th>
                         <th>病种</th>
                         <th>状态</th>
+                        <th>初复诊</th>
                         <th>未约原因</th>
                         <th>咨询员</th>
                         <th>当班竞价</th>
@@ -244,6 +246,7 @@
                             <td><small>{{$customer->disease_id?$diseases[$customer->disease_id]:''}}</small></td>
                             {{--状态--}}
                             <td><small>{{$customer->customer_condition_id?$customerconditions[$customer->customer_condition_id]:''}}</small></td>
+                            <td><small>{{$customer->fuzhen==1?'复诊':'初诊'}}</small></td>
                             {{--未预约原因--}}
                             <td>
                                 <small>
@@ -314,6 +317,9 @@
         $(document).ready(function() {
             $(".form-reset").click(function () {
                 document.getElementById("search-form").reset();
+            });
+            $(".form-empty").click(function () {
+                $("#search-form :input").not(":button, :submit, :reset, :hidden").val("").removeAttr("checked").remove("selected");//核心
             });
             $("#strlimit").click(function () {
                 var elementsitems=$(".strlimit");

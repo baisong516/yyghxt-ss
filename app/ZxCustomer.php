@@ -29,6 +29,7 @@ class ZxCustomer extends Model
         $customer->wechat=$request->input('wechat');
         $customer->idcard=$request->input('idcard');
         $customer->keywords=$request->input('keywords');
+        $customer->fuzhen=$request->input('fuzhen')?$request->input('fuzhen'):0;
         $customer->description=$request->input('description');
         $customer->user_id=$request->input('user_id')?$request->user_id:Auth::user()->id;
         $customer->office_id=$request->input('office_id');
@@ -72,6 +73,7 @@ class ZxCustomer extends Model
         $customer->qq=$request->input('qq');
         $customer->wechat=$request->input('wechat');
         $customer->idcard=$request->input('idcard');
+        $customer->fuzhen=$request->input('fuzhen');
         $customer->keywords=$request->input('keywords');
         $customer->description=$request->input('description');
         $customer->office_id=$request->input('office_id');
