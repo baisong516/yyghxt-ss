@@ -47,14 +47,13 @@ class ZxCustomerController extends Controller
             $customerIdstemp = array_unique($huifangCustomerIds);//一次过滤
             //今日应回访数量
             $todayHuifang=ZxCustomer::whereIn('office_id',ZxCustomer::offices())->whereIn('id',$customerIdstemp)->count();
+            dd()
             //今日已回访
             $CustomerIds=[];
-            foreach ($customerIdstemp as $id){
-                if (in_array(ZxCustomer::select('id','office_id')->where('id',$id)->office_id,ZxCustomer::offices())){
-                    $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
-                    if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
-                        $CustomerIds[]=$huifang->zx_customer_id;
-                    }
+            foreach (ZxCustomer::whereIn('office_id',ZxCustomer::offices())->whereIn('id',$customerIdstemp)->get() as $c){
+                $huifang=Huifang::where('zx_customer_id',$c->id)->orderBy('id', 'desc')->first();//最新回访
+                if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
+                    $CustomerIds[]=$huifang->zx_customer_id;
                 }
             }
             //今日已回访数量
@@ -286,7 +285,7 @@ class ZxCustomerController extends Controller
         //今日已回访
         $CustomerIds=[];
         foreach ($customerIdstemp as $id){
-            if (in_array(ZxCustomer::select('id','office_id')->where('id',$id)->office_id,ZxCustomer::offices())){
+            if (in_array(ZxCustomer::findOrFail($id)->office_id,ZxCustomer::offices())){
                 $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
                 if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
                     $CustomerIds[]=$huifang->zx_customer_id;
