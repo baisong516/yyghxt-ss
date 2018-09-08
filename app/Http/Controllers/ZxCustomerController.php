@@ -29,7 +29,6 @@ class ZxCustomerController extends Controller
      */
     public function index()
     {
-
         if (Auth::user()->ability('superadministrator', 'read-zx_customers')){
             //今日应到院
             $todayArrive =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
@@ -60,7 +59,16 @@ class ZxCustomerController extends Controller
             $todayHuifangFinished=count($CustomerIds);
             //今日应回访但未回访数量
             $todayHuifangR=$todayHuifang-$todayHuifangFinished;
-
+            //今日预约
+            $todayyuyue=ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+                ['zixun_at','>=',Carbon::now()->startOfDay()],
+                ['zixun_at','<=',Carbon::now()->endOfDay()],
+            ])->whereNotNull('yuyue_at')->count();
+            //今日到院
+            $todayarrived=ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+                ['arrive_at','>=',Carbon::now()->startOfDay()],
+                ['arrive_at','<=',Carbon::now()->endOfDay()],
+            ])->count();
             return view('zxcustomer.read',[
                 'pageheader'=>'患者',
                 'pagedescription'=>'列表',
@@ -82,10 +90,15 @@ class ZxCustomerController extends Controller
                 'enableDelete'=>Auth::user()->hasPermission('delete-zx_customers'),
                 'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
                 'enableViewHuifang'=>Auth::user()->hasPermission('read-huifangs'),
+                'enableViewPhone'=>Auth::user()->hasPermission('view-phone'),
+                'enableViewWechat'=>Auth::user()->hasPermission('view-wechat'),
+                'userid'=>Auth::user()->id,
 
                 'todayArrive'=>$todayArrive,
                 'todayHuifang'=>$todayHuifang,
                 'todayHuifangFinished'=>$todayHuifangFinished,
+                'todayyuyue'=>$todayyuyue,
+                'todayarrived'=>$todayarrived,
             ]);
         }
         return abort(403,config('yyxt.permission_deny'));
@@ -508,6 +521,24 @@ class ZxCustomerController extends Controller
                         ['yuyue_at','<=',Carbon::now()->endOfDay()],
                     ])->with('huifangs')->get();
                 }
+                if ($quickSearch=='todayyuyue'){
+                    //今日预约
+                    $parameters['zixun_at_start']=Carbon::now()->startOfDay();
+                    $parameters['zixun_at_end']=Carbon::now()->endOfDay();
+                    $customers =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+                        ['zixun_at','>=',Carbon::now()->startOfDay()],
+                        ['zixun_at','<=',Carbon::now()->endOfDay()],
+                    ])->whereNotNull('yuyue_at')->with('huifangs')->get();
+                }
+                if ($quickSearch=='todayarrived'){
+                    //今日预约
+                    $parameters['arrive_start']=Carbon::now()->startOfDay();
+                    $parameters['arrive_end']=Carbon::now()->endOfDay();
+                    $customers =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+                        ['arrive_at','>=',Carbon::now()->startOfDay()],
+                        ['arrive_at','<=',Carbon::now()->endOfDay()],
+                    ])->with('huifangs')->get();
+                }
             }else{
                 //条件为空
                 if (empty($customerName)&&empty($customerTel)&&empty($customerQQ)&&empty($customerWechat)&&empty($customerIdCard)&&empty($zxUser)&&empty($media)&&empty($officeId)&&empty($zx_start)&&empty($yy_start)&&empty($arrive_start)&&empty($last_huifang_start)&&empty($next_huifang_start)&&empty($last_huifang_user_id)&&empty($customerConditionId)){
@@ -628,6 +659,9 @@ class ZxCustomerController extends Controller
             'enableDelete'=>Auth::user()->hasPermission('delete-zx_customers'),
             'enableHuifang'=>Auth::user()->hasPermission('create-huifangs'),
             'enableViewHuifang'=>Auth::user()->hasPermission('read-huifangs'),
+            'enableViewPhone'=>Auth::user()->hasPermission('view-phone'),
+            'enableViewWechat'=>Auth::user()->hasPermission('view-wechat'),
+            'userid'=>Auth::user()->id,
             'parameters'=>$parameters,
             'quicksearch'=>$quickSearch
         ]);

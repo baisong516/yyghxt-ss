@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request;
 
 class Aiden extends Model
 {
@@ -186,5 +187,31 @@ class Aiden extends Model
             }
         }
         return $users;
+    }
+
+    /**
+     * @param $phone
+     * @return mixed
+     */
+    public static function phoneHide($phone)
+    {
+        $phone=substr_replace($phone,'****',3,4);
+        return $phone;
+//        $IsWhat = preg_match('/(0[0-9]{2,3}[-]?[2-9][0-9]{6,7}[-]?[0-9]?)/i', $phone); //固定电话
+//        if ($IsWhat == 1) {
+//            return preg_replace('/(0[0-9]{2,3}[-]?[2-9])[0-9]{3,4}([0-9]{3}[-]?[0-9]?)/i', '$1****$2', $phone);
+//        } else {
+//            return preg_replace('/(1[35478]{1}[0-9])[0-9]{4}([0-9]{4})/i', '$1****$2', $phone);
+//        }
+    }
+
+    /**
+     * @param $wechat
+     * @return mixed
+     */
+    public static function wechatHide($wechat)
+    {
+        $wechat=substr_replace($wechat,'****',0,4);
+        return $wechat;
     }
 }

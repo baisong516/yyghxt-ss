@@ -146,10 +146,16 @@
                     @endability
                 </div>
                 <div class="input-group input-group-sm pull-right" style="margin-right: 1rem;">
-                    <a href="javascript:;" class="btn-sm btn-info" id="todayarrive">今日应到院</a>
+                    <a href="javascript:;" class="btn-sm btn-info" id="todayarrive">今日应到院(<span class="text-red">{{isset($todayArrive)?$todayArrive:0}}</span>)</a>
                 </div>
                 <div class="input-group input-group-sm pull-right" style="margin-right: 1rem;">
-                    <a href="javascript:;" class="btn-sm btn-info" id="todayhuifang">今日应回访</a>
+                    <a href="javascript:;" class="btn-sm btn-info" id="todayhuifang">今日应回访(<span class="text-red">{{isset($todayHuifang)?$todayHuifang:0}}</span>)</a>
+                </div>
+                <div class="input-group input-group-sm pull-right" style="margin-right: 1rem;">
+                    <a href="javascript:;" class="btn-sm btn-info" id="todayarrived">今日到院(<span class="text-red">{{isset($todayarrived)?$todayarrived:0}}</span>)</a>
+                </div>
+                <div class="input-group input-group-sm pull-right" style="margin-right: 1rem;">
+                    <a href="javascript:;" class="btn-sm btn-info" id="todayyuyue">今日预约(<span class="text-red">{{isset($todayyuyue)?$todayyuyue:0}}</span>)</a>
                 </div>
             </div>
         </div>
@@ -215,10 +221,10 @@
                                     @endif
                                 @endif
                             </td>
-                            <td><a href="javascript:void(0);" data-toggle="modal" data-customer="{{$customer->id}}" data-name="{{$customer->name}}" data-tel="{{$customer->tel}}" data-office="{{$customer->office_id}}" class="text-black sendMsg"><small class="{{$customer->msg?'text-blue':'text-black'}}">{{$customer->tel}}</small></a></td>
+                            <td><a href="javascript:void(0);" data-toggle="modal" data-customer="{{$customer->id}}" data-name="{{$customer->name}}" data-tel="{{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}" data-office="{{$customer->office_id}}" class="text-black sendMsg"><small class="{{$customer->msg?'text-blue':'text-black'}}">{{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}</small></a></td>
                             <td>
                                 <small>
-                                    {{$customer->wechat?$customer->wechat:''}}
+                                    {{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}
                                 </small>
                             </td>
                             <td>
@@ -380,6 +386,14 @@
             });
             $("#todayarrive").click(function () {
                 $("#search-form :hidden[name=quickSearch]").val('todayarrive');
+                $("#search-form").submit();
+            });
+            $("#todayyuyue").click(function () {
+                $("#search-form :hidden[name=quickSearch]").val('todayyuyue');
+                $("#search-form").submit();
+            });
+            $("#todayarrived").click(function () {
+                $("#search-form :hidden[name=quickSearch]").val('todayarrived');
                 $("#search-form").submit();
             });
         } );
