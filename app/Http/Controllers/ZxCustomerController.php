@@ -50,7 +50,7 @@ class ZxCustomerController extends Controller
             //今日已回访
             $CustomerIds=[];
             foreach ($customerIdstemp as $id){
-                if (in_array(ZxCustomer::select('office_id')->where('id',$id)->office_id,ZxCustomer::offices())){
+                if (in_array(ZxCustomer::select('id','office_id')->where('id',$id)->office_id,ZxCustomer::offices())){
                     $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
                     if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
                         $CustomerIds[]=$huifang->zx_customer_id;
@@ -286,7 +286,7 @@ class ZxCustomerController extends Controller
         //今日已回访
         $CustomerIds=[];
         foreach ($customerIdstemp as $id){
-            if (in_array(ZxCustomer::select('office_id')->where('id',$id)->office_id,ZxCustomer::offices())){
+            if (in_array(ZxCustomer::select('id','office_id')->where('id',$id)->office_id,ZxCustomer::offices())){
                 $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
                 if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
                     $CustomerIds[]=$huifang->zx_customer_id;
