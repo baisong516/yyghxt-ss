@@ -266,6 +266,48 @@ class ZxCustomerController extends Controller
     //咨询患者搜索
     public function customerSearch(Request $request)
     {
+        //今日应到院
+        $todayArrive =ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+            ['yuyue_at','>=',Carbon::now()->startOfDay()],
+            ['yuyue_at','<=',Carbon::now()->endOfDay()],
+        ])->count();
+        //今日应回访
+        $huifangCustomers=Huifang::select('zx_customer_id')->whereNotNull('next_at')->where([
+            ['next_at','>=',Carbon::now()->startOfDay()],
+            ['next_at','<=',Carbon::now()->endOfDay()],
+        ])->get();
+        $huifangCustomerIds=[];
+        foreach ($huifangCustomers as $huifangCustomer){
+            $huifangCustomerIds[]=$huifangCustomer->zx_customer_id;
+        }
+        $customerIdstemp = array_unique($huifangCustomerIds);//一次过滤
+        //今日应回访数量
+        $todayHuifang=ZxCustomer::whereIn('office_id',ZxCustomer::offices())->whereIn('id',$customerIdstemp)->count();
+        //今日已回访
+        $CustomerIds=[];
+        foreach ($customerIdstemp as $id){
+            if (in_array(ZxCustomer::findOrFail($id)->office_id,ZxCustomer::offices())){
+                $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
+                if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
+                    $CustomerIds[]=$huifang->zx_customer_id;
+                }
+            }
+        }
+        //今日已回访数量
+        $todayHuifangFinished=count($CustomerIds);
+        //今日应回访但未回访数量
+        $todayHuifangR=$todayHuifang-$todayHuifangFinished;
+        //今日预约
+        $todayyuyue=ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+            ['zixun_at','>=',Carbon::now()->startOfDay()],
+            ['zixun_at','<=',Carbon::now()->endOfDay()],
+        ])->whereNotNull('yuyue_at')->count();
+        //今日到院
+        $todayarrived=ZxCustomer::whereIn('office_id',ZxCustomer::offices())->where([
+            ['arrive_at','>=',Carbon::now()->startOfDay()],
+            ['arrive_at','<=',Carbon::now()->endOfDay()],
+        ])->count();
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //        $parameters=$request->input('parameters');
         $parameters=[];
 //        if (!empty($parameters)){
@@ -665,7 +707,12 @@ class ZxCustomerController extends Controller
             'enableViewWechat'=>Auth::user()->hasPermission('view-wechat'),
             'userid'=>Auth::user()->id,
             'parameters'=>$parameters,
-            'quicksearch'=>$quickSearch
+            'quicksearch'=>$quickSearch,
+            'todayArrive'=>$todayArrive,
+            'todayHuifang'=>$todayHuifang,
+            'todayHuifangFinished'=>$todayHuifangFinished,
+            'todayyuyue'=>$todayyuyue,
+            'todayarrived'=>$todayarrived,
         ]);
     }
     //咨询列表（所有数据）
