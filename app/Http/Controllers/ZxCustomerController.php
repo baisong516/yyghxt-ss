@@ -50,9 +50,11 @@ class ZxCustomerController extends Controller
             //今日已回访
             $CustomerIds=[];
             foreach ($customerIdstemp as $id){
-                $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
-                if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
-                    $CustomerIds[]=$huifang->zx_customer_id;
+                if (in_array(ZxCustomer::findOrFail($id)->office_id,ZxCustomer::offices())){
+                    $huifang=Huifang::where('zx_customer_id',$id)->orderBy('id', 'desc')->first();//最新回访
+                    if ($huifang->now_at>=Carbon::now()->startOfDay()||$huifang->next_at>=Carbon::now()->endOfDay()){
+                        $CustomerIds[]=$huifang->zx_customer_id;
+                    }
                 }
             }
             //今日已回访数量
