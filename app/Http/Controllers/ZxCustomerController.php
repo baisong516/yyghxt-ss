@@ -46,7 +46,7 @@ class ZxCustomerController extends Controller
             }
             $customerIdstemp = array_unique($huifangCustomerIds);//一次过滤
             //今日应回访数量
-            $todayHuifang=count($customerIdstemp);
+            $todayHuifang=ZxCustomer::whereIn('office_id',ZxCustomer::offices())->whereIn('id',$customerIdstemp)->count();
             //今日已回访
             $CustomerIds=[];
             foreach ($customerIdstemp as $id){
