@@ -170,6 +170,9 @@ class ZxCustomerController extends Controller
             return view('zxcustomer.detail', array(
                 'pageheader'=>'患者',
                 'pagedescription'=>'详情',
+                'enableViewPhone'=>Auth::user()->hasPermission('view-phone'),
+                'enableViewWechat'=>Auth::user()->hasPermission('view-wechat'),
+                'userid'=>Auth::user()->id,
                 'customer'=>ZxCustomer::findOrFail($id)
             ));
         }

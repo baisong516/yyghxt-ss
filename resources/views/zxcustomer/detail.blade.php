@@ -31,7 +31,7 @@
                 </tr>
                 <tr>
                     <td style="width: 20%"><b>电话</b></td>
-                    <td style="width: 80%">{{$customer->tel}}</td>
+                    <td style="width: 80%">{{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}</td>
                 </tr>
                 <tr>
                     <td style="width: 20%"><b>QQ</b></td>
@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <td style="width: 20%"><b>微信</b></td>
-                    <td style="width: 80%">{{$customer->wechat}}</td>
+                    <td style="width: 80%">{{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}</td>
                 </tr>
                 <tr>
                     <td style="width: 20%"><b>商务通id</b></td>
