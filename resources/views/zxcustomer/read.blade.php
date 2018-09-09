@@ -6,11 +6,12 @@
     <div class="box collapsed-box">
         <div class="box-header">
             <h3 class="box-title">高级搜索</h3>
-            <div class="box-tools pull-right">
+            <div class="box-tools pull-left" style="left: 110px;">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
-                    <i class="fa fa-plus text-success"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
-                    <i class="fa fa-times"></i></button>
+                    <i class="fa fa-plus text-success"></i>
+                </button>
+                {{--<button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">--}}
+                    {{--<i class="fa fa-times"></i></button>--}}
             </div>
         </div>
         <div class="box-body">
@@ -292,7 +293,7 @@
                             </td>
                             <td class="opreation-cloumn">
                                 @if($enableRead)
-                                <a href="javascript:void(0);" data-id="{{$customer->id}}" class="detail-btn" data-toggle="modal" data-target="#detailModal" title="查看"><i class="fa fa-eye"></i></a>
+                                <a href="javascript:void(0);" data-id="{{$customer->id}}" data-tel="{{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}" data-wechat="{{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}" class="detail-btn" data-toggle="modal" data-target="#detailModal" title="查看"><i class="fa fa-eye"></i></a>
                                 @endif
                                 @if($enableUpdate)
                                  <a href="{{route('zxcustomers.edit',$customer->id)}}?parameters={{isset($parameters)?json_encode($parameters):''}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
@@ -558,7 +559,8 @@
             <script type="text/javascript">
                 $(".opreation-cloumn").delegate('.detail-btn','click',function () {
                  var customer_id =$(this).attr('data-id');
-                    console.log(customer_id);
+                 var tel=$(this).data('tel');
+                 var wechat=$(this).data('wechat');
                     $.ajax({
                         url: '/api/get-detail-from-customer',
                         type: "post",
@@ -583,7 +585,7 @@
                                 html += "</tr>";
                                 html += "<tr>";
                                 html += "<td style=\"width: 10%;\"><b>电话</b></td>";
-                                html += "<td style=\"width: 90%;\">"+data.data.tel+"</td>";
+                                html += "<td style=\"width: 90%;\">"+tel+"</td>";
                                 html += "</tr>";
                                 html += "<tr>";
                                 html += "<td style=\"width: 10%;\"><b>QQ</b></td>";
@@ -591,7 +593,7 @@
                                 html += "</tr>";
                                 html += "<tr>";
                                 html += "<td style=\"width: 10%;\"><b>微信</b></td>";
-                                html += "<td style=\"width: 90%;\">"+data.data.wechat+"</td>";
+                                html += "<td style=\"width: 90%;\">"+wechat+"</td>";
                                 html += "</tr>";
                                 html += "<tr>";
                                 html += "<td style=\"width: 10%;\"><b>商务通ID</b></td>";

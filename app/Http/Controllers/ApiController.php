@@ -16,7 +16,6 @@ use App\User;
 use App\ZxCustomer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use mysqli;
@@ -176,7 +175,6 @@ class ApiController extends Controller
      */
     public function getDetailFromCustomer(Request $request)
     {
-        $userid=Aiden::getCurrentUser()->id;
         $customerId=$request->input('zx_customer_id');
         $status=0;
         $customer=ZxCustomer::findOrFail($customerId);
@@ -195,21 +193,11 @@ class ApiController extends Controller
         $data['name']=$customer->name?$customer->name:'';
         $data['age']=$customer->age?$customer->age:'';
         $data['sex']=$customer->sex?$sex[$customer->sex]:'';
+        $data['tel']=$customer->tel?$customer->tel:'';
         $data['qq']=$customer->qq?$customer->qq:'';
         $data['city']=$customer->city?$customer->city:'';
         $data['doctor']=$customer->doctor_id?$doctors[$customer->doctor_id]:'';
-        if (Aiden::getCurrentUser()->hasPermission('view-phone')||$userid==$customer->user_id){
-            $data['tel']=$customer->tel?$customer->tel:'';
-        }else{
-            $data['tel']=$customer->tel?Aiden::phoneHide($customer->tel):'';
-        }
-        if (Aiden::getCurrentUser()->hasPermission('view-wechat')||$userid==$customer->user_id){
-            $data['wechat']=$customer->wechat?$customer->wechat:'';
-        }else{
-            $data['wechat']=$customer->wechat?Aiden::wechatHide($customer->wechat):'';
-        }
-
-
+        $data['wechat']=$customer->wechat?$customer->wechat:'';
         $data['idcard']=$customer->idcard?$customer->idcard:'';
         $data['keywords']=$customer->keywords?$customer->keywords:'';
         $data['media']=$customer->media_id?$medias[$customer->media_id]:'';
