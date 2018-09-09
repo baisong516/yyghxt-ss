@@ -176,7 +176,7 @@ class ApiController extends Controller
      */
     public function getDetailFromCustomer(Request $request)
     {
-        $userid=Auth::user()->id;
+        $userid=Aiden::getCurrentUser()->id;
         $customerId=$request->input('zx_customer_id');
         $status=0;
         $customer=ZxCustomer::findOrFail($customerId);
@@ -198,12 +198,12 @@ class ApiController extends Controller
         $data['qq']=$customer->qq?$customer->qq:'';
         $data['city']=$customer->city?$customer->city:'';
         $data['doctor']=$customer->doctor_id?$doctors[$customer->doctor_id]:'';
-        if (Auth::user()->hasPermission('view-phone')||$userid==$customer->user_id){
+        if (Aiden::getCurrentUser()->hasPermission('view-phone')||$userid==$customer->user_id){
             $data['tel']=$customer->tel?$customer->tel:'';
         }else{
             $data['tel']=$customer->tel?Aiden::phoneHide($customer->tel):'';
         }
-        if (Auth::user()->hasPermission('view-wechat')||$userid==$customer->user_id){
+        if (Aiden::getCurrentUser()->hasPermission('view-wechat')||$userid==$customer->user_id){
             $data['wechat']=$customer->wechat?$customer->wechat:'';
         }else{
             $data['wechat']=$customer->wechat?Aiden::wechatHide($customer->wechat):'';

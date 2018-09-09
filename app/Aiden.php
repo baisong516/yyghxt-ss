@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class Aiden extends Model
 {
-    public function isSuperAdmin()
+    public static function getCurrentUser()
     {
-//        Auth::user()->id;
+        return Auth::user();
     }
     /**
      * return 所有用户id和名字组成的一维数组
