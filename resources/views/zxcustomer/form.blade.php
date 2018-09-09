@@ -20,7 +20,7 @@
     <div></div>
     <div class="form-group {{empty($errors->first('tel'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="tel" class="control-label">电话：</label>
-        <input type="text" name="tel" maxlength="11" value="{{isset($customer)?$customer->tel:old('tel')}}" class="form-control" id="tel" placeholder="{{empty($errors->first('tel'))?'电话':$errors->first('tel')}}">
+        <input type="text" name="tel" maxlength="11" value="{{isset($customer)?($enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)):old('tel')}}" class="form-control" id="tel" placeholder="{{empty($errors->first('tel'))?'电话':$errors->first('tel')}}">
     </div>
 
     <div class="form-group {{empty($errors->first('qq'))?'':'has-error'}}" style="margin-left: 20px;">
@@ -30,7 +30,7 @@
 
     <div class="form-group {{empty($errors->first('wechat'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="wechat" class="control-label">微信：</label>
-        <input type="text" name="wechat" class="form-control" value="{{isset($customer)?$customer->wechat:old('wechat')}}" id="qq" placeholder="{{empty($errors->first('wechat'))?'微信':$errors->first('wechat')}}">
+        <input type="text" name="wechat" class="form-control" value="{{isset($customer)?($enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)):old('wechat')}}" id="qq" placeholder="{{empty($errors->first('wechat'))?'微信':$errors->first('wechat')}}">
     </div>
     <div></div>
     <div class="form-group {{empty($errors->first('idcard'))?'':'has-error'}}" style="margin-left: 20px;">

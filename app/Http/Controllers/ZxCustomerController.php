@@ -212,6 +212,9 @@ class ZxCustomerController extends Controller
                 'customertypes'=>Aiden::getAllModelArray('customer_types'),
                 'customerconditions'=>$customerconditions,
                 'customer'=>ZxCustomer::findOrFail($id),
+                'enableViewPhone'=>Auth::user()->hasPermission('view-phone'),
+                'enableViewWechat'=>Auth::user()->hasPermission('view-wechat'),
+                'userid'=>Auth::user()->id,
                 'parameters'=>$request->input('parameters')
             ));
         }
