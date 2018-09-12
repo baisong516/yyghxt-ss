@@ -69,7 +69,7 @@
                     <li class="dropdown user user-menu">
                         {{--Menu Toggle Button--}}
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="">{{ Auth::user()->name }}</span>
+                            <span class="">{{ Auth::user()->name }}（{{ Auth::user()->realname }}）</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
