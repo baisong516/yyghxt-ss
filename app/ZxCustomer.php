@@ -69,9 +69,13 @@ class ZxCustomer extends Model
         $customer->name=$request->input('name');
         $customer->age=$request->input('age');
         $customer->sex=$request->input('sex');
-        $customer->tel=$request->input('tel');
+        if (!empty($request->input('tel'))){
+            $customer->tel=$request->input('tel');
+        }
+        if (!empty($request->input('wechat'))){
+            $customer->wechat=$request->input('wechat');
+        }
         $customer->qq=$request->input('qq');
-        $customer->wechat=$request->input('wechat');
         $customer->idcard=$request->input('idcard');
         $customer->fuzhen=$request->input('fuzhen');
         $customer->keywords=$request->input('keywords');
