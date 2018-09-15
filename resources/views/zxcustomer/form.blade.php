@@ -21,15 +21,7 @@
     <div class="form-group {{empty($errors->first('tel'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="tel" class="control-label">电话：</label>
         {{--<input type="text" name="tel" maxlength="11" value="{{isset($customer)?($enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)):old('tel')}}" class="form-control" id="tel" placeholder="{{empty($errors->first('tel'))?'电话':$errors->first('tel')}}">--}}
-        <input type="text" name="tel" maxlength="11" value="@if(isset($customer))
-            @if(in_array($customer->customer_condition_id,[1,2,5]))
-                @if($isAdmin){{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}
-                @else{{\App\Aiden::phoneHide($customer->tel)}}
-                @endif
-            @else{{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}
-            @endif
-        @else{{old('tel')}}
-        @endif"
+        <input type="text" name="tel" maxlength="11" value="@if(isset($customer)) @if(in_array($customer->customer_condition_id,[1,2,5])) @if($isAdmin){{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}} @else{{\App\Aiden::phoneHide($customer->tel)}}@endif @else{{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}@endif @else{{old('tel')}}@endif"
        class="form-control" id="tel" placeholder="{{empty($errors->first('tel'))?'电话':$errors->first('tel')}}"
         @if(isset($customer))
             @if(!$isAdmin)
