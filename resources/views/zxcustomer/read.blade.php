@@ -256,8 +256,9 @@
                                         @else
                                             {{\App\Aiden::wechatHide($customer->wechat)}}
                                         @endif
+                                    @else
+                                        {{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}
                                     @endif
-                                    {{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}
                                 </small>
                             </td>
                             <td>
@@ -325,7 +326,28 @@
                             </td>
                             <td class="opreation-cloumn">
                                 @if($enableRead)
-                                <a href="javascript:void(0);" data-id="{{$customer->id}}" data-tel="{{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}" data-wechat="{{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}" class="detail-btn" data-toggle="modal" data-target="#detailModal" title="查看"><i class="fa fa-eye"></i></a>
+                                <a href="javascript:void(0);" data-id="{{$customer->id}}"
+                                   data-tel="@if(in_array($customer->customer_condition_id,[1,2,5]))
+                                   @if($isAdmin)
+                                   {{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}
+                                   @else
+                                   {{\App\Aiden::phoneHide($customer->tel)}}
+                                   @endif
+                                   @else
+                                   {{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}
+                                   @endif"
+                                   data-wechat="@if(in_array($customer->customer_condition_id,[1,2,5]))
+                                   @if($isAdmin)
+                                   {{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}
+                                   @else
+                                   {{\App\Aiden::wechatHide($customer->wechat)}}
+                                   @endif
+                                   @else
+                                   {{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}
+                                   @endif"
+                                   class="detail-btn" data-toggle="modal" data-target="#detailModal" title="查看">
+                                    <i class="fa fa-eye"></i>
+                                </a>
                                 @endif
                                 @if($enableUpdate)
                                  <a href="{{route('zxcustomers.edit',$customer->id)}}?parameters={{isset($parameters)?json_encode($parameters):''}}"  alt="编辑" title="编辑"><i class="fa fa-edit"></i></a>
