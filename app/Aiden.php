@@ -219,9 +219,9 @@ class Aiden extends Model
             }else{
                 $arrive_at=Carbon::createFromFormat('Y-m-d H:i:s',$arrive_at)->addDays($day);
                 if (Carbon::now()<$arrive_at){
-                    return Aiden::phoneHide($phone);
-                }else{
                     return $enableViewPhone||Auth::user()->id==$userid?$phone:Aiden::phoneHide($phone);
+                }else{
+                    return Aiden::phoneHide($phone);
                 }
             }
         }else{
