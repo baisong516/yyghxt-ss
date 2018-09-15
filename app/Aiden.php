@@ -211,6 +211,16 @@ class Aiden extends Model
 //        }
     }
 
+    /**
+     * @param $phone 电话
+     * @param $customer_condition_id
+     * @param $enableViewPhone
+     * @param $isAdmin
+     * @param $day 几天的数据？
+     * @param $userid
+     * @param $arrive_at 到院时间
+     * @return mixed
+     */
     public static function phoneCheck($phone,$customer_condition_id,$enableViewPhone,$isAdmin,$day,$userid,$arrive_at)
     {
         if (in_array($customer_condition_id,[1,2,5])){
@@ -219,9 +229,9 @@ class Aiden extends Model
             }else{
                 $arrive_at=Carbon::createFromFormat('Y-m-d H:i:s',$arrive_at)->addDays($day);
                 if (Carbon::now()<$arrive_at){
-                    return $phone;
-                }else{
                     return $enableViewPhone||Auth::user()->id==$userid?$phone:Aiden::phoneHide($phone);
+                }else{
+                    return Aiden::phoneHide($phone);
                 }
             }
         }else{
