@@ -24,11 +24,9 @@
         <input type="text" name="tel" maxlength="11" value="@if(isset($customer))
             @if(in_array($customer->customer_condition_id,[1,2,5]))
                 @if($isAdmin){{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}
-                @else
-                    {{\App\Aiden::phoneHide($customer->tel)}}
+                @else{{\App\Aiden::phoneHide($customer->tel)}}
                 @endif
-            @else
-                {{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}
+            @else{{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}
             @endif
         @else{{old('tel')}}
         @endif"
@@ -53,12 +51,10 @@
         {{--<input type="text" name="wechat" class="form-control" value="{{isset($customer)?($enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)):old('wechat')}}" id="qq" placeholder="{{empty($errors->first('wechat'))?'微信':$errors->first('wechat')}}">--}}
         <input type="text" name="wechat" class="form-control" value="@if(isset($customer))
             @if(in_array($customer->customer_condition_id,[1,2,5]))
-                @if($isAdmin)
-                    {{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}
+                @if($isAdmin){{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}
                 @else{{\App\Aiden::wechatHide($customer->wechat)}}
                 @endif
-            @else
-                {{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}
+            @else{{$enableViewWechat||$customer->user_id==$userid?$customer->wechat:\App\Aiden::wechatHide($customer->wechat)}}
             @endif
         @else
             {{old('wechat')}}
