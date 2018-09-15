@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -210,6 +211,23 @@ class Aiden extends Model
 //        }
     }
 
+    public static function phoneCheck($phone,$customer_condition_id,$enableViewPhone,$isAdmin,$day,$userid,$arrive_at)
+    {
+        if (in_array($customer_condition_id,[1,2,5])){
+            if ($isAdmin){
+                return $phone;
+            }else{
+                $arrive_at=Carbon::createFromFormat('Y-m-d H:i:s',$arrive_at)->addDays($day);
+                if (Carbon::now()<$arrive_at){
+                    return Aiden::phoneHide($phone);
+                }else{
+                    return $enableViewPhone||Auth::user()->id==$userid?$phone:Aiden::phoneHide($phone);
+                }
+            }
+        }else{
+            return $enableViewPhone||Auth::user()->id==$userid?$phone:\App\Aiden::phoneHide($phone);
+        }
+    }
     /**
      * @param $wechat
      * @return mixed

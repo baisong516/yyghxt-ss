@@ -224,15 +224,7 @@
                             </td>
                             <td>
                                 <a href="javascript:void(0);" data-toggle="modal" data-customer="{{$customer->id}}" data-name="{{$customer->name}}"
-                                   data-tel="@if(in_array($customer->customer_condition_id,[1,2,5]))
-                                   @if($isAdmin)
-                                   {{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}
-                                   @else
-                                   {{\App\Aiden::phoneHide($customer->tel)}}
-                                   @endif
-                                   @else
-                                   {{$enableViewPhone||$customer->user_id==$userid?$customer->tel:\App\Aiden::phoneHide($customer->tel)}}
-                                   @endif"
+                                   data-tel="{{\App\Aiden::phoneCheck($customer->tel,$customer->customer_condition_id,$enableViesPhone,$isAdmin,3,$customer->user_id,$customer->arrive_at)}}"
                                    data-office="{{$customer->office_id}}" class="text-black sendMsg">
                                     <small class="{{$customer->msg?'text-blue':'text-black'}}">
                                         @if(in_array($customer->customer_condition_id,[1,2,5]))
