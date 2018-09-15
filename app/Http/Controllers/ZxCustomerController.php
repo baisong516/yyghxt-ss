@@ -93,6 +93,7 @@ class ZxCustomerController extends Controller
                 'enableViewPhone'=>Auth::user()->hasPermission('view-phone'),
                 'enableViewWechat'=>Auth::user()->hasPermission('view-wechat'),
                 'userid'=>Auth::user()->id,
+                'isAdmin'=>Auth::user()->hasRole('superadministrator|administrator'),
 
                 'todayArrive'=>$todayArrive,
                 'todayHuifang'=>$todayHuifang,
@@ -172,6 +173,7 @@ class ZxCustomerController extends Controller
                 'pagedescription'=>'详情',
                 'enableViewPhone'=>Auth::user()->hasPermission('view-phone'),
                 'enableViewWechat'=>Auth::user()->hasPermission('view-wechat'),
+                'isAdmin'=>Auth::user()->hasRole('superadministrator|administrator'),
                 'userid'=>Auth::user()->id,
                 'customer'=>ZxCustomer::findOrFail($id)
             ));
@@ -214,6 +216,7 @@ class ZxCustomerController extends Controller
                 'customer'=>ZxCustomer::findOrFail($id),
                 'enableViewPhone'=>Auth::user()->hasPermission('view-phone'),
                 'enableViewWechat'=>Auth::user()->hasPermission('view-wechat'),
+                'isAdmin'=>Auth::user()->hasRole('superadministrator|administrator'),
                 'userid'=>Auth::user()->id,
                 'parameters'=>$request->input('parameters')
             ));
@@ -709,6 +712,7 @@ class ZxCustomerController extends Controller
             'enableViewHuifang'=>Auth::user()->hasPermission('read-huifangs'),
             'enableViewPhone'=>Auth::user()->hasPermission('view-phone'),
             'enableViewWechat'=>Auth::user()->hasPermission('view-wechat'),
+            'isAdmin'=>Auth::user()->hasRole('superadministrator|administrator'),
             'userid'=>Auth::user()->id,
             'parameters'=>$parameters,
             'quicksearch'=>$quickSearch,
