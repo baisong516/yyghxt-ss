@@ -591,9 +591,9 @@
             <script type="text/javascript">
                 $(".opreation-cloumn").delegate('.detail-btn','click',function () {
                  var customer_id =$(this).attr('data-id');
-                 var tel=$(this).data('tel');
+                 var tel=$(this).attr('data-tel');
                  console.log(tel);
-                 var wechat=$(this).data('wechat');
+                 var wechat=$(this).attr('data-wechat');
                  console.log(wechat);
                     $.ajax({
                         url: '/api/get-detail-from-customer',
