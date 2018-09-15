@@ -238,6 +238,34 @@ class Aiden extends Model
             return $enableViewPhone||Auth::user()->id==$userid?$phone:\App\Aiden::phoneHide($phone);
         }
     }
+
+    /**
+     * @param $wechat
+     * @param $customer_condition_id
+     * @param $enableViewWechat
+     * @param $isAdmin
+     * @param $day
+     * @param $userid
+     * @param $arrive_at
+     * @return mixed
+     */
+    public static function wechatCheck($wechat,$customer_condition_id,$enableViewWechat,$isAdmin,$day,$userid,$arrive_at)
+    {
+        if (in_array($customer_condition_id,[1,2,5])){
+            if ($isAdmin){
+                return $wechat;
+            }else{
+                $arrive_at=Carbon::createFromFormat('Y-m-d H:i:s',$arrive_at)->addDays($day);
+                if (Carbon::now()<$arrive_at){
+                    return $enableViewWechat||Auth::user()->id==$userid?$wechat:Aiden::phoneHide($wechat);
+                }else{
+                    return Aiden::phoneHide($wechat);
+                }
+            }
+        }else{
+            return $enableViewWechat||Auth::user()->id==$userid?$wechat:\App\Aiden::phoneHide($wechat);
+        }
+    }
     /**
      * @param $wechat
      * @return mixed
