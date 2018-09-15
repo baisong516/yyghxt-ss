@@ -219,7 +219,7 @@ class Aiden extends Model
         if (empty($wechat)){
             return '';
         }else{
-            $wechat=substr_replace($wechat,'****',0,4);
+            $wechat=substr_replace($wechat,'*******',0,7);
             return $wechat;
         }
     }

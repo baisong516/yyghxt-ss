@@ -614,15 +614,12 @@
                 $(".opreation-cloumn").delegate('.detail-btn','click',function () {
                  var customer_id =$(this).attr('data-id');
                  var tel=$(this).attr('data-tel');
-                 console.log(tel);
                  var wechat=$(this).attr('data-wechat');
-                 console.log(wechat);
                     $.ajax({
                         url: '/api/get-detail-from-customer',
                         type: "post",
                         data: {'zx_customer_id':customer_id,'_token': $('input[name=_token]').val()},
                         success: function(data){
-                            console.log(data);
                             $("#detailModalLabel").html(data.data.name);
                             var html="";
                             if(data.status){
