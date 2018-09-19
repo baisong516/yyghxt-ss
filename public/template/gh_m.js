@@ -259,7 +259,7 @@
     that.Config_Oss = "//yygh.oss-cn-shenzhen.aliyuncs.com";
     that.StrIconSuccess = that.Config_Oss + "/success.png";
     that.StrIconError = that.Config_Oss + "/error.png";
-    that.Config_Domain = "//gh.gzjs1111.com/";
+    that.Config_Domain = "//guahaoapi.gzjs1111.com/";
     that.Config_MobiScrollJsURL = that.Config_Oss + "/mobiscroll/js/mobiscroll.custom-3.0.0-beta2.min.js";
     that.Config_MobiScrollCssURL = that.Config_Oss + "/mobiscroll/css/mobiscroll.custom-3.0.0-beta2.min.css";
     that.Config_LayerMobileUrl = that.Config_Domain + "js/layer/layer.m/layer.m.js";
