@@ -25,8 +25,9 @@ class OperationLogMiddleware
                 'ip'      => $request->getClientIp(),
                 'input'   => '',
             ];
-
-            OperationLog::create($log);
+            if ($request->method()!='GET'){
+                OperationLog::create($log);
+            }
         }
         return $next($request);
     }
