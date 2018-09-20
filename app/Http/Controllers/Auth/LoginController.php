@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\LoginEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -48,5 +49,9 @@ class LoginController extends Controller
         $credentials = $request->only($this->username(), 'password');
         $credentials['is_active']=1;//附加账号状态 禁止失效用户登录
         return $credentials;
+    }
+    protected function authenticated(Request $request, $user)
+    {
+        event(new LoginEvent($request));
     }
 }
