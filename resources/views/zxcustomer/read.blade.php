@@ -271,7 +271,7 @@
                             {{--竞价员--}}
                             <td><small>{{$customer->jingjia_user_id?$users[$customer->jingjia_user_id]:''}}</small></td>
 
-                            <td><small data-toggle="tooltip" data-placement="top" title="{{$customer?'添加日期：'.$customer->created_at:''}}">{{$customer->zixun_at?$customer->zixun_at:''}}</small></td>
+                            <td><small data-toggle="tooltip" data-placement="top" title="{{$customer?'添加时间：'.$customer->created_at:''}}">{{$customer->zixun_at?$customer->zixun_at:''}}</small></td>
                             <td><small>{{$customer->yuyue_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->yuyue_at)->toDateString():''}}</small></td>
                             <td><small>{{$customer->time_slot?$customer->time_slot:''}}</small></td>
                             <td><small>{{$customer->arrive_at?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$customer->arrive_at)->toDateString():''}}</small></td>
