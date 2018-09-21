@@ -328,7 +328,6 @@ class ZxCustomerController extends Controller
                 //从首页进入
                 $start=Carbon::createFromFormat('Y-m-d H:i:s',urldecode($request->input('start')));
                 $end=Carbon::createFromFormat('Y-m-d H:i:s',urldecode($request->input('end')));
-                dd($end);
                 $office=$request->input('office');
                 $q=$request->input('q');
 
