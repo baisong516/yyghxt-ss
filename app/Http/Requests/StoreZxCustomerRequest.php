@@ -33,19 +33,51 @@ class StoreZxCustomerRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'=>'required',
-            'office_id'=>'required',
-            'disease_id'=>'required',
-            'zixun_at'=>'required',
-            'cause_id'=>'required',
-            'jingjia_user_id'=>'required',
-            'next_at'=>'required',
-            'description'=>'required',
-            'customer_condition_id'=>'required',
-            'media_id'=>'required',
-            'city'=>'required',
-        ];
+        $id = $this->route('zxcustomer'); //获取当前需要排除的id
+        if (empty($id)){//add
+            return [
+                'name'=>'required',
+                'office_id'=>'required',
+                'disease_id'=>'required',
+                'zixun_at'=>'required',
+                'cause_id'=>'required',
+                'jingjia_user_id'=>'required',
+                'next_at'=>'required',
+                'description'=>'required',
+                'customer_condition_id'=>'required',
+                'media_id'=>'required',
+                'city'=>'required',
+            ];
+        }else{//update
+            return [
+                'name'=>'required',
+                'office_id'=>'required',
+                'disease_id'=>'required',
+                'zixun_at'=>'required',
+                'cause_id'=>'required',
+                'jingjia_user_id'=>'required',
+                'next_at'=>'required',
+                'description'=>'required',
+                'customer_condition_id'=>'required',
+                'media_id'=>'required',
+                'city'=>'required',
+            ];
+        }
+
+
+//        return [
+//            'name'=>'required',
+//            'office_id'=>'required',
+//            'disease_id'=>'required',
+//            'zixun_at'=>'required',
+//            'cause_id'=>'required',
+//            'jingjia_user_id'=>'required',
+//            'next_at'=>'required',
+//            'description'=>'required',
+//            'customer_condition_id'=>'required',
+//            'media_id'=>'required',
+//            'city'=>'required',
+//        ];
     }
     public function messages()
     {
