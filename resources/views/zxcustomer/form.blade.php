@@ -159,7 +159,7 @@
 
     <div class="form-group {{empty($errors->first('zixun_at'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="zixuntime" class="control-label">咨询时间：</label>
-        <input type="text" class="form-control item-date" name="zixun_at"  id="zixuntime" value="{{isset($customer)?$customer->zixun_at:\Carbon\Carbon::now()->toDateTimeString()}}">
+        <input type="text" class="form-control item-date" name="zixun_at"  id="zixuntime" value="{{isset($customer)?$customer->zixun_at:\Carbon\Carbon::now()->toDateTimeString()}}" {{isset($customer)&&!\Illuminate\Support\Facades\Auth::user()->hasRole('superadministrator|administrator|menzhen|zx-mast')?'disabled':''}}>
     </div>
 
     <div class="form-group {{empty($errors->first('yuyue_at'))?'':'has-error'}}" style="margin-left: 20px;">
