@@ -227,12 +227,17 @@ class Aiden extends Model
             if ($isAdmin){
                 return $phone;
             }else{
-                $arrive_at=Carbon::createFromFormat('Y-m-d H:i:s',$arrive_at)->addDays($day);
-                if (Carbon::now()<$arrive_at){
-                    return $enableViewPhone||Auth::user()->id==$userid?$phone:Aiden::phoneHide($phone);
+                if (empty($arrive_at)){
+                    return $phone;
                 }else{
-                    return Aiden::phoneHide($phone);
+                    $arrive_at=Carbon::createFromFormat('Y-m-d H:i:s',$arrive_at)->addDays($day);
+                    if (Carbon::now()<$arrive_at){
+                        return $enableViewPhone||Auth::user()->id==$userid?$phone:Aiden::phoneHide($phone);
+                    }else{
+                        return Aiden::phoneHide($phone);
+                    }
                 }
+
             }
         }else{
             return $enableViewPhone||Auth::user()->id==$userid?$phone:\App\Aiden::phoneHide($phone);
@@ -255,12 +260,17 @@ class Aiden extends Model
             if ($isAdmin){
                 return $wechat;
             }else{
-                $arrive_at=Carbon::createFromFormat('Y-m-d H:i:s',$arrive_at)->addDays($day);
-                if (Carbon::now()<$arrive_at){
-                    return $enableViewWechat||Auth::user()->id==$userid?$wechat:Aiden::phoneHide($wechat);
+                if (empty($arrive_at)){
+                    return $wechat;
                 }else{
-                    return Aiden::phoneHide($wechat);
+                    $arrive_at=Carbon::createFromFormat('Y-m-d H:i:s',$arrive_at)->addDays($day);
+                    if (Carbon::now()<$arrive_at){
+                        return $enableViewWechat||Auth::user()->id==$userid?$wechat:Aiden::phoneHide($wechat);
+                    }else{
+                        return Aiden::phoneHide($wechat);
+                    }
                 }
+
             }
         }else{
             return $enableViewWechat||Auth::user()->id==$userid?$wechat:\App\Aiden::phoneHide($wechat);
