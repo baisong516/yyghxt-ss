@@ -53,7 +53,6 @@ class StoreZxCustomerRequest extends FormRequest
                 'name'=>'required',
                 'office_id'=>'required',
                 'disease_id'=>'required',
-                'zixun_at'=>'required',
                 'cause_id'=>'required',
                 'jingjia_user_id'=>'required',
                 'next_at'=>'required',
