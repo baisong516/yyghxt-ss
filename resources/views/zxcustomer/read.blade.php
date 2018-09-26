@@ -3,7 +3,14 @@
 @section('content')
     @include('layouts.tip')
     <link type="text/css" href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <div class="box collapsed-box">
+    <style>
+        .content{padding-top: 0;}
+        #search-form hr{margin-top: 1px;margin-bottom: 1px;}
+        #search-form .form-group input{width: 150px;}
+        #search-form .form-group{position: relative;}
+        #search-form .form-tips{position: absolute;z-index: 800;top:33px;left: 80px;padding: 5px;background: #cccccc;display: none;}
+    </style>
+    <div class="box collapsed-box" style="margin-bottom: 0;">
         <div class="box-header">
             <h3 class="box-title">高级搜索</h3>
             <div class="box-tools pull-left" style="left: 110px;">
@@ -39,38 +46,69 @@
                     <label for="searchIdCard">商务通ID：</label>
                     <input type="text" class="form-control" name="searchIdCard" id="searchIdCard" placeholder="商务通ID" value="{{isset($parameters['swt'])?$parameters['swt']:''}}">
                 </div>
-                <hr style="margin-top: 5px;margin-bottom: 5px;"/>
+                <hr/>
                 <div class="form-group">
                     <label for="searchZx">咨询时间：</label>
                     <input type="text" class="form-control date-item" name="searchZxStart" id="searchZxStart" value="{{isset($parameters['zixun_at_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['zixun_at_start'])->toDateString():''}}">
                     到
                     <input type="text" class="form-control date-item" name="searchZxEnd" id="searchZxEnd" value="{{isset($parameters['zixun_at_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['zixun_at_end'])->toDateString():''}}">
+                    <div class="form-tips">
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">今天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::yesterday()->toDateString()}}" data-end="{{\Carbon\Carbon::yesterday()->toDateString()}}">昨天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->subDays(3)->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">最近三天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->subDays(7)->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">最近七天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->subDays(30)->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">最近一个月</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->startOfMonth()->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">本月</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="searchYuyue">预约时间：</label>
                     <input type="text" class="form-control date-item" name="searchYuyueStart" id="searchYuyueStart" value="{{isset($parameters['yuyue_at_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['yuyue_at_start'])->toDateString():''}}">
                     到
                     <input type="text" class="form-control date-item" name="searchYuyueEnd" id="searchYuyueEnd" value="{{isset($parameters['yuyue_at_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['yuyue_at_end'])->toDateString():''}}">
+                    <div class="form-tips">
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">今天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::yesterday()->toDateString()}}" data-end="{{\Carbon\Carbon::yesterday()->toDateString()}}">昨天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::tomorrow()->toDateString()}}" data-end="{{\Carbon\Carbon::tomorrow()->toDateString()}}">明天</span>
+                    </div>
                 </div>
-                <hr style="margin-top: 5px;margin-bottom: 5px;"/>
+                <hr />
                 <div class="form-group">
                     <label for="searchArrive">到院时间：</label>
                     <input type="text" class="form-control date-item" name="searchArriveStart" id="searchArriveStart" value="{{isset($parameters['arrive_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['arrive_start'])->toDateString():''}}">
                     到
                     <input type="text" class="form-control date-item" name="searchArriveEnd" id="searchArriveEnd" value="{{isset($parameters['arrive_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['arrive_end'])->toDateString():''}}">
+                    <div class="form-tips">
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">今天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::yesterday()->toDateString()}}" data-end="{{\Carbon\Carbon::yesterday()->toDateString()}}">昨天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::tomorrow()->toDateString()}}" data-end="{{\Carbon\Carbon::tomorrow()->toDateString()}}">明天</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="searchLastHuifang">最近回访时间：</label>
                     <input type="text" class="form-control date-item" name="searchLastHuifangStart" id="searchLastHuifangStart" value="{{isset($parameters['last_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['last_start'])->toDateString():''}}">
                     到
                     <input type="text" class="form-control date-item" name="searchLastHuifangEnd" id="searchLastHuifangEnd" value="{{isset($parameters['last_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['last_end'])->toDateString():''}}">
+                    <div class="form-tips">
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">今天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::yesterday()->toDateString()}}" data-end="{{\Carbon\Carbon::yesterday()->toDateString()}}">昨天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->subDays(3)->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">最近三天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->subDays(7)->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">最近七天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->subDays(30)->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">最近一个月</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->startOfMonth()->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">本月</span>
+                    </div>
                 </div>
-                <hr style="margin-top: 5px;margin-bottom: 5px;"/>
+                <hr />
                 <div class="form-group">
                     <label for="searchNextHuifang">下次回访时间：</label>
                     <input type="text" class="form-control date-item" name="searchNextHuifangStart" id="searchNextHuifangStart" value="{{isset($parameters['next_at_start'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['next_at_start'])->toDateString():''}}">
                     到
                     <input type="text" class="form-control date-item" name="searchNextHuifangEnd" id="searchNextHuifangEnd" value="{{isset($parameters['next_at_end'])?\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$parameters['next_at_end'])->toDateString():''}}">
+                    <div class="form-tips">
+                        <span class="qdate" data-start="{{\Carbon\Carbon::now()->toDateString()}}" data-end="{{\Carbon\Carbon::now()->toDateString()}}">今天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::yesterday()->toDateString()}}" data-end="{{\Carbon\Carbon::yesterday()->toDateString()}}">昨天</span>
+                        <span class="qdate" data-start="{{\Carbon\Carbon::tomorrow()->toDateString()}}" data-end="{{\Carbon\Carbon::tomorrow()->toDateString()}}">明天</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="searchUserId">最近回访人：</label>
@@ -81,7 +119,7 @@
                         @endforeach
                     </select>
                 </div>
-                <hr style="margin-top: 5px;margin-bottom: 5px;"/>
+                <hr />
                 <div class="form-group">
                     <label for="searchOfficeId">科室：</label>
                     <select name="searchOfficeId" id="searchOfficeId" class="form-control">
@@ -124,16 +162,15 @@
                         @endforeach
                     </select>
                 </div>
-                <hr style="margin-top: 5px;margin-bottom: 5px;"/>
+                <hr />
                 <button type="submit" class="btn btn-success">搜索</button>
                 <button type="reset" class="btn btn-warning form-reset">重置</button>
                 <button type="button" class="btn btn-danger form-empty">清空</button>
             </form>
         </div>
         <!-- /.box-body -->
-        <div class="box-footer">
-            {{--Footer--}}
-        </div>
+        {{--<div class="box-footer">--}}
+        {{--</div>--}}
         <!-- /.box-footer-->
     </div>
     <div class="box box-info">
@@ -333,6 +370,17 @@
         $('[data-toggle="tooltip"]').tooltip();
 
         $(document).ready(function() {
+            $("#search-form .form-group").hover(function () {
+                $(this).children('.form-tips').show();
+            },function () {
+                $(this).children('.form-tips').hide();
+            });
+            $("#search-form .form-tips .qdate").click(function () {
+                var start=$(this).data('start');
+                var end=$(this).data('end');
+                $(this).parent('.form-tips').parent('.form-group').children('input').eq(0).val(start);
+                $(this).parent('.form-tips').parent('.form-group').children('input').eq(1).val(end);
+            });
             $(".form-reset").click(function () {
                 document.getElementById("search-form").reset();
             });
