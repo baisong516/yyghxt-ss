@@ -66,6 +66,15 @@
 //                value: new Date()
             });
         });
+        $(".zxcustomers-form .form-group").hover(function () {
+            $(this).children('.form-tips').show();
+        },function () {
+            $(this).children('.form-tips').hide();
+        });
+        $(".zxcustomers-form .form-tips .qcity").click(function () {
+            var city=$(this).data('city');
+            $(this).parent('.form-tips').parent('.form-group').children('input').val(city);
+        });
         //咨询内容编辑器
         CKEDITOR.replace( 'description' );
         //change offices on hospital change

@@ -8,7 +8,7 @@
         #search-form hr{margin-top: 1px;margin-bottom: 1px;}
         #search-form .form-group input{width: 150px;}
         #search-form .form-group{position: relative;}
-        #search-form .form-tips{position: absolute;z-index: 800;top:33px;left: 80px;padding: 5px;background: #cccccc;display: none;}
+        #search-form .form-tips{position: absolute;z-index: 800;top:33px;left: 80px;padding: 5px;background: #d2d6de;display: none;}
     </style>
     <div class="box collapsed-box" style="margin-bottom: 0;">
         <div class="box-header">

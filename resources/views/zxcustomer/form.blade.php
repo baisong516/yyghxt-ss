@@ -1,4 +1,9 @@
-
+<style>
+    .content{padding-top: 0;}
+    .zxcustomers-form hr{margin-top: 1px;margin-bottom: 1px;}
+    .zxcustomers-form .form-group{position: relative;}
+    .zxcustomers-form .form-tips{position: absolute;z-index: 800;top:33px;left: 80px;padding: 5px;background: #d2d6de;display: none;}
+</style>
     <div class="form-group {{empty($errors->first('name'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="name">姓名：</label>
         <input type="text" name="name" class="form-control" id="name" placeholder="{{empty($errors->first('name'))?'姓名':$errors->first('name')}}" value="{{isset($customer)?$customer->name:old('name')}}">
@@ -115,6 +120,13 @@
     <div class="form-group {{empty($errors->first('city'))?'':'has-error'}}" style="margin-left: 20px;">
         <label for="city" class="control-label">城市：</label>
         <input type="text" name="city" class="form-control" value="{{isset($customer)?$customer->city:old('city')}}" id="city" placeholder="{{empty($errors->first('city'))?'城市':$errors->first('city')}}">
+        <div class="form-tips">
+            <span class="qcity" data-city="深圳">深圳</span>
+            <span class="qcity" data-city="广州">广州</span>
+            <span class="qcity" data-city="东莞">东莞</span>
+            <span class="qcity" data-city="长沙">长沙</span>
+            <span class="qcity" data-city="昆明">昆明</span>
+        </div>
     </div>
 
     <div class="form-group {{empty($errors->first('media_id'))?'':'has-error'}}" style="margin-left: 20px;">

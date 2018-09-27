@@ -55,7 +55,19 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-
+//        $customers=ZxCustomer::select('id','tel','wechat')->get();
+//        echo 'start:'.Carbon::now()->toDateTimeString();
+//        foreach ($customers as $customer){
+//            if (!empty($customer->tel)){
+//                $customer->tel=encrypt($customer->tel);
+//            }
+//            if (!empty($customer->wechat)){
+//                $customer->wechat=encrypt($customer->wechat);
+//            }
+//            $customer->save();
+//        }
+//        echo 'end:'.Carbon::now()->toDateTimeString();
+//        exit();
 //        $redis = app('redis.connection');
 //        $redis->setex('library', 7200, 'predis');// 存储 有效时长为 7200 秒
 //        dd($redis->get('library'));
