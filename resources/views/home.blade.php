@@ -1,10 +1,10 @@
 @extends('layouts.base')
 
 @section('content')
-    <link href="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js"></script>
-    <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js"></script>
+    {{--<link href="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.css" rel="stylesheet">--}}
+    {{--<link href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css" rel="stylesheet">--}}
+    {{--<script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js"></script>--}}
+    {{--<script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js"></script>--}}
 
     <div class="col-sm-12">
         <div class="box box-solid">
@@ -266,7 +266,7 @@
 @endsection
 
 @section('javascript')
-    <script src="https://cdn.bootcss.com/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    {{--<script src="https://cdn.bootcss.com/dom-to-image/2.6.0/dom-to-image.min.js"></script>--}}
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript" src="/js/current-device.min.js"></script>
     <script type="text/javascript">
@@ -276,23 +276,23 @@
                 ,trigger: 'click'
             });
         });
-        if (device.mobile()){
-            $(".table-item").each(function () {
-                var nodeId=$(this).children('table').attr('id');
-                if (typeof(nodeId)!='undefined'){
-                    var node = document.getElementById(nodeId);
-                    var that=this;
-                    domtoimage.toSvg(node,{bgcolor: '#fff'},that)
-                        .then(function (dataUrl) {
-                            var img = new Image();
-                            img.src = dataUrl;
-                            img.className= 'img-responsive';
-                            node.remove();
-                            $(that).append(img);
-                        });
-                }
-            });
-        }
+        // if (device.mobile()){
+        //     $(".table-item").each(function () {
+        //         var nodeId=$(this).children('table').attr('id');
+        //         if (typeof(nodeId)!='undefined'){
+        //             var node = document.getElementById(nodeId);
+        //             var that=this;
+        //             domtoimage.toSvg(node,{bgcolor: '#fff'},that)
+        //                 .then(function (dataUrl) {
+        //                     var img = new Image();
+        //                     img.src = dataUrl;
+        //                     img.className= 'img-responsive';
+        //                     node.remove();
+        //                     $(that).append(img);
+        //                 });
+        //         }
+        //     });
+        // }
         $(".data-flush").click(function () {
             $('input[name=flag]').val($(this).data('flag'));
             $('#search-form').submit();
