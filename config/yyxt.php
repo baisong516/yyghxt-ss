@@ -12,7 +12,7 @@ return [
         'admin_css'=>'https://ssyl.oss-cn-shenzhen.aliyuncs.com/res/css/AdminLTE.min.css',
         'admin_js'=>'/js/adminlte.min.js',
         //主题皮肤
-        'admin_skin'=>'https://cdn.bootcss.com/admin-lte/2.4.2/css/skins/skin-green.min.css',
+        'admin_skin'=>'/css/skins/skin-green.min.css',
         'app_skin'=>'skin-green',
         //兼容
         'html5shiv'=>'https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js',
