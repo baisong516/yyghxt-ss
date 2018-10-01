@@ -2,7 +2,7 @@
 
 @section('content')
     @include('layouts.tip')
-    <link type="text/css" href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <div class="box box-info">
         <div class="box-header">
             <h3 class="box-title">医院列表</h3>
@@ -52,8 +52,8 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {

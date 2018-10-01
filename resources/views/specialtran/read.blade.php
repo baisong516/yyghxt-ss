@@ -2,7 +2,7 @@
 
 @section('content')
     @include('layouts.tip')
-    <link type="text/css" href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <div class="box box-info">
         <div class="box-header">
             <form class="form-inline" action="{{route('specialtrans.search')}}"  id="search-form" name="search-form" method="POST">
@@ -358,8 +358,8 @@
 
 @section('javascript')
     <script src="https://cdn.bootcss.com/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">

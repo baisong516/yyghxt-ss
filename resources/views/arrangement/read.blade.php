@@ -2,7 +2,7 @@
 
 @section('content')
     @include('layouts.tip')
-    <link href="https://cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
@@ -97,8 +97,8 @@
 @endsection
 
 @section('javascript')
-    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript" src="/asset/layer/layer.js"></script>
     <script type="text/javascript">
