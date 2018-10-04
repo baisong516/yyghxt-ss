@@ -151,6 +151,15 @@
             var Diseases = f.find("select[name='gh_disease']");
             Sex.html(that.Config_SexHtml);
             Diseases.html(that.Config_DiseasesHtml);
+            if (Dates.length > 0) {
+                Dates.attr('type','date');
+                if (Dates.val()==''||Dates.val()=='undefined') {
+                    var d=new Date();
+                    var now=d.getFullYear()+"/" + ("0" + (d.getMonth() + 1)).slice(-2) + "/" + ("0" + d.getDate()).slice(-2);
+                    Dates.eq(0).attr('value',now);
+                    Dates.eq(0).attr('placeholder',now);
+                }
+            }
             Submit.on("click", function(e) {
                 that.Setinitobj(that.$(this));
                 that.SubmitForm();
@@ -185,8 +194,8 @@
     that.StrMsg_DiseasesError = "预约科室不能为空，请选择您要预约的科室！";
     that.StrMsg_DoctorNull = "请选择要预约的专家！";
     that.StrMsg_DescriptNull = "病情描述不能为空，请用简短的话语描述您的病情！";
-    that.StrMsg_SendOkOnline = "您的申请已提交成功，<br>请注意留意信息，<br>如有疑问可拨打<a style=\"color:#337ab7;\" href=\"tel:{$_hospitalTel}\" target=\"_self\">{$_hospitalTel}</a>联系。";
-    that.StrMsg_SendOkOffline = "您的申请已提交成功，<br>请注意留意信息，<br>如有疑问可拨打<a style=\"color:#337ab7;\" href=\"tel:{$_hospitalTel}\" target=\"_self\">{$_hospitalTel}</a>联系。";
+    that.StrMsg_SendOkOnline = "您的申请已提交成功，请注意留意信息，如有疑问可拨打{$_hospitalTel}联系。";
+    that.StrMsg_SendOkOffline = "您的申请已提交成功，请注意留意信息，如有疑问可拨打{$_hospitalTel}联系。";
     that.StrMsg_SendError = "提交失败，请稍后再试！";
     that.StrMsg_SendNetError = "网络发生错误，请稍后再试！";
     that.StrMsg_CactapError = "验证错误，请重试！";
