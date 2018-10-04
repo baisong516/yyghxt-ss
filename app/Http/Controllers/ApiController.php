@@ -398,7 +398,7 @@ class ApiController extends Controller
         if (empty($hospitalName)){return $this->errorResponse();}
         $hospital=Hospital::where('name',$hospitalName)->first();
         if (empty($hospital)){return $this->errorResponse();}
-        $ghjs=file_get_contents('template/gh.js');
+        $ghjs=file_get_contents('template/gs.js');
         $dataToReplace=['hospitalTel','hospitalId','officeId','diseaseOptions','layPath'];
         if (empty($officeName)){
             $hospitalTel=$hospital->tel;
@@ -425,11 +425,12 @@ class ApiController extends Controller
     public function guaHaoJs(Request $request){
         $hospitalName=$request->input('flag');
         $officeName=$request->input('office');
-        if ($this->isMobile()){
-            $ghjs=file_get_contents('template/gh_m.js');
-        }else{
-            $ghjs=file_get_contents('template/gh_p.js');
-        }
+//        if ($this->isMobile()){
+//            $ghjs=file_get_contents('template/gh_m.js');
+//        }else{
+//            $ghjs=file_get_contents('template/gh_p.js');
+//        }
+        $ghjs=file_get_contents('template/gs.js');
         if (empty($hospitalName)){return $this->errorResponse();}
         $hospital=Hospital::where('name',$hospitalName)->first();
         if (empty($hospital)){return $this->errorResponse();}
