@@ -14,10 +14,13 @@ class ExcelController extends Controller
 {
     public function index()
     {
+//        dd(Aiden::getAllModelArray('customer_conditions'));
         if (Auth::user()->ability('superadministrator', 'create-zx_excels')){
             return view('excel.create',[
                 'pageheader'=>'Excel表导出',
                 'pagedescription'=>'设置',
+                'offices'=>Aiden::getAuthdOffices(),
+                'status'=>Aiden::getAllModelArray('customer_conditions'),
                 'options'=>$this->getOptions(),
             ]);
         }
@@ -27,22 +30,24 @@ class ExcelController extends Controller
     {
         $fileName=Carbon::now()->toDateString();//excel文件名
         $zxCustomerSelect=$request->input('zx_customers');
-        $timeStart=$request->input('zxStart')?Carbon::createFromFormat('Y-m-d',$request->input('zxStart'))->startOfDay():null;
+        $timeStart=$request->input('zxStart')?Carbon::createFromFormat('Y-m-d',$request->input('zxStart'))->startOfDay():Carbon::now()->startOfDay();
         $timeEnd=$request->input('zxEnd')?Carbon::createFromFormat('Y-m-d',$request->input('zxEnd'))->endOfDay():Carbon::now()->endOfDay();
+        $offices=$request->input('offices');
+        $customerconditions=$request->input('customerConditions');
         if (empty($zxCustomerSelect)){
             return redirect()->back()->with('error','Nothing selected!');
         }
-        Excel::create($fileName, function($excel) use($zxCustomerSelect,$timeStart,$timeEnd) {
+        Excel::create($fileName, function($excel) use($zxCustomerSelect,$timeStart,$timeEnd,$offices,$customerconditions) {
             $options=$this->getOptions();
-            $excel->sheet($options['zx_customers']['name'], function($sheet) use ($zxCustomerSelect,$options,$timeStart,$timeEnd){
+            $excel->sheet($options['zx_customers']['name'], function($sheet) use ($zxCustomerSelect,$options,$timeStart,$timeEnd,$offices,$customerconditions){
                 $zxCustomers=null;
                 if (empty($timeStart)){
-                    $zxCustomers=ZxCustomer::select($zxCustomerSelect)->whereIn('office_id',ZxCustomer::offices())->orderBy('zixun_at','asc')->get()->toArray();
+                    $zxCustomers=ZxCustomer::select($zxCustomerSelect)->whereIn('office_id',$offices)->whereIn('customer_condition_id',$customerconditions)->orderBy('zixun_at','asc')->get()->toArray();
                 }else{
                     $zxCustomers=ZxCustomer::select($zxCustomerSelect)->where([
                         ['zixun_at','>=',$timeStart],
                         ['zixun_at','<=',$timeEnd],
-                    ])->whereIn('office_id',ZxCustomer::offices())->orderBy('zixun_at','asc')->get()->toArray();
+                    ])->whereIn('office_id',$offices)->whereIn('customer_condition_id',$customerconditions)->orderBy('zixun_at','asc')->get()->toArray();
                 }
                 $medias=Aiden::getAllModelArray('medias');
                 $webtypes=Aiden::getAllModelArray('web_types');

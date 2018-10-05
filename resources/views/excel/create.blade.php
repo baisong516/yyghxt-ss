@@ -1,5 +1,7 @@
 @extends('layouts.base')
-
+@section('css')
+    <link href="/css/select2.min.css" rel="stylesheet">
+@endsection
 @section('content')
     @include('layouts.tip')
     <div class="box box-info">
@@ -13,8 +15,11 @@
     </div>
 @endsection
 @section('javascript')
+    <script src="/js/select2.full.min.js"></script>
     <script type="text/javascript" src="/asset/laydate/laydate.js"></script>
     <script type="text/javascript">
+        $('#offices').select2();
+        $('#customerCondition').select2();
         $("#select-all").click(function () {
             $("#option-form :checkbox").prop('checked',true);
         });

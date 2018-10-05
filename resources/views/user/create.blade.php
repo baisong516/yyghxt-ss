@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('css')
-    <link href="https://cdn.bootcss.com/select2/4.0.4/css/select2.min.css" rel="stylesheet">
+    <link href="/css/select2.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -24,7 +24,7 @@
 @endsection
 
 @section('javascript')
-    <script src="https://cdn.bootcss.com/select2/4.0.4/js/select2.full.min.js"></script>
+    <script src="/js/select2.full.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('#hospital').select2();

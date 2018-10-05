@@ -11,6 +11,26 @@
             <input type="text" class="form-control date-item" name="zxEnd" id="zxEnd">
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">科室</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="offices[]" id="offices" multiple="multiple" style="width: 100%;">
+                @foreach($offices as $k=>$v)
+                    <option value="{{$k}}">{{$v}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">状态</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="customerConditions[]" id="customerCondition" multiple="multiple" style="width: 100%;">
+                @foreach($status as $k=>$v)
+                    <option value="{{$k}}">{{$v}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
     @foreach($options as $o=>$option)
     <div class="form-group">
         <label class="col-sm-2 control-label">{{$option['name']}}</label>
