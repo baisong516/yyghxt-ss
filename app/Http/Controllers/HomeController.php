@@ -133,14 +133,19 @@ class HomeController extends Controller
 	    //项目情况
         $tData='today-data-' . (Auth::user()->id);
         $stime=60;
-        if ($flag=='t'){
+        if ($request->method()=='POST'){
             $data=$this->getData($start, $end);
-            Cache::put($tData,$data,$stime);
         }else{
-            $data =Cache::remember($tData,$stime,function () use($start,$end) {
-                return $this->getData($start, $end);
-            });
+            if ($flag=='t'){
+                $data=$this->getData($start, $end);
+                Cache::put($tData,$data,$stime);
+            }else{
+                $data =Cache::remember($tData,$stime,function () use($start,$end) {
+                    return $this->getData($start, $end);
+                });
+            }
         }
+
 
 
         $mData='month-data-' . (Auth::user()->id);

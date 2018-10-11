@@ -422,6 +422,7 @@ class ApiController extends Controller
             ->header('Content-Type', 'application/javascript')
             ->header('charset', 'utf-8');
     }
+    //输出挂号js文件
     public function guaHaoJs(Request $request){
         $hospitalName=$request->input('flag');
         $officeName=$request->input('office');
