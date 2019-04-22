@@ -28,7 +28,6 @@ class CreateAuctionsTable extends Migration
             $table->string('arrive_cost')->comment('到院成本');
             $table->timestamp('date_tag')->comment('日期');
             $table->timestamps();
-            $table->index(['platform_id','area_id','disease_id']);
         });
         //平台|渠道
         Schema::create('platforms', function (Blueprint $table) {

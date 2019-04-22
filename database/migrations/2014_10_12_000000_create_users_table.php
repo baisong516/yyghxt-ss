@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('name')->unique();
             $table->string('realname')->nullable();
             $table->string('email')->unique();
-            $table->string(' ');
+            $table->string('password');
             $table->smallInteger('is_active')->default(1);
             $table->smallInteger('is_online')->default(0);
             $table->unsignedInteger('department_id')->nullable()->comment('所在部门');
